@@ -23,10 +23,4 @@ class LoginController extends AbstractController
             'error'         => $error,
         ]);
     }
-    // public function index(): Response
-    // {
-    //     return $this->render('login/index.html.twig', [
-    //         'controller_name' => 'LoginController',
-    //     ]);
-    // }
 }

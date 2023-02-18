@@ -1,0 +1,115 @@
+
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    font-family: 'Zilla Slab', serif;
+    font-size: 1.4rem;
+    background-color: $gray-800;
+    overflow-x: hidden;
+    color: white;
+}
+
+strong {
+    font-weight: 800;
+}
+
+.aye-shadow {
+    box-shadow: 0px 0px 14px black;
+}
+
+.aye-logo {
+    font-size:2rem;
+}
+
+.aye-table {
+    background-color: $blue-600;
+    width: 900px;
+    height: 450px;
+    border: solid 15px #141414;
+    box-shadow: 0px 4px 16px black;
+}
+
+.table-container {
+    padding: 100px;
+}
+
+#player-1 {
+    z-index: 1;
+    top: -125px;
+    left: 150px;
+}
+
+#player-2 {
+    z-index: 1;
+    top: -125px;
+    left: 425px;
+}
+
+#player-3 {
+    z-index: 1;
+    top: 100px;
+    right: -100px;
+}
+
+#player-4 {
+    z-index: 1;
+    top: 350px;
+    left: 425px;
+}
+
+#player-5 {
+    z-index: 1;
+    top: 350px;
+    left: 150px;
+}
+
+#player-6 {
+    z-index: 1;
+    top: 100px;
+    left: -100px;
+}
+
+#player-list {
+    width:300px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.player-panel {
+    width: 225px;
+    height: 60px;
+    font-size:1rem;
+    border: solid 3px #494949;
+}
+
+.action-on {
+    box-shadow: 0px 0px 10px white;
+    border: solid 2px white;
+}
+
+.action-options {
+    box-shadow: 0px 4px 16px black;
+}
+
+.aye-card {
+    width: 75px;
+    height: 100px;
+}
+
+.community-cards {
+    left: 230px;
+    position: absolute;
+    top: calc(50% - 100px);
+}
+
+.winner-panel {
+    background-color: #141414;
+    box-shadow: 0px 4px 16px black;
+}
+
+.aye-table-zone {
+    height: 275px;
+    width: 700px;
+    border: solid 3px white;
+}
