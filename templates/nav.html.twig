@@ -1,29 +1,36 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 ps-4 aye-shadow">
-    <a class="navbar-brand aye-logo" href="/">Aye <strong><span class="text-primary">Poker</span></strong></a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 p-2 aye-shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand aye-logo" href="/">Aye <strong><span class="text-primary">Poker</span></strong></a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+        {# <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> #}
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link {{ app.request.attributes.get('_route') == 'login' ? 'active' }}" aria-current="page" href="{{ path('login') }}">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ app.request.attributes.get('_route') == 'register' ? 'active' }}" aria-current="page" href="{{ path('register') }}">Register</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ app.request.attributes.get('_route') == 'play_plhe' ? 'active' }}" aria-current="page" href="{{ path('play_plhe') }}">Play PLHE</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ app.request.attributes.get('_route') == 'play_plom' ? 'active' }}" aria-current="page" href="{{ path('play_plom') }}">Play PLOM</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ app.request.attributes.get('_route') == 'hand_history' ? 'active' }}" aria-current="page" href="{{ path('hand_history') }}">Hand History</a>
-            </li>
-        </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') is empty %}
+                        <a class="nav-link {{ app.request.attributes.get('_route') == 'login' ? 'active' }}" aria-current="page" href="{{ path('login') }}">Login</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ app.request.attributes.get('_route') == 'register' ? 'active' }}" aria-current="page" href="{{ path('register') }}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ app.request.attributes.get('_route') == 'play_plhe' ? 'active' }}" aria-current="page" href="{{ path('play_plhe') }}">Play PLHE</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ app.request.attributes.get('_route') == 'play_plom' ? 'active' }}" aria-current="page" href="{{ path('play_plom') }}">Play PLOM</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ app.request.attributes.get('_route') == 'hand_history' ? 'active' }}" aria-current="page" href="{{ path('hand_history') }}">Hand History</a>
+                </li>
+            </ul>
 
+        </div>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a class="nav-link float-end" aria-current="page" href="{{ path('app_logout') }}">Logout</a>
+        {% endif %}
     </div>
 </nav>
