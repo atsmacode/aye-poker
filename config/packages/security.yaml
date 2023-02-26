@@ -18,8 +18,8 @@ security:
             lazy: true
             provider: app_user_provider
             form_login:
-                login_path: app_login
-                check_path: app_login
+                login_path: login
+                check_path: login
             logout:
                 path: app_logout
 
@@ -35,6 +35,7 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: '^/play', roles: [IS_AUTHENTICATED_FULLY] }
+        - { path: '^/handhistory', roles: [IS_AUTHENTICATED_FULLY] }
 
 when@test:
     security:
