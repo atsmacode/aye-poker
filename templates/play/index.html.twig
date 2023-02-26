@@ -5,7 +5,7 @@
 {% block body %}
 <div id="app" class="position-relative">
 
-        {# <div class="table-container position-relative">
+        <div class="table-container position-relative">
 
             <div class="aye-table rounded-pill position-relative bg-gradient">
 
@@ -41,7 +41,7 @@
 
                         <div v-if="communityCards.length > 0" class="row mb-2 ms-0 community-cards">
                             <div v-for="card in communityCards" class="m-0 bg-white ms-1 aye-card" v-bind:class="suitColours[card.suit]">
-                                <strong>{{card.rankAbbreviation}} </strong>{{card.suitAbbreviation}}
+                                <strong>${ card.rankAbbreviation }$ </strong>${ card.suitAbbreviation }$
                             </div>
                         </div>
 
@@ -51,7 +51,7 @@
 
                 <div class="position-absolute top-50 start-50 translate-middle">
                     <h1 class="opacity-25">Aye Poker</h1>
-                    <p class="m-0 text-center"><strong>Pot: </strong>{{ pot }}</p>
+                    <p class="m-0 text-center"><strong>Pot: </strong>${ pot }$</p>
                 </div>
 
             </div>
@@ -65,19 +65,19 @@
             <ol class="list-group list-group-numbered fs-6 mb-3 aye-shadow">
                 <li v-for="player in players" class="list-group-item d-flex justify-content-between align-items-start text-bg-dark">
                     <div class="ms-2 me-auto">
-                    <div class="fw-bold">Player {{player.player_id}}</div>
+                    <div class="fw-bold">Player ${ player.player_id }$</div>
                     </div>
-                    <span class="badge bg-primary rounded-pill">{{player.stack}}</span>
+                    <span class="badge bg-primary rounded-pill">${ player.stack }$</span>
                 </li>
             </ol>
 
             <div v-for="player in players" v-show="showOptions(player.action_on)" class="card aye-shadow">
                 <div class="card-header text-bg-primary text-center">
-                    Player {{player.player_id}}: Action is on you
+                    Player ${ player.player_id }$: Action is on you
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-center p-4 text-bg-dark">
                     <button v-on:click="action(option, player)" class="btn btn-primary" v-for="option in player.availableOptions" :key="option.name" v-bind:data-action-id="option.id">
-                        {{option.name}}
+                        ${ option.name }$
                     </button>
                 </div>
             </div>
@@ -87,13 +87,13 @@
                     Winner
                 </div>
                 <div class="text-bg-dark p-4 text-center">
-                    <p>Player {{winner.player.player_id}}</p>
-                    <p>{{winner.handType.name}}</p>
+                    <p>Player ${ winner.player.player_id }$</p>
+                    <p>${ winner.handType.name }$</p>
                     <p><button v-on:click="gameData" class="btn btn-primary">Next Hand</button></p>
                 </div>
             </div>
 
         </div>
 
-    </div> #}
+    </div>
 {% endblock %}

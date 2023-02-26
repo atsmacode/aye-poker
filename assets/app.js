@@ -18,6 +18,7 @@ import axios from 'axios';
 import Player from './js/Player.vue'
 
 createApp({
+	delimiters: ['${', '}$'],
     components: {
         Player
     },
@@ -59,12 +60,9 @@ createApp({
     },
     methods: {
 		action(action, player){
-
-			console.log('root');
 			let active = 1;
-			if(action.id === 1){
-				active = 0;
-			}
+
+			if(action.id === 1){ active = 0; }
 
 			let payload = {
 				deck:           this.deck,
@@ -101,18 +99,17 @@ createApp({
 			});
 		},
 		gameData(){
-			// axios.post(window.location.pathname).then(response => {
-            //     console.log(response);
+			axios.post(window.location.pathname).then(response => {
+                console.log(response);
 
-            //     let data = response.data;
+                let data = response.data;
 
-			// 	this.winner         = false;
-			// 	this.players        = data.players;
-			// 	this.communityCards = data.communityCards;
-			// 	this.deck           = data.deck;
-			// 	this.pot            = data.pot;
-
-			// });
+				this.winner         = false;
+				this.players        = data.players;
+				this.communityCards = data.communityCards;
+				this.deck           = data.deck;
+				this.pot            = data.pot;
+			});
 		},
 		showOptions(action_on){
             return action_on === true && this.winner === false;
