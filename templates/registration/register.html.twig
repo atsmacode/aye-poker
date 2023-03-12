@@ -18,6 +18,11 @@
             </div>
 
             <div class="mb-3">
+                <label for="username">Username:</label>
+                <input class="form-control" type="text" id="username" name="registration_form[username]" value="">
+            </div>
+
+            <div class="mb-3">
                 {{ form_label(registrationForm.plainPassword, 'Password') }}
                 {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
             </div>
