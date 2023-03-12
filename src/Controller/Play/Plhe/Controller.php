@@ -5,6 +5,7 @@ namespace App\Controller\Play\Plhe;
 use App\Service\PokerGame;
 use Atsmacode\PokerGame\Controllers\PotLimitHoldEm\HandController as PlheHandController;
 use Atsmacode\PokerGame\Controllers\PotLimitHoldEm\PlayerActionController as PlhePlayerActionController;
+use Atsmacode\PokerGame\Models\PlayerAction;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +31,11 @@ class Controller extends AbstractController
     #[Route('/action/plhe', name: 'action_plhe', methods: ['POST'])]
     public function action(Request $request, PokerGame $pokerGame): Response
     {
+        $this->denyAccessUnlessGranted('action', [
+            'class'   => PlayerAction::class,
+            'request' => json_decode($request->getContent())
+        ]);
+
         $serviceManager = $pokerGame->getServiceManager();
         $response       = $serviceManager->get(PlhePlayerActionController::class)->action($request)->getContent();
 
