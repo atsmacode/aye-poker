@@ -5,8 +5,7 @@ namespace App\Controller\Registration;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
-use App\Service\PokerGame;
-use Atsmacode\PokerGame\Controllers\Player\Controller as PlayerController;
+use App\Service\PokerPlayer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +20,7 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 class Controller extends AbstractController
 {
     private EmailVerifier $emailVerifier;
-    private PokerGame     $pokerGame;
+    private PokerPlayer   $pokerPlayer;
 
     public function __construct(EmailVerifier $emailVerifier)
     {
@@ -33,15 +32,15 @@ class Controller extends AbstractController
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
-        PokerGame $pokerGame
-    ) {
-        $this->pokerGame = $pokerGame;
+        PokerPlayer $pokerPlayer
+    ): Response {
+        $this->pokerPlayer = $pokerPlayer;
 
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
-        /** @todo I removed && $form->isValid() as it was failing with custom name field */
+        /** @todo I removed && $form->isValid() as it was failing with custom playername field */
         if ($form->isSubmitted()) {
             // encode the plain password
             $user->setPassword(
@@ -54,7 +53,7 @@ class Controller extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->createPokerPlayer($request);
+            $this->pokerPlayer->create($request, $user->getId());
 
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
@@ -92,22 +91,5 @@ class Controller extends AbstractController
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('app_register');
-    }
-
-    private function getUrlAsArray(Request $request)
-    {
-        parse_str(urldecode($request->getContent()), $result);
-
-        return $result['registration_form'];
-    }
-
-    /** Manually calling poker-game controller, could be swapped for API client in future */
-    private function createPokerPlayer(Request $request)
-    {
-        $serviceManager = $this->pokerGame->getServiceManager();
-        $request        = new Request(content: json_encode(['name' => $this->getUrlAsArray($request)['name']]));
-        $response       = $serviceManager->get(PlayerController::class)->create($request);
-
-        return json_decode($response->getContent(), true)['playerId'];
     }
 }
