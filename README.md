@@ -55,6 +55,10 @@ Build the test DB:
 
 > .\dev\builddb.bat
 
+build the front-end:
+
+> yarn encore dev
+
 Individual Drop, Create and Seed commands. Remove '-d true' for prodution:
 
 > php .\dev\BuildAyePoker.php app:create-database -d true

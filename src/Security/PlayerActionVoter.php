@@ -35,7 +35,7 @@ class PlayerActionVoter extends Voter
         $user = $token->getUser();
 
         // the user must be logged in; if not, deny access
-        if (!$user instanceof User) { return false; }
+        if (!$user instanceof User) { return false; } 
 
         $playerAction = $subject['request'];
 
@@ -47,6 +47,8 @@ class PlayerActionVoter extends Voter
 
     private function canAction(array $playerAction, User $user): bool
     {
+        if (true === in_array('ROLE_ADMIN', $user->getRoles())) { return true; }
+        
         $userPlayer = $this->userPlayerRepository->findOneBy([
             'userId' => $user->getId()
         ]);

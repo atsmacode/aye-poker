@@ -80,7 +80,10 @@ createApp({
 			/**
 			 * @todo Improve dynamic generation of action URL - currently using string split (plhe/plom).
 			 */
-			axios.post('/action/' + window.location.pathname.split('/')[2], payload).then(response => {
+			let urlParts  = window.location.pathname.split('/');
+			let actionUrl = urlParts.includes('dev') ? urlParts[3] : urlParts[2];
+
+			axios.post('/action/' + actionUrl, payload).then(response => {
 				console.log(response.data);
 
                 let data = response.data;
