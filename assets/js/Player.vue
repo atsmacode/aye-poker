@@ -8,12 +8,16 @@
             </div>
 
             <p class="bg-dark rounded text-left p-3 player-panel rounded-pill" :class="[player.action_on && !winner ? 'action-on' : '']">
-                Player {{player.player_id}} {{ player.stack }}
+                {{player.name}} {{ player.stack }}
                 <span v-if="player.is_dealer" v-bind:class="'bg-primary'" class="d-inline rounded p-1"><strong>D</strong></span>
                 <span v-else-if="player.big_blind" v-bind:class="'bg-primary'" class="d-inline rounded p-1 marker"><strong>BB</strong></span>
                 <span v-else-if="player.small_blind" v-bind:class="'bg-primary'" class="d-inline rounded p-1 marker"><strong>SB</strong></span>
+                <span v-else v-bind:class="'bg-primary'" class="d-inline rounded p-1 marker"><strong>Waiting</strong></span>
                 <span v-if="player.action_id" v-bind:class="actionColours[player.action_name]" class="d-inline rounded p-1 marker"><strong>{{player.action_name}}</strong></span>
             </p>
+        </template>
+        <template v-else>
+            <p class="bg-dark rounded text-left p-3 player-panel rounded-pill opacity-50">Empty Seat</p>
         </template>
     </div>
 </template>

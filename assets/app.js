@@ -26,8 +26,8 @@ createApp({
         return {
 			deck: false,
 			pot: 0,
-			players: false,
-			communityCards: false,
+			players: [],
+			communityCards: [],
 			winner: false,
 			errors: {},
 			loading: false,
@@ -108,8 +108,8 @@ createApp({
                 let data = response.data;
 
 				this.winner         = false;
-				this.players        = data.players;
-				this.communityCards = data.communityCards;
+				this.players        = data.players ?? [];
+				this.communityCards = data.communityCards ?? [];
 				this.deck           = data.deck;
 				this.pot            = data.pot;
 			});

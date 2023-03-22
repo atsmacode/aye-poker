@@ -11,28 +11,35 @@
 
                 <span class="aye-table-zone opacity-25 d-block rounded-pill position-absolute top-50 start-50 translate-middle"></span>
 
+
                 <div id="player-1" class="position-absolute">
-                    <player @action="action" :player="players[0]" :winner="winner"></player>
+                    <player v-if="0 in players" @action="action" :player="players[0]" :winner="winner"></player>
+                    <player v-else></player>
                 </div>
 
                 <div id="player-2" class="position-absolute">
-                    <player @action="action" :player="players[1]" :winner="winner"></player>
+                    <player v-if="1 in players" @action="action" :player="players[1]" :winner="winner"></player>
+                    <player v-else></player>
                 </div>
 
                 <div id="player-3" class="position-absolute">
-                    <player @action="action" :player="players[2]" :winner="winner"></player>
+                    <player v-if="2 in players" @action="action" :player="players[2]" :winner="winner"></player>
+                    <player v-else></player>
                 </div>
 
                 <div id="player-4" class="position-absolute">
-                    <player @action="action" :player="players[3]" :winner="winner"></player>
+                    <player v-if="3 in players" @action="action" :player="players[3]" :winner="winner"></player>
+                    <player v-else></player>
                 </div>
 
                 <div id="player-5" class="position-absolute">
-                    <player @action="action" :player="players[4]" :winner="winner"></player>
+                    <player v-if="4 in players" @action="action" :player="players[4]" :winner="winner"></player>
+                    <player v-else></player>
                 </div>
 
                 <div id="player-6" class="position-absolute">
-                    <player @action="action" :player="players[5]" :winner="winner"></player>
+                    <player v-if="5 in players" @action="action" :player="players[5]" :winner="winner"></player>
+                    <player v-else></player>
                 </div>
 
                 <div class="row">
@@ -65,7 +72,7 @@
             <ol class="list-group list-group-numbered fs-6 mb-3 aye-shadow">
                 <li v-for="player in players" class="list-group-item d-flex justify-content-between align-items-start text-bg-dark">
                     <div class="ms-2 me-auto">
-                    <div class="fw-bold">Player ${ player.player_id }$</div>
+                    <div class="fw-bold">Player ${ player.name }$</div>
                     </div>
                     <span class="badge bg-primary rounded-pill">${ player.stack }$</span>
                 </li>
@@ -73,7 +80,7 @@
 
             <div v-for="player in players" v-show="showOptions(player.action_on)" class="card aye-shadow">
                 <div class="card-header text-bg-primary text-center">
-                    Player ${ player.player_id }$: Action is on you
+                    ${ player.name }$, action is on you
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-center p-4 text-bg-dark">
                     <button v-on:click="action(option, player)" class="btn btn-primary" v-for="option in player.availableOptions" :key="option.name" v-bind:data-action-id="option.id">
@@ -87,7 +94,7 @@
                     Winner
                 </div>
                 <div class="text-bg-dark p-4 text-center">
-                    <p>Player ${ winner.player.player_id }$</p>
+                    <p>${ winner.player.name }$</p>
                     <p>${ winner.handType.name }$</p>
                     <p><button v-on:click="gameData" class="btn btn-primary">Next Hand</button></p>
                 </div>
