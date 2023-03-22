@@ -3,7 +3,7 @@
 namespace App\Controller\Dev\Play\Plhe;
 
 use App\Service\PokerGame;
-use Atsmacode\PokerGame\Controllers\Dev\PotLimitHoldEm\HandController as PlheHandController;
+use Atsmacode\PokerGame\Controllers\Dev\PotLimitHoldEm\SitController as PlheSitController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +20,7 @@ class Controller extends AbstractController
     public function start(PokerGame $pokerGame): Response
     {
         $serviceManager = $pokerGame->getServiceManager();
-        $response       = $serviceManager->get(PlheHandController::class)->play()->getContent();
+        $response       = $serviceManager->get(PlheSitController::class)->sit()->getContent();
 
         return new Response($response);
     }
