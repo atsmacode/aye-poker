@@ -57,8 +57,9 @@
                 </div>
 
                 <div class="position-absolute top-50 start-50 translate-middle">
-                    <h1 class="opacity-25">Aye Poker</h1>
-                    <p class="m-0 text-center"><strong>Pot: </strong>${ pot }$</p>
+                    <h1 class="opacity-25 text-center">Aye Poker</h1>
+                    <p v-if="message">${ message }$</p>
+                    <p v-else class="m-0 text-center"><strong>Pot: </strong>${ pot }$</p>
                 </div>
 
             </div>
@@ -72,7 +73,7 @@
             <ol class="list-group list-group-numbered fs-6 mb-3 aye-shadow">
                 <li v-for="player in players" class="list-group-item d-flex justify-content-between align-items-start text-bg-dark">
                     <div class="ms-2 me-auto">
-                    <div class="fw-bold">Player ${ player.name }$</div>
+                    <div class="fw-bold">${ player.name }$</div>
                     </div>
                     <span class="badge bg-primary rounded-pill">${ player.stack }$</span>
                 </li>

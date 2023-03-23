@@ -31,6 +31,7 @@ createApp({
 			winner: false,
 			errors: {},
 			loading: false,
+			message: false,
 			suitColours: {
 				"Clubs": [
 					"text-dark",
@@ -112,6 +113,7 @@ createApp({
 				this.communityCards = data.communityCards ?? [];
 				this.deck           = data.deck;
 				this.pot            = data.pot;
+				this.message        = data.message ?? false;
 			});
 		},
 		showOptions(action_on){
