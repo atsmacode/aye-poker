@@ -2,9 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\UserPlayerRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -34,13 +32,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
-
-    private UserPlayerRepository $userPlayerRepository;
-
-    public function __construct(private EntityManagerInterface $entityManager)
-    {
-        $this->userPlayerRepository = $this->entityManager->getRepository(UserPlayer::class);
-    }
 
     public function getId(): ?int
     {
@@ -141,14 +132,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isVerified = $isVerified;
 
         return $this;
-    }
-
-    public function getPlayer(): UserPlayer
-    {
-        $userPlayer = $this->userPlayerRepository->findOneBy([
-            'userId' => $this->getId()
-        ]);
-
-        return $userPlayer;
     }
 }
