@@ -80,14 +80,7 @@
             </ol>
 
             <div v-for="player in players" v-show="showOptions(player.action_on)" class="card aye-shadow">
-                <div class="card-header text-bg-primary text-center">
-                    ${ player.name }$, action is on you
-                </div>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-center p-4 text-bg-dark">
-                    <button v-on:click="action(option, player)" class="btn btn-primary" v-for="option in player.availableOptions" :key="option.name" v-bind:data-action-id="option.id">
-                        ${ option.name }$
-                    </button>
-                </div>
+                <action-on :auth-player-id="{{ playerId }}" :player="player"></action-on>
             </div>
 
             <div v-if="winner" class="card aye-shadow w-100">

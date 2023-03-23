@@ -2,6 +2,7 @@
 
 namespace App\Controller\Play\Plhe;
 
+use App\Entity\User;
 use App\Entity\UserPlayer;
 use App\Service\PokerGame;
 use Atsmacode\PokerGame\Controllers\PotLimitHoldEm\SitController as PlheSitController;
@@ -17,9 +18,15 @@ use Symfony\Component\Security\Core\Security;
 class Controller extends AbstractController
 {
     #[Route('/play/plhe', name: 'play_plhe', methods: ['GET'])]
-    public function index(): Response
-    {
-        return $this->render('play/index.html.twig');
+    public function index(
+        Security $security,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $userPlayer = $this->getUserPlayer($entityManager, $security->getUser());
+
+        return $this->render('play/index.html.twig', [
+            'playerId' => $userPlayer->getPlayerId(),
+        ]);
     }
 
     #[Route('/play/plhe', name: 'play_plhe_start', methods: ['POST'])]
@@ -28,13 +35,8 @@ class Controller extends AbstractController
         Security $security,
         EntityManagerInterface $entityManager
     ): Response {
-        $serviceManager       = $pokerGame->getServiceManager();
-        $userPlayerRepository = $entityManager->getRepository(UserPlayer::class);
-        $user                 = $security->getUser();
-
-        $userPlayer = $userPlayerRepository->findOneBy([
-            'userId' => $user->getId()
-        ]);
+        $serviceManager = $pokerGame->getServiceManager();
+        $userPlayer     = $this->getUserPlayer($entityManager, $security->getUser());
 
         $response = $serviceManager->get(PlheSitController::class)->sit(playerId: $userPlayer->getPlayerId())->getContent();
 
@@ -53,5 +55,16 @@ class Controller extends AbstractController
         $response       = $serviceManager->get(PlhePlayerActionController::class)->action($request)->getContent();
 
         return new Response($response);
+    }
+
+    private function getUserPlayer(EntityManagerInterface $entityManager, User $user): UserPlayer
+    {
+        $userPlayerRepository = $entityManager->getRepository(UserPlayer::class);
+
+        $userPlayer = $userPlayerRepository->findOneBy([
+            'userId' => $user->getId()
+        ]);
+
+        return $userPlayer;
     }
 }

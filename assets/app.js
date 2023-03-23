@@ -16,11 +16,13 @@ import { createApp } from 'vue'
 
 import axios from 'axios';
 import Player from './js/Player.vue'
+import ActionOn from './js/ActionOn.vue'
 
 createApp({
 	delimiters: ['${', '}$'],
     components: {
-        Player
+        Player,
+		ActionOn
     },
     data() {
         return {
