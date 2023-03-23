@@ -13,32 +13,32 @@
 
 
                 <div id="player-1" class="position-absolute">
-                    <player v-if="0 in players" @action="action" :player="players[0]" :winner="winner"></player>
-                    <player v-else></player>
-                </div>
-
-                <div id="player-2" class="position-absolute">
                     <player v-if="1 in players" @action="action" :player="players[1]" :winner="winner"></player>
                     <player v-else></player>
                 </div>
 
-                <div id="player-3" class="position-absolute">
+                <div id="player-2" class="position-absolute">
                     <player v-if="2 in players" @action="action" :player="players[2]" :winner="winner"></player>
                     <player v-else></player>
                 </div>
 
-                <div id="player-4" class="position-absolute">
+                <div id="player-3" class="position-absolute">
                     <player v-if="3 in players" @action="action" :player="players[3]" :winner="winner"></player>
                     <player v-else></player>
                 </div>
 
-                <div id="player-5" class="position-absolute">
+                <div id="player-4" class="position-absolute">
                     <player v-if="4 in players" @action="action" :player="players[4]" :winner="winner"></player>
                     <player v-else></player>
                 </div>
 
-                <div id="player-6" class="position-absolute">
+                <div id="player-5" class="position-absolute">
                     <player v-if="5 in players" @action="action" :player="players[5]" :winner="winner"></player>
+                    <player v-else></player>
+                </div>
+
+                <div id="player-6" class="position-absolute">
+                    <player v-if="6 in players" @action="action" :player="players[6]" :winner="winner"></player>
                     <player v-else></player>
                 </div>
 
