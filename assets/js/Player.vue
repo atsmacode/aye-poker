@@ -16,7 +16,8 @@
             </p>
         </template>
         <template v-else>
-            <p class="bg-dark rounded text-left p-3 player-panel rounded-pill opacity-50">Empty Seat</p>
+            <div class="m-0 me-1 aye-card"></div>
+            <p class="bg-dark rounded text-center p-3 player-panel rounded-pill opacity-50">Empty Seat</p>
         </template>
     </div>
 </template>
