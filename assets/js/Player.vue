@@ -2,9 +2,10 @@
     <div class="m-1 p-3">
         <template v-if="player">
             <div class="row mb-2 m-0 p-0 justify-content-center" :class="[player.active ? '' : 'opacity-25']">
-                <div v-for="card in player.whole_cards" class="m-0 me-1 bg-white aye-card" v-bind:class="$root.suitColours[card.suit]">
+                <div v-if="player.whole_cards.length" v-for="card in player.whole_cards" class="m-0 me-1 bg-white aye-card" v-bind:class="$root.suitColours[card.suit]">
                     <strong>{{card.rankAbbreviation}}</strong> {{card.suitAbbreviation}}
                 </div>
+                <div class="m-0 me-1 aye-card"></div>
             </div>
 
             <p class="bg-dark rounded text-left p-3 player-panel rounded-pill" :class="[player.action_on && !winner ? 'action-on' : '']">
