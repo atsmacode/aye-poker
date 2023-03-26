@@ -26,7 +26,6 @@ createApp({
     },
     data() {
         return {
-			deck: false,
 			pot: 0,
 			players: [],
 			communityCards: [],
@@ -68,7 +67,6 @@ createApp({
 			if(action.id === 1){ active = 0; }
 
 			let payload = {
-				deck:           this.deck,
 				player_id:      player.player_id,
 				action_id:      action.id,
 				table_seat_id:  player.table_seat_id,
@@ -94,7 +92,6 @@ createApp({
 				this.loading        = false
 				this.players        = data.players;
 				this.communityCards = data.communityCards;
-				this.deck           = data.deck;
 				this.winner         = data.winner ? data.winner : false;
                 this.pot            = data.pot;
 			}).catch(error => {
@@ -113,7 +110,6 @@ createApp({
 				this.winner         = false;
 				this.players        = data.players ?? [];
 				this.communityCards = data.communityCards ?? [];
-				this.deck           = data.deck;
 				this.pot            = data.pot;
 				this.message        = data.message ?? false;
 			});

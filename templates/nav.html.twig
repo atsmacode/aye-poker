@@ -30,7 +30,7 @@
 
         </div>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a class="nav-link float-end" aria-current="page" href="{{ path('app_logout') }}">Logout</a>
+            <a class="nav-link float-end" aria-current="page" href="{{ path('app_logout') }}">Logout: {{ app.user.email }}</a>
         {% endif %}
     </div>
 </nav>
