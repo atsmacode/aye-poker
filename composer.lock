@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a27a229de4cb973478496c0095adc1c2",
+    "content-hash": "d45dc25a845519a3c8c5418176373de2",
     "packages": [
         {
             "name": "atsmacode/card-games",
@@ -97,16 +97,16 @@
         },
         {
             "name": "atsmacode/poker-game",
-            "version": "v3.0.7",
+            "version": "v4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/atsmacode/poker-game.git",
-                "reference": "4774dfb1f37390f13ba771fc0d81a129ea533f12"
+                "reference": "37b576e4ae6ebd53334881c92d0017e351bb7ad4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/atsmacode/poker-game/zipball/4774dfb1f37390f13ba771fc0d81a129ea533f12",
-                "reference": "4774dfb1f37390f13ba771fc0d81a129ea533f12",
+                "url": "https://api.github.com/repos/atsmacode/poker-game/zipball/37b576e4ae6ebd53334881c92d0017e351bb7ad4",
+                "reference": "37b576e4ae6ebd53334881c92d0017e351bb7ad4",
                 "shasum": ""
             },
             "require": {
@@ -140,9 +140,9 @@
             "description": "A PHP Based Poker Game",
             "support": {
                 "issues": "https://github.com/atsmacode/poker-game/issues",
-                "source": "https://github.com/atsmacode/poker-game/tree/v3.0.7"
+                "source": "https://github.com/atsmacode/poker-game/tree/v4.0.0"
             },
-            "time": "2023-02-26T11:11:10+00:00"
+            "time": "2023-04-08T11:31:36+00:00"
         },
         {
             "name": "brick/varexporter",
