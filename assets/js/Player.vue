@@ -5,15 +5,18 @@
                 <div v-if="player.whole_cards.length && authPlayerId === player.player_id" v-for="card in player.whole_cards" class="m-0 me-1 bg-white aye-card" v-bind:class="$root.suitColours[card.suit]">
                     <strong>{{card.rankAbbreviation}}</strong> {{card.suitAbbreviation}}
                 </div>
+                <template v-else-if="player.stack !== null">
+                    <div 
+                        class="m-0 me-1 bg-danger bg-gradient aye-card border border-3 border-white"
+                        :class="[player.active ? '' : 'opacity-75']"
+                    ></div>
+                    <div 
+                        class="m-0 me-1 bg-danger bg-gradient aye-card border border-3 border-white"
+                        :class="[player.active ? '' : 'opacity-75']"
+                    ></div>
+                </template>
                 <template v-else>
-                    <div 
-                        class="m-0 me-1 bg-danger bg-gradient aye-card border border-3 border-white"
-                        :class="[player.active ? '' : 'opacity-75']"
-                    ></div>
-                    <div 
-                        class="m-0 me-1 bg-danger bg-gradient aye-card border border-3 border-white"
-                        :class="[player.active ? '' : 'opacity-75']"
-                    ></div>
+                    <div  class="m-0 me-1 aye-card"></div>
                 </template>
             </div>
 
@@ -26,7 +29,9 @@
             </p>
         </template>
         <template v-else>
-            <div class="m-0 me-1 aye-card"></div>
+            <div class="row mb-2 m-0 p-0 justify-content-center">
+                <div class="m-0 me-1 aye-card"></div>
+            </div>
             <p class="bg-dark rounded text-center p-3 player-panel rounded-pill opacity-50">Empty Seat</p>
         </template>
     </div>
