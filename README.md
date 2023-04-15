@@ -3,7 +3,6 @@
 This is the front-end that communicates with the [atsmacode/poker-game](https://github.com/atsmacode/poker-game) package and allows a poker game to be played in the browser with the traditional table and player graphics found in most online poker games. It looks like this:
 
 ![Player Waiting at Table](/screenshots/player_waiting.png)
-![Pre-flop Action](/screenshots/pre_flop_action.png)
 ![Flop Action](/screenshots/flop_action.png)
 
 ## History
