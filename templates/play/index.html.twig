@@ -3,14 +3,98 @@
 {% block title %}Play{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-6 col-md-4">
-                <h2>Playing...</h2>
-                <div id="app">
-                    <my-component></my-component>
+<div id="app" class="position-relative">
+
+        <div class="table-container position-relative">
+
+            <div class="aye-table rounded-pill position-relative bg-gradient">
+
+                <span class="aye-table-zone opacity-25 d-block rounded-pill position-absolute top-50 start-50 translate-middle"></span>
+
+
+                <div id="player-1" class="position-absolute">
+                    <player v-if="1 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[1]" :winner="winner"></player>
+                    <player v-else></player>
+                </div>
+
+                <div id="player-2" class="position-absolute">
+                    <player v-if="2 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[2]" :winner="winner"></player>
+                    <player v-else></player>
+                </div>
+
+                <div id="player-3" class="position-absolute">
+                    <player v-if="3 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[3]" :winner="winner"></player>
+                    <player v-else></player>
+                </div>
+
+                <div id="player-4" class="position-absolute">
+                    <player v-if="4 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[4]" :winner="winner"></player>
+                    <player v-else></player>
+                </div>
+
+                <div id="player-5" class="position-absolute">
+                    <player v-if="5 in players" @action="action":auth-player-id="{{ playerId }}" :player="players[5]" :winner="winner"></player>
+                    <player v-else></player>
+                </div>
+
+                <div id="player-6" class="position-absolute">
+                    <player v-if="6 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[6]" :winner="winner"></player>
+                    <player v-else></player>
+                </div>
+
+                <div class="row">
+
+                    <div class="col">
+
+                        <div v-if="communityCards.length > 0" class="row mb-2 ms-0 community-cards">
+                            <div v-for="card in communityCards" class="m-0 bg-white ms-1 aye-card" v-bind:class="suitColours[card.suit]">
+                                <strong>${ card.rankAbbreviation }$ </strong>${ card.suitAbbreviation }$
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="position-absolute top-50 start-50 translate-middle">
+                    <h1 class="opacity-25 text-center">Aye Poker</h1>
+                    <p v-if="message">${ message }$</p>
+                    <p v-else class="m-0 text-center"><strong>Pot: </strong>${ pot }$</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="player-list" class="ms-5 me-5">
+
+            <p class="text-center">Leaderboard</p>
+
+            <ol class="list-group list-group-numbered fs-6 mb-3 aye-shadow">
+                <li v-for="player in players" class="list-group-item d-flex justify-content-between align-items-start text-bg-dark">
+                    <div class="ms-2 me-auto">
+                    <div class="fw-bold">${ player.name }$</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">${ player.stack }$</span>
+                </li>
+            </ol>
+
+
+            <action-on v-for="player in players" @action="action" :auth-player-id="{{ playerId }}" :player="player"></action-on>
+
+
+            <div v-if="winner" class="card aye-shadow w-100">
+                <div class="card-header text-bg-primary text-center">
+                    Winner
+                </div>
+                <div class="text-bg-dark p-4 text-center">
+                    <p>${ winner.player.playerName }$</p>
+                    <p>${ winner.handType.name }$</p>
+                    <p><button v-on:click="gameData" class="btn btn-primary">Next Hand</button></p>
                 </div>
             </div>
+
         </div>
+
     </div>
 {% endblock %}

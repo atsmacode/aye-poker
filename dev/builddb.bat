@@ -1,0 +1,3 @@
+php .\dev\BuildAyePoker.php app:create-database -d true
+php .\dev\BuildAyePoker.php app:build-card-games -d true
+php .\dev\BuildAyePoker.php app:build-poker-game -d true
