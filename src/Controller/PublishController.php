@@ -1,4 +1,7 @@
 <?php
+/**
+ * Used for manually testing Mercure updates.
+ */
 
 namespace App\Controller;
 
@@ -14,8 +17,8 @@ class PublishController extends AbstractController
     public function publish(HubInterface $hub): Response
     {
         $update = new Update(
-            'https://example.com/books/1',
-            json_encode(['status' => 'OutOfStock'])
+            'player_action',
+            json_encode(['status' => 'action...'])
         );
 
         $hub->publish($update);

@@ -4,6 +4,7 @@ namespace App\Controller\Play\Plhe;
 
 use App\Entity\User;
 use App\Entity\UserPlayer;
+use App\Service\MercureUpdate;
 use App\Service\PokerGame;
 use Atsmacode\PokerGame\Controllers\PotLimitHoldEm\SitController as PlheSitController;
 use Atsmacode\PokerGame\Controllers\PotLimitHoldEm\PlayerActionController as PlhePlayerActionController;
@@ -44,7 +45,7 @@ class Controller extends AbstractController
     }
 
     #[Route('/action/plhe', name: 'action_plhe', methods: ['POST'])]
-    public function action(Request $request, PokerGame $pokerGame): Response
+    public function action(Request $request, PokerGame $pokerGame, MercureUpdate $mercureUpdate): Response
     {
         $this->denyAccessUnlessGranted('action', [
             'class'   => PlayerAction::class,
@@ -53,6 +54,8 @@ class Controller extends AbstractController
 
         $serviceManager = $pokerGame->getServiceManager();
         $response       = $serviceManager->get(PlhePlayerActionController::class)->action($request)->getContent();
+
+        $mercureUpdate->publish($response);
 
         return new Response($response);
     }

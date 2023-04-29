@@ -80,7 +80,7 @@
             </ol>
 
 
-            <action-on v-for="player in players" @action="action" :auth-player-id="{{ playerId }}" :player="player"></action-on>
+            <action-on v-if="!winner" v-for="player in players" @action="action" :auth-player-id="{{ playerId }}" :player="player"></action-on>
 
 
             <div v-if="winner" class="card aye-shadow w-100">
