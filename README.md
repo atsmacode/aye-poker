@@ -5,7 +5,7 @@ This is the front-end that communicates with the [atsmacode/poker-game](https://
 ![Player Waiting at Table](/screenshots/player_waiting.png)
 ![Flop Action](/screenshots/flop_action.png)
 
-## History
+# History
 
 - Originally, I developed the game in a somewhat monolithic Laravel repository
 - As a personal challenge, I then started fresh with almost entirely vanilla PHP
@@ -17,6 +17,12 @@ This is the front-end that communicates with the [atsmacode/poker-game](https://
 - It now resides in a Symfony application
 
 This is a personal passion-project not intended for use by other people. 
+
+# Documentation
+
+I've saved an example of how I plan and map out changes using Lucid Charts:
+
+[Registration & Auth Flow](/documentation/registration_and_auth_flow.pdf)
 
 # Environment
 
