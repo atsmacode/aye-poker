@@ -17,6 +17,7 @@ import { createApp } from 'vue'
 import axios from 'axios';
 import Player from './js/Player.vue'
 import ActionOn from './js/ActionOn.vue'
+import { toRaw } from 'vue';
 
 createApp({
 	delimiters: ['${', '}$'],
@@ -30,6 +31,7 @@ createApp({
 			players: [],
 			communityCards: [],
 			winner: false,
+			sittingOut: [],
 			errors: {},
 			loading: false,
 			message: false,
@@ -57,10 +59,35 @@ createApp({
                 "Call": 50.0,
                 "Bet": 50.0,
                 "Raise": 50.0
-            }
+            },
+			mercureUpdate: {}
 		}
     },
+	watch: {
+		mercureUpdate(response) {
+			console.log('mercureUpdate');
+
+			let data = JSON.parse(response);
+
+			this.handleResponseData(data);
+		}
+	},
     methods: {
+		updatePlayers(players){
+			this.players = players;
+		},
+		updateCommunityCards(communityCards){
+			this.communityCards = communityCards;
+		},
+		updateWinner(data){
+			this.winner = data.winner ? data.winner : false;
+		},
+		updatePot(pot){
+			this.pot = pot;
+		},
+		updateSittingOut(sittingOut){
+			this.sittingOut = Object.values(sittingOut);
+		},
 		action(action, player){
 			let active = 1;
 
@@ -89,11 +116,7 @@ createApp({
 
                 let data = response.data;
 
-				this.loading        = false
-				this.players        = data.players;
-				this.communityCards = data.communityCards;
-				this.winner         = data.winner ? data.winner : false;
-                this.pot            = data.pot;
+				this.handleResponseData(data);
 			}).catch(error => {
 				console.log(error);
 				this.loading = false
@@ -107,18 +130,34 @@ createApp({
 
                 let data = response.data;
 
-				this.winner         = false;
-				this.players        = data.players ?? [];
-				this.communityCards = data.communityCards ?? [];
-				this.pot            = data.pot;
-				this.message        = data.message ?? false;
+				this.handleResponseData(data);
 			});
 		},
 		showOptions(action_on){
             return action_on === true && this.winner === false;
         },
+		updateMercure(response) {
+			this.mercureUpdate = response;
+		},
+		isSittingOut(auth_player_id){
+			return Array.prototype.includes.call(this.sittingOut, auth_player_id);
+		},
+		handleResponseData(data){
+			this.updatePlayers(data.players);
+			this.updateCommunityCards(data.communityCards);
+			this.updateWinner(data);
+			this.updatePot(data.pot);
+			this.updateSittingOut(data.sittingOut);
+		}
 	},
     mounted() {
+		const eventSource = new EventSource("https://localhost:8443/.well-known/mercure?topic=player_action");
+		eventSource.onmessage = event => {
+			let response = toRaw(event.data);
+
+			this.updateMercure(response);
+		}
+
         this.gameData();
     }
 }).mount('#app');
