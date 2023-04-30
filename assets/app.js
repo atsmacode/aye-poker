@@ -69,11 +69,7 @@ createApp({
 
 			let data = JSON.parse(response);
 
-			this.updatePlayers(data.players);
-			this.updateCommunityCards(data.communityCards);
-			this.updateWinner(data);
-			this.updatePot(data.pot);
-			this.updateSittingOut(data.sittingOut);
+			this.handleResponseData(data);
 		}
 	},
     methods: {
@@ -120,12 +116,7 @@ createApp({
 
                 let data = response.data;
 
-				this.loading        = false
-				this.players        = data.players;
-				this.communityCards = data.communityCards;
-				this.winner         = data.winner ? data.winner : false;
-                this.pot            = data.pot;
-				this.sittingOut     = Object.values(data.sittingOut);
+				this.handleResponseData(data);
 			}).catch(error => {
 				console.log(error);
 				this.loading = false
@@ -139,12 +130,7 @@ createApp({
 
                 let data = response.data;
 
-				this.winner         = false;
-				this.players        = data.players ?? [];
-				this.communityCards = data.communityCards ?? [];
-				this.pot            = data.pot;
-				this.message        = data.message ?? false;
-				this.sittingOut     = Object.values(data.sittingOut);
+				this.handleResponseData(data);
 			});
 		},
 		showOptions(action_on){
@@ -155,6 +141,13 @@ createApp({
 		},
 		isSittingOut(auth_player_id){
 			return Array.prototype.includes.call(this.sittingOut, auth_player_id);
+		},
+		handleResponseData(data){
+			this.updatePlayers(data.players);
+			this.updateCommunityCards(data.communityCards);
+			this.updateWinner(data);
+			this.updatePot(data.pot);
+			this.updateSittingOut(data.sittingOut);
 		}
 	},
     mounted() {
