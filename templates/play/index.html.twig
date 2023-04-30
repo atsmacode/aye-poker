@@ -33,7 +33,7 @@
                 </div>
 
                 <div id="player-5" class="position-absolute">
-                    <player v-if="5 in players" @action="action":auth-player-id="{{ playerId }}" :player="players[5]" :winner="winner"></player>
+                    <player v-if="5 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[5]" :winner="winner"></player>
                     <player v-else></player>
                 </div>
 
@@ -79,9 +79,13 @@
                 </li>
             </ol>
 
+            <div v-if="isSittingOut({{ playerId }})" class="card aye-shadow w-100">
+                <div class="card-header text-bg-primary text-center">
+                    Hand in progress, you'll be dealt in for the next one
+                </div>
+            </div>
 
             <action-on v-if="!winner" v-for="player in players" @action="action" :auth-player-id="{{ playerId }}" :player="player"></action-on>
-
 
             <div v-if="winner" class="card aye-shadow w-100">
                 <div class="card-header text-bg-primary text-center">

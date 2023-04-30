@@ -31,6 +31,7 @@ createApp({
 			players: [],
 			communityCards: [],
 			winner: false,
+			sittingOut: [],
 			errors: {},
 			loading: false,
 			message: false,
@@ -68,12 +69,11 @@ createApp({
 
 			let data = JSON.parse(response);
 
-			console.log(data);
-
 			this.updatePlayers(data.players);
 			this.updateCommunityCards(data.communityCards);
 			this.updateWinner(data);
 			this.updatePot(data.pot);
+			this.updateSittingOut(data.sittingOut);
 		}
 	},
     methods: {
@@ -88,6 +88,9 @@ createApp({
 		},
 		updatePot(pot){
 			this.pot = pot;
+		},
+		updateSittingOut(sittingOut){
+			this.sittingOut = Object.values(sittingOut);
 		},
 		action(action, player){
 			let active = 1;
@@ -122,6 +125,7 @@ createApp({
 				this.communityCards = data.communityCards;
 				this.winner         = data.winner ? data.winner : false;
                 this.pot            = data.pot;
+				this.sittingOut     = Object.values(data.sittingOut);
 			}).catch(error => {
 				console.log(error);
 				this.loading = false
@@ -140,6 +144,7 @@ createApp({
 				this.communityCards = data.communityCards ?? [];
 				this.pot            = data.pot;
 				this.message        = data.message ?? false;
+				this.sittingOut     = Object.values(data.sittingOut);
 			});
 		},
 		showOptions(action_on){
@@ -147,6 +152,9 @@ createApp({
         },
 		updateMercure(response) {
 			this.mercureUpdate = response;
+		},
+		isSittingOut(auth_player_id){
+			return Array.prototype.includes.call(this.sittingOut, auth_player_id);
 		}
 	},
     mounted() {
