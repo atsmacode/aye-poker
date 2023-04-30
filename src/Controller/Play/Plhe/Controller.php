@@ -34,12 +34,15 @@ class Controller extends AbstractController
     public function start(
         PokerGame $pokerGame,
         Security $security,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        MercureUpdate $mercureUpdate
     ): Response {
         $serviceManager = $pokerGame->getServiceManager();
         $userPlayer     = $this->getUserPlayer($entityManager, $security->getUser());
 
         $response = $serviceManager->get(PlheSitController::class)->sit(playerId: $userPlayer->getPlayerId())->getContent();
+ 
+        $mercureUpdate->publish($response);
 
         return new Response($response);
     }
