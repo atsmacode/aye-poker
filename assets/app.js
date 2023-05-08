@@ -148,22 +148,25 @@ createApp({
 			this.updateSittingOut(data);
 			this.updateMessage(data);
 			this.updateMercureUrl(data);
+		},
+		gameData(){
+			axios.post(window.location.pathname).then(response => {
+				console.log(response);
+	
+				let data = response.data;
+	
+				this.handleResponseData(data);
+	
+				const eventSource = new EventSource(data.mercureUrl);
+				eventSource.onmessage = event => {
+					let response = toRaw(event.data);
+	
+					this.updateMercure(response);
+				}
+			});
 		}
 	},
     mounted() {
-		axios.post(window.location.pathname).then(response => {
-			console.log(response);
-
-			let data = response.data;
-
-			this.handleResponseData(data);
-
-			const eventSource = new EventSource(data.mercureUrl);
-			eventSource.onmessage = event => {
-				let response = toRaw(event.data);
-
-				this.updateMercure(response);
-			}
-		});
+		this.gameData();
     }
 }).mount('#app');
