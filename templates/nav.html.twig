@@ -9,23 +9,25 @@
         <div class="collapse navbar-collapse d-block" id="navbarSupportedContent">
 
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') is empty %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') is empty %}
+                    <li class="nav-item">
                         <a class="nav-link {{ app.request.attributes.get('_route') == 'login' ? 'active' }}" aria-current="page" href="{{ path('login') }}">Login</a>
-                    {% endif %}
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ app.request.attributes.get('_route') == 'register' ? 'active' }}" aria-current="page" href="{{ path('register') }}">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ app.request.attributes.get('_route') == 'play_plhe' ? 'active' }}" aria-current="page" href="{{ path('play_plhe') }}">Play Now</a>
-                </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ app.request.attributes.get('_route') == 'register' ? 'active' }}" aria-current="page" href="{{ path('register') }}">Register</a>
+                    </li>
+                {% endif %}
+                {% if app.request.attributes.get('_route') != 'play_plhe' %}
+                    <li class="nav-item">
+                        <a class="nav-link {{ app.request.attributes.get('_route') == 'play_plhe' ? 'active' }}" aria-current="page" href="{{ path('play_plhe') }}">Play Now</a>
+                    </li>
+                {% endif %}
                 {# <li class="nav-item">
                     <a class="nav-link {{ app.request.attributes.get('_route') == 'play_plom' ? 'active' }}" aria-current="page" href="{{ path('play_plom') }}">Play PLOM</a>
                 </li> #}
-                <li class="nav-item">
+                {# <li class="nav-item">
                     <a class="nav-link {{ app.request.attributes.get('_route') == 'hand_history' ? 'active' }}" aria-current="page" href="{{ path('hand_history') }}">Hand History</a>
-                </li>
+                </li> #}
             </ul>
 
         </div>
