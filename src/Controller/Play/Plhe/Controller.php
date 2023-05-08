@@ -18,6 +18,8 @@ use Symfony\Component\Security\Core\Security;
 
 class Controller extends AbstractController
 {
+    const MERCURE_ACTION_TOPIC = 'player_action';
+
     #[Route('/play/plhe', name: 'play_plhe', methods: ['GET'])]
     public function index(
         Security $security,
@@ -41,6 +43,7 @@ class Controller extends AbstractController
         $userPlayer     = $this->getUserPlayer($entityManager, $security->getUser());
 
         $response = $serviceManager->get(PlheSitController::class)->sit(playerId: $userPlayer->getPlayerId())->getContent();
+        $response = $this->addMercureUrl($response, self::MERCURE_ACTION_TOPIC);
  
         $mercureUpdate->publish($response);
 
@@ -57,6 +60,7 @@ class Controller extends AbstractController
 
         $serviceManager = $pokerGame->getServiceManager();
         $response       = $serviceManager->get(PlhePlayerActionController::class)->action($request)->getContent();
+        $response       = $this->addMercureUrl($response, self::MERCURE_ACTION_TOPIC);
 
         $mercureUpdate->publish($response);
 
@@ -72,5 +76,15 @@ class Controller extends AbstractController
         ]);
 
         return $userPlayer;
+    }
+
+    private function addMercureUrl(string $jsonResponse, string $topic): string
+    {
+        $responseArray = json_decode($jsonResponse, true);
+        $mergedArray   = array_merge($responseArray, [
+            'mercureUrl' => $this->getParameter('mercure.default_hub') . '?topic=' . $topic]
+        );
+
+        return json_encode($mergedArray);
     }
 }

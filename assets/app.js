@@ -60,7 +60,8 @@ createApp({
                 "Bet": 50.0,
                 "Raise": 50.0
             },
-			mercureUpdate: {}
+			mercureUpdate: {},
+			mercureUrl: ''
 		}
     },
 	watch: {
@@ -90,6 +91,9 @@ createApp({
 		},
 		updateMessage(data){
 			this.message = data.message ? data.message : '';
+		},
+		updateMercureUrl(data){
+			this.mercureUrl = data.mercureUrl ? data.mercureUrl : '';
 		},
 		action(action, player){
 			let active = 1;
@@ -127,15 +131,6 @@ createApp({
 
 			});
 		},
-		gameData(){
-			axios.post(window.location.pathname).then(response => {
-                console.log(response);
-
-                let data = response.data;
-
-				this.handleResponseData(data);
-			});
-		},
 		showOptions(action_on){
             return action_on === true && this.winner === false;
         },
@@ -151,17 +146,24 @@ createApp({
 			this.updateWinner(data);
 			this.updatePot(data);
 			this.updateSittingOut(data);
-			this.updateMessage(data)
+			this.updateMessage(data);
+			this.updateMercureUrl(data);
 		}
 	},
     mounted() {
-		const eventSource = new EventSource("https://localhost:8443/.well-known/mercure?topic=player_action");
-		eventSource.onmessage = event => {
-			let response = toRaw(event.data);
+		axios.post(window.location.pathname).then(response => {
+			console.log(response);
 
-			this.updateMercure(response);
-		}
+			let data = response.data;
 
-        this.gameData();
+			this.handleResponseData(data);
+
+			const eventSource = new EventSource(data.mercureUrl);
+			eventSource.onmessage = event => {
+				let response = toRaw(event.data);
+
+				this.updateMercure(response);
+			}
+		});
     }
 }).mount('#app');
