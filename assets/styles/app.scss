@@ -9,6 +9,10 @@ body {
     color: white;
 }
 
+#app {
+    height: 800px;
+}
+
 strong {
     font-weight: 800;
 }
@@ -73,7 +77,8 @@ strong {
     width:300px;
     position: absolute;
     right: 0;
-    top: 0;
+    bottom: 0;
+    z-index: 1000;
 }
 
 .player-panel {
