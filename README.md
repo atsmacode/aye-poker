@@ -92,7 +92,7 @@ Using Laragon, the following example path to run PHP might be useful:
 
 # Configs
 
-You need to add poker_game.php to configure your local DB credentials, like so:
+You need to add poker_game.php to configure your local DB credentials and log path, like so:
 
 ```
 <?php
@@ -115,6 +115,9 @@ return [
                 'driver'     => 'pdo_mysql',
             ],
         ],
+        'logger' => [
+            'path' => '/your/log/file
+        ]
     ],
 ];
 
