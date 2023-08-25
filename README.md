@@ -44,7 +44,9 @@ I've saved an example of how I plan and map out changes using Lucid Charts:
 
 # Commands
 
-## Linux
+## Build Poker Game DB:
+
+### Linux
 
 Build the test DB:
 
@@ -58,15 +60,11 @@ Individual Drop, Create and Seed commands. Remove '-d true' for prodution:
 
 > php dev/BuildAyePoker.php app:build-poker-game -d true
 
-## Windows
+### Windows
 
 Build the test DB:
 
 > .\dev\builddb.bat
-
-build the front-end:
-
-> yarn encore dev
 
 Individual Drop, Create and Seed commands. Remove '-d true' for prodution:
 
@@ -75,6 +73,16 @@ Individual Drop, Create and Seed commands. Remove '-d true' for prodution:
 > php .\dev\BuildAyePoker.php app:build-card-games -d true
 
 > php .\dev\BuildAyePoker.php app:build-poker-game -d true
+
+## Aye Poker Migrations
+
+> php bin/console doctrine:migrations:migrate
+
+## Front End
+
+> npm install OR yarn install
+
+> yarn encore dev OR npm run dev
 
 ## Laragon
 
@@ -117,4 +125,3 @@ return [
 ## Doctrine Dbal
 
 I specified v3.5.5 in composer.json as a -dev version was being pulled in with -W and caused composer update errors
-
