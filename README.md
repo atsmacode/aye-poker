@@ -42,17 +42,22 @@ I've saved an example of how I plan and map out changes using Lucid Charts:
 
 18.12.1
 
-# Quick Start
+# Quick Start (Linux)
 
-Run these commands to get the app started on a local devenvironment. You'll need to manually create an 'aye_poker' schema in your DB first:
+The key steps to get the app started on a local devenvironment are:
 
-> php bin/console doctrine:migrations:migrate
+* Copy the .env.template to .env file and fill in your appropriate DB credentials
+* Create an 'aye_poker' schema in your DB and a config/poker_game.php file with DB credentials
+* Run the following commands:
+  * composer install
+  * php bin/console doctrine:migrations:migrate
+  * dev/builddb
+  * npm install && npm run dev
+  * symfony server:start
 
-> dev/builddb
+Symfony will start a server and provide a link to the app where you can register & login. Something like: http://127.0.0.1:8000
 
-> npm install OR yarn install
-
-> symfony server:start
+More details on commands and configs are outlined further down the page.
 
 # Commands
 
@@ -128,7 +133,7 @@ return [
             ],
         ],
         'logger' => [
-            'path' => '/your/log/file
+            'path' => '/your/log/file'
         ]
     ],
 ];
