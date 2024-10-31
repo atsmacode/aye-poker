@@ -42,6 +42,18 @@ I've saved an example of how I plan and map out changes using Lucid Charts:
 
 18.12.1
 
+# Quick Start
+
+Run these commands to get the app started on a local devenvironment. You'll need to manually create an 'aye_poker' schema in your DB first:
+
+> php bin/console doctrine:migrations:migrate
+
+> dev/builddb
+
+> npm install OR yarn install
+
+> symfony server:start
+
 # Commands
 
 ## Build Poker Game DB:
