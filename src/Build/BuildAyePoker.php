@@ -37,4 +37,9 @@ class BuildAyePoker
     {
         return $this->application;
     }
+
+    public function runApp()
+    {
+        $this->application->run();
+    }
 }
