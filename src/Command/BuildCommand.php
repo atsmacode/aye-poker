@@ -23,7 +23,7 @@ class BuildCommand extends Command
 {
     protected function configure(): void
     {
-        //
+        $this->setHelp('This will run the migrations for the Poker Game app and create config/poker_game.php & .env files for you.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
