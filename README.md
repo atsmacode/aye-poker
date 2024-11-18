@@ -27,7 +27,7 @@ Here's an example of how I plan and map out changes using Lucid Charts:
 
 # Quick Start (Linux)
 
-The key steps to get the app started on a local devenvironment are:
+The key steps to get the app started on a local dev environment are:
 
 * Copy the .env.template to .env
 * Create a DB for the Symfony app
