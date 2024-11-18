@@ -56,10 +56,10 @@ class StartCommand extends Command
                     $symfonyName
                 )
             );
-        } catch (IOExceptionInterface $exception) {
-            $output->writeln("Failed to populate .env");
+        } catch (IOExceptionInterface $e) {
+            $output->writeln("Failed to populate .env: " . $e->getMessage());
 
-            return Command::FAIL;
+            return Command::FAILURE;
         }
 
         $output->writeln("Successfully populated .env");
@@ -84,10 +84,10 @@ class StartCommand extends Command
                     'config/poker_game.php',
                     $this->getPokerConfigFormat($pokerName, $pokerUser, $pokerPass)
                 );
-            } catch (IOExceptionInterface $exception) {
-                $output->writeln("An error occurred while creating {$pokerConfigPath} ".$exception->getPath());
+            } catch (IOExceptionInterface $e) {
+                $output->writeln("An error occurred while creating {$pokerConfigPath} " . $e->getMessage());
 
-                return Command::FAIL;
+                return Command::FAILURE;
             }
 
             $output->writeln("Successfully created {$pokerConfigPath}");
@@ -105,9 +105,9 @@ class StartCommand extends Command
             $app->doRun($buildCardGames, $output);
             $app->doRun($buildPokerGame, $output);
         } catch (\Exception $e) {
-            $output->writeln('Failed to build Poker Game DB');
+            $output->writeln('Failed to build Poker Game DB: ' . $e->getMessage());
 
-            return Command::FAIL;
+            return Command::FAILURE;
         }
 
         $output->writeln('Successfully built Poker Game DB');
