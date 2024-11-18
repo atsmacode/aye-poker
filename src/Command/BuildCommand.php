@@ -16,10 +16,10 @@ use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 #[AsCommand(
-    name: 'app:builddb',
+    name: 'app:build',
     description: 'Builds the Poker Game DB and sets up required config.',
 )]
-class BuildDbCommand extends Command
+class BuildCommand extends Command
 {
     protected function configure(): void
     {
@@ -32,11 +32,11 @@ class BuildDbCommand extends Command
         $filesystem = new Filesystem();
 
         $qSymfonyName = new Question(
-            'Please enter the database name for the Symfony application (press enter to use default \'aye_poker\'): ',
+            '<question>Please enter the database name for the Symfony application (press enter to use default \'aye_poker\'):</question> ',
             'aye_poker'
         );
-        $qSymfonyUser = new Question('Please enter the database username for the Symfony application: ');
-        $qSymfonyPass = new Question('Please enter the database password for the Symfony application: ');
+        $qSymfonyUser = new Question('<question>Please enter the database username for the Symfony application:</question> ');
+        $qSymfonyPass = new Question('<question>Please enter the database password for the Symfony application:</question> ');
         $qSymfonyPass->setHidden(true);
 
         $symfonyName = $helper->ask($input, $output, $qSymfonyName);
@@ -57,20 +57,20 @@ class BuildDbCommand extends Command
                     $symfonyName
                 )
             );
-        } catch (IOExceptionInterface $e) {
-            $output->writeln("Failed to populate .env: " . $e->getMessage());
+        } catch (\Exception $e) {
+            $output->writeln("Failed to populate .env: {$e->getMessage()}");
 
             return Command::FAILURE;
         }
 
-        $output->writeln("Successfully populated .env");
+        $output->writeln("<info>Successfully populated .env</info>");
 
         $qPokerGameName = new Question(
-            'Please enter the database name for the Poker Game application (press enter to use default \'poker_game\'): ',
+            '<question>Please enter the database name for the Poker Game application (press enter to use default \'poker_game\'):</question> ',
             'poker_game'
         );
-        $qPokerGameUser = new Question('Please enter the database username for the Poker Game application: ');
-        $qPokerGamePass = new Question('Please enter the database password for the Poker Game application: ');
+        $qPokerGameUser = new Question('<question>Please enter the database username for the Poker Game application:</question> ');
+        $qPokerGamePass = new Question('<question>Please enter the database password for the Poker Game application:</question> ');
         $qPokerGamePass->setHidden(true);
 
         $pokerName = $helper->ask($input, $output, $qPokerGameName);
@@ -86,13 +86,13 @@ class BuildDbCommand extends Command
                     'config/poker_game.php',
                     $this->getPokerConfigFormat($pokerName, $pokerUser, $pokerPass)
                 );
-            } catch (IOExceptionInterface $e) {
-                $output->writeln("An error occurred while creating {$pokerConfigPath} " . $e->getMessage());
+            } catch (\Exception $e) {
+                $output->writeln("<error>An error occurred while creating {$pokerConfigPath}: {$e->getMessage()}</error>");
 
                 return Command::FAILURE;
             }
 
-            $output->writeln("Successfully created {$pokerConfigPath}");
+            $output->writeln("<info>Successfully created {$pokerConfigPath}</info>");
         }
 
         try {
@@ -107,12 +107,12 @@ class BuildDbCommand extends Command
             $app->doRun($buildCardGames, $output);
             $app->doRun($buildPokerGame, $output);
         } catch (\Exception $e) {
-            $output->writeln('Failed to build Poker Game DB: ' . $e->getMessage());
+            $output->writeln("<error>Failed to build Poker Game DB: {$e->getMessage()}</error>");
 
             return Command::FAILURE;
         }
 
-        $output->writeln('Successfully built Poker Game DB');
+        $output->writeln('<info>Successfully built Poker Game DB</info>');
 
         return Command::SUCCESS;
     }
