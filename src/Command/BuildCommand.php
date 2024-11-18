@@ -17,7 +17,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 #[AsCommand(
     name: 'app:build',
-    description: 'Builds the Poker Game DB and sets up required config.',
+    description: 'Builds the Poker Game DB and sets up required config',
 )]
 class BuildCommand extends Command
 {
