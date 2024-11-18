@@ -16,10 +16,10 @@ use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 #[AsCommand(
-    name: 'app:start',
-    description: 'Set up all requirements for the application including configs and databases.',
+    name: 'app:builddb',
+    description: 'Builds the Poker Game DB and sets up required config.',
 )]
-class StartCommand extends Command
+class BuildDbCommand extends Command
 {
     protected function configure(): void
     {
@@ -37,6 +37,7 @@ class StartCommand extends Command
         );
         $qSymfonyUser = new Question('Please enter the database username for the Symfony application: ');
         $qSymfonyPass = new Question('Please enter the database password for the Symfony application: ');
+        $qSymfonyPass->setHidden(true);
 
         $symfonyName = $helper->ask($input, $output, $qSymfonyName);
         $symfonyUser = $helper->ask($input, $output, $qSymfonyUser);
@@ -70,6 +71,7 @@ class StartCommand extends Command
         );
         $qPokerGameUser = new Question('Please enter the database username for the Poker Game application: ');
         $qPokerGamePass = new Question('Please enter the database password for the Poker Game application: ');
+        $qPokerGamePass->setHidden(true);
 
         $pokerName = $helper->ask($input, $output, $qPokerGameName);
         $pokerUser = $helper->ask($input, $output, $qPokerGameUser);
