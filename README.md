@@ -29,12 +29,12 @@ Here's an example of how I plan and map out changes using Lucid Charts:
 
 The key steps to get the app started on a local devenvironment are:
 
-* Copy the .env.template to .env file and fill in your appropriate DB credentials
-* Create a schema in your DB for the Symfony app and a config/poker_game.php file with DB credential for the Poker Game app (see [Configs](#Configs))
+* Copy the .env.template to .env
+* Create a DB for the Symfony app
 * Run the following commands:
   * composer install
+  * php bin/console app:start
   * php bin/console doctrine:migrations:migrate
-  * dev/builddb
   * npm install && npm run dev
   * symfony server:start
 
