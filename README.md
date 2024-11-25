@@ -5,7 +5,7 @@ This is the front-end that communicates with my [atsmacode/poker-game](https://g
 ![Player Waiting at Table](/screenshots/player_waiting.png)
 ![Flop Action](/screenshots/flop_action.png)
 
-Other simple packages I created are:
+Other simple packages I created for use here are:
 
 * [atsmacode/card-games](https://github.com/atsmacode/card-games) - This could be used to create any card based game
 * [atsmacode/framework](https://github.com/atsmacode/framework) - Some basic utilities like Models and DB connections
