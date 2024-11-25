@@ -2,7 +2,6 @@
 
 This is the front-end that communicates with my [atsmacode/poker-game](https://github.com/atsmacode/poker-game) package and allows a poker game to be played in the browser with the traditional table and player graphics found in most online poker games. It looks like this:
 
-![Player Waiting at Table](/screenshots/player_waiting.png)
 ![Flop Action](/screenshots/flop_action.png)
 
 Other simple packages I created for use here are:
@@ -13,12 +12,6 @@ Other simple packages I created for use here are:
 Live page updates during game play are powered by the Mercure Hub: https://mercure.rocks/
 
 This is a personal passion-project not intended for use by other people. 
-
-# Documentation
-
-Here's an example of how I plan and map out changes using Lucid Charts:
-
-[Registration & Auth Flow](/documentation/registration_and_auth_flow.pdf)
 
 # Environment
 
@@ -54,6 +47,12 @@ MERCURE_SUBSCRIBER_JWT_KEY='!ChangeThisMercureHubJWTSecretKey!' \
 Step #4 will start the Mercure Hub. Installation guide can be found here: https://mercure.rocks/docs/hub/install
 
 More details on commands and configs are outlined further down the page.
+
+# Documentation
+
+Here's an example of how I plan and map out changes using Lucid Charts:
+
+[Registration & Auth Flow](/documentation/registration_and_auth_flow.pdf)
 
 # Commands
 
