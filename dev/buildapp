@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+composer install
+php bin/console app:build
+php bin/console doctrine:migrations:migrate
+npm install && npm run dev
+symfony server:start

@@ -31,14 +31,14 @@ The key steps to get the app started on a local dev environment are:
 
 * Copy the .env.template to .env
 * Create a DB for the Symfony app
-* Run the following commands:
-  * composer install
-  * php bin/console app:start
-  * php bin/console doctrine:migrations:migrate
-  * npm install && npm run dev
-  * symfony server:start
+* Run the following command: `dev/buildapp`
+  * This will do the following
+    * Install Composer dependencies
+    * Migrate the Aye Poker & Poker Game DBs
+    * Install NPM dependencies
+    * Start the Symfony local server
 
-Symfony will start a server and provide a link to the app where you can register & login. Something like: http://127.0.0.1:8000
+Symfony will provide a link to the app where you can register & login. Something like: http://127.0.0.1:8000
 
 More details on commands and configs are outlined further down the page.
 
