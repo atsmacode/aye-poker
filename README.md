@@ -27,7 +27,7 @@ The key steps to get the app started on a local dev environment are:
 1. Copy the .env.template to .env
 2. Create a DB for the Symfony app
 3. Run the following command: `dev/buildapp`
-    * This will do the following
+    * This will do the following:
        * Install Composer dependencies
        * Migrate the Aye Poker & Poker Game DBs
        * Install NPM dependencies
