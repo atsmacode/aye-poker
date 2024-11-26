@@ -46,7 +46,7 @@ MERCURE_SUBSCRIBER_JWT_KEY='!ChangeThisMercureHubJWTSecretKey!' \
 5. Now you're ready to play:
     * Open at least 2 private browser tabs
     * Register an account in each session and log in
-    * Click the 'Play now' button
+    * Click the 'Play Now' button
     * The game should automatically start after the second user joins the table
 
 Step #4 will start the Mercure Hub. Installation guide can be found here: https://mercure.rocks/docs/hub/install
