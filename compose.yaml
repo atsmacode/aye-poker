@@ -1,0 +1,20 @@
+services:
+  db:
+    image: mysql:8.0    #check the mysql version you need for your project
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password    #you can change the mysql root password here
+      MYSQL_DATABASE: aye_poker    #you can change the database name here
+    volumes:
+      - ./mysql_data:/var/lib/mysql    #this line maps the content of ./mysql_data in your pc to the /var/lib/mysql of the container
+  web:  
+    image: php:8.1-apache    #check the php version you need for your project
+    build:
+      context: .
+    ports:
+      - "8080:80"    #this line maps your pc port to the container port
+    depends_on:
+      - db    #this line links this container to the db container
+    # volumes:
+    #   - ./html:/var/www/html    #this line maps the content of ./html in your pc to the /var/www/html of the container
+
+# version: '3.8'    #check if there is a new docker compose version

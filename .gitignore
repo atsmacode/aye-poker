@@ -28,3 +28,4 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 /config/poker_game.php
+/mysql_data
