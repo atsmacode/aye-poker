@@ -4,8 +4,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root_password    #you can change the mysql root password here
       MYSQL_DATABASE: aye_poker    #you can change the database name here
-    volumes:
-      - ./mysql_data:/var/lib/mysql    #this line maps the content of ./mysql_data in your pc to the /var/lib/mysql of the container
+    # volumes:
+    #   - ./mysql_data:/var/lib/mysql    #this line maps the content of ./mysql_data in your pc to the /var/lib/mysql of the container
   web:  
     image: php:8.1-apache    #check the php version you need for your project
     build:

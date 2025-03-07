@@ -51,7 +51,7 @@ class BuildCommand extends Command
             $filesystem->appendToFile(
                 '.env',
                 sprintf(
-                    'DATABASE_URL="mysql://%s:%s@127.0.0.1:3306/%s?serverVersion=8&charset=utf8mb4"',
+                    'DATABASE_URL="mysql://%s:%s@db:3306/%s?serverVersion=8&charset=utf8mb4"',
                     $symfonyUser,
                     $symfonyPass,
                     $symfonyName

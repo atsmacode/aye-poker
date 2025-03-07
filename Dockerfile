@@ -18,11 +18,30 @@ RUN apt-get update && apt-get install -y \
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
 	&& docker-php-ext-install pdo pdo_mysql mysqli
 
+RUN mkdir /home/aye
+
 RUN useradd aye
+
+RUN chmod -R 775 /home/aye
+RUN chown -R aye:aye /home/aye
+
 RUN chmod -R 775 /var/www/html
 RUN chown -R aye:aye /var/www/html
 USER aye
 
-RUN composer install
+### For NPM https://github.com/nvm-sh/nvm
+# Use bash for the shell
 
-# RUN php bin/console doctrine:migrations:migrate
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# Create a script file sourced by both interactive and non-interactive bash shells
+ENV BASH_ENV /home/aye/.bash_env
+RUN touch "${BASH_ENV}"
+RUN echo '. "${BASH_ENV}"' >> ~/.bashrc
+
+# Download and install nvm
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | PROFILE="${BASH_ENV}" bash
+RUN echo node > .nvmrc
+RUN nvm install
+
+RUN composer install
