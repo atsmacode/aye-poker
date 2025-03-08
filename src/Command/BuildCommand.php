@@ -125,14 +125,14 @@ class BuildCommand extends Command
                 \'poker_game\' => [
                     \'db\' => [
                         \'live\' => [
-                            \'servername\' => \'localhost\',
+                            \'servername\' => \'db\',
                             \'username\'   => \'%2$s\',
                             \'password\'   => \'%3$s\',
                             \'database\'   => \'%1$s\',
                             \'driver\'     => \'pdo_mysql\',
                         ],
                         \'test\' => [
-                            \'servername\' => \'localhost\',
+                            \'servername\' => \'db\',
                             \'username\'   => \'%2$s\',
                             \'password\'   => \'%3$s\',
                             \'database\'   => \'%1$s_test\',
