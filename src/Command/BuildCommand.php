@@ -24,11 +24,15 @@ class BuildCommand extends Command
     protected function configure(): void
     {
         $this->setHelp('This will run the migrations for the Poker Game app and create config/poker_game.php & .env files for you.');
+
+        $this->addOption('docker', 'd', InputOption::VALUE_NONE, 'Use Docker credentials');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $docker = $input->getOption('docker');
         $helper = $this->getHelper('question');
+
         $filesystem = new Filesystem();
 
         $qSymfonyName = new Question(
@@ -39,9 +43,10 @@ class BuildCommand extends Command
         $qSymfonyPass = new Question('<question>Please enter the database password for the Symfony application:</question> ');
         $qSymfonyPass->setHidden(true);
 
-        $symfonyName = $helper->ask($input, $output, $qSymfonyName);
-        $symfonyUser = $helper->ask($input, $output, $qSymfonyUser);
-        $symfonyPass = $helper->ask($input, $output, $qSymfonyPass);
+        $symfonyName = $docker ? 'aye_poker' : $helper->ask($input, $output, $qSymfonyName);
+        $symfonyUser = $docker ? 'root' : $helper->ask($input, $output, $qSymfonyUser);
+        $symfonyPass = $docker ? 'root_password' : $helper->ask($input, $output, $qSymfonyPass);
+        $symfonyHost = $docker ? 'db' : 'localhost';
 
         try {
             $output->writeln("Populating .env");
@@ -51,9 +56,10 @@ class BuildCommand extends Command
             $filesystem->appendToFile(
                 '.env',
                 sprintf(
-                    'DATABASE_URL="mysql://%s:%s@db:3306/%s?serverVersion=8&charset=utf8mb4"',
+                    'DATABASE_URL="mysql://%s:%s@%s:3306/%s?serverVersion=8&charset=utf8mb4"',
                     $symfonyUser,
                     $symfonyPass,
+                    $symfonyHost,
                     $symfonyName
                 )
             );
@@ -73,9 +79,10 @@ class BuildCommand extends Command
         $qPokerGamePass = new Question('<question>Please enter the database password for the Poker Game application:</question> ');
         $qPokerGamePass->setHidden(true);
 
-        $pokerName = $helper->ask($input, $output, $qPokerGameName);
-        $pokerUser = $helper->ask($input, $output, $qPokerGameUser);
-        $pokerPass = $helper->ask($input, $output, $qPokerGamePass);
+        $pokerName = $docker ? 'poker_game' : $helper->ask($input, $output, $qPokerGameName);
+        $pokerUser = $docker ? 'root' : $helper->ask($input, $output, $qPokerGameUser);
+        $pokerPass = $docker ? 'root_password' : $helper->ask($input, $output, $qPokerGamePass);
+        $pokerHost = $docker ? 'db' : 'localhost';
 
         if (!$filesystem->exists('config/poker_game.php')) {
             $pokerConfigPath = 'config/poker_game.php';
@@ -84,7 +91,7 @@ class BuildCommand extends Command
             try {
                 $filesystem->dumpFile(
                     'config/poker_game.php',
-                    $this->getPokerConfigFormat($pokerName, $pokerUser, $pokerPass)
+                    $this->getPokerConfigFormat($pokerName, $pokerUser, $pokerPass, $pokerHost)
                 );
             } catch (\Exception $e) {
                 $output->writeln("<error>An error occurred while creating {$pokerConfigPath}: {$e->getMessage()}</error>");
@@ -117,7 +124,7 @@ class BuildCommand extends Command
         return Command::SUCCESS;
     }
 
-    private function getPokerConfigFormat(string $database, string $username, string $password)
+    private function getPokerConfigFormat(string $database, string $username, string $password, string $serverName)
     {
         return sprintf('<?php
 
@@ -125,14 +132,14 @@ class BuildCommand extends Command
                 \'poker_game\' => [
                     \'db\' => [
                         \'live\' => [
-                            \'servername\' => \'db\',
+                            \'servername\' => \'%4$s\',
                             \'username\'   => \'%2$s\',
                             \'password\'   => \'%3$s\',
                             \'database\'   => \'%1$s\',
                             \'driver\'     => \'pdo_mysql\',
                         ],
                         \'test\' => [
-                            \'servername\' => \'db\',
+                            \'servername\' => \'%4$s\',
                             \'username\'   => \'%2$s\',
                             \'password\'   => \'%3$s\',
                             \'database\'   => \'%1$s_test\',
@@ -143,7 +150,7 @@ class BuildCommand extends Command
                         \'path\' => \'/your/log/file\'
                     ]
                 ],
-            ];', $database, $username, $password);
+            ];', $database, $username, $password, $serverName);
 
     }
 }

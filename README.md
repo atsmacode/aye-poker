@@ -20,6 +20,19 @@ This is a personal passion-project not intended for use by other people.
 - Vue.Js ^3.2.39
 - Node.Js 18.12.1
 
+# Quick Start (Docker)
+
+1. Run `dev/docker`
+2. Run `dev/dockerdb`
+
+Docker will provide a link to the app where you can register & login. Something like: http://127.0.0.1:8000
+
+4. Now you're ready to play:
+    * Open at least 2 private browser tabs
+    * Register an account in each session and log in
+    * Click the 'Play Now' button
+    * The game should automatically start after the second user joins the table
+
 # Quick Start (Linux)
 
 The key steps to get the app started on a local dev environment are:
@@ -33,7 +46,6 @@ The key steps to get the app started on a local dev environment are:
        * Migrate the Aye Poker & Poker Game DBs
        * Install NPM dependencies
        * Start the Symfony local server
-
     * Symfony will provide a link to the app where you can register & login. Something like: http://127.0.0.1:8000
 
 5. Open a new terminal and run the following command:

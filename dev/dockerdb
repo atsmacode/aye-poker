@@ -1,0 +1,3 @@
+#!/bin/bash
+docker exec -d aye-poker php bin/console app:build --docker
+docker exec -d aye-poker php bin/console doctrine:migrations:migrate -n
