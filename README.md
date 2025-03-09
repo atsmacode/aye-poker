@@ -24,10 +24,8 @@ This is a personal passion-project not intended for use by other people.
 
 1. Run `dev/docker`
 2. Run `dev/dockerdb`
-
-Docker will provide a link to the app where you can register & login. Something like: http://127.0.0.1:8000
-
-4. Now you're ready to play:
+    * Docker will provide a link to the app where you can register & login. Something like: http://localhost:8000
+3. Now you're ready to play:
     * Open at least 2 private browser tabs
     * Register an account in each session and log in
     * Click the 'Play Now' button
