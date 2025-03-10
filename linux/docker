@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+cp .env.template .env
+docker compose up -d --build --wait
+docker exec -it aye-poker php bin/console app:build --docker
+docker exec -it aye-poker php bin/console doctrine:migrations:migrate -n
