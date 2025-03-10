@@ -1,3 +1,5 @@
 #!/usr/bin/bash
+
+# Wrapped migrations in bash file to resolve 'SQLSTATE[HY000] [2002] Connection refused' error on Linux only
 php bin/console app:build --docker
 php bin/console doctrine:migrations:migrate -n
