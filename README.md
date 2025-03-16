@@ -22,10 +22,9 @@ This is a personal passion-project not intended for use by other people.
 
 # Quick Start (Docker)
 
-1. Run `dev/docker`
-2. Run `dev/dockerdb`
+1. Run `mac/docker` or `linux/docker` for your OS
     * Docker will provide a link to the app where you can register & login. Something like: http://localhost:8000
-3. Now you're ready to play:
+2. Now you're ready to play:
     * Open at least 2 private browser tabs
     * Register an account in each session and log in
     * Click the 'Play Now' button
