@@ -2,5 +2,10 @@
 cp .env.template .env
 docker compose up -d --build
 
-# Would be nice to call the migration commands directly after build.
-# But seeing 'SQLSTATE[HY000] [2002] Connection refused' error when done here
+until docker exec -it aye-poker php bin/console app:build --docker
+do
+    echo "Retrying Poker DB migration in 3s..."
+    sleep 3
+done
+
+docker exec -it aye-poker php bin/console doctrine:migrations:migrate -n
