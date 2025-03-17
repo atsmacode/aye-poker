@@ -18,7 +18,7 @@ This is a personal passion-project not intended for use by other people.
 - PHP 8.1.3
 - MySQL 8.0.13
 - Vue.Js ^3.2.39
-- Node.Js 18.12.1
+- Node.Js 18.15.0
 
 # Quick Start (Docker)
 
