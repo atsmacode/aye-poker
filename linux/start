@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 cp .env.template .env
 composer install
+php bin/console app:devpw
 php bin/console app:build
 php bin/console doctrine:migrations:migrate -n
 npm install && npm run dev

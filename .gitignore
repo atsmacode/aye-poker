@@ -29,3 +29,5 @@ yarn-error.log
 
 /config/poker_game.php
 /mysql_data
+
+db_root_password.txt

@@ -2,8 +2,12 @@ services:
   db:
     image: mysql:8.0    #check the mysql version you need for your project
     environment:
-      MYSQL_ROOT_PASSWORD: root_password    #you can change the mysql root password here
-      MYSQL_DATABASE: aye_poker    #you can change the database name here
+      #MYSQL_ROOT_PASSWORD: root_password    #you can change the mysql root password here
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      MYSQL_USER: root
+      MYSQL_DATABASE: aye_poker #you can change the database name here
+    secrets:
+       - db_root_password
     # volumes:
     #   - ./mysql_data:/var/lib/mysql    #this line maps the content of ./mysql_data in your pc to the /var/lib/mysql of the container
   web:  
@@ -17,5 +21,9 @@ services:
     # volumes:
     #   - ./html:/var/www/html    #this line maps the content of ./html in your pc to the /var/www/html of the container
     container_name: aye-poker
+secrets:
+  db_root_password:
+    # external: true
+    file: ./db_root_password.txt
 
 # version: '3.8'    #check if there is a new docker compose version

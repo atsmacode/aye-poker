@@ -21,6 +21,11 @@ use Symfony\Component\Filesystem\Filesystem;
 )]
 class BuildCommand extends Command
 {
+    public function __construct(private string $dockerDbPw)
+    {
+        parent::__construct('app:build');
+    }
+
     protected function configure(): void
     {
         $this->setHelp('This will run the migrations for the Poker Game app and create config/poker_game.php & .env files for you.');
@@ -45,18 +50,17 @@ class BuildCommand extends Command
 
         $symfonyName = $docker ? 'aye_poker' : $helper->ask($input, $output, $qSymfonyName);
         $symfonyUser = $docker ? 'root' : $helper->ask($input, $output, $qSymfonyUser);
-        $symfonyPass = $docker ? 'root_password' : $helper->ask($input, $output, $qSymfonyPass);
+        $symfonyPass = $docker ? $this->dockerDbPw : $helper->ask($input, $output, $qSymfonyPass);
         $symfonyHost = $docker ? 'db' : 'localhost';
 
         try {
             $output->writeln("Populating .env");
 
-            $filesystem->copy('.env.template', '.env', true);
-
             $filesystem->appendToFile(
                 '.env',
-                sprintf(
-                    'DATABASE_URL="mysql://%s:%s@%s:3306/%s?serverVersion=8&charset=utf8mb4"',
+                sprintf('
+DATABASE_URL="mysql://%s:%s@%s:3306/%s?serverVersion=8&charset=utf8mb4"
+                ',
                     $symfonyUser,
                     $symfonyPass,
                     $symfonyHost,
@@ -81,7 +85,7 @@ class BuildCommand extends Command
 
         $pokerName = $docker ? 'poker_game' : $helper->ask($input, $output, $qPokerGameName);
         $pokerUser = $docker ? 'root' : $helper->ask($input, $output, $qPokerGameUser);
-        $pokerPass = $docker ? 'root_password' : $helper->ask($input, $output, $qPokerGamePass);
+        $pokerPass = $docker ? $this->dockerDbPw : $helper->ask($input, $output, $qPokerGamePass);
         $pokerHost = $docker ? 'db' : 'localhost';
 
         if (!$filesystem->exists('config/poker_game.php')) {

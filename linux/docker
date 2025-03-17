@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 cp .env.template .env
 docker compose up -d --build
+docker exec -it aye-poker php bin/console app:devpw
 
 until docker exec -it aye-poker php bin/console app:build --docker
 do
