@@ -1,6 +1,20 @@
 #!/bin/bash
 cp .env.template .env
+
+SECRET_FILE="./db_root_password.txt"
+
+# Generate a random password if the file doesn't exist
+if [ ! -f "$SECRET_FILE" ]; then
+    echo "Generating MySQL root password..."
+    openssl rand -base64 32 > "$SECRET_FILE"
+    chmod 600 "$SECRET_FILE"
+    echo "Secret generated: $SECRET_FILE"
+else
+    echo "Secret already exists: $SECRET_FILE"
+fi
+
 docker compose up -d --build
+docker exec -it aye-poker php bin/console app:devpw
 
 until docker exec -it aye-poker php bin/console app:build --docker
 do

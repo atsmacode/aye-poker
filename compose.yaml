@@ -4,10 +4,14 @@ services:
     environment:
       #MYSQL_ROOT_PASSWORD: root_password    #you can change the mysql root password here
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
-      MYSQL_USER: root
+      #MYSQL_USER: root
       MYSQL_DATABASE: aye_poker #you can change the database name here
+
+      MYSQL_USER: aye_poker_user
+      MYSQL_PASSWORD_FILE: /run/secrets/db_root_password
     secrets:
        - db_root_password
+
     # volumes:
     #   - ./mysql_data:/var/lib/mysql    #this line maps the content of ./mysql_data in your pc to the /var/lib/mysql of the container
   web:  

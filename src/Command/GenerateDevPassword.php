@@ -35,7 +35,7 @@ class GenerateDevPassword extends Command
     {
         $filesystem = new Filesystem();
 
-        $password = rand(10000000, 50000000);
+        $password = file_get_contents('db_root_password.txt');
 
         try {
             $output->writeln("Populating .env");
@@ -50,20 +50,6 @@ DOCKER_DB_PASSWORD="%s"
         }
 
         $output->writeln("<info>Successfully populated .env</info>");
-        
-        $secretFile = 'db_root_password.txt';
-
-        $output->writeln("Creating {$secretFile}");
-
-        try {
-            $filesystem->dumpFile($secretFile, $password);
-        } catch (\Exception $e) {
-            $output->writeln("<error>An error occurred while creating {$secretFile}: {$e->getMessage()}</error>");
-
-            return Command::FAILURE;
-        }
-
-        $output->writeln("<info>Successfully created {$secretFile}</info>");
 
         return Command::SUCCESS;
     }

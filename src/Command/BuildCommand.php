@@ -49,9 +49,11 @@ class BuildCommand extends Command
         $qSymfonyPass->setHidden(true);
 
         $symfonyName = $docker ? 'aye_poker' : $helper->ask($input, $output, $qSymfonyName);
-        $symfonyUser = $docker ? 'root' : $helper->ask($input, $output, $qSymfonyUser);
+        $symfonyUser = $docker ? 'aye_poker_user' : $helper->ask($input, $output, $qSymfonyUser);
         $symfonyPass = $docker ? $this->dockerDbPw : $helper->ask($input, $output, $qSymfonyPass);
         $symfonyHost = $docker ? 'db' : 'localhost';
+
+        $output->writeln("USING {$this->dockerDbPw}");
 
         try {
             $output->writeln("Populating .env");
@@ -84,7 +86,7 @@ DATABASE_URL="mysql://%s:%s@%s:3306/%s?serverVersion=8&charset=utf8mb4"
         $qPokerGamePass->setHidden(true);
 
         $pokerName = $docker ? 'poker_game' : $helper->ask($input, $output, $qPokerGameName);
-        $pokerUser = $docker ? 'root' : $helper->ask($input, $output, $qPokerGameUser);
+        $pokerUser = $docker ? 'aye_poker_user' : $helper->ask($input, $output, $qPokerGameUser);
         $pokerPass = $docker ? $this->dockerDbPw : $helper->ask($input, $output, $qPokerGamePass);
         $pokerHost = $docker ? 'db' : 'localhost';
 
