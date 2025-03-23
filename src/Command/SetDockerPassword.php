@@ -2,24 +2,17 @@
 
 namespace App\Command;
 
-use App\Build\BuildAyePoker;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 #[AsCommand(
     name: 'app:devpw',
-    description: 'Generate a random DB password for dev use',
+    description: 'Use the pre-generated password and populate .env.',
 )]
-class GenerateDevPassword extends Command
+class SetDockerPassword extends Command
 {
     public function __construct()
     {
@@ -28,7 +21,7 @@ class GenerateDevPassword extends Command
 
     protected function configure(): void
     {
-        $this->setHelp('This will generate a random password and populate .env and Docker secret files. For dev use only.');
+        $this->setHelp('Use the pre-generated password and populate .env. For dev use only.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -38,7 +31,7 @@ class GenerateDevPassword extends Command
         $password = file_get_contents('db_root_password.txt');
 
         try {
-            $output->writeln("Populating .env");
+            $output->writeln("Populating .env with Docker password");
 
             $filesystem->appendToFile('.env', sprintf('
 DOCKER_DB_PASSWORD="%s"
@@ -49,7 +42,7 @@ DOCKER_DB_PASSWORD="%s"
             return Command::FAILURE;
         }
 
-        $output->writeln("<info>Successfully populated .env</info>");
+        $output->writeln("<info>Successfully added Docker password to .env</info>");
 
         return Command::SUCCESS;
     }
