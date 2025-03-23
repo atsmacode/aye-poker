@@ -26,9 +26,11 @@ class BuildAyePoker
         $serviceManager         = new ServiceManager($pokerGameDependencyMap);
 
         $application = new Application();
-        $application->add(new CreateDatabase(null, $serviceManager, $dbalTest, $pdoTest));
-        $application->add(new BuildCardGames(null, $serviceManager, $dbalTest, $pdoTest));
-        $application->add(new BuildPokerGame(null, $serviceManager, $dbalTest, $pdoTest));
+
+        // @todo Symfony 7 not allowing null name, would rather not re-specify the names here
+        $application->add(new CreateDatabase('app:create-database', $serviceManager, $dbalTest, $pdoTest));
+        $application->add(new BuildCardGames('app:build-card-games', $serviceManager, $dbalTest, $pdoTest));
+        $application->add(new BuildPokerGame('app:build-poker-game', $serviceManager, $dbalTest, $pdoTest));
 
         $this->application = $application;
     }
