@@ -28,11 +28,15 @@ class BuildCommand extends Command
         $this->setHelp('This will run the migrations for the Poker Game app, create config/poker_game.php and update .env files for you.');
 
         $this->addOption('docker', 'd', InputOption::VALUE_NONE, 'Use Docker credentials');
+        $this->addOption('no-migration', 'm', InputOption::VALUE_NONE, 'Do not run the migrations');
+        $this->addOption('no-config', 'c', InputOption::VALUE_NONE, 'Do not set required config');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $docker = $input->getOption('docker');
+        $noMigrate = $input->getOption('no-migration');
+        $noConfig = $input->getOption('no-config');
         $helper = $this->getHelper('question');
 
         $filesystem = new Filesystem();
@@ -50,27 +54,29 @@ class BuildCommand extends Command
         $symfonyPass = $docker ? $this->dockerDbPw : $helper->ask($input, $output, $qSymfonyPass);
         $symfonyHost = $docker ? 'db' : 'localhost';
 
-        try {
-            $output->writeln("Populating .env");
+        if (! $noConfig) {
+            try {
+                $output->writeln("Populating .env with DB credentials");
+    
+                $filesystem->appendToFile(
+                    '.env',
+                    sprintf('
+    DATABASE_URL="mysql://%s:%s@%s:3306/%s?serverVersion=8&charset=utf8mb4"
+                    ',
+                        $symfonyUser,
+                        $symfonyPass,
+                        $symfonyHost,
+                        $symfonyName
+                    )
+                );
+            } catch (\Exception $e) {
+                $output->writeln("Failed to populate .env: {$e->getMessage()}");
+    
+                return Command::FAILURE;
+            }
 
-            $filesystem->appendToFile(
-                '.env',
-                sprintf('
-DATABASE_URL="mysql://%s:%s@%s:3306/%s?serverVersion=8&charset=utf8mb4"
-                ',
-                    $symfonyUser,
-                    $symfonyPass,
-                    $symfonyHost,
-                    $symfonyName
-                )
-            );
-        } catch (\Exception $e) {
-            $output->writeln("Failed to populate .env: {$e->getMessage()}");
-
-            return Command::FAILURE;
+            $output->writeln("<info>Successfully populated .env</info>");
         }
-
-        $output->writeln("<info>Successfully populated .env</info>");
 
         $qPokerGameName = new Question(
             '<question>Please enter the database name for the Poker Game application (press enter to use default \'poker_game\'):</question> ',
@@ -85,7 +91,7 @@ DATABASE_URL="mysql://%s:%s@%s:3306/%s?serverVersion=8&charset=utf8mb4"
         $pokerPass = $docker ? $this->dockerDbPw : $helper->ask($input, $output, $qPokerGamePass);
         $pokerHost = $docker ? 'db' : 'localhost';
 
-        if (!$filesystem->exists('config/poker_game.php')) {
+        if (! $noConfig) {
             $pokerConfigPath = 'config/poker_game.php';
             $output->writeln("Creating {$pokerConfigPath}");
 
@@ -103,24 +109,26 @@ DATABASE_URL="mysql://%s:%s@%s:3306/%s?serverVersion=8&charset=utf8mb4"
             $output->writeln("<info>Successfully created {$pokerConfigPath}</info>");
         }
 
-        try {
-            $output->writeln("Building poker_game DB");
-
-            $app            = (new BuildAyePoker())->getApp();
-            $createDb       = new ArrayInput(['command' => 'app:create-database']);
-            $buildCardGames = new ArrayInput(['command' => 'app:build-card-games']);
-            $buildPokerGame = new ArrayInput(['command' => 'app:build-poker-game']);
+        if (! $noMigrate) {
+            try {
+                $output->writeln("Building poker_game DB");
     
-            $app->doRun($createDb, $output);
-            $app->doRun($buildCardGames, $output);
-            $app->doRun($buildPokerGame, $output);
-        } catch (\Exception $e) {
-            $output->writeln("<error>Failed to build Poker Game DB: {$e->getMessage()}</error>");
-
-            return Command::FAILURE;
+                $app            = (new BuildAyePoker())->getApp();
+                $createDb       = new ArrayInput(['command' => 'app:create-database']);
+                $buildCardGames = new ArrayInput(['command' => 'app:build-card-games']);
+                $buildPokerGame = new ArrayInput(['command' => 'app:build-poker-game']);
+        
+                $app->doRun($createDb, $output);
+                $app->doRun($buildCardGames, $output);
+                $app->doRun($buildPokerGame, $output);
+            } catch (\Exception $e) {
+                $output->writeln("<error>Failed to build Poker Game DB: {$e->getMessage()}</error>");
+    
+                return Command::FAILURE;
+            }
+    
+            $output->writeln('<info>Successfully built Poker Game DB</info>');
         }
-
-        $output->writeln('<info>Successfully built Poker Game DB</info>');
 
         return Command::SUCCESS;
     }
