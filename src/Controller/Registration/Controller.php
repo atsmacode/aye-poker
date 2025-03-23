@@ -9,6 +9,7 @@ use App\Service\PokerPlayer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
@@ -19,13 +20,12 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class Controller extends AbstractController
 {
-    private EmailVerifier $emailVerifier;
-    private PokerPlayer   $pokerPlayer;
+    private PokerPlayer $pokerPlayer;
 
-    public function __construct(EmailVerifier $emailVerifier)
-    {
-        $this->emailVerifier = $emailVerifier;
-    }
+    public function __construct(
+        private EmailVerifier $emailVerifier,
+        private Security $security
+    ) {}
 
     #[Route('/register', name: 'register')]
     public function register(
@@ -63,7 +63,8 @@ class Controller extends AbstractController
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
+
+            $this->security->login($user);
 
             return $this->redirectToRoute('index', ['user' => $user->getEmail()]);
         }
