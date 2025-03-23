@@ -14,7 +14,7 @@ use Symfony\Component\Filesystem\Filesystem;
 )]
 class SetDockerPassword extends Command
 {
-    public function __construct()
+    public function __construct(private string $appEnv)
     {
         parent::__construct('app:devpw');
     }
@@ -26,8 +26,13 @@ class SetDockerPassword extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $filesystem = new Filesystem();
+        if ($this->appEnv != 'dev') {
+            $output->writeln("This command is for dev use only.");
 
+            return Command::SUCCESS;
+        }
+
+        $filesystem = new Filesystem();
         $password = file_get_contents('db_root_password.txt');
 
         try {

@@ -23,6 +23,9 @@ services:
     App\Command\BuildCommand:
         arguments:
             $dockerDbPw: '%env(string:DOCKER_DB_PASSWORD)%'
+    App\Command\SetDockerPassword:
+        arguments:
+            $appEnv: '%env(string:APP_ENV)%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
