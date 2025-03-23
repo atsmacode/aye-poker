@@ -25,7 +25,7 @@ class BuildCommand extends Command
 
     protected function configure(): void
     {
-        $this->setHelp('This will run the migrations for the Poker Game app and create config/poker_game.php & .env files for you.');
+        $this->setHelp('This will run the migrations for the Poker Game app, create config/poker_game.php and update .env files for you.');
 
         $this->addOption('docker', 'd', InputOption::VALUE_NONE, 'Use Docker credentials');
     }
