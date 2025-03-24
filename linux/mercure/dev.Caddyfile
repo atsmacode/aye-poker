@@ -5,7 +5,7 @@
 
 {$CADDY_EXTRA_CONFIG}
 
-http://localhost:3000 {
+{$SERVER_NAME:localhost} {
 	log {
 		format filter {
 			fields {
