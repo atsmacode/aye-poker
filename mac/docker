@@ -1,5 +1,5 @@
 #!/bin/bash
-cp .env.template .env
+cp .env.template.docker .env
 
 SECRET_FILE="./db_root_password.txt"
 

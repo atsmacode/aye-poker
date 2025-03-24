@@ -26,6 +26,9 @@ services:
     App\Command\SetDockerPassword:
         arguments:
             $appEnv: '%env(string:APP_ENV)%'
+    App\Controller\Play\Plhe\Controller:
+        arguments:
+            $mercurePublicUrl: '%env(string:MERCURE_PUBLIC_URL)%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

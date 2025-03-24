@@ -20,6 +20,11 @@ class Controller extends AbstractController
 {
     const MERCURE_ACTION_TOPIC = 'player_action';
 
+    public function __construct(private string $mercurePublicUrl)
+    {
+
+    }
+
     #[Route('/play/plhe', name: 'play_plhe', methods: ['GET'])]
     public function index(
         Security $security,
@@ -82,7 +87,7 @@ class Controller extends AbstractController
     {
         $responseArray = json_decode($jsonResponse, true);
         $mergedArray   = array_merge($responseArray, [
-            'mercureUrl' => $this->getParameter('mercure.default_hub') . '?topic=' . $topic]
+            'mercureUrl' => $this->mercurePublicUrl . '?topic=' . $topic]
         );
 
         return json_encode($mergedArray);
