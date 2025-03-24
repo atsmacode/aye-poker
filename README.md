@@ -44,8 +44,7 @@ The key steps to get the app started on a local dev environment are:
        * Install NPM dependencies
        * Start the Symfony local server
     * Symfony will provide a link to the app where you can register & login. Something like: http://127.0.0.1:8000
-
-5. Open a new terminal and run the following command:
+5. Open a new terminal and run the following command: `mac/mercure` or `linux/mercure`, then:
 
 ```
 cd mercure
@@ -53,6 +52,7 @@ MERCURE_PUBLISHER_JWT_KEY='!ChangeThisMercureHubJWTSecretKey!' \
 MERCURE_SUBSCRIBER_JWT_KEY='!ChangeThisMercureHubJWTSecretKey!' \
 ./mercure run --config dev.Caddyfile
 ```
+
 6. Now you're ready to play:
     * Open at least 2 private browser tabs
     * Register an account in each session and log in
