@@ -7,7 +7,7 @@ services:
     secrets:
        - db_root_password
   web:  
-    image: php:8.1-apache    #check the php version you need for your project
+    image: php:8.2-apache    #check the php version you need for your project
     build:
       context: .
     ports:
