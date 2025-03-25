@@ -15,8 +15,9 @@ services:
     depends_on:
       - db    #this line links this container to the db container
     container_name: aye-poker
-    volumes:
-      - ./:/var/www/html
+    # TODO Re-instate volumes without overwriting /vendors dir in container
+    # volumes:
+      #- ./:/var/www/html
   mercure:
     image: dunglas/mercure
     restart: unless-stopped

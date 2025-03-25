@@ -19,6 +19,9 @@ RUN apt-get update && apt-get install -y \
 	&& docker-php-ext-install pdo pdo_mysql mysqli
 
 # /home/aye dir for use with NPM install
+
+RUN composer install
+
 RUN mkdir /home/aye
 
 RUN useradd aye
@@ -27,8 +30,6 @@ RUN chown -R aye:aye /home/aye
 RUN chmod -R 775 /var/www/html
 RUN chown -R aye:aye /var/www/html
 USER aye
-
-RUN composer install
 
 ### From NPM https://github.com/nvm-sh/nvm
 # Use bash for the shell
