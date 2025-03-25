@@ -47,7 +47,6 @@ The key steps to get the app started on a local dev environment are:
 5. Open a new terminal and run the following command: `mac/mercure` or `linux/mercure`, then:
 
 ```
-cd mercure
 MERCURE_PUBLISHER_JWT_KEY='!ChangeThisMercureHubJWTSecretKey!' \
 MERCURE_SUBSCRIBER_JWT_KEY='!ChangeThisMercureHubJWTSecretKey!' \
 ./mercure run --config dev.Caddyfile
