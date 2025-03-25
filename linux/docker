@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-cp .env.template .env
+cp .env.template.docker .env
 
 SECRET_FILE="./db_root_password.txt"
 
@@ -15,8 +15,9 @@ fi
 
 docker compose up -d --build
 docker exec -it aye-poker php bin/console app:devpw
+docker exec -it aye-poker php bin/console app:build -dm
 
-until docker exec -it aye-poker php bin/console app:build --docker
+until docker exec -it aye-poker php bin/console app:build -dc
 do
     echo "Retrying Poker DB migration in 3s..."
     sleep 3
