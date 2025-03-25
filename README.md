@@ -11,8 +11,6 @@ Other simple packages I created for use here are:
 
 Live page updates during game play are powered by the Mercure Hub: https://mercure.rocks/
 
-This is a personal passion-project not intended for use by other people. 
-
 # Environment
 
 - PHP ^8.2
@@ -44,7 +42,7 @@ The key steps to get the app started on a local dev environment are:
        * Install NPM dependencies
        * Start the Symfony local server
     * Symfony will provide a link to the app where you can register & login. Something like: http://127.0.0.1:8000
-5. Open a new terminal and run the following command: `mac/mercure` or `linux/mercure`, then:
+5. Open a new terminal and switch to the following directory for your OS: `cd mac/mercure` or `cd linux/mercure`. Then:
 
 ```
 MERCURE_PUBLISHER_JWT_KEY='!ChangeThisMercureHubJWTSecretKey!' \
