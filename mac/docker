@@ -19,7 +19,7 @@ docker exec -it aye-poker php bin/console app:build -dm
 
 until docker exec -it aye-poker php bin/console app:build -dc
 do
-    echo "Retrying Poker DB migration in 3s..."
+    echo "Retrying Poker DB migration in 3s... container may not be ready yet"
     sleep 3
 done
 
