@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "500b58dc2276337138cec7578fd4b99f",
+    "content-hash": "78ce5c5e4728d569b5638fbe954a37aa",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1017,16 +1017,16 @@
         },
         {
             "name": "atsmacode/poker-game",
-            "version": "v4.0.3",
+            "version": "v4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/atsmacode/poker-game.git",
-                "reference": "22cadcee4bb6c40eb4e18e2ae8aaefa7baffe354"
+                "reference": "15b25fbc4929990eaa99a30238fe5b21b1444ed4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/atsmacode/poker-game/zipball/22cadcee4bb6c40eb4e18e2ae8aaefa7baffe354",
-                "reference": "22cadcee4bb6c40eb4e18e2ae8aaefa7baffe354",
+                "url": "https://api.github.com/repos/atsmacode/poker-game/zipball/15b25fbc4929990eaa99a30238fe5b21b1444ed4",
+                "reference": "15b25fbc4929990eaa99a30238fe5b21b1444ed4",
                 "shasum": ""
             },
             "require": {
@@ -1060,9 +1060,9 @@
             "description": "A PHP Based Poker Game",
             "support": {
                 "issues": "https://github.com/atsmacode/poker-game/issues",
-                "source": "https://github.com/atsmacode/poker-game/tree/v4.0.3"
+                "source": "https://github.com/atsmacode/poker-game/tree/v4.0.6"
             },
-            "time": "2025-03-23T09:34:39+00:00"
+            "time": "2025-03-26T07:15:49+00:00"
         },
         {
             "name": "brick/varexporter",
@@ -12131,7 +12131,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.2.5",
+        "php": "^8.2",
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
