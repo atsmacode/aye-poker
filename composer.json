@@ -1,14 +1,14 @@
 {
     "type": "project",
     "license": "proprietary",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
         "php": "^8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "amphp/http-client": "4.2.1",
-        "atsmacode/poker-game": "^4.0",
+        "atsmacode/poker-game": "dev-main",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.8",
         "doctrine/doctrine-migrations-bundle": "^3.2",
@@ -36,7 +36,7 @@
         "symfony/property-info": "*",
         "symfony/runtime": "*",
         "symfony/security-bundle": "*",
-        "symfony/serializer": "*",
+        "symfony/serializer": "^7.2",
         "symfony/string": "*",
         "symfony/translation": "*",
         "symfony/twig-bundle": "*",
@@ -107,5 +107,14 @@
         "symfony/phpunit-bridge": "^6.2",
         "symfony/stopwatch": "*",
         "symfony/web-profiler-bundle": "*"
-    }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./modules/*",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
 }

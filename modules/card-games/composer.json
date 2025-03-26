@@ -1,0 +1,31 @@
+{
+    "name": "atsmacode/card-games",
+    "description": "Base package to support any type of card based game",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Mark Ramage",
+            "email": "mramage@hotmail.co.uk"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Atsmacode\\CardGames\\": "app/",
+            "Atsmacode\\CardGames\\Database\\Migrations\\": "database/migrations/",
+            "Atsmacode\\CardGames\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Atsmacode\\CardGames\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "symfony/console": "5.4.* || ^6.0 || ^7.0",
+        "atsmacode/framework": "dev-master",
+        "laminas/laminas-servicemanager": "^3.20"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}

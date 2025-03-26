@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78ce5c5e4728d569b5638fbe954a37aa",
+    "content-hash": "f8c17b3595c3691f74b3787aee7f62ef",
     "packages": [
         {
             "name": "amphp/amp",
@@ -928,20 +928,14 @@
         },
         {
             "name": "atsmacode/card-games",
-            "version": "v2.0.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/atsmacode/card-games.git",
-                "reference": "20c1a26775ba439e0377504d3e177907f5cbd526"
-            },
+            "version": "dev-master",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/atsmacode/card-games/zipball/20c1a26775ba439e0377504d3e177907f5cbd526",
-                "reference": "20c1a26775ba439e0377504d3e177907f5cbd526",
-                "shasum": ""
+                "type": "path",
+                "url": "./modules/card-games",
+                "reference": "4412191d9b7a1455e705445335d11f3d266e1385"
             },
             "require": {
-                "atsmacode/framework": "^2.0",
+                "atsmacode/framework": "dev-master",
                 "laminas/laminas-servicemanager": "^3.20",
                 "symfony/console": "5.4.* || ^6.0 || ^7.0"
             },
@@ -952,11 +946,15 @@
             "autoload": {
                 "psr-4": {
                     "Atsmacode\\CardGames\\": "app/",
-                    "Atsmacode\\CardGames\\Database\\Seeders\\": "database/seeders/",
-                    "Atsmacode\\CardGames\\Database\\Migrations\\": "database/migrations/"
+                    "Atsmacode\\CardGames\\Database\\Migrations\\": "database/migrations/",
+                    "Atsmacode\\CardGames\\Database\\Seeders\\": "database/seeders/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Atsmacode\\CardGames\\Tests\\": "tests/"
+                }
+            },
             "authors": [
                 {
                     "name": "Mark Ramage",
@@ -964,25 +962,18 @@
                 }
             ],
             "description": "Base package to support any type of card based game",
-            "support": {
-                "issues": "https://github.com/atsmacode/card-games/issues",
-                "source": "https://github.com/atsmacode/card-games/tree/v2.0.10"
-            },
-            "time": "2025-03-23T09:24:59+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "atsmacode/framework",
-            "version": "v2.0.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/atsmacode/framework.git",
-                "reference": "bcb031cca8b12b3178d8112957742a15cc9420e6"
-            },
+            "version": "dev-master",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/atsmacode/framework/zipball/bcb031cca8b12b3178d8112957742a15cc9420e6",
-                "reference": "bcb031cca8b12b3178d8112957742a15cc9420e6",
-                "shasum": ""
+                "type": "path",
+                "url": "./modules/framework",
+                "reference": "17789aaab7d0c3e511c998a632e3dbf3521026a8"
             },
             "require": {
                 "doctrine/dbal": "^3.5",
@@ -1001,7 +992,11 @@
                     "Atsmacode\\Framework\\Migrations\\": "database/migrations/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Atsmacode\\Framework\\Tests\\": "tests/"
+                }
+            },
             "authors": [
                 {
                     "name": "Mark Ramage",
@@ -1009,34 +1004,27 @@
                 }
             ],
             "description": "Repo with base DB, Model and Config resources",
-            "support": {
-                "issues": "https://github.com/atsmacode/framework/issues",
-                "source": "https://github.com/atsmacode/framework/tree/v2.0.9"
-            },
-            "time": "2025-03-23T09:23:27+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "atsmacode/poker-game",
-            "version": "v4.0.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/atsmacode/poker-game.git",
-                "reference": "15b25fbc4929990eaa99a30238fe5b21b1444ed4"
-            },
+            "version": "dev-main",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/atsmacode/poker-game/zipball/15b25fbc4929990eaa99a30238fe5b21b1444ed4",
-                "reference": "15b25fbc4929990eaa99a30238fe5b21b1444ed4",
-                "shasum": ""
+                "type": "path",
+                "url": "./modules/poker-game",
+                "reference": "3ee60db3d8c621938d5964c15a367122f62bad0b"
             },
             "require": {
-                "atsmacode/card-games": "^2.0",
+                "atsmacode/card-games": "dev-master",
                 "doctrine/dbal": "^3.5",
                 "laminas/laminas-diactoros": "^2.24",
                 "laminas/laminas-servicemanager": "^3.19",
                 "monolog/monolog": "^1.22 || ^2.0 || ^3.0",
-                "symfony/console": "5.4.* || ^6.0 || ^7.0",
-                "symfony/http-kernel": "5.4.* || ^6.2 || ^7.0"
+                "symfony/console": "5.4.* || ^6.0 || ^7.2",
+                "symfony/http-kernel": "5.4.* || ^6.2 || ^7.2"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.5"
@@ -1045,12 +1033,16 @@
             "autoload": {
                 "psr-4": {
                     "Atsmacode\\PokerGame\\": "app/",
-                    "Atsmacode\\PokerGame\\Database\\": "database/",
+                    "Atsmacode\\PokerGame\\Database\\Migrations\\": "database/migrations/",
                     "Atsmacode\\PokerGame\\Database\\Seeders\\": "database/seeders/",
-                    "Atsmacode\\PokerGame\\Database\\Migrations\\": "database/migrations/"
+                    "Atsmacode\\PokerGame\\Database\\": "database/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Atsmacode\\PokerGame\\Tests\\": "tests/"
+                }
+            },
             "authors": [
                 {
                     "name": "Mark Ramage",
@@ -1058,11 +1050,10 @@
                 }
             ],
             "description": "A PHP Based Poker Game",
-            "support": {
-                "issues": "https://github.com/atsmacode/poker-game/issues",
-                "source": "https://github.com/atsmacode/poker-game/tree/v4.0.6"
-            },
-            "time": "2025-03-26T07:15:49+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "brick/varexporter",
@@ -3308,16 +3299,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "3.8.1",
+            "version": "3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "aef6ee73a77a66e404dd6540934a9ef1b3c855b4"
+                "reference": "10d85740180ecba7896c87e06a166e0c95a0e3b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/aef6ee73a77a66e404dd6540934a9ef1b3c855b4",
-                "reference": "aef6ee73a77a66e404dd6540934a9ef1b3c855b4",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/10d85740180ecba7896c87e06a166e0c95a0e3b6",
+                "reference": "10d85740180ecba7896c87e06a166e0c95a0e3b6",
                 "shasum": ""
             },
             "require": {
@@ -3395,7 +3386,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/3.8.1"
+                "source": "https://github.com/Seldaek/monolog/tree/3.9.0"
             },
             "funding": [
                 {
@@ -3407,7 +3398,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-05T17:15:07+00:00"
+            "time": "2025-03-24T10:02:05+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -12126,8 +12117,10 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": {},
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "atsmacode/poker-game": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -12135,6 +12128,6 @@
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }

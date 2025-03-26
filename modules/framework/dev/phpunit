@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+php dev/SymfonyApplication.php app:build-framework -d true
+./vendor/bin/phpunit --testdox

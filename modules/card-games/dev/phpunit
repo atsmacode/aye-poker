@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+php dev/CardGamesApp.php app:build-card-games -d true
+./vendor/bin/phpunit --testdox

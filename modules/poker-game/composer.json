@@ -1,0 +1,37 @@
+{
+    "name": "atsmacode/poker-game",
+    "description": "A PHP Based Poker Game",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Mark Ramage",
+            "email": "mramage@hotmail.co.uk"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Atsmacode\\PokerGame\\": "app/",
+            "Atsmacode\\PokerGame\\Database\\Migrations\\": "database/migrations/",
+            "Atsmacode\\PokerGame\\Database\\Seeders\\": "database/seeders/",
+            "Atsmacode\\PokerGame\\Database\\": "database/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Atsmacode\\PokerGame\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "symfony/console": "5.4.* || ^6.0 || ^7.2",
+        "atsmacode/card-games": "dev-master",
+        "laminas/laminas-servicemanager": "^3.19",
+        "doctrine/dbal": "^3.5",
+        "laminas/laminas-diactoros": "^2.24",
+        "symfony/http-kernel": "5.4.* || ^6.2 || ^7.2",
+        "monolog/monolog": "^1.22 || ^2.0 || ^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "minimum-stability": "stable"
+}
