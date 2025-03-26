@@ -26,5 +26,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt autoremove -y
 
 RUN composer install
+
+# Permissions for Symfony app cache, logs etc
+RUN chown -R www-data:www-data var/ \
+   && chmod -R ug+rwx var/
+
 RUN node -v && npm -v
 RUN npm install
