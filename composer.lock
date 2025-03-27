@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f8c17b3595c3691f74b3787aee7f62ef",
+    "content-hash": "68653a050b89d0d07302d0dfee3a851e",
     "packages": [
         {
             "name": "amphp/amp",
@@ -932,7 +932,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/card-games",
-                "reference": "4412191d9b7a1455e705445335d11f3d266e1385"
+                "reference": "18b1f479de0a917168a432bcde9918cd656d53b7"
             },
             "require": {
                 "atsmacode/framework": "dev-master",
@@ -973,7 +973,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/framework",
-                "reference": "17789aaab7d0c3e511c998a632e3dbf3521026a8"
+                "reference": "da8c6c779db5da00b06c802c7194e38f12e154be"
             },
             "require": {
                 "doctrine/dbal": "^3.5",
@@ -1011,11 +1011,11 @@
         },
         {
             "name": "atsmacode/poker-game",
-            "version": "dev-main",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./modules/poker-game",
-                "reference": "3ee60db3d8c621938d5964c15a367122f62bad0b"
+                "reference": "52963c08854cfb84930a654b9c077611cec88b20"
             },
             "require": {
                 "atsmacode/card-games": "dev-master",
@@ -2190,16 +2190,16 @@
         },
         {
             "name": "doctrine/migrations",
-            "version": "3.8.3",
+            "version": "3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations.git",
-                "reference": "6af8dffde46a67f2a60906b6a28973e5a3670405"
+                "reference": "325b61e41d032f5f7d7e2d11cbefff656eadc9ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/6af8dffde46a67f2a60906b6a28973e5a3670405",
-                "reference": "6af8dffde46a67f2a60906b6a28973e5a3670405",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/325b61e41d032f5f7d7e2d11cbefff656eadc9ab",
+                "reference": "325b61e41d032f5f7d7e2d11cbefff656eadc9ab",
                 "shasum": ""
             },
             "require": {
@@ -2219,7 +2219,7 @@
             "require-dev": {
                 "doctrine/coding-standard": "^12",
                 "doctrine/orm": "^2.13 || ^3",
-                "doctrine/persistence": "^2 || ^3",
+                "doctrine/persistence": "^2 || ^3 || ^4",
                 "doctrine/sql-formatter": "^1.0",
                 "ext-pdo_sqlite": "*",
                 "fig/log-test": "^1",
@@ -2273,7 +2273,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/migrations/issues",
-                "source": "https://github.com/doctrine/migrations/tree/3.8.3"
+                "source": "https://github.com/doctrine/migrations/tree/3.9.0"
             },
             "funding": [
                 {
@@ -2289,7 +2289,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-03-10T23:43:55+00:00"
+            "time": "2025-03-26T06:48:45+00:00"
         },
         {
             "name": "doctrine/orm",
@@ -12128,6 +12128,6 @@
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
