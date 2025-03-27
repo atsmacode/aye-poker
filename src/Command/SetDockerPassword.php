@@ -37,9 +37,9 @@ class SetDockerPassword extends Command
 
         try {
             $output->writeln("Populating .env with Docker password");
+            $template = file_get_contents('misc/templates/docker_db_password.txt');
 
-            $filesystem->appendToFile('.env', sprintf('
-DOCKER_DB_PASSWORD="%s"', trim($password)));
+            $filesystem->appendToFile('.env', sprintf("$template", trim($password)));
         } catch (\Exception $e) {
             $output->writeln("Failed to populate .env: {$e->getMessage()}");
 

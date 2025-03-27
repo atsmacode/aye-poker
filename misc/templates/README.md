@@ -1,0 +1,1 @@
+Some .txt files as a quick hacky way to resolve indendation issues using Symfony filesystem when appending to .env

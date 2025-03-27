@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'poker_game' => [
+        'db' => [
+            'live' => [
+                'servername' => '%4$s',
+                'username'   => '%2$s',
+                'password'   => '%3$s',
+                'database'   => '%1$s',
+                'driver'     => 'pdo_mysql',
+            ],
+            'test' => [
+                'servername' => '%4$s',
+                'username'   => '%2$s',
+                'password'   => '%3$s',
+                'database'   => '%1$s_test',
+                'driver'     => 'pdo_mysql',
+            ],
+        ],
+        'logger' => [
+            'path' => '/your/log/file',
+        ],
+    ],
+];

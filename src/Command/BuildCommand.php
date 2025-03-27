@@ -57,12 +57,10 @@ class BuildCommand extends Command
         if (! $noConfig) {
             try {
                 $output->writeln("Populating .env with DB credentials");
+                $template = file_get_contents('misc/templates/database_url.txt');
     
-                $filesystem->appendToFile(
-                    '.env',
-                    sprintf('
-    DATABASE_URL="mysql://%s:%s@%s:3306/%s?serverVersion=8&charset=utf8mb4"
-                    ',
+                $filesystem->appendToFile('.env', sprintf(
+                        $template,
                         $symfonyUser,
                         $symfonyPass,
                         $symfonyHost,
@@ -95,10 +93,12 @@ class BuildCommand extends Command
             $pokerConfigPath = 'config/poker_game.php';
             $output->writeln("Creating {$pokerConfigPath}");
 
+            $template = file_get_contents('misc/templates/poker_game_config.txt');
+
             try {
                 $filesystem->dumpFile(
                     'config/poker_game.php',
-                    $this->getPokerConfigFormat($pokerName, $pokerUser, $pokerPass, $pokerHost)
+                    sprintf($template, $pokerName, $pokerUser, $pokerPass, $pokerHost)
                 );
             } catch (\Exception $e) {
                 $output->writeln("<error>An error occurred while creating {$pokerConfigPath}: {$e->getMessage()}</error>");
@@ -131,35 +131,5 @@ class BuildCommand extends Command
         }
 
         return Command::SUCCESS;
-    }
-
-    private function getPokerConfigFormat(string $database, string $username, string $password, string $serverName)
-    {
-        return sprintf('<?php
-
-            return [
-                \'poker_game\' => [
-                    \'db\' => [
-                        \'live\' => [
-                            \'servername\' => \'%4$s\',
-                            \'username\'   => \'%2$s\',
-                            \'password\'   => \'%3$s\',
-                            \'database\'   => \'%1$s\',
-                            \'driver\'     => \'pdo_mysql\',
-                        ],
-                        \'test\' => [
-                            \'servername\' => \'%4$s\',
-                            \'username\'   => \'%2$s\',
-                            \'password\'   => \'%3$s\',
-                            \'database\'   => \'%1$s_test\',
-                            \'driver\'     => \'pdo_mysql\',
-                        ],
-                    ],
-                    \'logger\' => [
-                        \'path\' => \'/your/log/file\'
-                    ]
-                ],
-            ];', $database, $username, $password, $serverName);
-
     }
 }
