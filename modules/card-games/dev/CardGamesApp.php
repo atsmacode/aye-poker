@@ -1,7 +1,7 @@
 <?php
 
 require './vendor/autoload.php';
-require './config/container.php';
+require 'modules/card-games/config/container.php';
 
 use Atsmacode\CardGames\Console\Commands\BuildCardGames;
 use Atsmacode\CardGames\DbalTestFactory;
@@ -10,7 +10,7 @@ use Symfony\Component\Console\Application;
 
 $application = new Application();
 $application->add(new BuildCardGames(
-    null,
+    'app:build-card-games',
     $serviceManager,
     new DbalTestFactory(),
     new PdoTestFactory()

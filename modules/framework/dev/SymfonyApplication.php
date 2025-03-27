@@ -1,7 +1,7 @@
 <?php
 
 require './vendor/autoload.php';
-require './config/container.php';
+require 'modules/framework/config/container.php';
 
 use Atsmacode\Framework\Console\Commands\ExampleMigrator;
 use Atsmacode\Framework\Database\DbalTestFactory;
@@ -10,7 +10,7 @@ use Symfony\Component\Console\Application;
 
 $application = new Application();
 $application->add(new ExampleMigrator(
-    null,
+    'app:create-database',
     $serviceManager,
     new DbalTestFactory(),
     new PdoTestFactory()

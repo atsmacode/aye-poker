@@ -1,2 +1,2 @@
 #!/bin/bash
-php dev/CardGamesApp.php app:build-card-games -d true
+php modules/card-games/dev/CardGamesApp.php app:build-card-games -d true

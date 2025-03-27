@@ -1,0 +1,2 @@
+#!/bin/bash
+php modules/framework/dev/SymfonyApplication.php app:create-database -d true
