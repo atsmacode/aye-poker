@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# PokerGame
+vendor/bin/phpunit --testdox --testsuite PokerGame
+
+# Other modules, prerequisites:
+    # Requires config/framework.php & config/card-games.php, respectively.
+    # And running the commands to build the DBs.
+
+# vendor/bin/phpunit --testdox --testsuite Framework
+# vendor/bin/phpunit --testdox --testsuite CardGames

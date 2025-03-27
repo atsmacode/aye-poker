@@ -21,10 +21,10 @@
         <testsuite name="Framework">
             <directory>modules/framework/tests</directory>
         </testsuite>
-        <testsuite name="Card Games">
+        <testsuite name="CardGames">
             <directory>modules/card-games/tests</directory>
         </testsuite>
-        <testsuite name="Poker Game">
+        <testsuite name="PokerGame">
             <directory>modules/poker-game/tests</directory>
         </testsuite>
     </testsuites>
