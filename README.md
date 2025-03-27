@@ -16,7 +16,7 @@ Live page updates during game play are powered by the Mercure Hub: https://mercu
 - PHP ^8.2
 - MySQL 8.0.13
 - Vue.Js ^3.2.39
-- Node.Js 18.15.0
+- Node.Js 23.10.0
 
 # Quick Start (Docker)
 

@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
 	&& apt install -y nodejs \
     && npm install -g n \
-    && n 18.15.0 \
+    && n 23.10.0 \
     && apt remove -y nodejs \
     && apt autoremove -y
 
