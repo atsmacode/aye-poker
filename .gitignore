@@ -33,3 +33,7 @@ yarn-error.log
 /mysql_data
 
 db_root_password.txt
+
+# bolt.db It is used by Mercure to store the last event IDs for clients that support Last-Event-ID reconnections.
+mac/mercure/bolt.db
+linux/mercure/bolt.db
