@@ -15,7 +15,7 @@ use Psr\Container\ContainerInterface;
 
 class GamePlayFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
         $gameState = isset($options['gameState']) ? $options['gameState'] : new GameState(
             $container->get(GameData::class),

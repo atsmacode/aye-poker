@@ -10,6 +10,8 @@ use Atsmacode\PokerGame\Tests\BaseTest;
 
 class SitHandlerTest extends BaseTest
 {
+    private SitHandler $sitHandler;
+
     protected function setUp(): void
     {
         parent::setUp();

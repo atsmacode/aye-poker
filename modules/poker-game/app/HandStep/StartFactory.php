@@ -13,7 +13,7 @@ use Psr\Container\ContainerInterface;
 
 class StartFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
         $streetModel       = $container->get(Street::class);
         $handStreetModel   = $container->get(HandStreet::class);

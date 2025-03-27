@@ -7,6 +7,8 @@ use Atsmacode\CardGames\Tests\BaseTest;
 
 class DeckTest extends BaseTest
 {
+    private Deck $deck;
+
     public function setUp(): void
     {
         parent::setUp();

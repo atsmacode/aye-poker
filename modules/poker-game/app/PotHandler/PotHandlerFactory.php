@@ -10,7 +10,7 @@ use Psr\Container\ContainerInterface;
 
 class PotHandlerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
         $stackModel = $container->get(Stack::class);
         $potModel   = $container->get(Pot::class);

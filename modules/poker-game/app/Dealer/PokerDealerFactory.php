@@ -10,7 +10,7 @@ use Psr\Container\ContainerInterface;
 
 class PokerDealerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
         $wholeCardModel      = $container->get(WholeCard::class);
         $handStreetCardModel = $container->get(HandStreetCard::class);

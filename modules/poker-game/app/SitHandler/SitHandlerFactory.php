@@ -10,7 +10,7 @@ use Psr\Container\ContainerInterface;
 
 class SitHandlerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
         $gameState      = $container->get(GameState::class);
         $tableModel     = $container->get(Table::class);

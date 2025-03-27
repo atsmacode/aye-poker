@@ -9,6 +9,7 @@ use Atsmacode\PokerGame\GameState\GameState;
 use Atsmacode\PokerGame\HandStep\Start;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
+use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\Models\TableSeat;
 
 trait HasGamePlay
@@ -29,6 +30,7 @@ trait HasGamePlay
     private TableSeat $tableSeatFour;
     private TableSeat $tableSeatFive;
     private TableSeat $tableSeatSix;
+    private Table     $table;
     
     private function createPlayer(int $player)
     {

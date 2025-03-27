@@ -4,6 +4,8 @@ namespace Atsmacode\PokerGame;
 
 class PokerGameConfigProvider
 {
+    private string $rootDir;
+
     public function __construct(?string $rootDir = null)
     {
         $this->rootDir = $rootDir ?? '';

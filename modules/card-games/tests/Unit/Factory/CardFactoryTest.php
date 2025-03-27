@@ -8,6 +8,7 @@ use Atsmacode\CardGames\Tests\BaseTest;
 
 class CardFactoryTest extends BaseTest
 {
+    private array $card;
 
     public function setUp(): void
     {

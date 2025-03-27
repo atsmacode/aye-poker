@@ -8,6 +8,8 @@ use Atsmacode\PokerGame\Tests\BaseTest;
 
 class PotTest extends BaseTest
 {
+    private Pot $potModel;
+
     protected function setUp(): void
     {
         parent::setUp();

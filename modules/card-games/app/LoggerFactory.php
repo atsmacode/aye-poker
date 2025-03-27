@@ -9,7 +9,7 @@ use Psr\Container\ContainerInterface;
 
 class LoggerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
         $config = (new CardGamesConfigProvider())->get();
         $logger = new Logger('poker-game');

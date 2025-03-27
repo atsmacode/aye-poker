@@ -12,6 +12,9 @@ class StackTest extends BaseTest
 {
     use HasGamePlay;
 
+    private Stack  $stackModel;
+    private Player $player1;
+
     protected function setUp(): void
     {
         parent::setUp();

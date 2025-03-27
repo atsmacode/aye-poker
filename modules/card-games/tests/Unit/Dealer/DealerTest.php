@@ -7,6 +7,8 @@ use Atsmacode\CardGames\Tests\BaseTest;
 
 class DealerTest extends BaseTest
 {
+    private Dealer $dealer;
+
     public function setUp(): void
     {
         parent::setUp();

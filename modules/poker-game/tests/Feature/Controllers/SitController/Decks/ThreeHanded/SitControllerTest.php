@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Feature\Controllers\sitController\Decks\ThreeHanded;
+namespace Atsmacode\PokerGame\Tests\Feature\Controllers\SitController\Decks\ThreeHanded;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;

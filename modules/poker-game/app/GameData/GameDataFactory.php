@@ -14,7 +14,7 @@ use Psr\Container\ContainerInterface;
 
 class GameDataFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
         $handModel           = $container->get(Hand::class);
         $handStreetCardModel = $container->get(HandStreetCard::class);

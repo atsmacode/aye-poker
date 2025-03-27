@@ -18,8 +18,14 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>tests</directory>
+        <testsuite name="Framework">
+            <directory>modules/framework/tests</directory>
+        </testsuite>
+        <testsuite name="Card Games">
+            <directory>modules/card-games/tests</directory>
+        </testsuite>
+        <testsuite name="Poker Game">
+            <directory>modules/poker-game/tests</directory>
         </testsuite>
     </testsuites>
 
