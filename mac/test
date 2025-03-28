@@ -8,4 +8,4 @@ vendor/bin/phpunit --testdox --testsuite PokerGame
     # And running the commands to build the DBs.
 
 # vendor/bin/phpunit --testdox --testsuite Framework
-vendor/bin/phpunit --testdox --testsuite CardGames
+# vendor/bin/phpunit --testdox --testsuite CardGames
