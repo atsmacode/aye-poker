@@ -10,15 +10,18 @@ class SitHandler
 {
     public function __construct(
         private GameState $gameState,
-        private Table     $tableModel,
-        private TableSeat $tableSeatModel
-    ) {}
+        private Table $tableModel,
+        private TableSeat $tableSeatModel,
+    ) {
+    }
 
     public function sit(int $playerId, ?int $thisSeat = null): TableSeat
     {
         $currentSeat = $this->tableSeatModel->getCurrentPlayerSeat($playerId);
 
-        if (null !== $currentSeat) { return $currentSeat; }
+        if (null !== $currentSeat) {
+            return $currentSeat;
+        }
 
         $tableSeat = $this->tableSeatModel->getFirstAvailableSeat($thisSeat);
 

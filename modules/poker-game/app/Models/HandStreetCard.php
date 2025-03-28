@@ -7,8 +7,8 @@ use Atsmacode\Framework\Dbal\Model;
 class HandStreetCard extends Model
 {
     protected string $table = 'hand_street_cards';
-    private int      $hand_street_id;
-    private int      $card_id;
+    private int $hand_street_id;
+    private int $card_id;
 
     public function getCard(): array
     {
@@ -27,7 +27,7 @@ class HandStreetCard extends Model
                 ->leftJoin('hsc', 'cards', 'c', 'hsc.card_id = c.id')
                 ->leftJoin('c', 'ranks', 'r', 'c.rank_id = r.id')
                 ->leftJoin('c', 'suits', 's', 'c.suit_id = s.id')
-                ->where('hsc.id = ' . $queryBuilder->createNamedParameter($this->id));
+                ->where('hsc.id = '.$queryBuilder->createNamedParameter($this->id));
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAssociative() : [];
         } catch (\Exception $e) {

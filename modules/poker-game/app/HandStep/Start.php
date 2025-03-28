@@ -18,30 +18,31 @@ class Start extends HandStep
 {
     public function __construct(
         private ContainerInterface $container,
-        private Street             $streetModel,
-        private HandStreet         $handStreetModel,
-        private PlayerAction       $playerActionModel,
-        private Stack              $stackModel,
-        private TableSeat          $tableSeatModel,
-        private BetHandler         $betHandler
-    ) {}
-    
-    public function handle(GameState $gameState, TableSeat $currentDealer = null): GameState
+        private Street $streetModel,
+        private HandStreet $handStreetModel,
+        private PlayerAction $playerActionModel,
+        private Stack $stackModel,
+        private TableSeat $tableSeatModel,
+        private BetHandler $betHandler,
+    ) {
+    }
+
+    public function handle(GameState $gameState, ?TableSeat $currentDealer = null): GameState
     {
         $this->gameState = $gameState;
-        $handId          = $this->gameState->getHand()->getId();
+        $handId = $this->gameState->getHand()->getId();
 
         $this->initiateStreetActions()
             ->initiatePlayerStacks()
             ->setDealerAndBlindSeats($currentDealer);
-            
+
         $this->gameState->setPlayers();
 
         $this->gameState->getGameDealer()
             ->shuffle()
             ->saveDeck($handId);
 
-        if($this->gameState->getGame()->streets[1]['whole_cards']){
+        if ($this->gameState->getGame()->streets[1]['whole_cards']) {
             $this->gameState->getGameDealer()->dealTo(
                 $this->gameState->getSeats(),
                 $this->gameState->getGame()->streets[1]['whole_cards'],
@@ -55,16 +56,16 @@ class Start extends HandStep
     public function initiateStreetActions(): self
     {
         $street = $this->handStreetModel->create([
-            'street_id' => $this->streetModel->find(['name' => 'Pre-flop'])->getId(), 'hand_id' => $this->gameState->handId()
+            'street_id' => $this->streetModel->find(['name' => 'Pre-flop'])->getId(), 'hand_id' => $this->gameState->handId(),
         ]);
 
-        foreach($this->gameState->getSeats() as $seat){
+        foreach ($this->gameState->getSeats() as $seat) {
             $this->playerActionModel->create([
-                'player_id'      => $seat['player_id'],
+                'player_id' => $seat['player_id'],
                 'hand_street_id' => $street->getId(),
-                'table_seat_id'  => $seat['id'],
-                'hand_id'        => $this->gameState->handId(),
-                'active'         => 1
+                'table_seat_id' => $seat['id'],
+                'hand_id' => $this->gameState->handId(),
+                'active' => 1,
             ]);
         }
 
@@ -75,7 +76,7 @@ class Start extends HandStep
     {
         $tableStacks = [];
 
-        foreach($this->gameState->getSeats() as $seat){
+        foreach ($this->gameState->getSeats() as $seat) {
             /** Looks like the count() check was added as there's only 1 table being handled. */
             $playerTableStack = $this->findPlayerStack($seat['player_id'], $this->gameState->tableId());
 
@@ -83,7 +84,7 @@ class Start extends HandStep
                 $tableStacks[$seat['player_id']] = $this->stackModel->create([
                     'amount' => 1000,
                     'player_id' => $seat['player_id'],
-                    'table_id' => $this->gameState->tableId()
+                    'table_id' => $this->gameState->tableId(),
                 ]);
             } else {
                 $tableStacks[$seat['player_id']] = $playerTableStack;
@@ -97,41 +98,43 @@ class Start extends HandStep
 
     public function setDealerAndBlindSeats($currentDealer = null): self
     {
-        if ($this->gameState->handStreetCount() === 1) {
+        if (1 === $this->gameState->handStreetCount()) {
             $bigBlind = $this->playerActionModel->find(['hand_id' => $this->gameState->handId(), 'big_blind' => 1]);
 
-            if ($bigBlind->isNotEmpty()) { $bigBlind->update(['big_blind' => 0]); }
+            if ($bigBlind->isNotEmpty()) {
+                $bigBlind->update(['big_blind' => 0]);
+            }
         }
 
         [
-            'currentDealer'      => $currentDealer,
-            'dealer'             => $dealer,
-            'smallBlindSeat'     => $smallBlindSeat,
-            'bigBlindSeat'       => $bigBlindSeat
-        ] = $this->isHeadsUp() 
+            'currentDealer' => $currentDealer,
+            'dealer' => $dealer,
+            'smallBlindSeat' => $smallBlindSeat,
+            'bigBlindSeat' => $bigBlindSeat,
+        ] = $this->isHeadsUp()
             ? $this->getNextDealerAndBlindSeatsHeadsUp($currentDealer)
             : $this->getNextDealerAndBlindSeats($currentDealer);
 
         if ($currentDealer) {
             $currentDealerSeat = $this->tableSeatModel->find(['id' => $currentDealer['id'], 'table_id' => $this->gameState->tableId()]);
-            $currentDealerSeat->update(['is_dealer'  => 0]);
+            $currentDealerSeat->update(['is_dealer' => 0]);
         }
 
         $newDealerSeat = $this->tableSeatModel->find(['id' => $dealer['id'], 'table_id' => $this->gameState->tableId()]);
-        $newDealerSeat->update(['is_dealer'  => 1]);
+        $newDealerSeat->update(['is_dealer' => 1]);
 
         $handStreetId = $this->handStreetModel->find([
-            'street_id'  => $this->streetModel->find(['name' => $this->gameState->getGame()->streets[1]['name']])->getId(),
-            'hand_id' => $this->gameState->handId()
+            'street_id' => $this->streetModel->find(['name' => $this->gameState->getGame()->streets[1]['name']])->getId(),
+            'hand_id' => $this->gameState->handId(),
         ])->getId();
 
-        $smallBlind = $this->findPlayerAction($smallBlindSeat['player_id'], $smallBlindSeat['id'], $handStreetId); 
-        $bigBlind   = $this->findPlayerAction(
+        $smallBlind = $this->findPlayerAction($smallBlindSeat['player_id'], $smallBlindSeat['id'], $handStreetId);
+        $bigBlind = $this->findPlayerAction(
             $bigBlindSeat['player_id'],
             $bigBlindSeat['id'],
             $handStreetId
-        ); 
-        
+        );
+
         $this->gameState->setLatestAction($bigBlind);
 
         $this->betHandler->postBlinds($this->gameState->getHand(), $smallBlind, $bigBlind, $this->gameState);
@@ -145,8 +148,8 @@ class Start extends HandStep
         $playerActionModel = $this->container->build(PlayerAction::class);
 
         return $playerActionModel->find([
-            'player_id'      => $playerId,
-            'table_seat_id'  => $tableSeatId,
+            'player_id' => $playerId,
+            'table_seat_id' => $tableSeatId,
             'hand_street_id' => $handStreetId,
         ]);
     }
@@ -158,7 +161,7 @@ class Start extends HandStep
 
         return $stackModel->find([
             'player_id' => $playerId,
-            'table_id'  => $tableId,
+            'table_id' => $tableId,
         ]);
     }
 
@@ -198,38 +201,30 @@ class Start extends HandStep
     {
         $currentDealer = $this->setDealer($currentDealerSet);
 
-        /** TODO: These must be called in order. Also will only work if all seats have a stack/player.*/
+        /* TODO: These must be called in order. Also will only work if all seats have a stack/player. */
         if ($this->noDealerIsSetOrThereIsNoSeatAfterTheCurrentDealer($currentDealer)) {
-            
-            $dealer         = $this->gameState->getSeats()[0];
+            $dealer = $this->gameState->getSeats()[0];
             $smallBlindSeat = $this->gameState->getSeat($dealer['id'] + 1);
-            $bigBlindSeat   = $this->gameState->getSeat($dealer['id'] + 2);
-
-        } else if ($this->thereAreThreeSeatsAfterTheCurrentDealer($currentDealer)) {
-
-            $dealer         = $this->gameState->getSeat($currentDealer['id'] + 1);
+            $bigBlindSeat = $this->gameState->getSeat($dealer['id'] + 2);
+        } elseif ($this->thereAreThreeSeatsAfterTheCurrentDealer($currentDealer)) {
+            $dealer = $this->gameState->getSeat($currentDealer['id'] + 1);
             $smallBlindSeat = $this->gameState->getSeat($dealer['id'] + 1);
-            $bigBlindSeat   = $this->gameState->getSeat($dealer['id'] + 2);
-
-        } else if ($this->thereAreTwoSeatsAfterTheCurrentDealer($currentDealer)) {
-
-            $dealer         = $this->gameState->getSeat($currentDealer['id'] + 1);
+            $bigBlindSeat = $this->gameState->getSeat($dealer['id'] + 2);
+        } elseif ($this->thereAreTwoSeatsAfterTheCurrentDealer($currentDealer)) {
+            $dealer = $this->gameState->getSeat($currentDealer['id'] + 1);
             $smallBlindSeat = $this->gameState->getSeat($dealer['id'] + 1);
-            $bigBlindSeat   = $this->gameState->getSeats()[0];
-
+            $bigBlindSeat = $this->gameState->getSeats()[0];
         } else {
-
-            $dealer         = $this->gameState->getSeat($currentDealer['id'] + 1);
+            $dealer = $this->gameState->getSeat($currentDealer['id'] + 1);
             $smallBlindSeat = $this->gameState->getSeats()[0];
-            $bigBlindSeat   = $this->gameState->getSeats()[1];
-
+            $bigBlindSeat = $this->gameState->getSeats()[1];
         }
 
         return [
-            'currentDealer'  => $currentDealer,
-            'dealer'         => $dealer,
+            'currentDealer' => $currentDealer,
+            'dealer' => $dealer,
             'smallBlindSeat' => $smallBlindSeat,
-            'bigBlindSeat'   => $bigBlindSeat
+            'bigBlindSeat' => $bigBlindSeat,
         ];
     }
 
@@ -238,24 +233,20 @@ class Start extends HandStep
         $currentDealer = $this->setDealer($currentDealerSet);
 
         if ($this->noDealerIsSetOrThereIsNoSeatAfterTheCurrentDealer($currentDealer)) {
-
-            $dealer         = $this->gameState->getSeats()[0];
+            $dealer = $this->gameState->getSeats()[0];
             $smallBlindSeat = $this->gameState->getSeat($dealer['id']);
-            $bigBlindSeat   = $this->gameState->getSeat($dealer['id'] + 1);
-
+            $bigBlindSeat = $this->gameState->getSeat($dealer['id'] + 1);
         } else {
-
-            $dealer         = $this->gameState->getSeat($currentDealer['id'] + 1);
+            $dealer = $this->gameState->getSeat($currentDealer['id'] + 1);
             $smallBlindSeat = $this->gameState->getSeats()[1];
-            $bigBlindSeat   = $this->gameState->getSeats()[0];
-
+            $bigBlindSeat = $this->gameState->getSeats()[0];
         }
 
         return [
-            'currentDealer'  => $currentDealer,
-            'dealer'         => $dealer,
+            'currentDealer' => $currentDealer,
+            'dealer' => $dealer,
             'smallBlindSeat' => $smallBlindSeat,
-            'bigBlindSeat'   => $bigBlindSeat
+            'bigBlindSeat' => $bigBlindSeat,
         ];
     }
 
@@ -266,8 +257,8 @@ class Start extends HandStep
 
     private function setDealer(?TableSeat $currentDealerSet = null)
     {
-        return $currentDealerSet 
-            ? $this->gameState->getSeat($currentDealerSet->getId()) 
+        return $currentDealerSet
+            ? $this->gameState->getSeat($currentDealerSet->getId())
             : $this->gameState->getDealer();
     }
 }

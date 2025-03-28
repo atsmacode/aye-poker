@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Atsmacode\PokerGame\GameState;
 
@@ -11,36 +13,38 @@ use Atsmacode\PokerGame\Models\Table;
 
 class GameState
 {
-    private array         $communityCards = [];
-    private array         $wholeCards = [];
-    private ?array        $winner = null;
+    private array $communityCards = [];
+    private array $wholeCards = [];
+    private ?array $winner = null;
     private ?PlayerAction $latestAction;
-    private int           $tableId;
-    private int           $handId;
-    private array         $seats;
-    private ?array        $actions;
-    private array         $handStreets;
-    private array         $players;
-    private array         $stacks;
-    private bool          $newStreet = false;
-    private Game          $game;
-    private PokerDealer   $dealer;
-    private array         $bigBlind;
+    private int $tableId;
+    private int $handId;
+    private array $seats;
+    private ?array $actions;
+    private array $handStreets;
+    private array $players;
+    private array $stacks;
+    private bool $newStreet = false;
+    private Game $game;
+    private PokerDealer $dealer;
+    private array $bigBlind;
 
     public function __construct(
-        private GameData    $gameData,
+        private GameData $gameData,
         private PokerDealer $pokerDealer,
-        private ?Hand       $hand
+        private ?Hand $hand,
     ) {
-        if ($hand) { $this->initiate($hand); }
+        if ($hand) {
+            $this->initiate($hand);
+        }
     }
 
     public function initiate(Hand $hand)
     {
-        $this->hand        = $hand;
-        $this->tableId     = $hand->getTableId();
-        $this->handId      = (int) $hand->getId();
-        $this->seats       = $this->gameData->getSeats($this->tableId);
+        $this->hand = $hand;
+        $this->tableId = $hand->getTableId();
+        $this->handId = (int) $hand->getId();
+        $this->seats = $this->gameData->getSeats($this->tableId);
         $this->handStreets = $this->hand->streets();
     }
 
@@ -48,7 +52,9 @@ class GameState
     {
         $key = array_search($seatId, array_column($this->seats, 'id'));
 
-        if ($key !== false) { return $this->seats[$key]; }
+        if (false !== $key) {
+            return $this->seats[$key];
+        }
 
         return false;
     }
@@ -57,7 +63,9 @@ class GameState
     {
         $key = array_search(1, array_column($this->seats, 'is_dealer'));
 
-        if ($key !== false) { return $this->seats[$key]; }
+        if (false !== $key) {
+            return $this->seats[$key];
+        }
 
         return false;
     }
@@ -66,7 +74,9 @@ class GameState
     {
         $key = array_search($seatId, array_column($this->actions, 'table_seat_id'));
 
-        if ($key !== false) { return $this->actions[$key]; }
+        if (false !== $key) {
+            return $this->actions[$key];
+        }
 
         return false;
     }
@@ -193,14 +203,14 @@ class GameState
 
     public function getActivePlayers(): array
     {
-        return array_filter($this->players, function($player){
+        return array_filter($this->players, function ($player) {
             return 1 === $player['active'];
         });
     }
 
     public function getContinuingPlayers(): array
     {
-        return array_filter($this->players, function($player){
+        return array_filter($this->players, function ($player) {
             return 1 === $player['active'] && 1 === $player['can_continue'];
         });
     }
@@ -209,7 +219,7 @@ class GameState
     {
         $key = array_search(1, array_column($this->players, 'active'));
 
-        if ($key !== false) {
+        if (false !== $key) {
             return $this->players[$key];
         }
 
@@ -287,7 +297,7 @@ class GameState
     public function streetHasNoActions(int $handStreetId): bool
     {
         $actions = $this->gameData->getStreetActions($handStreetId);
-        $acted   = array_filter($actions, function($value){ return null !== $value['action_id']; });
+        $acted = array_filter($actions, function ($value) { return null !== $value['action_id']; });
 
         return 0 === count($acted);
     }

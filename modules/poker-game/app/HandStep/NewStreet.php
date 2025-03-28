@@ -14,25 +14,26 @@ use Atsmacode\PokerGame\Models\TableSeat;
 class NewStreet extends HandStep
 {
     public function __construct(
-        private Street       $streetModel,
-        private TableSeat    $tableSeatModel,
-        private HandStreet   $handStreetModel,
-        private PlayerAction $playerActionModel
-    ) {}
-    
-    public function handle(GameState $gameState, TableSeat $currentDealer = null): GameState
+        private Street $streetModel,
+        private TableSeat $tableSeatModel,
+        private HandStreet $handStreetModel,
+        private PlayerAction $playerActionModel,
+    ) {
+    }
+
+    public function handle(GameState $gameState, ?TableSeat $currentDealer = null): GameState
     {
         $this->gameState = $gameState;
 
         $handStreetCount = 0 < $this->gameState->handStreetCount() ? $this->gameState->handStreetCount() : 1;
 
         $newStreetId = $this->streetModel->find([
-            'name' => $this->gameState->getGame()->streets[$handStreetCount + 1]['name']
+            'name' => $this->gameState->getGame()->streets[$handStreetCount + 1]['name'],
         ])->getId();
 
         $handStreet = $this->handStreetModel->create([
             'street_id' => $newStreetId,
-            'hand_id'   => $this->gameState->handId()
+            'hand_id' => $this->gameState->handId(),
         ]);
 
         $this->gameState->getGameDealer()->dealStreetCards(
@@ -52,14 +53,14 @@ class NewStreet extends HandStep
     {
         $this->tableSeatModel->find(['table_id' => $this->gameState->tableId()])
             ->updateBatch([
-                'can_continue' => 0
-            ], 'table_id = ' . $this->gameState->tableId());
+                'can_continue' => 0,
+            ], 'table_id = '.$this->gameState->tableId());
 
         $this->playerActionModel->find(['hand_id' => $this->gameState->handId()])
             ->updateBatch([
-                'action_id'      => null,
-                'hand_street_id' => $handStreetId
-            ], 'hand_id = ' . $this->gameState->handId());
+                'action_id' => null,
+                'hand_street_id' => $handStreetId,
+            ], 'hand_id = '.$this->gameState->handId());
 
         $this->gameState->setNewStreet();
     }

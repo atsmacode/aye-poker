@@ -8,7 +8,7 @@ use Atsmacode\PokerGame\HandIdentifier\HandIdentifier;
 class Showdown
 {
     public HandIdentifier $handIdentifier;
-    public GameState      $gameState;
+    public GameState $gameState;
 
     /**
      * @var array
@@ -26,7 +26,7 @@ class Showdown
     public function __construct($gameState)
     {
         $this->handIdentifier = new HandIdentifier();
-        $this->gameState      = $gameState;
+        $this->gameState = $gameState;
         $this->communityCards = $this->gameState->getCommunityCards();
     }
 
@@ -55,14 +55,14 @@ class Showdown
     protected function identifyHighestRankedHandAndKickerOfThisType(
         array $playerHands,
         array $playerHandsOfType,
-        array $handType
+        array $handType,
     ): void {
-        /**
-         * Remove hands of this type from the array. That way we can only 
-         * retain the highest rank/kicker-ed hand and put it back in to be 
+        /*
+         * Remove hands of this type from the array. That way we can only
+         * retain the highest rank/kicker-ed hand and put it back in to be
          * compared against the other highest ranked/kicker-ed hand types.
          */
-        $this->playerHands = array_filter($playerHands, function($value) use($handType) {
+        $this->playerHands = array_filter($playerHands, function ($value) use ($handType) {
             return $value['handType']['id'] !== $handType['id'];
         });
 
@@ -70,7 +70,7 @@ class Showdown
             $playerHandsOfType
         );
 
-        if(count($handsOfThisTypeRanked) > 1){
+        if (count($handsOfThisTypeRanked) > 1) {
             /*
              * TODO: split pots, this functionality is currently
              * set to only return the first one even if multiple players
@@ -95,7 +95,7 @@ class Showdown
             )->getIdentifiedHandType();
 
             $compileInfo['highestActiveCard'] = max($compileInfo['activeCards']);
-            $compileInfo['player']            = $player;
+            $compileInfo['player'] = $player;
 
             $this->playerHands[] = $compileInfo;
         }
@@ -103,56 +103,45 @@ class Showdown
         return $this;
     }
 
-    private function getContinuingPlayerSeats(array $players): array {
-        return array_filter($players, function($player) {
+    private function getContinuingPlayerSeats(array $players): array
+    {
+        return array_filter($players, function ($player) {
             return 1 === $player['active'] && 1 === $player['can_continue'];
         });
     }
 
-    /**
-     * @param int $handTypeId
-     * @return array
-     */
     private function getPlayerhandsOfType(int $handTypeId): array
     {
-        return array_filter($this->playerHands, function($value) use($handTypeId){
+        return array_filter($this->playerHands, function ($value) use ($handTypeId) {
             return $value['handType']['id'] == $handTypeId;
         });
     }
 
-    /**
-     * @param array $hayStack
-     */
     private function getBestHandByHighestActiveCardRank(array $playerHandsOfType): array
     {
         $maxActiveCard = max(array_column($playerHandsOfType, 'highestActiveCard'));
 
-        return array_filter($playerHandsOfType, function($value) use($maxActiveCard) {
+        return array_filter($playerHandsOfType, function ($value) use ($maxActiveCard) {
             return $value['highestActiveCard'] == $maxActiveCard;
         });
     }
 
-    /**
-     * @param array $hayStack
-     */
     private function getBestHandByHighestKicker(array $playerHandsOfType): array
     {
         $maxKicker = max(array_column($playerHandsOfType, 'kicker'));
 
-        return array_filter($playerHandsOfType, function($value) use($maxKicker) {
+        return array_filter($playerHandsOfType, function ($value) use ($maxKicker) {
             return $value['kicker'] == $maxKicker;
         });
     }
 
-    /**
-     * @return array
-     */
     private function highestRankedPlayerHand(): array
     {
         uasort($this->playerHands, function ($a, $b) {
             if ($a['handType']['ranking'] == $b['handType']['ranking']) {
                 return 0;
             }
+
             return ($a['handType']['ranking'] > $b['handType']['ranking']) ? 1 : -1;
         });
 

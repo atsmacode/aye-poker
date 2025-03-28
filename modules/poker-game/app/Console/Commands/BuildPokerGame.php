@@ -16,10 +16,10 @@ use Atsmacode\PokerGame\Database\Migrations\CreateStreets;
 use Atsmacode\PokerGame\Database\Migrations\CreateTables;
 use Atsmacode\PokerGame\Database\Migrations\CreateWholeCards;
 use Atsmacode\PokerGame\Database\Seeders\SeedActions;
+use Atsmacode\PokerGame\Database\Seeders\SeedDevTable;
 use Atsmacode\PokerGame\Database\Seeders\SeedHandTypes;
 use Atsmacode\PokerGame\Database\Seeders\SeedPlayers;
 use Atsmacode\PokerGame\Database\Seeders\SeedStreets;
-use Atsmacode\PokerGame\Database\Seeders\SeedDevTable;
 use Atsmacode\PokerGame\Database\Seeders\SeedTable;
 
 #[AsCommand(
@@ -28,7 +28,6 @@ use Atsmacode\PokerGame\Database\Seeders\SeedTable;
     hidden: false,
     aliases: ['app:build-poker-game']
 )]
-
 class BuildPokerGame extends Migrator
 {
     protected array $buildClasses = [

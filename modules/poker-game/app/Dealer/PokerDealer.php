@@ -2,18 +2,18 @@
 
 namespace Atsmacode\PokerGame\Dealer;
 
-use Atsmacode\PokerGame\Models\HandStreetCard;
-use Atsmacode\PokerGame\Models\WholeCard;
 use Atsmacode\CardGames\Dealer\Dealer;
 use Atsmacode\CardGames\Deck\Deck as BaseDeck;
 use Atsmacode\PokerGame\Models\Deck;
+use Atsmacode\PokerGame\Models\HandStreetCard;
+use Atsmacode\PokerGame\Models\WholeCard;
 
 class PokerDealer extends Dealer
 {
     public function __construct(
-        private WholeCard      $wholeCardModel,
+        private WholeCard $wholeCardModel,
         private HandStreetCard $handStreetCardModel,
-        private Deck           $deckModel
+        private Deck $deckModel,
     ) {
         $this->deck = (new BaseDeck())->cards;
     }
@@ -22,16 +22,16 @@ class PokerDealer extends Dealer
     {
         $dealtCards = 0;
 
-        while($dealtCards < $cardCount){
-            foreach($players as $player){
+        while ($dealtCards < $cardCount) {
+            foreach ($players as $player) {
                 $this->wholeCardModel->create([
                     'player_id' => $player['player_id'],
-                    'card_id'   => $this->pickCard()->getCard()['id'],
-                    'hand_id'   => $handId ?? null
+                    'card_id' => $this->pickCard()->getCard()['id'],
+                    'hand_id' => $handId ?? null,
                 ]);
             }
 
-            $dealtCards++;
+            ++$dealtCards;
         }
 
         return $this->updateDeck($handId);
@@ -41,15 +41,15 @@ class PokerDealer extends Dealer
     {
         $dealtCards = 0;
 
-        while($dealtCards < $cardCount){
+        while ($dealtCards < $cardCount) {
             $cardId = $this->pickCard()->getCard()['id'];
 
             $this->handStreetCardModel->create([
-                'card_id'        => $cardId,
-                'hand_street_id' => $handStreet->getId()
+                'card_id' => $cardId,
+                'hand_street_id' => $handStreet->getId(),
             ]);
 
-            $dealtCards++;
+            ++$dealtCards;
         }
 
         return $this->updateDeck($handId);
@@ -57,8 +57,9 @@ class PokerDealer extends Dealer
 
     /**
      * @param HandStreet $handStreet
-     * @param string $rank
-     * @param string $suit
+     * @param string     $rank
+     * @param string     $suit
+     *
      * @return $this
      */
     public function dealThisStreetCard(int $handId, $rank, $suit, $handStreet)
@@ -66,8 +67,8 @@ class PokerDealer extends Dealer
         $cardId = $this->pickCard($rank, $suit)->getCard()['id'];
 
         $this->handStreetCardModel->create([
-            'card_id'        => $cardId,
-            'hand_street_id' => $handStreet->getId()
+            'card_id' => $cardId,
+            'hand_street_id' => $handStreet->getId(),
         ]);
 
         return $this->updateDeck($handId);
@@ -77,7 +78,7 @@ class PokerDealer extends Dealer
     {
         $this->deckModel->create([
             'hand_id' => $handId,
-            'cards'   => json_encode($this->deck)
+            'cards' => json_encode($this->deck),
         ]);
 
         return $this;
@@ -93,10 +94,12 @@ class PokerDealer extends Dealer
 
     public function setSavedDeck(int $handId): self
     {
-        $savedDeck    = $this->deckModel->find(['hand_id' => $handId]);
+        $savedDeck = $this->deckModel->find(['hand_id' => $handId]);
         $hasSavedDeck = !empty($savedDeck->getContent());
 
-        if ($hasSavedDeck) { $this->deck = $savedDeck->getDeck(); }
+        if ($hasSavedDeck) {
+            $this->deck = $savedDeck->getDeck();
+        }
 
         return $this;
     }

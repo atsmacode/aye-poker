@@ -12,9 +12,9 @@ class PokerDealerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        $wholeCardModel      = $container->get(WholeCard::class);
+        $wholeCardModel = $container->get(WholeCard::class);
         $handStreetCardModel = $container->get(HandStreetCard::class);
-        $deckModel           = $container->get(Deck::class);
+        $deckModel = $container->get(Deck::class);
 
         return new PokerDealer(
             $wholeCardModel,

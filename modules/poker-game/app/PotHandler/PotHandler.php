@@ -10,8 +10,9 @@ class PotHandler
 {
     public function __construct(
         private Stack $stackModel,
-        private Pot   $potModel
-    ) {}
+        private Pot $potModel,
+    ) {
+    }
 
     public function initiatePot(Hand $hand): void
     {

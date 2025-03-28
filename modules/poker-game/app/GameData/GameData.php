@@ -15,13 +15,14 @@ use Atsmacode\PokerGame\Models\TableSeat;
 class GameData
 {
     public function __construct(
-        private Hand           $handModel,
-        private Table          $tableModel,
+        private Hand $handModel,
+        private Table $tableModel,
         private HandStreetCard $handStreetCardModel,
-        private Player         $playerModel,
-        private TableSeat      $tableSeatModel,
-        private PlayerAction   $playerActionModel
-    ) {}
+        private Player $playerModel,
+        private TableSeat $tableSeatModel,
+        private PlayerAction $playerActionModel,
+    ) {
+    }
 
     public function getSeats(int $tableId): array
     {

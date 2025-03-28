@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class SitController
 {
     /**
-     * To be set to the fully qualified class name of an 
+     * To be set to the fully qualified class name of an
      * implementation of the Game interface.
      */
     protected string $game = '';
@@ -28,16 +28,16 @@ abstract class SitController
         $hand = $this->handModel->create(['table_id' => $tableId ?? 1]);
 
         $gamePlayService = $this->container->build(GamePlay::class, [
-            'game'      => $this->container->get($this->game),
-            'gameState' => $this->container->build(GameState::class, ['hand' => $hand])
+            'game' => $this->container->get($this->game),
+            'gameState' => $this->container->build(GameState::class, ['hand' => $hand]),
         ]);
         $gamePlay = $gamePlayService->start($currentDealer ?? null);
 
         return new Response(json_encode([
-            'pot'            => $gamePlay['pot'],
+            'pot' => $gamePlay['pot'],
             'communityCards' => $gamePlay['communityCards'],
-            'players'        => $gamePlay['players'],
-            'winner'         => $gamePlay['winner']
+            'players' => $gamePlay['players'],
+            'winner' => $gamePlay['winner'],
         ]));
     }
 }

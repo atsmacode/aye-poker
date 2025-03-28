@@ -3,13 +3,14 @@
 namespace Atsmacode\PokerGame\Models;
 
 use Atsmacode\Framework\Dbal\Model;
+
 class Table extends Model
 {
     protected string $table = 'tables';
-    private string   $name;
-    private int      $seats;
+    private string $name;
+    private int $seats;
 
-    public function getSeats(int $tableId = null): array
+    public function getSeats(?int $tableId = null): array
     {
         $tableId = $tableId ?? $this->id;
 
@@ -18,7 +19,7 @@ class Table extends Model
             $queryBuilder
                 ->select('*')
                 ->from('table_seats', 'ts')
-                ->where('table_id = ' . $queryBuilder->createNamedParameter($tableId))
+                ->where('table_id = '.$queryBuilder->createNamedParameter($tableId))
                 ->andWhere('player_id IS NOT NULL');
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
@@ -27,7 +28,7 @@ class Table extends Model
         }
     }
 
-    public function hasMultiplePlayers(int $tableId = null): array
+    public function hasMultiplePlayers(?int $tableId = null): array
     {
         $tableId = $tableId ?? $this->id;
 
@@ -36,7 +37,7 @@ class Table extends Model
             $queryBuilder
                 ->select('*')
                 ->from('table_seats', 'ts')
-                ->where('table_id = ' . $queryBuilder->createNamedParameter($tableId))
+                ->where('table_id = '.$queryBuilder->createNamedParameter($tableId))
                 ->andWhere('player_id IS NOT NULL');
 
             return $queryBuilder->executeQuery() ? $queryBuilder->fetchAllAssociative() : [];

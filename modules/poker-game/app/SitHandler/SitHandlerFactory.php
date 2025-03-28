@@ -12,8 +12,8 @@ class SitHandlerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        $gameState      = $container->get(GameState::class);
-        $tableModel     = $container->get(Table::class);
+        $gameState = $container->get(GameState::class);
+        $tableModel = $container->get(Table::class);
         $tableSeatModel = $container->get(TableSeat::class);
 
         return new SitHandler(

@@ -13,9 +13,9 @@ class PokerGameConfigProvider
 
     public function get(): array
     {
-        $config           = require($this->rootDir . 'config/poker_game.php');
+        $config = require $this->rootDir.'config/poker_game.php';
         $dependencyConfig = (new DependencyConfig())->get();
 
-        return array_merge($config['poker_game'], $dependencyConfig); 
+        return array_merge($config['poker_game'], $dependencyConfig);
     }
 }

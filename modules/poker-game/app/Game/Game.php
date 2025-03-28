@@ -4,5 +4,4 @@ namespace Atsmacode\PokerGame\Game;
 
 interface Game
 {
-    //
 }

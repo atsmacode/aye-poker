@@ -7,7 +7,7 @@ use Atsmacode\Framework\Dbal\Model;
 class Player extends Model
 {
     protected string $table = 'players';
-    private string   $name;
+    private string $name;
 
     public function getName(): string
     {
@@ -21,7 +21,7 @@ class Player extends Model
             $queryBuilder
                 ->select('*')
                 ->from('stacks')
-                ->where('player_id = ' . $queryBuilder->createNamedParameter($this->id));
+                ->where('player_id = '.$queryBuilder->createNamedParameter($this->id));
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {
@@ -47,8 +47,8 @@ class Player extends Model
                 ->leftJoin('wc', 'cards', 'c', 'wc.card_id = c.id')
                 ->leftJoin('c', 'ranks', 'r', 'c.rank_id = r.id')
                 ->leftJoin('c', 'suits', 's', 'c.suit_id = s.id')
-                ->where('wc.hand_id = ' . $queryBuilder->createNamedParameter($handId))
-                ->andWhere('wc.player_id = ' . $queryBuilder->createNamedParameter($playerId));
+                ->where('wc.hand_id = '.$queryBuilder->createNamedParameter($handId))
+                ->andWhere('wc.player_id = '.$queryBuilder->createNamedParameter($playerId));
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {

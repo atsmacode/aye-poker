@@ -19,7 +19,7 @@ class Controller
     public function create(Request $request): Response
     {
         $requestContent = $request->toArray();
-        $player         = $this->playerModel->create(['name' => $requestContent['name']]);
+        $player = $this->playerModel->create(['name' => $requestContent['name']]);
 
         return new Response(json_encode(['playerId' => $player->getId()]));
     }

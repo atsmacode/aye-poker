@@ -2,18 +2,18 @@
 
 namespace Atsmacode\PokerGame\Models;
 
-use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\Framework\Dbal\Model;
+use Atsmacode\PokerGame\Constants\Action;
 
 class TableSeat extends Model
 {
     protected string $table = 'table_seats';
-    private ?int     $number;
-    private bool     $can_continue;
-    private int      $is_dealer;
-    private ?int     $player_id;
-    private int      $table_id;
-    private ?string  $updated_at;
+    private ?int $number;
+    private bool $can_continue;
+    private int $is_dealer;
+    private ?int $player_id;
+    private int $table_id;
+    private ?string $updated_at;
 
     public function canContinue(): bool
     {
@@ -43,15 +43,15 @@ class TableSeat extends Model
                 ->select('ts.*')
                 ->from('table_seats', 'ts')
                 ->leftJoin('ts', 'player_actions', 'pa', 'ts.id = pa.table_seat_id')
-                ->where('pa.hand_id = ' . $queryBuilder->createNamedParameter($handId))
-                ->andWhere('ts.id > ' . $queryBuilder->createNamedParameter($dealer))
+                ->where('pa.hand_id = '.$queryBuilder->createNamedParameter($handId))
+                ->andWhere('ts.id > '.$queryBuilder->createNamedParameter($dealer))
                 ->andWhere('pa.active = 1')
                 ->setMaxResults(1);
 
             $rows = $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
 
             $this->content = $rows;
-            
+
             $this->setModelProperties($rows);
 
             return $this;
@@ -67,7 +67,7 @@ class TableSeat extends Model
             $queryBuilder
                 ->update('table_seats')
                 ->set('can_continue', 1)
-                ->where('id = ' . $queryBuilder->createNamedParameter($tableSeatId));
+                ->where('id = '.$queryBuilder->createNamedParameter($tableSeatId));
 
             return $queryBuilder->executeStatement();
         } catch (\Exception $e) {
@@ -83,7 +83,7 @@ class TableSeat extends Model
                 ->select('pa.*')
                 ->from('player_actions', 'pa')
                 ->leftJoin('pa', 'table_seats', 'ts', 'pa.table_seat_id = ts.id')
-                ->where('pa.hand_id = ' . $queryBuilder->createNamedParameter($handId))
+                ->where('pa.hand_id = '.$queryBuilder->createNamedParameter($handId))
                 ->andWhere('pa.big_blind = 1');
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAssociative() : [];
@@ -100,7 +100,7 @@ class TableSeat extends Model
                 ->select('ts.*')
                 ->from('player_actions', 'pa')
                 ->leftJoin('pa', 'table_seats', 'ts', 'pa.table_seat_id = ts.id')
-                ->where('pa.hand_id = ' . $queryBuilder->createNamedParameter($handId))
+                ->where('pa.hand_id = '.$queryBuilder->createNamedParameter($handId))
                 ->andWhere('pa.active = 1')
                 ->andWhere('ts.can_continue = 1');
 
@@ -118,18 +118,18 @@ class TableSeat extends Model
     public function getContinuingBetters(string $handId): array
     {
         $raiseId = Action::RAISE_ID;
-        $betId   = Action::BET_ID;
-        $callId  = Action::CALL_ID;
+        $betId = Action::BET_ID;
+        $callId = Action::CALL_ID;
 
         try {
-            $queryBuilder      = $this->connection->createQueryBuilder();
+            $queryBuilder = $this->connection->createQueryBuilder();
             $expressionBuilder = $this->connection->createExpressionBuilder();
 
             $queryBuilder
                 ->select('ts.*')
                 ->from('player_actions', 'pa')
                 ->leftJoin('pa', 'table_seats', 'ts', 'pa.table_seat_id = ts.id')
-                ->where('pa.hand_id = ' . $queryBuilder->createNamedParameter($handId))
+                ->where('pa.hand_id = '.$queryBuilder->createNamedParameter($handId))
                 ->andWhere('ts.can_continue = 1')
                 ->andWhere(
                     $expressionBuilder->in(
@@ -158,12 +158,14 @@ class TableSeat extends Model
                 ->where('table_id != 1')
                 ->andWhere('player_id IS NULL');
 
-            if (null !== $thisTable) { $queryBuilder->andWhere('table_id = ' . $thisTable); }
+            if (null !== $thisTable) {
+                $queryBuilder->andWhere('table_id = '.$thisTable);
+            }
 
             $rows = $queryBuilder->executeQuery() ? $queryBuilder->fetchAssociative() : [];
 
             $this->content = $rows;
-            
+
             $this->setModelProperties([$rows]);
 
             return $this;
@@ -179,14 +181,16 @@ class TableSeat extends Model
             $queryBuilder
                 ->select('*')
                 ->from('table_seats')
-                ->where('player_id = ' . $playerId);
+                ->where('player_id = '.$playerId);
 
             $rows = $queryBuilder->executeQuery() ? $queryBuilder->fetchAssociative() : [];
 
-            if (empty($rows)) { return null; }
+            if (empty($rows)) {
+                return null;
+            }
 
             $this->content = $rows;
-            
+
             $this->setModelProperties([$rows]);
 
             return $this;

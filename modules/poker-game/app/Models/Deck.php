@@ -7,7 +7,7 @@ use Atsmacode\Framework\Dbal\Model;
 class Deck extends Model
 {
     protected string $table = 'decks';
-    private string   $cards;
+    private string $cards;
 
     public function getDeck(): array
     {

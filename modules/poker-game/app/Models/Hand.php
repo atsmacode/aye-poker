@@ -7,9 +7,9 @@ use Atsmacode\Framework\Dbal\Model;
 class Hand extends Model
 {
     protected string $table = 'hands';
-    private int      $table_id;
-    private ?int     $game_type_id;
-    private ?string  $completed_on = null;
+    private int $table_id;
+    private ?int $game_type_id;
+    private ?string $completed_on = null;
 
     public function getTableId(): int
     {
@@ -29,10 +29,10 @@ class Hand extends Model
                 ->select('hs.*')
                 ->from('hand_streets', 'hs')
                 ->leftJoin('hs', 'hands', 'h', 'hs.hand_id = h.id')
-                ->where('hs.hand_id = ' . $queryBuilder->createNamedParameter($this->id));
+                ->where('hs.hand_id = '.$queryBuilder->createNamedParameter($this->id));
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
     }
@@ -45,10 +45,10 @@ class Hand extends Model
                 ->select('p.*')
                 ->from('pots', 'p')
                 ->leftJoin('p', 'hands', 'h', 'p.hand_id = h.id')
-                ->where('p.hand_id = ' . $queryBuilder->createNamedParameter($this->id));
+                ->where('p.hand_id = '.$queryBuilder->createNamedParameter($this->id));
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAssociative() : [];
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
     }
@@ -60,19 +60,19 @@ class Hand extends Model
             $queryBuilder
                 ->update('hands')
                 ->set('completed_on', 'NOW()')
-                ->where('id = ' . $queryBuilder->createNamedParameter($this->id));
+                ->where('id = '.$queryBuilder->createNamedParameter($this->id));
 
             return $queryBuilder->executeStatement();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
     }
 
     public function latest(): self
     {
-        $query = sprintf("
+        $query = sprintf('
             SELECT * FROM hands ORDER BY id DESC LIMIT 1
-        ");
+        ');
 
         try {
             /**
@@ -92,14 +92,14 @@ class Hand extends Model
             // $this->setModelProperties($rows);
 
             // return $this;
-            $stmt    = $this->connection->prepare($query);
+            $stmt = $this->connection->prepare($query);
             $results = $stmt->executeQuery();
-            $rows    = $results->fetchAllAssociative();
+            $rows = $results->fetchAllAssociative();
 
             $this->setModelProperties($rows);
 
             return $this;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
     }
@@ -112,11 +112,11 @@ class Hand extends Model
                 ->select('pa.*')
                 ->from('player_actions', 'pa')
                 ->leftJoin('pa', 'table_seats', 'ts', 'pa.table_seat_id = ts.id')
-                ->where('pa.hand_id = ' . $queryBuilder->createNamedParameter($this->id))
+                ->where('pa.hand_id = '.$queryBuilder->createNamedParameter($this->id))
                 ->andWhere('ts.is_dealer = 1');
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAssociative() : [];
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
     }
@@ -150,16 +150,16 @@ class Hand extends Model
                 ->leftJoin('pa', 'players', 'p', 'pa.player_id = p.id')
                 ->leftJoin('pa', 'stacks', 's', 'pa.player_id = s.player_id AND ts.table_id = s.table_id')
                 ->leftJoin('pa', 'actions', 'a', 'pa.action_id = a.id')
-                ->where('pa.hand_id = ' . $queryBuilder->createNamedParameter($handId))
+                ->where('pa.hand_id = '.$queryBuilder->createNamedParameter($handId))
                 ->orderBy('ts.id', 'ASC');
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
     }
 
-    public function getCommunityCards(int $handId = null): array
+    public function getCommunityCards(?int $handId = null): array
     {
         $handId = $handId ?? $this->id;
 
@@ -180,7 +180,7 @@ class Hand extends Model
                 ->leftJoin('hsc', 'cards', 'c', 'hsc.card_id = c.id')
                 ->leftJoin('c', 'ranks', 'r', 'c.rank_id = r.id')
                 ->leftJoin('c', 'suits', 's', 'c.suit_id = s.id')
-                ->where('h.id = ' . $queryBuilder->createNamedParameter($handId))
+                ->where('h.id = '.$queryBuilder->createNamedParameter($handId))
                 ->orderBy('hsc.id', 'ASC');
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];

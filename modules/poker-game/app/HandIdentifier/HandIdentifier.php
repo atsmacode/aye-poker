@@ -2,30 +2,30 @@
 
 namespace Atsmacode\PokerGame\HandIdentifier;
 
-use Atsmacode\PokerGame\Constants\HandType;
 use Atsmacode\CardGames\Constants\Rank;
 use Atsmacode\CardGames\Constants\Suit;
+use Atsmacode\PokerGame\Constants\HandType;
 
 class HandIdentifier
 {
     private array $handTypes;
 
     private array $identifiedHandType = [
-        'handType'    => null,
+        'handType' => null,
         'activeCards' => [],
-        'kicker'      => null
+        'kicker' => null,
     ];
 
-    private array      $allCards;
-    private int|bool   $highCard = false;
-    private array      $pairs = [];
-    private array      $threeOfAKind = [];
-    private array      $straight;
-    private array      $flush;
+    private array $allCards;
+    private int|bool $highCard = false;
+    private array $pairs = [];
+    private array $threeOfAKind = [];
+    private array $straight;
+    private array $flush;
     private array|bool $fullHouse = false;
-    private array      $fourOfAKind;
-    private array      $straightFlush;
-    private array      $royalFlush ;
+    private array $fourOfAKind;
+    private array $straightFlush;
+    private array $royalFlush;
 
     public function __construct()
     {
@@ -66,23 +66,41 @@ class HandIdentifier
     {
         $this->allCards = array_merge($wholeCards, $communityCards);
 
-        if (true === $this->hasRoyalFlush()) { return $this; }
+        if (true === $this->hasRoyalFlush()) {
+            return $this;
+        }
 
-        if (true === $this->hasStraightFlush()) { return $this; }
+        if (true === $this->hasStraightFlush()) {
+            return $this;
+        }
 
-        if (true === $this->hasFourOfAKind()) { return $this; }
+        if (true === $this->hasFourOfAKind()) {
+            return $this;
+        }
 
-        if (true === $this->hasFullHouse()) { return $this; }
+        if (true === $this->hasFullHouse()) {
+            return $this;
+        }
 
-        if (true === $this->hasFlush()) { return $this; }
+        if (true === $this->hasFlush()) {
+            return $this;
+        }
 
-        if (true === $this->hasStraight()) { return $this; }
+        if (true === $this->hasStraight()) {
+            return $this;
+        }
 
-        if (true === $this->hasThreeOfAKind()) { return $this; }
+        if (true === $this->hasThreeOfAKind()) {
+            return $this;
+        }
 
-        if (true === $this->hasTwoPair()) { return $this; }
+        if (true === $this->hasTwoPair()) {
+            return $this;
+        }
 
-        if (true === $this->hasPair()) { return $this; }
+        if (true === $this->hasPair()) {
+            return $this;
+        }
 
         return $this->highestCard();
     }
@@ -90,7 +108,7 @@ class HandIdentifier
     private function checkFlushForAceKicker(array $activeCards): mixed
     {
         if (in_array(1, $activeCards)) {
-            $activeCardsLessThanAce = array_filter($activeCards, function($value) {
+            $activeCardsLessThanAce = array_filter($activeCards, function ($value) {
                 return Rank::ACE_RANK_ID !== $value;
             });
 
@@ -102,14 +120,15 @@ class HandIdentifier
 
     private function checkForHighAceActiveCardRanking(array $rank): int|bool
     {
-        if ($rank['ranking'] === Rank::ACE_RANK_ID) { return Rank::ACE_HIGH_RANK_ID; }
+        if (Rank::ACE_RANK_ID === $rank['ranking']) {
+            return Rank::ACE_HIGH_RANK_ID;
+        }
 
         return false;
     }
 
     /**
      * @param array|object $haystack
-     * @param string $columm
      */
     private function getMax($haystack, string $columm): mixed
     {
@@ -118,29 +137,29 @@ class HandIdentifier
 
     /**
      * @param array|object $haystack
-     * @param string $columm
+     * @param string       $columm
      */
     private function getMin($haystack, $columm): mixed
     {
         return min(array_column($haystack, $columm));
     }
 
-    private function getKicker(array $activeCards = null): ?int
+    private function getKicker(?array $activeCards = null): ?int
     {
         $cardRankings = array_column($this->sortAllCardsByDescRanking(), 'ranking');
 
-        /**
+        /*
          * Check against $this->highCard & activeCards so only
          * inactive cards are used as kickers.
-         * 
+         *
          * @todo This won't yet cover all cases as it will return
          * null if none of the player's inactive cards meet the
          * two conditions.
          */
         foreach ($cardRankings as $cardRanking) {
             if (
-                ($this->highCard && $cardRanking != $this->highCard) ||
-                ($activeCards && !in_array($cardRanking, $activeCards))
+                ($this->highCard && $cardRanking != $this->highCard)
+                || ($activeCards && !in_array($cardRanking, $activeCards))
             ) {
                 return $cardRanking;
             }
@@ -151,7 +170,9 @@ class HandIdentifier
     {
         $key = array_search($name, array_column($this->handTypes, 'name'));
 
-        if (array_key_exists($key, $this->handTypes)) { return $this->handTypes[$key]; }
+        if (array_key_exists($key, $this->handTypes)) {
+            return $this->handTypes[$key];
+        }
 
         return false;
     }
@@ -166,7 +187,9 @@ class HandIdentifier
     private function sortAllCardsByDescRanking(): array
     {
         usort($this->allCards, function ($a, $b) {
-            if ($a['ranking'] == $b['ranking']) { return 0; }
+            if ($a['ranking'] == $b['ranking']) {
+                return 0;
+            }
 
             return $a['ranking'] > $b['ranking'] ? -1 : 1;
         });
@@ -187,16 +210,20 @@ class HandIdentifier
 
     private function filterStraightCards(array $cards): array
     {
-        return array_filter($cards, function($value, $key) use ($cards) {
-            $nextCardExists     = array_key_exists($key + 1, $cards);
+        return array_filter($cards, function ($value, $key) use ($cards) {
+            $nextCardExists = array_key_exists($key + 1, $cards);
             $previousCardExists = array_key_exists($key - 1, $cards);
 
-            $nextCardRankingPlusOne      = $nextCardExists ? $cards[$key + 1]['ranking'] + 1 : null;
-            $previousCardRankingMinusOne = $previousCardExists? $cards[$key - 1]['ranking'] - 1 : null;
+            $nextCardRankingPlusOne = $nextCardExists ? $cards[$key + 1]['ranking'] + 1 : null;
+            $previousCardRankingMinusOne = $previousCardExists ? $cards[$key - 1]['ranking'] - 1 : null;
 
-            if ($nextCardExists && !$previousCardExists) { return $value['ranking'] === $nextCardRankingPlusOne; }
+            if ($nextCardExists && !$previousCardExists) {
+                return $value['ranking'] === $nextCardRankingPlusOne;
+            }
 
-            if (!$nextCardExists && $previousCardExists) { return $value['ranking'] === $previousCardRankingMinusOne; }
+            if (!$nextCardExists && $previousCardExists) {
+                return $value['ranking'] === $previousCardRankingMinusOne;
+            }
 
             return $value['ranking'] === $previousCardRankingMinusOne && $value['ranking'] === $nextCardRankingPlusOne;
         }, ARRAY_FILTER_USE_BOTH);
@@ -204,15 +231,15 @@ class HandIdentifier
 
     public function highestCard(): self
     {
-        if ($this->getMin($this->allCards, 'ranking') === 1) {
+        if (1 === $this->getMin($this->allCards, 'ranking')) {
             $this->highCard = Rank::ACE_HIGH_RANK_ID;
         } else {
             $this->highCard = $this->getMax($this->allCards, 'ranking');
         }
 
-        $this->identifiedHandType['handType']      = $this->getHandType('High Card');
+        $this->identifiedHandType['handType'] = $this->getHandType('High Card');
         $this->identifiedHandType['activeCards'][] = $this->highCard;
-        $this->identifiedHandType['kicker']        = $this->getKicker();
+        $this->identifiedHandType['kicker'] = $this->getKicker();
 
         return $this;
     }
@@ -220,7 +247,7 @@ class HandIdentifier
     public function hasPair(): bool|self
     {
         foreach (Rank::ALL as $rank) {
-            if (count($this->filterAllCards('rank_id', $rank['rank_id'])) === 2) {
+            if (2 === count($this->filterAllCards('rank_id', $rank['rank_id']))) {
                 $this->pairs[] = $rank;
                 $this->identifiedHandType['activeCards'][] = $this->checkForHighAceActiveCardRanking($rank) ?: $rank['ranking'];
                 /*
@@ -235,8 +262,9 @@ class HandIdentifier
             }
         }
 
-        if (count($this->pairs) === 1) {
+        if (1 === count($this->pairs)) {
             $this->identifiedHandType['handType'] = $this->getHandType('Pair');
+
             return true;
         }
 
@@ -245,9 +273,9 @@ class HandIdentifier
 
     public function hasTwoPair(): bool|self
     {
-        foreach(Rank::ALL as $rank){
+        foreach (Rank::ALL as $rank) {
             if (2 === count($this->filterAllCards('rank_id', $rank['rank_id']))) {
-                $this->pairs[]                             = $rank;
+                $this->pairs[] = $rank;
                 $this->identifiedHandType['activeCards'][] = $this->checkForHighAceActiveCardRanking($rank) ?: $rank['ranking'];
                 /*
                  * The showdown may be called pre-flop when the pot is checked down to BB.
@@ -263,6 +291,7 @@ class HandIdentifier
 
         if (2 <= count($this->pairs)) {
             $this->identifiedHandType['handType'] = $this->getHandType('Two Pair');
+
             return true;
         }
 
@@ -273,28 +302,34 @@ class HandIdentifier
 
     public function hasThreeOfAKind(): bool|self
     {
-        foreach(Rank::ALL as $rank){
+        foreach (Rank::ALL as $rank) {
             if (3 === count($this->filterAllCards('rank_id', $rank['rank_id']))) {
-                $this->threeOfAKind                        = $rank;
-                $this->identifiedHandType['handType']      = $this->getHandType('Three of a Kind');
+                $this->threeOfAKind = $rank;
+                $this->identifiedHandType['handType'] = $this->getHandType('Three of a Kind');
                 $this->identifiedHandType['activeCards'][] = $this->checkForHighAceActiveCardRanking($rank) ?: $rank['ranking'];
-                $this->identifiedHandType['kicker']        = $this->getKicker($this->identifiedHandType['activeCards']);
+                $this->identifiedHandType['kicker'] = $this->getKicker($this->identifiedHandType['activeCards']);
 
                 return true;
             }
         }
 
-        /** @todo There could be 2 trips - add handling for this */
+        /* @todo There could be 2 trips - add handling for this */
         return $this;
     }
 
     public function hasStraight(): bool|self
     {
-        if (true === $this->hasFiveHighStraight()) { return true; }
+        if (true === $this->hasFiveHighStraight()) {
+            return true;
+        }
 
-        if (true === $this->hasAceHighStraight()) { return true; }
+        if (true === $this->hasAceHighStraight()) {
+            return true;
+        }
 
-        if (true === $this->hasAnyOtherStraight()) { return true; }
+        if (true === $this->hasAnyOtherStraight()) {
+            return true;
+        }
 
         return $this;
     }
@@ -315,7 +350,9 @@ class HandIdentifier
                 case Rank::THREE_RANK_ID:
                 case Rank::FOUR_RANK_ID:
                 case Rank::FIVE_RANK_ID:
-                    if ($value['ranking'] !== $previousCardRanking) { return true; }
+                    if ($value['ranking'] !== $previousCardRanking) {
+                        return true;
+                    }
                     break;
             }
         }, ARRAY_FILTER_USE_BOTH);
@@ -323,10 +360,10 @@ class HandIdentifier
         $straight = array_slice($sortedCardsDesc, 0, 5);
 
         if ($straight && 5 === count($straight)) {
-            $this->straight                          = $straight;
-            $this->identifiedHandType['handType']    = $this->getHandType('Straight');
+            $this->straight = $straight;
+            $this->identifiedHandType['handType'] = $this->getHandType('Straight');
             $this->identifiedHandType['activeCards'] = array_column($straight, 'ranking');
-            $this->identifiedHandType['kicker']      = array_shift($straight)['ranking'];
+            $this->identifiedHandType['kicker'] = array_shift($straight)['ranking'];
 
             return true;
         }
@@ -350,7 +387,9 @@ class HandIdentifier
                 case Rank::QUEEN_RANK_ID:
                 case Rank::JACK_RANK_ID:
                 case Rank::TEN_RANK_ID:
-                    if ($value['ranking'] !== $previousCardRanking) { return true; }
+                    if ($value['ranking'] !== $previousCardRanking) {
+                        return true;
+                    }
                     break;
             }
         }, ARRAY_FILTER_USE_BOTH);
@@ -358,10 +397,10 @@ class HandIdentifier
         $straight = array_slice($sortedCardsDesc, 0, 5);
 
         if ($straight && 5 === count($straight)) {
-            $this->straight                          = $straight;
-            $this->identifiedHandType['handType']    = $this->getHandType('Straight');
+            $this->straight = $straight;
+            $this->identifiedHandType['handType'] = $this->getHandType('Straight');
             $this->identifiedHandType['activeCards'] = array_column($straight, 'ranking');
-            $this->identifiedHandType['kicker']      = Rank::ACE_HIGH_RANK_ID;
+            $this->identifiedHandType['kicker'] = Rank::ACE_HIGH_RANK_ID;
 
             return true;
         }
@@ -371,17 +410,17 @@ class HandIdentifier
 
     private function hasAnyOtherStraight(): bool
     {
-        $cardsSortByDesc  = $this->sortAllCardsByDescRanking();
+        $cardsSortByDesc = $this->sortAllCardsByDescRanking();
         $removeDuplicates = $this->removeDuplicates($cardsSortByDesc);
         $removeDuplicates = array_slice($removeDuplicates, 0, 5);
 
         $straight = $this->filterStraightCards($removeDuplicates);
 
         if ($straight && 5 === count($straight)) {
-            $this->straight                          = $straight;
-            $this->identifiedHandType['handType']    = $this->getHandType('Straight');
+            $this->straight = $straight;
+            $this->identifiedHandType['handType'] = $this->getHandType('Straight');
             $this->identifiedHandType['activeCards'] = array_column($straight, 'ranking');
-            $this->identifiedHandType['kicker']      = array_shift($straight)['ranking'];
+            $this->identifiedHandType['kicker'] = array_shift($straight)['ranking'];
 
             return true;
         }
@@ -395,16 +434,16 @@ class HandIdentifier
             $flushCards = $this->filterAllCards('suit_id', $suit['suit_id']);
 
             if (5 <= count($flushCards)) {
-                $this->flush                             = $flushCards;
+                $this->flush = $flushCards;
                 $this->identifiedHandType['activeCards'] = array_column($flushCards, 'ranking');
-                $this->identifiedHandType['handType']    = $this->getHandType('Flush');
-                $this->identifiedHandType['kicker']      = $this->checkFlushForAceKicker($this->identifiedHandType['activeCards'])
+                $this->identifiedHandType['handType'] = $this->getHandType('Flush');
+                $this->identifiedHandType['kicker'] = $this->checkFlushForAceKicker($this->identifiedHandType['activeCards'])
                     ?: array_shift($this->identifiedHandType['activeCards']);
 
                 return true;
             }
         }
-        
+
         return $this;
     }
 
@@ -413,15 +452,15 @@ class HandIdentifier
         $this->checkTripsForFullHouse()->checkPairsForFullHouse();
 
         if ($this->threeOfAKind && 1 <= count($this->pairs)) {
-            $this->fullHouse                      = true;
+            $this->fullHouse = true;
             $this->identifiedHandType['handType'] = $this->getHandType('Full House');
-            $this->identifiedHandType['kicker']   = max($this->pairs);
+            $this->identifiedHandType['kicker'] = max($this->pairs);
 
             return true;
         }
 
-        $this->pairs                             = [];
-        $this->threeOfAKind                      = [];
+        $this->pairs = [];
+        $this->threeOfAKind = [];
         $this->identifiedHandType['activeCards'] = [];
 
         return $this;
@@ -431,7 +470,7 @@ class HandIdentifier
     {
         foreach (Rank::ALL as $rank) {
             if (3 === count($this->filterAllCards('rank_id', $rank['rank_id']))) {
-                $this->threeOfAKind                        = $rank;
+                $this->threeOfAKind = $rank;
                 $this->identifiedHandType['activeCards'][] = $this->checkForHighAceActiveCardRanking($rank) ?: $rank['ranking'];
             }
         }
@@ -454,10 +493,10 @@ class HandIdentifier
     {
         foreach (Rank::ALL as $rank) {
             if (4 === count($this->filterAllCards('rank_id', $rank['rank_id']))) {
-                $this->fourOfAKind                         = $rank;
-                $this->identifiedHandType['handType']      = $this->getHandType('Four of a Kind');
+                $this->fourOfAKind = $rank;
+                $this->identifiedHandType['handType'] = $this->getHandType('Four of a Kind');
                 $this->identifiedHandType['activeCards'][] = $this->checkForHighAceActiveCardRanking($rank) ?: $rank['ranking'];
-                $this->identifiedHandType['kicker']        = $this->getKicker($this->identifiedHandType['activeCards']);
+                $this->identifiedHandType['kicker'] = $this->getKicker($this->identifiedHandType['activeCards']);
 
                 return true;
             }
@@ -477,10 +516,10 @@ class HandIdentifier
             $straightFlush = $this->filterStraightCards($onlyThisSuit);
 
             if ($straightFlush && 5 === count($straightFlush)) {
-                $this->straightFlush                       = $straightFlush;
-                $this->identifiedHandType['handType']      = $this->getHandType('Straight Flush');
+                $this->straightFlush = $straightFlush;
+                $this->identifiedHandType['handType'] = $this->getHandType('Straight Flush');
                 $this->identifiedHandType['activeCards'][] = $straightFlush;
-                $this->identifiedHandType['kicker']        = $this->getMax($straightFlush, 'ranking');
+                $this->identifiedHandType['kicker'] = $this->getMax($straightFlush, 'ranking');
 
                 return true;
             }
@@ -492,18 +531,18 @@ class HandIdentifier
     public function hasRoyalFlush(): bool|self
     {
         foreach (Suit::ALL as $suit) {
-            $royalFlush = array_filter($this->allCards, function($value) use ($suit) {
-                return $value['suit_id'] === $suit['suit_id'] && $value['rankAbbreviation'] === 'A' ||
-                    $value['suit_id'] === $suit['suit_id'] && $value['rankAbbreviation'] === 'K' ||
-                    $value['suit_id'] === $suit['suit_id'] && $value['rankAbbreviation'] === 'Q'||
-                    $value['suit_id'] === $suit['suit_id'] && $value['rankAbbreviation'] === 'J'||
-                    $value['suit_id'] === $suit['suit_id'] && $value['rankAbbreviation'] === '10';
+            $royalFlush = array_filter($this->allCards, function ($value) use ($suit) {
+                return $value['suit_id'] === $suit['suit_id'] && 'A' === $value['rankAbbreviation']
+                    || $value['suit_id'] === $suit['suit_id'] && 'K' === $value['rankAbbreviation']
+                    || $value['suit_id'] === $suit['suit_id'] && 'Q' === $value['rankAbbreviation']
+                    || $value['suit_id'] === $suit['suit_id'] && 'J' === $value['rankAbbreviation']
+                    || $value['suit_id'] === $suit['suit_id'] && '10' === $value['rankAbbreviation'];
             });
 
             if ($royalFlush && 5 === count($royalFlush)) {
-                $this->royalFlush                        = $royalFlush;
+                $this->royalFlush = $royalFlush;
                 $this->identifiedHandType['activeCards'] = array_column($this->royalFlush, 'ranking');
-                $this->identifiedHandType['handType']    = $this->getHandType('Royal Flush');
+                $this->identifiedHandType['handType'] = $this->getHandType('Royal Flush');
 
                 return true;
             }

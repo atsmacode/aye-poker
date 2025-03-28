@@ -7,5 +7,5 @@ use Atsmacode\Framework\Dbal\Model;
 class Action extends Model
 {
     protected string $table = 'actions';
-    private string   $name;
+    private string $name;
 }

@@ -12,26 +12,26 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class PlayerActionController
 {
     /**
-     * To be set to the fully qualified class name of an 
+     * To be set to the fully qualified class name of an
      * implementation of the Game interface.
      */
     protected string $game = '';
-    
+
     private Hand $handModel;
 
     public function __construct(
         private ServiceManager $container,
-        private ActionHandler $actionHandler
+        private ActionHandler $actionHandler,
     ) {
         $this->actionHandler = $actionHandler;
-        $this->handModel     = $container->get(Hand::class);
+        $this->handModel = $container->get(Hand::class);
     }
 
     public function action(Request $request): Response
     {
         $requestBody = $request->toArray();
-        $hand        = $this->handModel->latest();
-        $gameState   = $this->actionHandler->handle(
+        $hand = $this->handModel->latest();
+        $gameState = $this->actionHandler->handle(
             $hand,
             $requestBody['player_id'],
             $requestBody['table_seat_id'],
@@ -43,8 +43,8 @@ abstract class PlayerActionController
         );
 
         $gamePlayService = $this->container->build(GamePlay::class, [
-            'game'      => $this->container->get($this->game),
-            'gameState' => $gameState
+            'game' => $this->container->get($this->game),
+            'gameState' => $gameState,
         ]);
         $gamePlay = $gamePlayService->play($gameState);
 
