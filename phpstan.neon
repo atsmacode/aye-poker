@@ -1,0 +1,14 @@
+parameters:
+    level: 6
+    paths:
+        - modules/poker-game/app
+    ignoreErrors:
+        - '#.*no value type specified in iterable type array.*#'
+        - '#.*Unreachable statement.*#'
+        - '#.*never written, only read.*#'
+        - '#.*is unused.*#'
+        - '#.*never read, only written.*#'
+        - '#.*has no return type specified.*#'
+        - '#.*Access to an undefined property.*#'
+        - '#.*Call to an undefined method.*#'
+        - '#.*is never assigned string*#'
