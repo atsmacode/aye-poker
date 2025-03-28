@@ -41,3 +41,5 @@ linux/mercure/bolt.db
 /.php-cs-fixer.php
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
+
+phpstan.neon
