@@ -35,7 +35,7 @@ class TableSeat extends Model
         return $this->table_id;
     }
 
-    public function playerAfterDealer(int $handId, int $dealer): self
+    public function playerAfterDealer(int $handId, int $dealer): ?TableSeat
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -57,10 +57,12 @@ class TableSeat extends Model
             return $this;
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function bigBlindWins(int $tableSeatId): int
+    public function bigBlindWins(int $tableSeatId): ?int
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -72,10 +74,12 @@ class TableSeat extends Model
             return $queryBuilder->executeStatement();
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function getBigBlind(string $handId): array
+    public function getBigBlind(int $handId): ?array
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -89,10 +93,12 @@ class TableSeat extends Model
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function getContinuingPlayerSeats(string $handId): self
+    public function getContinuingPlayerSeats(string $handId): ?TableSeat
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -112,10 +118,12 @@ class TableSeat extends Model
             return $this;
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function getContinuingBetters(string $handId): array
+    public function getContinuingBetters(string $handId): ?array
     {
         $raiseId = Action::RAISE_ID;
         $betId = Action::BET_ID;
@@ -145,10 +153,12 @@ class TableSeat extends Model
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function getFirstAvailableSeat(?int $thisTable = null): self
+    public function getFirstAvailableSeat(?int $thisTable = null): ?TableSeat
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -171,10 +181,12 @@ class TableSeat extends Model
             return $this;
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function getCurrentPlayerSeat(int $playerId): ?self
+    public function getCurrentPlayerSeat(int $playerId): ?TableSeat
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -196,6 +208,8 @@ class TableSeat extends Model
             return $this;
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 }

@@ -21,6 +21,7 @@ use Atsmacode\PokerGame\Database\Seeders\SeedHandTypes;
 use Atsmacode\PokerGame\Database\Seeders\SeedPlayers;
 use Atsmacode\PokerGame\Database\Seeders\SeedStreets;
 use Atsmacode\PokerGame\Database\Seeders\SeedTable;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(
     name: 'app:build-poker-game',
@@ -51,5 +52,6 @@ class BuildPokerGame extends Migrator
         SeedTable::class,
     ];
 
+    /* @phpstan-ignore missingType.property (Overriding framework, defaultName might be Symfony though) */
     protected static $defaultName = 'app:build-poker-game';
 }

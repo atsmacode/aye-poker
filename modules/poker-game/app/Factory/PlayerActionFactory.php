@@ -16,19 +16,12 @@ class PlayerActionFactory
     ) {
     }
 
-    /**
-     * @param int        $playerActionId
-     * @param int        $handId
-     * @param int        $actionId
-     * @param float|bool $betAmount
-     * @param int        $active
-     */
     public function create(
-        $playerActionId,
-        $handId,
-        $actionId,
-        $betAmount,
-        $active,
+        int $playerActionId,
+        int $handId,
+        ?int $actionId,
+        float|null $betAmount,
+        int $active,
     ): PlayerAction {
         $playerAction = $this->playerActionModel->find(['id' => $playerActionId]);
 
@@ -53,6 +46,7 @@ class PlayerActionFactory
             ]);
         }
 
+        /* @phpstan-ignore return.type (Model not PlayerAction) */
         return $playerAction;
     }
 }

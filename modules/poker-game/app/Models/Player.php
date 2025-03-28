@@ -14,7 +14,7 @@ class Player extends Model
         return $this->name;
     }
 
-    public function stacks(): array
+    public function stacks(): ?array
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -26,10 +26,12 @@ class Player extends Model
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function getWholeCards(int $handId, int $playerId): array
+    public function getWholeCards(int $handId, int $playerId): ?array
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -53,6 +55,8 @@ class Player extends Model
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 }

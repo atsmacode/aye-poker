@@ -16,7 +16,7 @@ class Stack extends Model
         return $this->amount;
     }
 
-    public function change(int $amount, int $playerId, int $tableId): int
+    public function change(float $amount, int $playerId, int $tableId): ?int
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -29,6 +29,8 @@ class Stack extends Model
             return $queryBuilder->executeStatement();
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 }

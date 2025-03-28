@@ -28,7 +28,7 @@ class ActionHandler implements ActionHandlerInterface
         int $playerId,
         int $tableSeatId,
         int $handStreetId,
-        $betAmount,
+        float|null $betAmount,
         int $actionId,
         int $active,
         int $stack,
@@ -62,6 +62,7 @@ class ActionHandler implements ActionHandlerInterface
         ]);
 
         $this->gameState->initiate($hand);
+        /* @phpstan-ignore argument.type (Model not PlayerAction) */
         $this->gameState->setLatestAction($playerAction);
         $this->gameState->setBigBlind();
 

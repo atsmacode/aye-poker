@@ -16,7 +16,7 @@ class GameState
     private array $communityCards = [];
     private array $wholeCards = [];
     private ?array $winner = null;
-    private ?PlayerAction $latestAction;
+    private PlayerAction $latestAction;
     private int $tableId;
     private int $handId;
     private array $seats;

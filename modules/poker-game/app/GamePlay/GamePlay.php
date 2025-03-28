@@ -35,7 +35,7 @@ class GamePlay
         $this->gameState = $gameState;
     }
 
-    public function response(?HandStep $step = null, $currentDealer = null): array
+    public function response(?HandStep $step = null, ?TableSeat $currentDealer = null): array
     {
         $this->gameState->setCommunityCards();
 
@@ -53,12 +53,12 @@ class GamePlay
     }
 
     /** Specific start method to start new hand on page refresh in SitController */
-    public function start($currentDealer = null)
+    public function start(?TableSeat $currentDealer = null)
     {
         return $this->response($this->start, $currentDealer);
     }
 
-    public function play(GameState $gameState, $currentDealer = null)
+    public function play(GameState $gameState, ?TableSeat $currentDealer = null)
     {
         $this->gameState = $gameState;
 

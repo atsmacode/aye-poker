@@ -85,7 +85,7 @@ class PlayerHandler implements PlayerHandlerInterface
         return 0 < count($playerAfterDealer->getContent()) ? $playerAfterDealer->getContent()[0] : $firstActivePlayer;
     }
 
-    private function getOptionsViaLatestAction($playerAction): array
+    private function getOptionsViaLatestAction(array $playerAction): array
     {
         $latestAction = $this->gameState->getLatestAction();
         $continuingBetters = $this->tableSeatModel->getContinuingBetters((string) $this->gameState->getHand()->getId());

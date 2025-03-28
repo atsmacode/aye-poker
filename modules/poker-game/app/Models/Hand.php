@@ -21,7 +21,7 @@ class Hand extends Model
         return $this->completed_on;
     }
 
-    public function streets(): array
+    public function streets(): ?array
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -34,10 +34,12 @@ class Hand extends Model
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function pot(): array
+    public function pot(): ?array
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -50,10 +52,12 @@ class Hand extends Model
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function complete(): int
+    public function complete(): ?int
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -65,10 +69,12 @@ class Hand extends Model
             return $queryBuilder->executeStatement();
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function latest(): self
+    public function latest(): ?Hand
     {
         $query = sprintf('
             SELECT * FROM hands ORDER BY id DESC LIMIT 1
@@ -101,10 +107,12 @@ class Hand extends Model
             return $this;
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function getDealer(): array
+    public function getDealer(): ?array
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -118,10 +126,12 @@ class Hand extends Model
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function getPlayers(int $handId): array
+    public function getPlayers(int $handId): ?array
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -156,10 +166,12 @@ class Hand extends Model
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function getCommunityCards(?int $handId = null): array
+    public function getCommunityCards(?int $handId = null): ?array
     {
         $handId = $handId ?? $this->id;
 
@@ -186,6 +198,8 @@ class Hand extends Model
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 }

@@ -22,7 +22,7 @@ class HandIdentifier
     private array $threeOfAKind = [];
     private array $straight;
     private array $flush;
-    private array|bool $fullHouse = false;
+    private bool $fullHouse = false;
     private array $fourOfAKind;
     private array $straightFlush;
     private array $royalFlush;
@@ -164,6 +164,8 @@ class HandIdentifier
                 return $cardRanking;
             }
         }
+
+        return null;
     }
 
     private function getHandType(string $name): array|false
@@ -177,7 +179,7 @@ class HandIdentifier
         return false;
     }
 
-    private function filterAllCards(string $column, $filter): array
+    private function filterAllCards(string $column, mixed $filter): array
     {
         return array_filter($this->allCards, function ($value) use ($column, $filter) {
             return $value[$column] === $filter;
@@ -194,7 +196,7 @@ class HandIdentifier
             return $a['ranking'] > $b['ranking'] ? -1 : 1;
         });
 
-        return array_values($this->allCards);
+        return $this->allCards;
     }
 
     private function removeDuplicates(array $cards): array

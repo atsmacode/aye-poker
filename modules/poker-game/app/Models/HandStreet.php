@@ -10,7 +10,7 @@ class HandStreet extends Model
     private int $street_id;
     private int $hand_id;
 
-    public function cards(): array
+    public function cards(): ?array
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -22,10 +22,12 @@ class HandStreet extends Model
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function getStreetCards($handId, $streetId): array
+    public function getStreetCards(int $handId, int $streetId): ?array
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -39,6 +41,8 @@ class HandStreet extends Model
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 }

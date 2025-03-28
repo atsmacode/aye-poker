@@ -10,7 +10,7 @@ class HandStreetCard extends Model
     private int $hand_street_id;
     private int $card_id;
 
-    public function getCard(): array
+    public function getCard(): ?array
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -32,6 +32,8 @@ class HandStreetCard extends Model
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 }

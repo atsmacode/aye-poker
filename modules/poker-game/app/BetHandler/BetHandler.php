@@ -28,7 +28,7 @@ class BetHandler extends Database
         int $stackAmount,
         int $playerId,
         int $tableId,
-        ?int $betAmount = null,
+        float|null $betAmount = null,
     ): ?int {
         if ($betAmount) {
             $stack = $stackAmount - $betAmount;

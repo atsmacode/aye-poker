@@ -96,7 +96,7 @@ class Start extends HandStep
         return $this;
     }
 
-    public function setDealerAndBlindSeats($currentDealer = null): self
+    public function setDealerAndBlindSeats(?TableSeat $currentDealer): self
     {
         if (1 === $this->gameState->handStreetCount()) {
             $bigBlind = $this->playerActionModel->find(['hand_id' => $this->gameState->handId(), 'big_blind' => 1]);

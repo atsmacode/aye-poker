@@ -10,7 +10,7 @@ class Table extends Model
     private string $name;
     private int $seats;
 
-    public function getSeats(?int $tableId = null): array
+    public function getSeats(?int $tableId = null): ?array
     {
         $tableId = $tableId ?? $this->id;
 
@@ -25,10 +25,12 @@ class Table extends Model
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function hasMultiplePlayers(?int $tableId = null): array
+    public function hasMultiplePlayers(?int $tableId = null): ?array
     {
         $tableId = $tableId ?? $this->id;
 
@@ -43,6 +45,8 @@ class Table extends Model
             return $queryBuilder->executeQuery() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 }

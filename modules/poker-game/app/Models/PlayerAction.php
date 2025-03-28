@@ -53,7 +53,7 @@ class PlayerAction extends Model
         return $this->table_seat_id;
     }
 
-    public function getLatestAction(int $handId): self
+    public function getLatestAction(int $handId): ?PlayerAction
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -73,10 +73,12 @@ class PlayerAction extends Model
             return $this;
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
-    public function getStreetActions(int $handStreetId): array
+    public function getStreetActions(int $handStreetId): ?array
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -88,6 +90,8 @@ class PlayerAction extends Model
             return $queryBuilder->executeQuery() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 }

@@ -58,8 +58,6 @@ class DependencyConfig
                     ActionHandler\ActionHandler::class => ActionHandler\ActionHandlerFactory::class,
                     Controllers\PotLimitHoldEm\SitController::class => Controllers\SitControllerFactory::class,
                     Controllers\PotLimitOmaha\SitController::class => Controllers\SitControllerFactory::class,
-                    Controllers\Dev\PotLimitHoldEm\SitController::class => Controllers\SitControllerFactory::class,
-                    Controllers\Dev\PotLimitOmaha\SitController::class => Controllers\SitControllerFactory::class,
                     Controllers\PotLimitHoldEm\PlayerActionController::class => Controllers\PlayerActionControllerFactory::class,
                     Controllers\PotLimitOmaha\PlayerActionController::class => Controllers\PlayerActionControllerFactory::class,
                     Controllers\Player\Controller::class => Controllers\ControllerFactory::class,

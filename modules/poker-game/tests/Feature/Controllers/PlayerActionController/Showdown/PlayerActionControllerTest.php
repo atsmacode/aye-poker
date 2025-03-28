@@ -519,7 +519,7 @@ class PlayerActionControllerTest extends BaseTest
         $this->start->setGameState($this->gameState)
             ->initiateStreetActions()
             ->initiatePlayerStacks()
-            ->setDealerAndBlindSeats()
+            ->setDealerAndBlindSeats(null)
             ->getGameState();
     }
 }

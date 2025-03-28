@@ -5,6 +5,7 @@ namespace Atsmacode\PokerGame\Dealer;
 use Atsmacode\CardGames\Dealer\Dealer;
 use Atsmacode\CardGames\Deck\Deck as BaseDeck;
 use Atsmacode\PokerGame\Models\Deck;
+use Atsmacode\PokerGame\Models\HandStreet;
 use Atsmacode\PokerGame\Models\HandStreetCard;
 use Atsmacode\PokerGame\Models\WholeCard;
 
@@ -37,7 +38,7 @@ class PokerDealer extends Dealer
         return $this->updateDeck($handId);
     }
 
-    public function dealStreetCards(int $handId, $handStreet, $cardCount)
+    public function dealStreetCards(int $handId, HandStreet $handStreet, int $cardCount)
     {
         $dealtCards = 0;
 
@@ -55,14 +56,7 @@ class PokerDealer extends Dealer
         return $this->updateDeck($handId);
     }
 
-    /**
-     * @param HandStreet $handStreet
-     * @param string     $rank
-     * @param string     $suit
-     *
-     * @return $this
-     */
-    public function dealThisStreetCard(int $handId, $rank, $suit, $handStreet)
+    public function dealThisStreetCard(int $handId, string $rank, string $suit, HandStreet $handStreet)
     {
         $cardId = $this->pickCard($rank, $suit)->getCard()['id'];
 
