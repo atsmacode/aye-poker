@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+./vendor/bin/php-cs-fixer fix modules/poker-game/app --diff

@@ -20,7 +20,7 @@ class PlayerActionFactory
         int $playerActionId,
         int $handId,
         ?int $actionId,
-        float|null $betAmount,
+        ?float $betAmount,
         int $active,
     ): PlayerAction {
         $playerAction = $this->playerActionModel->find(['id' => $playerActionId]);

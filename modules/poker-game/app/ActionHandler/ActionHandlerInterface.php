@@ -14,7 +14,7 @@ interface ActionHandlerInterface
         int $playerId,
         int $tableSeatId,
         int $handStreetId,
-        float|null $betAmount,
+        ?float $betAmount,
         int $actionId,
         int $active,
         int $stack,
