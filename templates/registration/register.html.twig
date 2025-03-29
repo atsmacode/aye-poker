@@ -18,8 +18,8 @@
             </div>
 
             <div class="mb-3">
-                <label for="playername">Player Name:</label>
-                <input class="form-control" type="text" id="playername" name="registration_form[playername]" value="">
+                {{ form_label(registrationForm.playerName, 'Player Name') }}
+                {{ form_widget(registrationForm.playerName, {'attr': {'class': 'form-control'}}) }}
             </div>
 
             <div class="mb-3">

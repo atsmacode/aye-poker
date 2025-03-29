@@ -41,7 +41,7 @@ class Controller extends AbstractController
         $form->handleRequest($request);
 
         /** @todo I removed && $form->isValid() as it was failing with custom playername field */
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -53,7 +53,11 @@ class Controller extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->pokerPlayer->create($request, $user->getId());
+            $this->pokerPlayer->create(
+                $request,
+                $user,
+                $form->get('playerName')->getData()
+            );
 
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
