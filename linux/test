@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+# PHP Stan
+vendor/bin/phpstan analyse
+
 # PokerGame
 vendor/bin/phpunit --testdox --testsuite PokerGame
 
