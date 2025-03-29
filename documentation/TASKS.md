@@ -18,6 +18,7 @@
 3. Watch game button (passive viewer)
 4. Implement secure password validation
 5. Validate unique email/username
+    * 29/03/25 Checking unique e-mail, showing errors on screen
 6. Config stack/limit 
 7. Remaining PHPStan errors
 8. Get Symfony CLI, unit tests in container
