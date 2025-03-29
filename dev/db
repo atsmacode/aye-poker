@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+# Commands can be run individually with -d true for test DBs
+php dev/BuildAyePoker.php app:create-database
+php dev/BuildAyePoker.php app:build-card-games
+php dev/BuildAyePoker.php app:build-poker-game

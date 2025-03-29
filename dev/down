@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+docker compose down
+docker container prune -f
+docker rmi $(sudo docker images -a -q)
