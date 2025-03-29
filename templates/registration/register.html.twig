@@ -17,21 +17,36 @@
                 {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
             </div>
 
+            {% if registrationForm.email.vars.errors|length > 0 %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form_errors(registrationForm.email) }}
+                </div>
+            {% endif %}
+
             <div class="mb-3">
                 {{ form_label(registrationForm.playerName, 'Player Name') }}
                 {{ form_widget(registrationForm.playerName, {'attr': {'class': 'form-control'}}) }}
             </div>
+
+            {% if registrationForm.playerName.vars.errors|length > 0 %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form_errors(registrationForm.playerName) }}
+                </div>
+            {% endif %}
 
             <div class="mb-3">
                 {{ form_label(registrationForm.plainPassword, 'Password') }}
                 {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
             </div>
 
+            {% if registrationForm.plainPassword.vars.errors|length > 0 %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form_errors(registrationForm.plainPassword) }}
+                </div>
+            {% endif %}
+
             {# {{ form_row(registrationForm.email) }} #}
             {# {{ form_label(registrationForm.plainPassword) }} #}
-            
-            {{ form_label(registrationForm.agreeTerms) }}
-            {{ form_widget(registrationForm.agreeTerms) }}
 
             <button type="submit" class="btn btn-primary float-end">Register</button>
             
