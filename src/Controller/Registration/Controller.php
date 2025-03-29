@@ -40,7 +40,6 @@ class Controller extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
-        /** @todo I removed && $form->isValid() as it was failing with custom playername field */
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
