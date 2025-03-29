@@ -20,7 +20,7 @@ Live page updates during game play are powered by the Mercure Hub: https://mercu
 
 # Quick Start (Docker)
 
-1. Run `mac/docker` or `linux/docker` for your OS
+1. Run `dev/docker`
     * Docker will provide a link to the app where you can register & login. Something like: http://localhost:8000
 2. Now you're ready to play:
     * Open at least 2 private browser tabs
@@ -35,14 +35,14 @@ The key steps to get the app started on a local dev environment are:
 1. Copy the .env.template to .env
 2. Create a DB for the Symfony app
 3. Download the [symfony-cli](https://symfony.com/download)
-4. Run the following command: `mac/start` or `linux/start`
+4. Run the following command: `dev/start`
     * This will do the following:
        * Install Composer dependencies
        * Migrate the Aye Poker & Poker Game DBs
        * Install NPM dependencies
        * Start the Symfony local server
     * Symfony will provide a link to the app where you can register & login. Something like: http://127.0.0.1:8000
-5. Open a new terminal and switch to the following directory for your OS: `cd mac/mercure` or `cd linux/mercure`. Then:
+5. Open a new terminal and switch to the following directory for your OS: `cd mercure/mac` or `cd mercure/linux`. Then:
 
 ```
 MERCURE_PUBLISHER_JWT_KEY='!ChangeThisMercureHubJWTSecretKey!' \
@@ -73,7 +73,7 @@ Here's an example of how I plan and map out changes using Lucid Charts:
 
 ## Build Poker Game DB:
 
-### Linux
+### Linux / Mac
 
 Build the test DB:
 

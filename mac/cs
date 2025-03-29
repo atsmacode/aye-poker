@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# CS Fixer
-./vendor/bin/php-cs-fixer fix  --dry-run --diff
-
-# PHP Stan
-vendor/bin/phpstan analyse
