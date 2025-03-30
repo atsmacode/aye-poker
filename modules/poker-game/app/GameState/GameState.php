@@ -39,7 +39,7 @@ class GameState
         }
     }
 
-    public function initiate(Hand $hand)
+    public function initiate(Hand $hand): void
     {
         $this->hand = $hand;
         $this->tableId = $hand->getTableId();
@@ -48,7 +48,7 @@ class GameState
         $this->handStreets = $this->hand->streets();
     }
 
-    public function getSeat(int $seatId)
+    public function getSeat(int $seatId): ?array
     {
         $key = array_search($seatId, array_column($this->seats, 'id'));
 
@@ -56,10 +56,10 @@ class GameState
             return $this->seats[$key];
         }
 
-        return false;
+        return null;
     }
 
-    public function getDealer()
+    public function getDealer(): ?array
     {
         $key = array_search(1, array_column($this->seats, 'is_dealer'));
 
@@ -67,10 +67,10 @@ class GameState
             return $this->seats[$key];
         }
 
-        return false;
+        return null;
     }
 
-    public function getSeatAction(int $seatId)
+    public function getSeatAction(int $seatId): ?array
     {
         $key = array_search($seatId, array_column($this->actions, 'table_seat_id'));
 
@@ -78,7 +78,7 @@ class GameState
             return $this->actions[$key];
         }
 
-        return false;
+        return null;
     }
 
     public function setHand(Hand $hand): void
@@ -193,7 +193,7 @@ class GameState
         return $this->players;
     }
 
-    public function getSittingOutPlayers()
+    public function getSittingOutPlayers(): array
     {
         return array_diff(
             array_column($this->getSeats(), 'player_id'),
@@ -215,7 +215,7 @@ class GameState
         });
     }
 
-    public function firstActivePlayer()
+    public function firstActivePlayer(): ?array
     {
         $key = array_search(1, array_column($this->players, 'active'));
 
@@ -223,7 +223,7 @@ class GameState
             return $this->players[$key];
         }
 
-        return false;
+        return null;
     }
 
     public function setWinner(array $winner): void
@@ -289,7 +289,7 @@ class GameState
         return $this->bigBlind;
     }
 
-    public function isHeadsUp()
+    public function isHeadsUp(): bool
     {
         return 2 === count($this->getActivePlayers());
     }

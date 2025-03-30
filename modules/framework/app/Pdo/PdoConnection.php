@@ -3,6 +3,7 @@
 namespace Atsmacode\Framework\Pdo;
 
 use Atsmacode\Framework\Database\ConnectionInterface;
+use Doctrine\DBAL\Connection;
 use PDO;
 
 class PdoConnection implements ConnectionInterface

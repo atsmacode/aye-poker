@@ -53,12 +53,12 @@ class GamePlay
     }
 
     /** Specific start method to start new hand on page refresh in SitController */
-    public function start(?TableSeat $currentDealer = null)
+    public function start(?TableSeat $currentDealer = null): array
     {
         return $this->response($this->start, $currentDealer);
     }
 
-    public function play(GameState $gameState, ?TableSeat $currentDealer = null)
+    public function play(GameState $gameState, ?TableSeat $currentDealer = null): array
     {
         $this->gameState = $gameState;
 
@@ -83,24 +83,24 @@ class GamePlay
         return $this->response();
     }
 
-    protected function readyForShowdown()
+    protected function readyForShowdown(): bool
     {
         return count($this->gameState->getHandStreets()) === count($this->gameState->getGame()->streets)
             && count($this->gameState->getActivePlayers()) === count($this->gameState->getContinuingPlayers());
     }
 
-    protected function onePlayerRemainsThatCanContinue()
+    protected function onePlayerRemainsThatCanContinue(): bool
     {
         return count($this->gameState->getActivePlayers()) === count($this->gameState->getContinuingPlayers())
             && 1 === count($this->gameState->getContinuingPlayers());
     }
 
-    protected function allActivePlayersCanContinue()
+    protected function allActivePlayersCanContinue(): bool
     {
         return count($this->gameState->getActivePlayers()) === count($this->gameState->getContinuingPlayers());
     }
 
-    protected function theBigBlindIsTheOnlyActivePlayerRemainingPreFlop()
+    protected function theBigBlindIsTheOnlyActivePlayerRemainingPreFlop(): bool
     {
         $this->gameState->setPlayers();
 
@@ -111,7 +111,7 @@ class GamePlay
         return 1 === count($activePlayers) && 1 === $activePlayers[0]['big_blind'];
     }
 
-    protected function theLastHandWasCompleted()
+    protected function theLastHandWasCompleted(): bool
     {
         return null !== $this->gameState->getHand()->getCompletedOn();
     }

@@ -64,7 +64,7 @@ abstract class SitController
         return new Response(json_encode($gamePlay));
     }
 
-    private function setWaitingPlayerData(int $playerId, int $tableSeatId, int $seatNumber)
+    private function setWaitingPlayerData(int $playerId, int $tableSeatId, int $seatNumber): array
     {
         $playerName = $this->playerModel->find(['id' => $playerId])->getName();
 

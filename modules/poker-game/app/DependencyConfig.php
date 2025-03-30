@@ -6,7 +6,7 @@ use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 
 class DependencyConfig
 {
-    public function get()
+    public function get(): array
     {
         return [
             // ConfigAbstractFactory::class => [

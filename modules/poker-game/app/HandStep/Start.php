@@ -143,7 +143,7 @@ class Start extends HandStep
     }
 
     /** Needed a way to create unique instances of the model in the container */
-    private function findPlayerAction(int $playerId, int $tableSeatId, int $handStreetId)
+    private function findPlayerAction(int $playerId, int $tableSeatId, int $handStreetId): PlayerAction
     {
         $playerActionModel = $this->container->build(PlayerAction::class);
 
@@ -155,7 +155,7 @@ class Start extends HandStep
     }
 
     /** Needed a way to create unique instances of the model in the container */
-    private function findPlayerStack(int $playerId, int $tableId)
+    private function findPlayerStack(int $playerId, int $tableId): Stack
     {
         $stackModel = $this->container->build(Stack::class);
 
@@ -165,26 +165,17 @@ class Start extends HandStep
         ]);
     }
 
-    /**
-     * @param TableSeat|false $currentDealer
-     */
-    private function noDealerIsSetOrThereIsNoSeatAfterTheCurrentDealer($currentDealer)
+    private function noDealerIsSetOrThereIsNoSeatAfterTheCurrentDealer(?array $currentDealer): bool
     {
         return !$currentDealer || !$this->gameState->getSeat($currentDealer['id'] + 1);
     }
 
-    /**
-     * @param TableSeat|false $currentDealer
-     */
-    private function thereAreThreeSeatsAfterTheCurrentDealer($currentDealer)
+    private function thereAreThreeSeatsAfterTheCurrentDealer(?array $currentDealer): ?array
     {
         return $this->gameState->getSeat($currentDealer['id'] + 3);
     }
 
-    /**
-     * @param TableSeat|false $currentDealer
-     */
-    private function thereAreTwoSeatsAfterTheCurrentDealer($currentDealer)
+    private function thereAreTwoSeatsAfterTheCurrentDealer(?array $currentDealer): ?array
     {
         return $this->gameState->getSeat($currentDealer['id'] + 2);
     }
@@ -192,7 +183,7 @@ class Start extends HandStep
     /**
      * @param TableSeat|false $currentDealer
      */
-    private function thereIsOneSeatAfterTheDealer($currentDealer)
+    private function thereIsOneSeatAfterTheDealer($currentDealer): ?array
     {
         return $this->gameState->getSeat($currentDealer['id'] + 1);
     }
@@ -250,12 +241,12 @@ class Start extends HandStep
         ];
     }
 
-    private function isHeadsUp()
+    private function isHeadsUp(): bool
     {
         return 2 === count($this->gameState->getSeats());
     }
 
-    private function setDealer(?TableSeat $currentDealerSet = null)
+    private function setDealer(?TableSeat $currentDealerSet = null): ?array
     {
         return $currentDealerSet
             ? $this->gameState->getSeat($currentDealerSet->getId())

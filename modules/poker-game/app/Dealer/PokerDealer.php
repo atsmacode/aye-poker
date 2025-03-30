@@ -19,7 +19,7 @@ class PokerDealer extends Dealer
         $this->deck = (new BaseDeck())->cards;
     }
 
-    public function dealTo(array $players, int $cardCount, ?int $handId)
+    public function dealTo(array $players, int $cardCount, ?int $handId): PokerDealer
     {
         $dealtCards = 0;
 
@@ -38,7 +38,7 @@ class PokerDealer extends Dealer
         return $this->updateDeck($handId);
     }
 
-    public function dealStreetCards(int $handId, HandStreet $handStreet, int $cardCount)
+    public function dealStreetCards(int $handId, HandStreet $handStreet, int $cardCount): PokerDealer
     {
         $dealtCards = 0;
 
@@ -56,7 +56,7 @@ class PokerDealer extends Dealer
         return $this->updateDeck($handId);
     }
 
-    public function dealThisStreetCard(int $handId, string $rank, string $suit, HandStreet $handStreet)
+    public function dealThisStreetCard(int $handId, string $rank, string $suit, HandStreet $handStreet): PokerDealer
     {
         $cardId = $this->pickCard($rank, $suit)->getCard()['id'];
 
@@ -68,7 +68,7 @@ class PokerDealer extends Dealer
         return $this->updateDeck($handId);
     }
 
-    public function saveDeck(int $handId): self
+    public function saveDeck(int $handId): PokerDealer
     {
         $this->deckModel->create([
             'hand_id' => $handId,
@@ -78,7 +78,7 @@ class PokerDealer extends Dealer
         return $this;
     }
 
-    public function updateDeck(int $handId): self
+    public function updateDeck(int $handId): PokerDealer
     {
         $deck = $this->deckModel->find(['hand_id' => $handId]);
         $deck->update(['cards' => json_encode($this->deck)]);
@@ -86,7 +86,7 @@ class PokerDealer extends Dealer
         return $this;
     }
 
-    public function setSavedDeck(int $handId): self
+    public function setSavedDeck(int $handId): PokerDealer
     {
         $savedDeck = $this->deckModel->find(['hand_id' => $handId]);
         $hasSavedDeck = !empty($savedDeck->getContent());

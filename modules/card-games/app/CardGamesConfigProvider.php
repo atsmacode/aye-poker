@@ -7,7 +7,7 @@ use Laminas\ConfigAggregator\ConfigAggregator;
 
 class CardGamesConfigProvider extends ConfigProvider
 {
-    public function get()
+    public function get(): array
     {
         $aggregator = new ConfigAggregator([
             CardGamesConfig::class

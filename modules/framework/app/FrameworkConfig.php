@@ -6,7 +6,7 @@ class FrameworkConfig
 {
     const CONFIG_REF = 'config/framework.php';
 
-    public function __invoke()
+    public function __invoke(): array
     {
         $config = require(FrameworkConfig::CONFIG_REF);
 

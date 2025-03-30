@@ -10,7 +10,6 @@ parameters:
         - '#.*never written, only read.*#'
         - '#.*is unused.*#'
         - '#.*never read, only written.*#'
-        - '#.*has no return type specified.*#'
         - '#.*Access to an undefined property.*#'
         - '#.*Call to an undefined method.*#'
         - '#.*is never assigned string.*#'
