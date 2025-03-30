@@ -43,17 +43,20 @@ abstract class Migrator extends Command
         $logger     = $this->container->get(LoggerInterface::class);
 
         foreach ($this->buildClasses as $class ){
-            /** @todo Using PDO for drop/create, doctrine always requires a DB name for a connection */
             if (CreateDatabase::class === $class) {
+                /** @todo Using PDO for drop/create, doctrine always requires a DB name for a connection */
+
                 if ($dev) { $this->container->setFactory(PDO::class, new $this->legacyTestDbFactory); }
 
                 (new CreateDatabase($this->container->get(PDO::class), $logger))
                     ->dropDatabase()
                     ->createDatabase();
-            } else {
-                foreach ($class::$methods as $method) {
-                    (new $class($connection, $logger))->{$method}();
-                }
+
+                continue;
+            }
+
+            foreach ($class::$methods as $method) {
+                (new $class($connection, $logger))->{$method}();
             }
         }
 
