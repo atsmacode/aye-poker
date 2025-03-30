@@ -19,7 +19,7 @@ return [
             ],
         ],
         'logger' => [
-            'path' => '/var/log/apache2/aye.log',
+            'path' => 'var/log/dev.log',
         ],
     ],
 ];
