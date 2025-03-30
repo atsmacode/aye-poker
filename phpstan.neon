@@ -2,6 +2,7 @@ parameters:
     level: 6
     paths:
         - modules/framework/app
+        - modules/card-games/app
         - modules/poker-game/app
     ignoreErrors:
         - '#.*no value type specified in iterable type array.*#'

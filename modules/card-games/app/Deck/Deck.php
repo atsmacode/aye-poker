@@ -7,7 +7,7 @@ use Atsmacode\CardGames\Factory\CardFactory;
 
 class Deck
 {
-    public $cards = [
+    public array $cards = [
         Card::ACE_CLUBS,
         Card::DEUCE_CLUBS,
         Card::THREE_CLUBS,
@@ -67,7 +67,7 @@ class Deck
         $this->cards = $this->compileDeck();
     }
 
-    private function compileDeck()
+    private function compileDeck(): array
     {
         foreach ($this->cards as $key => $card) {
             $this->cards[$key] = CardFactory::create($card);

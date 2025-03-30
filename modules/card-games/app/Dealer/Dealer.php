@@ -32,7 +32,7 @@ class Dealer
         return $this;
     }
 
-    public function pickCard(string $rank = null, string $suit = null): self
+    public function pickCard(?string $rank = null, ?string $suit = null): self
     {
         if (null === $rank && null === $suit) {
             return $this->pickNextCard();

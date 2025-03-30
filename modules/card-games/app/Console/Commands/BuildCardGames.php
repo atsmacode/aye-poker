@@ -6,6 +6,7 @@ use Atsmacode\CardGames\Database\Migrations\CreateCards;
 use Atsmacode\Framework\Migrations\CreateDatabase;
 use Atsmacode\CardGames\Database\Seeders\SeedCards;
 use Atsmacode\Framework\Console\Commands\Migrator;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(
     name: 'app:build-card-games',
