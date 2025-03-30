@@ -23,6 +23,7 @@
 7. Remaining PHPStan errors
 8. Get Symfony CLI, unit tests in container
 9. Encode auto-generated password (contains special chars)
+10. Use Symfony doctrine to create poker_game DB, remove PDO wrapper
 
 # Features
 
