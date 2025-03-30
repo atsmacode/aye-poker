@@ -1,6 +1,7 @@
 parameters:
     level: 6
     paths:
+        - modules/framework/app
         - modules/poker-game/app
     ignoreErrors:
         - '#.*no value type specified in iterable type array.*#'
@@ -11,4 +12,6 @@ parameters:
         - '#.*has no return type specified.*#'
         - '#.*Access to an undefined property.*#'
         - '#.*Call to an undefined method.*#'
-        - '#.*is never assigned string*#'
+        - '#.*is never assigned string.*#'
+        - '#.*ReflectionClass.*#'
+        - '#.*defaultName.*#'

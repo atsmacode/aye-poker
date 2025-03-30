@@ -4,6 +4,7 @@ namespace Atsmacode\Framework\Console\Commands;
 
 use \Atsmacode\Framework\Migrations\CreateTestTable;
 use \Atsmacode\Framework\Migrations\CreateDatabase;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(
     name: 'app:build-framework',

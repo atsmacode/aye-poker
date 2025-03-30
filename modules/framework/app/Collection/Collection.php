@@ -2,13 +2,16 @@
 
 namespace Atsmacode\Framework\Collection;
 
+use Atsmacode\Framework\Dbal\Model;
+
 trait Collection
 {
-    public function collect()
+    public function collect(): Model
     {
-        foreach($this->content as $key => $value){
+        foreach ($this->content as $key => $value) {
             $this->content[$key] = is_a($value, self::class) ? $value : self::find($value);
         }
+
         return $this;
     }
 
@@ -29,21 +32,19 @@ trait Collection
      *   ...
      * }
      * 
-     * And when desired result is a single self instance.
-     * 
-     * @return self            
+     * And when desired result is a single self instance.          
      */
-    public function search($column, $value)
+    public function search(string $column, mixed $value): ?Model
     {
         $key = array_search($value,
             array_column($this->content, $column)
         );
 
-        if($key !== false && array_key_exists($key, $this->content)){
+        if ($key !== false && array_key_exists($key, $this->content)) {
             return self::find($this->content[$key]);
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -60,9 +61,9 @@ trait Collection
      * 
      * And when desired result is an array of selfs.
      * 
-     * @return array<self>
+     * @return array<Model>
      */
-    public function searchMultiple($column, $value)
+    public function searchMultiple(string $column, mixed $value): ?array
     {
 
         $keys = array_keys(
@@ -70,7 +71,7 @@ trait Collection
             $value
         );
 
-        if($keys > 0){
+        if (count($keys) > 0) {
             $this->content = array_filter($this->content, function($key) use($keys){
                 return in_array($key, $keys);
             }, ARRAY_FILTER_USE_KEY);
@@ -78,31 +79,31 @@ trait Collection
             return $this->content;
         }
 
-        return false;
+        return null;
     }
 
-    public function slice($start, $finish)
+    public function slice(int $start, int $finish): ?Model
     {
 
         $items = array_slice($this->content, $start, $finish);
 
-        if(count($items) === 1){
+        if (count($items) === 1) {
             return self::find(array_shift($items));
         }
 
-        return false;
+        return null;
     }
 
-    public function filter($column, $value)
+    public function filter(string $column, mixed $value): Model
     {
-        $this->content = array_filter($this->content, function($key) use($column, $value){
+        $this->content = array_filter($this->content, function($key) use ($column, $value) {
             return $this->content[$key][$column] !== $value;
         }, ARRAY_FILTER_USE_KEY);
 
         return $this;
     }
 
-    public function latest()
+    public function latest(): int
     {
         $dates = array_column($this->content, 'updated_at', 'id');
 
@@ -116,7 +117,7 @@ trait Collection
         return array_key_first(array_slice($dates, 0, 1, true));
     }
 
-    public function first()
+    public function first(): Model
     {
         return $this->content[0];
     }

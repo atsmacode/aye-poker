@@ -5,6 +5,7 @@ namespace Atsmacode\Framework\Dbal;
 use Atsmacode\Framework\Database\ConnectionInterface;
 use Atsmacode\Framework\Database\Database;
 use Psr\Log\LoggerInterface;
+use ReflectionClass;
 
 abstract class Model extends Database
 {
@@ -125,7 +126,7 @@ abstract class Model extends Database
     }
 
     /** To be used to update a multiple model instances. */
-    public function updateBatch(array $data, $where = null): self
+    public function updateBatch(array $data, ?string $where = null): self
     {
         $properties = $this->compileUpdateBatchStatement($data, $where);
 
@@ -168,7 +169,7 @@ abstract class Model extends Database
      * required. The condition if ($value !== null) { causes
      * problem from time to time in the other methods.
      */
-    public function setValue(string $column, string $value): self
+    public function setValue(string $column, string $value): ?Model
     {
         $query = "
             UPDATE
@@ -190,6 +191,8 @@ abstract class Model extends Database
             return $this;
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
     }
 
@@ -213,7 +216,7 @@ abstract class Model extends Database
         return $properties;
     }
 
-    private function compileUpdateBatchStatement(array $data, $where = null): string
+    private function compileUpdateBatchStatement(array $data, ?string $where = null): string
     {
         $properties = "UPDATE {$this->table} SET ";
         $pointer    = 1;

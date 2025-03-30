@@ -3,6 +3,7 @@
 namespace Atsmacode\Framework\Console\Commands;
 
 use \Atsmacode\Framework\Migrations\CreateDatabase as CreateDatabaseMigration;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(
     name: 'app:create-database',
