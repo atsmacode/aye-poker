@@ -13,20 +13,23 @@ class PokerPlayer
     public function __construct(private PokerGame $pokerGame, private EntityManagerInterface $entityManager) {}
 
      /** Manually calling poker-game controller, could be swapped for API client in future */
-     public function create(Request $request, User $user, string $playerName): void
+     public function create(Request $request, User $user, string $playerName): array|UserPlayer
      {
-         $serviceManager = $this->pokerGame->getServiceManager();
+        $serviceManager = $this->pokerGame->getServiceManager();
 
-         $request  = new Request(content: json_encode(['name' => $playerName]));
-         $response = $serviceManager->get(PlayerController::class)->create($request);
-         $playerId = json_decode($response->getContent(), true)['playerId'];
+        $request  = new Request(content: json_encode(['name' => $playerName]));
 
-         $userPlayer = new UserPlayer();
-         $userPlayer->setPlayerId($playerId);
-         $userPlayer->setUser($user);
+        $response = $serviceManager->get(PlayerController::class)->create($request);
+        $content = json_decode($response->getContent(), true);
 
-         $this->entityManager->persist($userPlayer);
+        if (isset($content['error'])) {
+            return $content;
+        }
 
-         $this->entityManager->flush();
+        $userPlayer = new UserPlayer();
+        $userPlayer->setPlayerId($content['playerId']);
+        $userPlayer->setUser($user);
+
+        return $userPlayer;
     }
 }

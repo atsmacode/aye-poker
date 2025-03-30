@@ -49,14 +49,23 @@ class Controller extends AbstractController
                 )
             );
 
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            $this->pokerPlayer->create(
+            $userPlayer = $this->pokerPlayer->create(
                 $request,
                 $user,
                 $form->get('playerName')->getData()
             );
+
+            if (is_array($userPlayer) && isset($userPlayer['error'])) {
+                $this->addFlash('player_create_error', $userPlayer['error']);
+
+                return $this->render('registration/register.html.twig', [
+                    'registrationForm' => $form->createView(),
+                ]);
+            }
+
+            $entityManager->persist($user);
+            $entityManager->persist($userPlayer);
+            $entityManager->flush();
 
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,

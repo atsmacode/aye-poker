@@ -28,6 +28,11 @@ abstract class Model extends Database
         return $this->id;
     }
 
+    public function exists(): bool
+    {
+        return isset($this->id);
+    }
+
     public function setContent(array $content): void
     {
         $this->content = $content;
@@ -38,7 +43,7 @@ abstract class Model extends Database
         return $this->content;
     }
 
-    public function find(array $data = null): self
+    public function find(?array $data = null): ?self
     {
         $rows       = null;
         $properties = $this->compileWhereStatement($data);
@@ -51,7 +56,7 @@ abstract class Model extends Database
             $results = $stmt->executeQuery();
             $rows    = $results->fetchAllAssociative();
         } catch (\Exception $e) {
-            error_log(__METHOD__ . ': ' . $e->getMessage());
+            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
 
         if (!$rows) { return $this; }
@@ -68,7 +73,7 @@ abstract class Model extends Database
          */
     }
 
-    public function create(array $data = null): self
+    public function create(?array $data = null): self
     {
         $id              = null;
         $insertStatement = $this->compileInsertStatement($data);
@@ -82,7 +87,7 @@ abstract class Model extends Database
 
             $id = $this->connection->lastInsertId();
         } catch (\Exception $e) {
-            error_log(__METHOD__ . $e->getMessage());
+            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
 
         return $this->build(array_merge(['id' => $id], $data));
@@ -111,7 +116,7 @@ abstract class Model extends Database
 
             $stmt->executeQuery();
         } catch (\Exception $e) {
-            error_log(__METHOD__ . ': ' . $e->getMessage());
+            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
 
         $this->content = $this->find(['id' => $this->id])->content;
@@ -131,7 +136,7 @@ abstract class Model extends Database
 
             $stmt->executeQuery();
         } catch (\Exception $e) {
-            error_log(__METHOD__ . ': ' . $e->getMessage());
+            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
 
         return $this;
@@ -150,7 +155,7 @@ abstract class Model extends Database
 
             $rows = $stmt->fetchAllAssociative();
         } catch (\Exception $e) {
-            error_log(__METHOD__ . ': ' . $e->getMessage());
+            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
 
         $this->content = $rows;
@@ -184,7 +189,7 @@ abstract class Model extends Database
 
             return $this;
         } catch (\Exception $e) {
-            error_log(__METHOD__ . ': ' . $e->getMessage());
+            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
     }
 

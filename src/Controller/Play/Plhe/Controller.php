@@ -2,14 +2,11 @@
 
 namespace App\Controller\Play\Plhe;
 
-use App\Entity\User;
-use App\Entity\UserPlayer;
 use App\Service\MercureUpdate;
 use App\Service\PokerGame;
 use Atsmacode\PokerGame\Controllers\PotLimitHoldEm\SitController as PlheSitController;
 use Atsmacode\PokerGame\Controllers\PotLimitHoldEm\PlayerActionController as PlhePlayerActionController;
 use Atsmacode\PokerGame\Models\PlayerAction;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,11 +23,8 @@ class Controller extends AbstractController
     }
 
     #[Route('/play/plhe', name: 'play_plhe', methods: ['GET'])]
-    public function index(
-        Security $security,
-        EntityManagerInterface $entityManager
-    ): Response {
-        $userPlayer = $this->getUserPlayer($entityManager, $security->getUser());
+    public function index(Security $security): Response {
+        $userPlayer = $security->getUser()->getUserPlayer();
 
         return $this->render('play/index.html.twig', [
             'playerId' => $userPlayer->getPlayerId(),
@@ -41,11 +35,10 @@ class Controller extends AbstractController
     public function start(
         PokerGame $pokerGame,
         Security $security,
-        EntityManagerInterface $entityManager,
         MercureUpdate $mercureUpdate
     ): Response {
         $serviceManager = $pokerGame->getServiceManager();
-        $userPlayer     = $this->getUserPlayer($entityManager, $security->getUser());
+        $userPlayer     = $security->getUser()->getUserPlayer();
 
         $response = $serviceManager->get(PlheSitController::class)->sit(playerId: $userPlayer->getPlayerId())->getContent();
         $response = $this->addMercureUrl($response, self::MERCURE_ACTION_TOPIC);
@@ -70,17 +63,6 @@ class Controller extends AbstractController
         $mercureUpdate->publish($response);
 
         return new Response($response);
-    }
-
-    private function getUserPlayer(EntityManagerInterface $entityManager, User $user): UserPlayer
-    {
-        $userPlayerRepository = $entityManager->getRepository(UserPlayer::class);
-
-        $userPlayer = $userPlayerRepository->findOneBy([
-            'userId' => $user->getId()
-        ]);
-
-        return $userPlayer;
     }
 
     private function addMercureUrl(string $jsonResponse, string $topic): string

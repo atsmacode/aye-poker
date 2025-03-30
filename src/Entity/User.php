@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\UserPlayer;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -32,6 +33,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+
+    # TODO Using eager loading to get around entity re-hydration issue on login, consider lazy
+    #[ORM\OneToOne(targetEntity: UserPlayer::class, inversedBy: 'user', fetch: 'EAGER')]
+    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'user_id')]
+    private UserPlayer $userPlayer;
 
     public function getId(): ?int
     {
@@ -130,6 +136,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getUserPlayer(): ?UserPlayer
+    {
+        return $this->userPlayer;
+    }
+
+    public function setUser(?UserPlayer $userPlayer): self
+    {
+        $this->userPlayer = $userPlayer;
 
         return $this;
     }

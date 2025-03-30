@@ -19,6 +19,13 @@ class Controller
     public function create(Request $request): Response
     {
         $requestContent = $request->toArray();
+
+        $player = $this->playerModel->find(['name' => $requestContent['name']]);
+
+        if ($player->exists()) {
+            return new Response(json_encode(['error' => 'Player with this name already exists.']));
+        }
+
         $player = $this->playerModel->create(['name' => $requestContent['name']]);
 
         return new Response(json_encode(['playerId' => $player->getId()]));

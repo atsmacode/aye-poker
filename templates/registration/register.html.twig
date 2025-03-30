@@ -6,8 +6,10 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-6 col-md-4">
-            {% for flash_error in app.flashes('verify_email_error') %}
-                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">{{ message }}</div>
+                {% endfor %}
             {% endfor %}
 
             {{ form_start(registrationForm) }}
