@@ -34,7 +34,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    # TODO Using eager loading to get around entity re-hydration issue on login, consider lazy
+    # Using eager loading to get around entity re-hydration issue on login, consider lazy
     #[ORM\OneToOne(targetEntity: UserPlayer::class, inversedBy: 'user', fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'id', referencedColumnName: 'user_id')]
     private UserPlayer $userPlayer;
