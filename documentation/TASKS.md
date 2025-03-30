@@ -33,3 +33,4 @@
 6. Odds/calculations (Poker Calculator APP?)
 7. All-ins (No Limit Hold-em)
 8. Split pots
+9. New Game: create new table, select player count, test/real mode, open to join, starts when all click 'ready', select blind level, choose game format
