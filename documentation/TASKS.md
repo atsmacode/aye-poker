@@ -22,6 +22,7 @@
 6. Config stack/limit 
 7. Remaining PHPStan errors
 8. Get Symfony CLI, unit tests in container
+9. Encode auto-generated password (contains special chars)
 
 # Features
 
