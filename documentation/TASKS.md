@@ -2,6 +2,7 @@
 
 1. Get app in Gitlab or similar for UI & deployments
 2. Setup/test LoggerInterface
+    * 30/03/25 Logging to var/log/dev.log setup
 3. Do we need to use DB transactions?
 4. NPM warnings, ignore/fix
 5. Migrations always re-run, implement rollbacks/already-done, custom or package?
@@ -19,11 +20,13 @@
 4. Implement secure password validation
 5. Validate unique email/username
     * 29/03/25 Checking unique e-mail, showing errors on screen
+    * 30/03/25 Validating unique player name
 6. Config stack/limit 
 7. Remaining PHPStan errors
 8. Get Symfony CLI, unit tests in container
 9. Encode auto-generated password (contains special chars)
 10. Use Symfony doctrine to create poker_game DB, remove PDO wrapper
+11. Stop using in-app controllers with Request/Response, use interfaces/Exceptions
 
 # Features
 
