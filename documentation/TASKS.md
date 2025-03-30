@@ -11,6 +11,7 @@
 
 1. Heads-up, pocket high card did not beat paired board VS lower pocket cards
 2. Heads-up, folding on checked board does not complete the hand (opponent should win)
+3. If Player is saved but User/UserPlayer fails, it doesn't rollback (transactions, argument to use shared DB connection)
 
 # Patches
 
