@@ -11,7 +11,7 @@ trait HasActionPosts
 {
     private function actionControllerResponse(Request $request)
     {
-        $response = (new PotLimitHoldEmPlayerActionController($this->container, $this->actionHandler))->action($request);
+        $response = (new PotLimitHoldEmPlayerActionController($this->gamePlayService))->action($request);
 
         return json_decode($response->getContent(), true);
     }

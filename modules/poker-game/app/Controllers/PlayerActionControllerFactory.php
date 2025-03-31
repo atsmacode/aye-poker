@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\Controllers;
 
-use Atsmacode\PokerGame\ActionHandler\ActionHandler;
+use Atsmacode\PokerGame\Services\GamePlayService;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 
@@ -10,9 +10,9 @@ class PlayerActionControllerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        $actionHandler = $container->get(ActionHandler::class);
-        $controller = new $requestedName($container, $actionHandler);
-
-        return $controller;
+        return new $requestedName(
+            $container,
+            $container->get(GamePlayService::class)
+        );
     }
 }
