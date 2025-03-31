@@ -30,6 +30,7 @@
 10. Use Symfony doctrine to create poker_game DB, remove PDO wrapper
 11. Stop using in-app controllers with Request/Response, use interfaces/Exceptions
     * 31/03/25 Using services instead
+12. Proper solutions for PHP Stan errors I'm ignoring
 
 # Features
 
