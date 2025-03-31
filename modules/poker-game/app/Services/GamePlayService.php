@@ -17,13 +17,12 @@ class GamePlayService
      */
     protected string $game = PotLimitHoldEm::class;
 
+    private ActionHandler $actionHandler;
     private Hand $handModel;
 
-    public function __construct(
-        private ServiceManager $container,
-        private ActionHandler $actionHandler,
-    ) {
-        $this->actionHandler = $actionHandler;
+    public function __construct(private ServiceManager $container)
+    {
+        $this->actionHandler = $container->get(ActionHandler::class);
         $this->handModel = $container->get(Hand::class);
     }
 
