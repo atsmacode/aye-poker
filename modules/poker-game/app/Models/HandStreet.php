@@ -7,8 +7,6 @@ use Atsmacode\Framework\Dbal\Model;
 class HandStreet extends Model
 {
     protected string $table = 'hand_streets';
-    private int $street_id;
-    private int $hand_id;
 
     public function cards(): ?array
     {

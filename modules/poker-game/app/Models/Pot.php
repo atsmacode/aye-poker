@@ -8,7 +8,6 @@ class Pot extends Model
 {
     protected string $table = 'pots';
     private int $amount;
-    private int $hand_id;
 
     public function getAmount(): int
     {

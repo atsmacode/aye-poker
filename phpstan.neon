@@ -8,7 +8,6 @@ parameters:
         - '#.*no value type specified in iterable type array.*#'
         - '#.*Unreachable statement.*#'
         - '#.*never written, only read.*#'
-        - '#.*is unused.*#'
         - '#.*never read, only written.*#'
         - '#.*Access to an undefined property.*#'
         - '#.*Call to an undefined method.*#'

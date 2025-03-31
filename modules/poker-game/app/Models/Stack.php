@@ -8,8 +8,6 @@ class Stack extends Model
 {
     protected string $table = 'stacks';
     private int $amount;
-    private int $player_id;
-    private int $table_id;
 
     public function getAmount(): int
     {

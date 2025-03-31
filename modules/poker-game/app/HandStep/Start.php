@@ -180,14 +180,6 @@ class Start extends HandStep
         return $this->gameState->getSeat($currentDealer['id'] + 2);
     }
 
-    /**
-     * @param TableSeat|false $currentDealer
-     */
-    private function thereIsOneSeatAfterTheDealer($currentDealer): ?array
-    {
-        return $this->gameState->getSeat($currentDealer['id'] + 1);
-    }
-
     private function getNextDealerAndBlindSeats(?TableSeat $currentDealerSet = null): array
     {
         $currentDealer = $this->setDealer($currentDealerSet);

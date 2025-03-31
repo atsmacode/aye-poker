@@ -7,8 +7,6 @@ use Atsmacode\Framework\Dbal\Model;
 class Table extends Model
 {
     protected string $table = 'tables';
-    private string $name;
-    private int $seats;
 
     public function getSeats(?int $tableId = null): ?array
     {

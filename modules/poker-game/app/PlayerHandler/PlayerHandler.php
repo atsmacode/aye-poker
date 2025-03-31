@@ -137,12 +137,4 @@ class PlayerHandler implements PlayerHandlerInterface
             && $playerAction['big_blind']
             && !in_array(Action::RAISE['id'], array_column($playerActions, 'action_id'));
     }
-
-    private function dealerIsFirstActivePlayerHeadsUpPostFlop(array $dealer, array $firstActivePlayer): bool
-    {
-        return
-            1 < $this->gameState->handStreetCount()
-            && $this->gameState->isHeadsUp()
-            && $dealer['table_seat_id'] === $firstActivePlayer['table_seat_id'];
-    }
 }

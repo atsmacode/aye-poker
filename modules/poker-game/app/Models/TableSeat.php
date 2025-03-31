@@ -10,10 +10,8 @@ class TableSeat extends Model
     protected string $table = 'table_seats';
     private ?int $number;
     private bool $can_continue;
-    private int $is_dealer;
     private ?int $player_id;
     private int $table_id;
-    private ?string $updated_at;
 
     public function canContinue(): bool
     {
