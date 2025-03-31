@@ -11,7 +11,7 @@ class Controller
 {
     private Player $playerModel;
 
-    public function __construct(private ServiceManager $container)
+    public function __construct(ServiceManager $container)
     {
         $this->playerModel = $container->build(Player::class);
     }

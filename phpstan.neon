@@ -7,7 +7,6 @@ parameters:
     ignoreErrors:
         - '#.*no value type specified in iterable type array.*#'
         - '#.*never written, only read.*#'
-        - '#.*never read, only written.*#'
         - '#.*Access to an undefined property.*#'
         - '#.*Call to an undefined method.*#'
         - '#.*is never assigned string.*#'

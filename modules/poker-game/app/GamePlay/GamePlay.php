@@ -19,7 +19,7 @@ class GamePlay
 {
     public function __construct(
         private GameState $gameState,
-        private Game $game,
+        Game $game,
         private Start $start,
         private NewStreet $newStreet,
         private Showdown $showdown,

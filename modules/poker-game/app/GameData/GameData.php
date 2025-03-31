@@ -3,7 +3,6 @@
 namespace Atsmacode\PokerGame\GameData;
 
 use Atsmacode\PokerGame\Models\Hand;
-use Atsmacode\PokerGame\Models\HandStreetCard;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Table;
@@ -17,7 +16,6 @@ class GameData
     public function __construct(
         private Hand $handModel,
         private Table $tableModel,
-        private HandStreetCard $handStreetCardModel,
         private Player $playerModel,
         private TableSeat $tableSeatModel,
         private PlayerAction $playerActionModel,

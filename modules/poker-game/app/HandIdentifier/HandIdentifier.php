@@ -47,14 +47,37 @@ class HandIdentifier
         return $this->pairs;
     }
 
+    public function getStraight(): array
+    {
+        return $this->straight;
+    }
+
+    public function getFlush(): array
+    {
+        return $this->flush;
+    }
+
     public function getThreeOfAKind(): array
     {
         return $this->threeOfAKind;
     }
 
+    /**
+     * TODO Return actual boat cards.
+     */
+    public function getFullHouse(): bool
+    {
+        return $this->fullHouse;
+    }
+
     public function getFourOfAKind(): array
     {
         return $this->fourOfAKind;
+    }
+
+    public function getStraightFlush(): array
+    {
+        return $this->straightFlush;
     }
 
     public function getIdentifiedHandType(): array
