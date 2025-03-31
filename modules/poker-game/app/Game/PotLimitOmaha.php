@@ -34,4 +34,9 @@ class PotLimitOmaha implements Game
 
         $this->limit = 'pot';
     }
+
+    public function getStreets(): array
+    {
+        return $this->streets;
+    }
 }

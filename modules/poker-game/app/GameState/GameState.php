@@ -28,6 +28,7 @@ class GameState
     private Game $game;
     private PokerDealer $dealer;
     private array $bigBlind;
+    private Table $table;
 
     public function __construct(
         private GameData $gameData,

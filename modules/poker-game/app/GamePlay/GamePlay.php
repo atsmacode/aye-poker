@@ -85,7 +85,7 @@ class GamePlay
 
     protected function readyForShowdown(): bool
     {
-        return count($this->gameState->getHandStreets()) === count($this->gameState->getGame()->streets)
+        return count($this->gameState->getHandStreets()) === count($this->gameState->getGame()->getStreets())
             && count($this->gameState->getActivePlayers()) === count($this->gameState->getContinuingPlayers());
     }
 

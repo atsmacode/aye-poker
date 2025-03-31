@@ -42,10 +42,10 @@ class Start extends HandStep
             ->shuffle()
             ->saveDeck($handId);
 
-        if ($this->gameState->getGame()->streets[1]['whole_cards']) {
+        if ($this->gameState->getGame()->getStreets()[1]['whole_cards']) {
             $this->gameState->getGameDealer()->dealTo(
                 $this->gameState->getSeats(),
-                $this->gameState->getGame()->streets[1]['whole_cards'],
+                $this->gameState->getGame()->getStreets()[1]['whole_cards'],
                 $handId
             );
         }
@@ -124,7 +124,7 @@ class Start extends HandStep
         $newDealerSeat->update(['is_dealer' => 1]);
 
         $handStreetId = $this->handStreetModel->find([
-            'street_id' => $this->streetModel->find(['name' => $this->gameState->getGame()->streets[1]['name']])->getId(),
+            'street_id' => $this->streetModel->find(['name' => $this->gameState->getGame()->getStreets()[1]['name']])->getId(),
             'hand_id' => $this->gameState->handId(),
         ])->getId();
 
