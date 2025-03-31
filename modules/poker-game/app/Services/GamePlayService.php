@@ -6,7 +6,6 @@ use Atsmacode\PokerGame\ActionHandler\ActionHandler;
 use Atsmacode\PokerGame\Game\PotLimitHoldEm;
 use Atsmacode\PokerGame\GamePlay\GamePlay;
 use Atsmacode\PokerGame\Models\Hand;
-use Laminas\ServiceManager\ServiceManager;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
