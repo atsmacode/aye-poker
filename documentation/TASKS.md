@@ -9,7 +9,7 @@
 
 # Bugs
 
-1. Heads-up, pocket high card did not beat paired board VS lower pocket cards
+1. Heads-up, pocket high card ace did not beat paired board VS lower pocket cards
 2. Heads-up, folding on checked board does not complete the hand (opponent should win)
 3. If Player is saved but User/UserPlayer fails, it doesn't rollback (transactions, argument to use shared DB connection)
 
@@ -28,6 +28,8 @@
 9. Encode auto-generated password (contains special chars)
 10. Use Symfony doctrine to create poker_game DB, remove PDO wrapper
 11. Stop using in-app controllers with Request/Response, use interfaces/Exceptions
+    * 31/03/25 Using services instead
+12. Too many duplicated factories for dependencies in poker-game
 
 # Features
 
@@ -40,3 +42,4 @@
 7. All-ins (No Limit Hold-em)
 8. Split pots
 9. New Game: create new table, select player count, test/real mode, open to join, starts when all click 'ready', select blind level, choose game format
+10. Side pots
