@@ -20,6 +20,11 @@ class Hand extends Model
         return $this->table_id;
     }
 
+    public function setCompletedOn(string $completedOn): void
+    {
+        $this->completed_on = $completedOn;
+    }
+
     public function getCompletedOn(): ?string
     {
         return $this->completed_on;

@@ -8,6 +8,5 @@ parameters:
         - '#.*no value type specified in iterable type array.*#'
         - '#.*Access to an undefined property.*#'
         - '#.*Call to an undefined method.*#'
-        - '#.*is never assigned string.*#'
         - '#.*ReflectionClass.*#'
         - '#.*defaultName.*#'
