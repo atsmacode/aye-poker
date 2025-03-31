@@ -8,7 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class PlayerActionController
 {
-    public function __construct(private GamePlayService $gamePlayService) {}
+    public function __construct(private GamePlayService $gamePlayService)
+    {
+    }
 
     public function action(Request $request): Response
     {

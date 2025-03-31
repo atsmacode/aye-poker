@@ -63,7 +63,7 @@ class DependencyConfig
                     Controllers\Player\Controller::class => Controllers\ControllerFactory::class,
                     SitHandler\SitHandler::class => SitHandler\SitHandlerFactory::class,
                     Services\JoinTable::class => Services\JoinTableFactory::class,
-                    Services\GamePlayService::class => Services\GamePlayServiceFactory::class
+                    Services\GamePlayService::class => Services\GamePlayServiceFactory::class,
                 ],
             ],
         ];

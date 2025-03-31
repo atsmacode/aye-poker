@@ -6,9 +6,9 @@ use Atsmacode\PokerGame\Game\PotLimitHoldEm;
 use Atsmacode\PokerGame\GamePlay\GamePlay;
 use Atsmacode\PokerGame\GameState\GameState;
 use Atsmacode\PokerGame\Models\Hand;
+use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\SitHandler\SitHandler;
 use Laminas\ServiceManager\ServiceManager;
 

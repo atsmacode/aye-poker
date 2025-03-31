@@ -8,7 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class SitController
 {
-    public function __construct(private JoinTable $joinTableService) {}
+    public function __construct(private JoinTable $joinTableService)
+    {
+    }
 
     /**
      * TODO Change this to accept Request.
