@@ -9,6 +9,11 @@ class Deck extends Model
     protected string $table = 'decks';
     private string $cards;
 
+    public function setCards(string $cards): void
+    {
+        $this->cards = $cards;
+    }
+
     public function getDeck(): array
     {
         return json_decode($this->cards, true);

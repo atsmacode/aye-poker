@@ -18,9 +18,19 @@ class Test extends Model
         return $this->id;
     }
 
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function setTestDesc(string $testDesc): void
+    {
+        $this->test_desc = $testDesc;
     }
 
     public function getTestDesc(): string

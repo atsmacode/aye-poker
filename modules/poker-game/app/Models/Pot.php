@@ -9,6 +9,11 @@ class Pot extends Model
     protected string $table = 'pots';
     private int $amount;
 
+    public function setAmount(int $amount): void
+    {
+        $this->amount = $amount;
+    }
+
     public function getAmount(): int
     {
         return $this->amount;

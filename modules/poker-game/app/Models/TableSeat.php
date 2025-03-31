@@ -13,9 +13,19 @@ class TableSeat extends Model
     private ?int $player_id;
     private int $table_id;
 
+    public function setCanContinue(bool $canContinue): void
+    {
+        $this->can_continue = $canContinue;
+    }
+
     public function canContinue(): bool
     {
         return $this->can_continue;
+    }
+
+    public function setPlayerId(?int $playerId): void
+    {
+        $this->player_id = $playerId;
     }
 
     public function getPlayerId(): int
@@ -23,9 +33,19 @@ class TableSeat extends Model
         return $this->player_id;
     }
 
+    public function setNumber(?int $number): void
+    {
+        $this->number = $number;
+    }
+
     public function getNumber(): int
     {
         return $this->number;
+    }
+
+    public function setTableId(int $tableId): void
+    {
+        $this->table_id = $tableId;
     }
 
     public function getTableId(): int

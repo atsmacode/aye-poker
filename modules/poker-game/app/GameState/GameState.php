@@ -81,6 +81,11 @@ class GameState
         return null;
     }
 
+    public function setActions(?array $actions): void
+    {
+        $this->actions = $actions;
+    }
+
     public function setHand(Hand $hand): void
     {
         $this->hand = $hand;

@@ -8,8 +8,12 @@ class Hand extends Model
 {
     protected string $table = 'hands';
     private int $table_id;
-
     private ?string $completed_on = null;
+
+    public function setTableId(int $tableId): void
+    {
+        $this->table_id = $tableId;
+    }
 
     public function getTableId(): int
     {

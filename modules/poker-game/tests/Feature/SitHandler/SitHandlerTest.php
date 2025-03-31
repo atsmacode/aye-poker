@@ -30,7 +30,7 @@ class SitHandlerTest extends BaseTest
     {
         $table = $this->tableModel->create(['name' => 'Test Table', 'seats' => 1]);
 
-        $this->tableSeatModel->create(['table_id' => $table->getId()]);
+        $this->tableSeatModel->create(['table_id' => $table->getId(), 'number' => 1]);
 
         $player    = $this->playerModel->create(['name' => 'Player 1']);
         $tableSeat = $this->sitHandler->sit($player->getId(), $table->getId());

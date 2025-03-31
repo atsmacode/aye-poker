@@ -9,6 +9,11 @@ class Player extends Model
     protected string $table = 'players';
     private string $name;
 
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
     public function getName(): string
     {
         return $this->name;

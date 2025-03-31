@@ -10,9 +10,19 @@ class HandType extends Model
     private string $name;
     private int $ranking;
 
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function setRanking(int $ranking): void
+    {
+        $this->ranking = $ranking;
     }
 
     public function getRanking(): int
