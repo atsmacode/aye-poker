@@ -10,10 +10,6 @@ class SitHandlerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        $tableSeatModel = $container->get(TableSeat::class);
-
-        return new SitHandler(
-            $tableSeatModel
-        );
+        return new SitHandler($container->get(TableSeat::class));
     }
 }

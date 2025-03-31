@@ -10,8 +10,6 @@ class SitControllerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        $controller = new $requestedName($container->get(JoinTable::class));
-
-        return $controller;
+        return new $requestedName($container->get(JoinTable::class));
     }
 }

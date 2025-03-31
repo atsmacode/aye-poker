@@ -10,8 +10,6 @@ class ShowdownFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        $potHandler = $container->get(PotHandler::class);
-
-        return new Showdown($potHandler);
+        return new Showdown($container->get(PotHandler::class));
     }
 }

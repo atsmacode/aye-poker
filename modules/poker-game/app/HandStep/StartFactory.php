@@ -15,21 +15,14 @@ class StartFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        $streetModel = $container->get(Street::class);
-        $handStreetModel = $container->get(HandStreet::class);
-        $playerActionModel = $container->get(PlayerAction::class);
-        $stackModel = $container->get(Stack::class);
-        $tableSeatModel = $container->get(TableSeat::class);
-        $betHandler = $container->get(BetHandler::class);
-
         return new Start(
             $container,
-            $streetModel,
-            $handStreetModel,
-            $playerActionModel,
-            $stackModel,
-            $tableSeatModel,
-            $betHandler
+            $container->get(Street::class),
+            $container->get(HandStreet::class),
+            $container->get(PlayerAction::class),
+            $container->get(Stack::class),
+            $container->get(TableSeat::class),
+            $container->get(BetHandler::class)
         );
     }
 }

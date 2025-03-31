@@ -10,8 +10,6 @@ class PlayerHandlerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        $tableSeatModel = $container->get(TableSeat::class);
-
-        return new PlayerHandler($tableSeatModel);
+        return new PlayerHandler($container->get(TableSeat::class));
     }
 }

@@ -13,16 +13,11 @@ class NewStreetFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        $streetModel = $container->get(Street::class);
-        $tableSeatModel = $container->get(TableSeat::class);
-        $handStreetModel = $container->get(HandStreet::class);
-        $playerActionModel = $container->get(PlayerAction::class);
-
         return new NewStreet(
-            $streetModel,
-            $tableSeatModel,
-            $handStreetModel,
-            $playerActionModel
+            $container->get(Street::class),
+            $container->get(TableSeat::class),
+            $container->get(HandStreet::class),
+            $container->get(PlayerAction::class)
         );
     }
 }

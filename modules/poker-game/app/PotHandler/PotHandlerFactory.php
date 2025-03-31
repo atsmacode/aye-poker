@@ -11,12 +11,9 @@ class PotHandlerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        $stackModel = $container->get(Stack::class);
-        $potModel = $container->get(Pot::class);
-
         return new PotHandler(
-            $stackModel,
-            $potModel
+            $container->get(Stack::class),
+            $container->get(Pot::class)
         );
     }
 }

@@ -13,16 +13,11 @@ class BetHandlerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        $potHandler = $container->get(PotHandler::class);
-        $playerActionLogModel = $container->get(PlayerActionLog::class);
-        $stackModel = $container->get(Stack::class);
-        $tableSeatModel = $container->get(TableSeat::class);
-
         return new BetHandler(
-            $potHandler,
-            $playerActionLogModel,
-            $stackModel,
-            $tableSeatModel
+            $container->get(PotHandler::class),
+            $container->get(PlayerActionLog::class),
+            $container->get(Stack::class),
+            $container->get(TableSeat::class)
         );
     }
 }
