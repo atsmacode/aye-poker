@@ -17,6 +17,9 @@ services:
     container_name: aye-poker
     volumes:
       - ./src:/var/www/html/src
+      - ./modules/poker-game/app:/var/www/htmlmodules/poker-game/app
+      - ./modules/framework/app:/var/www/htmlmodules/framework/app
+      - ./modules/card-games/app:/var/www/htmlmodules/card-games/app
       - ./public/build:/var/www/html/public/build
       - ./assets:/var/www/html/assets
       - ./templates:/var/www/html/templates
