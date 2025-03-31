@@ -10,24 +10,19 @@ use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\SitHandler\SitHandler;
-use Laminas\ServiceManager\ServiceManager;
+use Psr\Container\ContainerInterface;
 
 class JoinTable
 {
     private string $game = PotLimitHoldEm::class;
 
-    private Hand $handModel;
-    private Table $tableModel;
-    private SitHandler $sitHandler;
-    private Player $playerModel;
-
-    public function __construct(private ServiceManager $container)
-    {
-        $this->handModel = $container->build(Hand::class);
-        $this->tableModel = $container->get(Table::class);
-        $this->sitHandler = $container->get(SitHandler::class);
-        $this->playerModel = $container->get(Player::class);
-    }
+    public function __construct(
+        private ContainerInterface $container,
+        private Hand $handModel,
+        private Table $tableModel,
+        private SitHandler $sitHandler,
+        private Player $playerModel
+    ) {}
 
     public function sit(
         ?int $tableId = null,

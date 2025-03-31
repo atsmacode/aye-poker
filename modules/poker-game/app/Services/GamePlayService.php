@@ -7,6 +7,7 @@ use Atsmacode\PokerGame\Game\PotLimitHoldEm;
 use Atsmacode\PokerGame\GamePlay\GamePlay;
 use Atsmacode\PokerGame\Models\Hand;
 use Laminas\ServiceManager\ServiceManager;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class GamePlayService
@@ -17,14 +18,11 @@ class GamePlayService
      */
     protected string $game = PotLimitHoldEm::class;
 
-    private ActionHandler $actionHandler;
-    private Hand $handModel;
-
-    public function __construct(private ServiceManager $container)
-    {
-        $this->actionHandler = $container->get(ActionHandler::class);
-        $this->handModel = $container->get(Hand::class);
-    }
+    public function __construct(
+        private ContainerInterface $container,
+        private ActionHandler $actionHandler,
+        private Hand $handModel
+    ) {}
 
     public function action(Request $request): array
     {
