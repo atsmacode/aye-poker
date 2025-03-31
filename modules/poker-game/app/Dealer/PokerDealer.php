@@ -97,4 +97,9 @@ class PokerDealer extends Dealer
 
         return $this;
     }
+
+    public function shuffle(): PokerDealer
+    {
+        return parent::shuffle(); /** @phpstan-ignore return.type */
+    }
 }

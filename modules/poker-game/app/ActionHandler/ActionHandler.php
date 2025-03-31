@@ -62,7 +62,6 @@ class ActionHandler implements ActionHandlerInterface
         ]);
 
         $this->gameState->initiate($hand);
-        /* @phpstan-ignore argument.type (Model not PlayerAction) */
         $this->gameState->setLatestAction($playerAction);
         $this->gameState->setBigBlind();
 

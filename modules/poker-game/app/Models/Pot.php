@@ -18,4 +18,9 @@ class Pot extends Model
     {
         return $this->amount;
     }
+
+    public function find(?array $data = null): ?Pot
+    {
+        return parent::find($data); /** @phpstan-ignore return.type */
+    }
 }

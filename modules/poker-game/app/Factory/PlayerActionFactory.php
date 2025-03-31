@@ -46,7 +46,6 @@ class PlayerActionFactory
             ]);
         }
 
-        /* @phpstan-ignore return.type (Model not PlayerAction) */
         return $playerAction;
     }
 }

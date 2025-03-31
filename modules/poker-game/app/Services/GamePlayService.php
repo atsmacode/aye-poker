@@ -38,7 +38,7 @@ class GamePlayService
             $requestBody['stack']
         );
 
-        $gamePlay = $this->container->build(GamePlay::class, [
+        $gamePlay = $this->container->build(GamePlay::class, [ /** @phpstan-ignore method.notFound */
             'game' => $this->container->get($this->game),
             'gameState' => $gameState,
         ]);

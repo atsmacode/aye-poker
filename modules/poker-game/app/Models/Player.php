@@ -64,4 +64,9 @@ class Player extends Model
             return null;
         }
     }
+
+    public function find(?array $data = null): ?Player
+    {
+        return parent::find($data); /** @phpstan-ignore return.type */
+    }
 }

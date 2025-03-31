@@ -6,6 +6,5 @@ parameters:
         - modules/poker-game/app
     ignoreErrors:
         - '#.*no value type specified in iterable type array.*#'
-        - '#.*Call to an undefined method.*#'
         - '#.*ReflectionClass.*#'
         - '#.*defaultName.*#'

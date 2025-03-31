@@ -48,8 +48,8 @@ class JoinTable
             ? $currentHand
             : $this->handModel->create(['table_id' => $tableId ?? 1]);
 
-        $gameState = $this->container->build(GameState::class, ['hand' => $hand]);
-        $gamePlayService = $this->container->build(GamePlay::class, [
+        $gameState = $this->container->build(GameState::class, ['hand' => $hand]); /** @phpstan-ignore method.notFound */
+        $gamePlayService = $this->container->build(GamePlay::class, [ /** @phpstan-ignore method.notFound */
             'game' => $this->container->get($this->game),
             'gameState' => $gameState,
         ]);

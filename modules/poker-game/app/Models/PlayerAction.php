@@ -126,4 +126,9 @@ class PlayerAction extends Model
             return null;
         }
     }
+
+    public function find(?array $data = null): ?PlayerAction
+    {
+        return parent::find($data); /** @phpstan-ignore return.type */
+    }
 }

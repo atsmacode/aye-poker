@@ -18,4 +18,9 @@ class Deck extends Model
     {
         return json_decode($this->cards, true);
     }
+
+    public function find(?array $data = null): ?Deck
+    {
+        return parent::find($data); /** @phpstan-ignore return.type */
+    }
 }
