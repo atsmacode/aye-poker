@@ -18,9 +18,10 @@ class HandTypeTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function a_hand_type_can_be_created()
+    public function aHandTypeCanBeCreated()
     {
         $handType = $this->handTypeModel->create(['name' => 'High Card 24', 'ranking' => 16]);
 
@@ -30,14 +31,14 @@ class HandTypeTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function a_hand_type_can_be_found()
+    public function aHandTypeCanBeFound()
     {
         $handType = $this->handTypeModel->find(['name' => 'High Card', 'ranking' => 10]);
 
         $this->assertEquals('High Card', $handType->getName());
         $this->assertEquals(10, $handType->getRanking());
     }
-
 }

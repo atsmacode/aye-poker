@@ -2,31 +2,32 @@
 
 namespace Atsmacode\PokerGame\Tests\Unit\HandIdentifier;
 
-use Atsmacode\PokerGame\HandIdentifier\HandIdentifier;
 use Atsmacode\CardGames\Constants\Card;
 use Atsmacode\CardGames\Constants\Rank;
 use Atsmacode\CardGames\Factory\CardFactory;
+use Atsmacode\PokerGame\HandIdentifier\HandIdentifier;
 use Atsmacode\PokerGame\Tests\BaseTest;
 
 class HandIdentifierKickerTest extends BaseTest
 {
     private HandIdentifier $handIdentifier;
-    
+
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->handIdentifier = new HandIdentifier();
     }
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyTheKickerAndActiveRanksForAHighCardHand()
     {
         $wholeCards = [
-            CardFactory::create(Card::KING_SPADES)
+            CardFactory::create(Card::KING_SPADES),
         ];
 
         $communityCards = [
@@ -57,6 +58,7 @@ class HandIdentifierKickerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyTheKickerAndActiveRanksForAPair()

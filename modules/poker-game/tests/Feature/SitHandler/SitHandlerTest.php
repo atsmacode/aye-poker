@@ -16,14 +16,15 @@ class SitHandlerTest extends BaseTest
     {
         parent::setUp();
 
-        $this->tableModel     = $this->container->get(Table::class);
+        $this->tableModel = $this->container->get(Table::class);
         $this->tableSeatModel = $this->container->get(TableSeat::class);
-        $this->playerModel    = $this->container->get(Player::class);
-        $this->sitHandler     = $this->container->get(SitHandler::class);
+        $this->playerModel = $this->container->get(Player::class);
+        $this->sitHandler = $this->container->get(SitHandler::class);
     }
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanSitAPlayerAtATable()
@@ -32,7 +33,7 @@ class SitHandlerTest extends BaseTest
 
         $this->tableSeatModel->create(['table_id' => $table->getId(), 'number' => 1]);
 
-        $player    = $this->playerModel->create(['name' => 'Player 1']);
+        $player = $this->playerModel->create(['name' => 'Player 1']);
         $tableSeat = $this->sitHandler->sit($player->getId(), $table->getId());
 
         $this->assertEquals($player->getId(), $tableSeat->getPlayerId());

@@ -18,9 +18,10 @@ class DealerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function it_can_shuffle_the_deck()
+    public function itCanShuffleTheDeck()
     {
         $unshuffled = $this->dealer->setDeck()->getDeck();
         /*
@@ -34,29 +35,31 @@ class DealerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function it_can_select_a_random_card()
+    public function itCanSelectARandomCard()
     {
         $this->assertNotNull($this->dealer->setDeck()->shuffle()->pickCard()->getCard());
     }
 
     /**
      * @test
+     *
      * @return void
      */
-    public function it_can_select_a_specific_card()
+    public function itCanSelectASpecificCard()
     {
         $this->assertNotNull($this->dealer->setDeck()->shuffle()->pickCard('Ace', 'Spades')->getCard());
     }
 
     /**
      * @test
+     *
      * @return void
      */
-    public function once_a_card_is_picked_it_is_no_longer_in_the_deck()
+    public function onceACardIsPickedItIsNoLongerInTheDeck()
     {
-
         $card = $this->dealer->setDeck()->pickCard()->getCard();
 
         $this->assertNotContains($card, $this->dealer->getDeck());

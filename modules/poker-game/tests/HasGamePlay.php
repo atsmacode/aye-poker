@@ -14,29 +14,29 @@ use Atsmacode\PokerGame\Models\TableSeat;
 
 trait HasGamePlay
 {
-    private GamePlay  $gamePlay;
+    private GamePlay $gamePlay;
     private GameState $gameState;
-    private Start     $start;
-    private Hand      $hand;
-    private Player    $playerOne;
-    private Player    $playerTwo;
-    private Player    $playerThree;
-    private Player    $playerFour;
-    private Player    $playerFive;
-    private Player    $playerSix;
+    private Start $start;
+    private Hand $hand;
+    private Player $playerOne;
+    private Player $playerTwo;
+    private Player $playerThree;
+    private Player $playerFour;
+    private Player $playerFive;
+    private Player $playerSix;
     private TableSeat $tableSeatOne;
     private TableSeat $tableSeatTwo;
     private TableSeat $tableSeatThree;
     private TableSeat $tableSeatFour;
     private TableSeat $tableSeatFive;
     private TableSeat $tableSeatSix;
-    private Table     $table;
-    
+    private Table $table;
+
     private function createPlayer(int $player)
     {
         $playerModel = $this->container->build(Player::class);
 
-        return $playerModel->create(['name'  => 'Player ' . $player]);
+        return $playerModel->create(['name' => 'Player '.$player]);
     }
 
     private function createTableSeat(int $tableId, int $playerId, int $number)
@@ -44,9 +44,9 @@ trait HasGamePlay
         $tableSeatModel = $this->container->build(TableSeat::class);
 
         return $tableSeatModel->create([
-            'table_id'  => $tableId,
+            'table_id' => $tableId,
             'player_id' => $playerId,
-            'number'    => $number,
+            'number' => $number,
         ]);
     }
 
@@ -55,9 +55,9 @@ trait HasGamePlay
         $this->gameState = $this->container->build(GameState::class, [
             'hand' => isset($this->hand) ? $this->hand : null,
         ]);
-        
+
         $this->gamePlay = $this->container->build(GamePlay::class, [
-            'game'      => $this->container->get(PotLimitHoldEm::class),
+            'game' => $this->container->get(PotLimitHoldEm::class),
             'gameState' => $this->gameState,
         ]);
 
@@ -85,8 +85,8 @@ trait HasGamePlay
         $this->playerOne = $this->createPlayer(1);
         $this->playerTwo = $this->createPlayer(2);
 
-        $this->tableSeatOne   = $this->createTableSeat($this->table->getId(), $this->playerOne->getId(), 1);
-        $this->tableSeatTwo   = $this->createTableSeat($this->table->getId(), $this->playerTwo->getId(), 2);
+        $this->tableSeatOne = $this->createTableSeat($this->table->getId(), $this->playerOne->getId(), 1);
+        $this->tableSeatTwo = $this->createTableSeat($this->table->getId(), $this->playerTwo->getId(), 2);
 
         return $this;
     }
@@ -99,8 +99,8 @@ trait HasGamePlay
         $this->playerTwo = $this->createPlayer(2);
         $this->playerThree = $this->createPlayer(3);
 
-        $this->tableSeatOne   = $this->createTableSeat($this->table->getId(), $this->playerOne->getId(), 1);
-        $this->tableSeatTwo   = $this->createTableSeat($this->table->getId(), $this->playerTwo->getId(), 2);
+        $this->tableSeatOne = $this->createTableSeat($this->table->getId(), $this->playerOne->getId(), 1);
+        $this->tableSeatTwo = $this->createTableSeat($this->table->getId(), $this->playerTwo->getId(), 2);
         $this->tableSeatThree = $this->createTableSeat($this->table->getId(), $this->playerThree->getId(), 3);
 
         return $this;
@@ -115,10 +115,10 @@ trait HasGamePlay
         $this->playerThree = $this->createPlayer(3);
         $this->playerFour = $this->createPlayer(4);
 
-        $this->tableSeatOne   = $this->createTableSeat($this->table->getId(), $this->playerOne->getId(), 1);
-        $this->tableSeatTwo   = $this->createTableSeat($this->table->getId(), $this->playerTwo->getId(), 2);
+        $this->tableSeatOne = $this->createTableSeat($this->table->getId(), $this->playerOne->getId(), 1);
+        $this->tableSeatTwo = $this->createTableSeat($this->table->getId(), $this->playerTwo->getId(), 2);
         $this->tableSeatThree = $this->createTableSeat($this->table->getId(), $this->playerThree->getId(), 3);
-        $this->tableSeatFour  = $this->createTableSeat($this->table->getId(), $this->playerFour->getId(), 4);
+        $this->tableSeatFour = $this->createTableSeat($this->table->getId(), $this->playerFour->getId(), 4);
 
         $this->setGamePlay();
 
@@ -136,12 +136,12 @@ trait HasGamePlay
         $this->playerFive = $this->createPlayer(5);
         $this->playerSix = $this->createPlayer(6);
 
-        $this->tableSeatOne   = $this->createTableSeat($this->table->getId(), $this->playerOne->getId(), 1);
-        $this->tableSeatTwo   = $this->createTableSeat($this->table->getId(), $this->playerTwo->getId(), 2);
+        $this->tableSeatOne = $this->createTableSeat($this->table->getId(), $this->playerOne->getId(), 1);
+        $this->tableSeatTwo = $this->createTableSeat($this->table->getId(), $this->playerTwo->getId(), 2);
         $this->tableSeatThree = $this->createTableSeat($this->table->getId(), $this->playerThree->getId(), 3);
-        $this->tableSeatFour  = $this->createTableSeat($this->table->getId(), $this->playerFour->getId(), 4);
-        $this->tableSeatFive  = $this->createTableSeat($this->table->getId(), $this->playerFive->getId(), 5);
-        $this->tableSeatSix   = $this->createTableSeat($this->table->getId(), $this->playerSix->getId(), 6);
+        $this->tableSeatFour = $this->createTableSeat($this->table->getId(), $this->playerFour->getId(), 4);
+        $this->tableSeatFive = $this->createTableSeat($this->table->getId(), $this->playerFive->getId(), 5);
+        $this->tableSeatSix = $this->createTableSeat($this->table->getId(), $this->playerSix->getId(), 6);
 
         $this->setGamePlay();
 
@@ -152,7 +152,7 @@ trait HasGamePlay
     {
         $this->tableSeatModel->find(['id' => $this->gameState->getSeats()[0]['id']])
             ->update([
-                'can_continue' => 1
+                'can_continue' => 1,
             ]);
     }
 
@@ -160,7 +160,7 @@ trait HasGamePlay
     {
         $this->tableSeatModel->find(['id' => $this->gameState->getSeats()[0]['id']])
             ->update([
-                'can_continue' => 0
+                'can_continue' => 0,
             ]);
     }
 
@@ -168,10 +168,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[0]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::CALL_ID,
-            betAmount:      50,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: Action::CALL_ID,
+            betAmount: 50,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -181,10 +181,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[0]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       null,
-            betAmount:      50,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: null,
+            betAmount: 50,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -194,10 +194,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[0]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::FOLD_ID,
-            betAmount:      null,
-            active:         0,
+            handId: $this->gameState->handId(),
+            actionId: Action::FOLD_ID,
+            betAmount: null,
+            active: 0,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -207,10 +207,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[0]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::RAISE_ID,
-            betAmount:      100,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: Action::RAISE_ID,
+            betAmount: 100,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -220,10 +220,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[1]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::CALL_ID,
-            betAmount:      50,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: Action::CALL_ID,
+            betAmount: 50,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -233,10 +233,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[1]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::FOLD_ID,
-            betAmount:      null,
-            active:         0,
+            handId: $this->gameState->handId(),
+            actionId: Action::FOLD_ID,
+            betAmount: null,
+            active: 0,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -246,10 +246,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[1]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::CHECK_ID,
-            betAmount:      null,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: Action::CHECK_ID,
+            betAmount: null,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -259,10 +259,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[1]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       null,
-            betAmount:      null,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: null,
+            betAmount: null,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -272,7 +272,7 @@ trait HasGamePlay
     {
         $this->tableSeatModel->find(['id' => $this->gameState->getSeats()[1]['id']])
             ->update([
-                'can_continue' => 1
+                'can_continue' => 1,
             ]);
     }
 
@@ -280,7 +280,7 @@ trait HasGamePlay
     {
         $this->tableSeatModel->find(['id' => $this->gameState->getSeats()[1]['id']])
             ->update([
-                'can_continue' => 0
+                'can_continue' => 0,
             ]);
     }
 
@@ -288,10 +288,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[2]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::CALL_ID,
-            betAmount:      50,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: Action::CALL_ID,
+            betAmount: 50,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -301,10 +301,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[2]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       null,
-            betAmount:      50,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: null,
+            betAmount: 50,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -314,10 +314,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[2]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::CHECK_ID,
-            betAmount:      null,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: Action::CHECK_ID,
+            betAmount: null,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -327,10 +327,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[2]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::FOLD_ID,
-            betAmount:      null,
-            active:         0,
+            handId: $this->gameState->handId(),
+            actionId: Action::FOLD_ID,
+            betAmount: null,
+            active: 0,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -340,7 +340,7 @@ trait HasGamePlay
     {
         $this->tableSeatModel->find(['id' => $this->gameState->getSeats()[2]['id']])
             ->update([
-                'can_continue' => 0
+                'can_continue' => 0,
             ]);
     }
 
@@ -348,10 +348,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[2]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::CALL_ID,
-            betAmount:      25,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: Action::CALL_ID,
+            betAmount: 25,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -361,10 +361,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[2]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::RAISE_ID,
-            betAmount:      100,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: Action::RAISE_ID,
+            betAmount: 100,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -374,7 +374,7 @@ trait HasGamePlay
     {
         $this->tableSeatModel->find(['id' => $this->gameState->getSeats()[2]['id']])
             ->update([
-                'can_continue' => 1
+                'can_continue' => 1,
             ]);
     }
 
@@ -382,10 +382,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[3]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::FOLD_ID,
-            betAmount:      null,
-            active:         0,
+            handId: $this->gameState->handId(),
+            actionId: Action::FOLD_ID,
+            betAmount: null,
+            active: 0,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -395,10 +395,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[3]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::CALL_ID,
-            betAmount:      50.00,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: Action::CALL_ID,
+            betAmount: 50.00,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -408,10 +408,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[3]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::CHECK_ID,
-            betAmount:      null,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: Action::CHECK_ID,
+            betAmount: null,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -421,10 +421,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[3]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::RAISE_ID,
-            betAmount:      100,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: Action::RAISE_ID,
+            betAmount: 100,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -434,7 +434,7 @@ trait HasGamePlay
     {
         $this->tableSeatModel->find(['id' => $this->gameState->getSeats()[3]['id']])
             ->update([
-                'can_continue' => 1
+                'can_continue' => 1,
             ]);
     }
 
@@ -442,7 +442,7 @@ trait HasGamePlay
     {
         $this->tableSeatModel->find(['id' => $this->gameState->getSeats()[3]['id']])
             ->update([
-                'can_continue' => 0
+                'can_continue' => 0,
             ]);
     }
 
@@ -450,10 +450,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[4]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::CALL_ID,
-            betAmount:      50,
-            active:         1,
+            handId: $this->gameState->handId(),
+            actionId: Action::CALL_ID,
+            betAmount: 50,
+            active: 1,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -463,10 +463,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[4]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::FOLD_ID,
-            betAmount:      null,
-            active:         0,
+            handId: $this->gameState->handId(),
+            actionId: Action::FOLD_ID,
+            betAmount: null,
+            active: 0,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -476,7 +476,7 @@ trait HasGamePlay
     {
         $this->tableSeatModel->find(['id' => $this->gameState->getSeats()[4]['id']])
             ->update([
-                'can_continue' => 1
+                'can_continue' => 1,
             ]);
     }
 
@@ -484,7 +484,7 @@ trait HasGamePlay
     {
         $this->tableSeatModel->find(['id' => $this->gameState->getSeats()[4]['id']])
             ->update([
-                'can_continue' => 0
+                'can_continue' => 0,
             ]);
     }
 
@@ -492,10 +492,10 @@ trait HasGamePlay
     {
         $playerAction = $this->playerActionFactory->create(
             playerActionId: $this->gameState->getPlayers()[5]['player_action_id'],
-            handId:         $this->gameState->handId(),
-            actionId:       Action::FOLD_ID,
-            betAmount:      null,
-            active:         0,
+            handId: $this->gameState->handId(),
+            actionId: Action::FOLD_ID,
+            betAmount: null,
+            active: 0,
         );
 
         $this->gameState->setLatestAction($playerAction);
@@ -505,7 +505,7 @@ trait HasGamePlay
     {
         $this->tableSeatModel->find(['id' => $this->gameState->getSeats()[5]['id']])
             ->update([
-                'can_continue' => 1
+                'can_continue' => 1,
             ]);
     }
 
@@ -513,17 +513,17 @@ trait HasGamePlay
     {
         $this->tableSeatModel->find(['id' => $this->gameState->getSeats()[5]['id']])
             ->update([
-                'can_continue' => 0
+                'can_continue' => 0,
             ]);
     }
 
     protected function setWholeCards($wholeCards)
     {
-        foreach($wholeCards as $card){
+        foreach ($wholeCards as $card) {
             $this->wholeCardModel->create([
                 'player_id' => $card['player']->getId(),
-                'card_id'   => $card['card_id'],
-                'hand_id'   => $this->gameState->handId()
+                'card_id' => $card['card_id'],
+                'hand_id' => $this->gameState->handId(),
             ]);
         }
     }

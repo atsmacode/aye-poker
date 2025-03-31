@@ -13,40 +13,41 @@ use Atsmacode\PokerGame\Tests\BaseTest;
 class BetHandlerTest extends BaseTest
 {
     private BetHandler $betHandler;
-    private Pot        $potModel;
-    private Stack      $stackModel;
+    private Pot $potModel;
+    private Stack $stackModel;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->betHandler  = $this->container->get(BetHandler::class);
-        $this->tableModel  = $this->container->get(Table::class);
+        $this->betHandler = $this->container->get(BetHandler::class);
+        $this->tableModel = $this->container->get(Table::class);
         $this->playerModel = $this->container->get(Player::class);
-        $this->stackModel  = $this->container->get(Stack::class);
-        $this->potModel    = $this->container->get(Pot::class);
-        $this->handModel   = $this->container->get(Hand::class);
+        $this->stackModel = $this->container->get(Stack::class);
+        $this->potModel = $this->container->get(Pot::class);
+        $this->handModel = $this->container->get(Hand::class);
     }
 
     /**
      * @test
+     *
      * @return void
      */
-    public function a_bet_amount_is_added_to_the_pot_and_subtracted_from_the_player_stack()
+    public function aBetAmountIsAddedToThePotAndSubtractedFromThePlayerStack()
     {
-        $table  = $this->tableModel->create(['name' => 'Test Table', 'seats' => 3]);
+        $table = $this->tableModel->create(['name' => 'Test Table', 'seats' => 3]);
         $player = $this->playerModel->create(['name' => 'Player 1']);
 
         $stack = $this->stackModel->create([
             'amount' => 1000,
             'table_id' => $table->getId(),
-            'player_id' => $player->getId()
+            'player_id' => $player->getId(),
         ]);
 
         $hand = $this->handModel->create(['table_id' => $table->getId()]);
-        $pot  = $this->potModel->create([
+        $pot = $this->potModel->create([
             'amount' => 0,
-            'hand_id' => $hand->getId()
+            'hand_id' => $hand->getId(),
         ]);
 
         $this->assertEquals(1000, $this->stackModel->find(['id' => $stack->getId()])->getAmount());

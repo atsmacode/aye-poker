@@ -17,16 +17,18 @@ use Atsmacode\PokerGame\Tests\HasStreets;
  */
 class PlayerActionControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts, HasStreets;
+    use HasGamePlay;
+    use HasActionPosts;
+    use HasStreets;
 
-    private Start          $start;
+    private Start $start;
     private HandStreetCard $handStreetCardModel;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->start               = $this->container->build(Start::class);
+        $this->start = $this->container->build(Start::class);
         $this->handStreetCardModel = $this->container->build(HandStreetCard::class);
 
         $this->isThreeHanded()
@@ -35,8 +37,9 @@ class PlayerActionControllerTest extends BaseTest
             ->givenTheHandHasStarted();
     }
 
-   /**
+    /**
      * @test
+     *
      * @return void
      */
     public function pairBeatsHighCard()
@@ -44,19 +47,19 @@ class PlayerActionControllerTest extends BaseTest
         $wholeCards = [
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::KING_SPADES_ID
+                'card_id' => Card::KING_SPADES_ID,
             ],
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::SIX_DIAMONDS_ID
+                'card_id' => Card::SIX_DIAMONDS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::SIX_HEARTS_ID
+                'card_id' => Card::SIX_HEARTS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::SEVEN_DIAMONDS_ID
+                'card_id' => Card::SEVEN_DIAMONDS_ID,
             ],
         ];
 
@@ -80,7 +83,7 @@ class PlayerActionControllerTest extends BaseTest
 
         $this->gameState->setPlayers();
 
-        $request  = $this->executeActionsToContinue();
+        $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
 
         $this->assertEquals($this->playerThree->getId(), $response['winner']['player']['player_id']);
@@ -89,6 +92,7 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function twoPairBeatsPair()
@@ -96,19 +100,19 @@ class PlayerActionControllerTest extends BaseTest
         $wholeCards = [
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::KING_SPADES_ID
+                'card_id' => Card::KING_SPADES_ID,
             ],
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::QUEEN_DIAMONDS_ID
+                'card_id' => Card::QUEEN_DIAMONDS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::KING_HEARTS_ID
+                'card_id' => Card::KING_HEARTS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::SEVEN_DIAMONDS_ID
+                'card_id' => Card::SEVEN_DIAMONDS_ID,
             ],
         ];
 
@@ -132,7 +136,7 @@ class PlayerActionControllerTest extends BaseTest
 
         $this->gameState->setPlayers();
 
-        $request  = $this->executeActionsToContinue();
+        $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
 
         $this->assertEquals($this->playerThree->getId(), $response['winner']['player']['player_id']);
@@ -141,6 +145,7 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function tripsBeatsTwoPair()
@@ -148,19 +153,19 @@ class PlayerActionControllerTest extends BaseTest
         $wholeCards = [
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::QUEEN_CLUBS_ID
+                'card_id' => Card::QUEEN_CLUBS_ID,
             ],
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::QUEEN_DIAMONDS_ID
+                'card_id' => Card::QUEEN_DIAMONDS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::KING_HEARTS_ID
+                'card_id' => Card::KING_HEARTS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::QUEEN_HEARTS_ID
+                'card_id' => Card::QUEEN_HEARTS_ID,
             ],
         ];
 
@@ -184,7 +189,7 @@ class PlayerActionControllerTest extends BaseTest
 
         $this->gameState->setPlayers();
 
-        $request  = $this->executeActionsToContinue();
+        $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
 
         $this->assertEquals($this->playerThree->getId(), $response['winner']['player']['player_id']);
@@ -193,6 +198,7 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function straightBeatsTrips()
@@ -200,19 +206,19 @@ class PlayerActionControllerTest extends BaseTest
         $wholeCards = [
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::QUEEN_CLUBS_ID
+                'card_id' => Card::QUEEN_CLUBS_ID,
             ],
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::JACK_DIAMONDS_ID
+                'card_id' => Card::JACK_DIAMONDS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::KING_HEARTS_ID
+                'card_id' => Card::KING_HEARTS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::QUEEN_HEARTS_ID
+                'card_id' => Card::QUEEN_HEARTS_ID,
             ],
         ];
 
@@ -236,7 +242,7 @@ class PlayerActionControllerTest extends BaseTest
 
         $this->gameState->setPlayers();
 
-        $request  = $this->executeActionsToContinue();
+        $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
 
         $this->assertEquals($this->playerThree->getId(), $response['winner']['player']['player_id']);
@@ -245,6 +251,7 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function flushBeatsStraight()
@@ -252,19 +259,19 @@ class PlayerActionControllerTest extends BaseTest
         $wholeCards = [
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::QUEEN_DIAMONDS_ID
+                'card_id' => Card::QUEEN_DIAMONDS_ID,
             ],
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::JACK_DIAMONDS_ID
+                'card_id' => Card::JACK_DIAMONDS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::KING_HEARTS_ID
+                'card_id' => Card::KING_HEARTS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::NINE_CLUBS_ID
+                'card_id' => Card::NINE_CLUBS_ID,
             ],
         ];
 
@@ -288,7 +295,7 @@ class PlayerActionControllerTest extends BaseTest
 
         $this->gameState->setPlayers();
 
-        $request  = $this->executeActionsToContinue();
+        $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
 
         $this->assertEquals($this->playerThree->getId(), $response['winner']['player']['player_id']);
@@ -297,6 +304,7 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function fullHouseBeatsFlush()
@@ -304,19 +312,19 @@ class PlayerActionControllerTest extends BaseTest
         $wholeCards = [
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::QUEEN_DIAMONDS_ID
+                'card_id' => Card::QUEEN_DIAMONDS_ID,
             ],
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::JACK_DIAMONDS_ID
+                'card_id' => Card::JACK_DIAMONDS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::KING_CLUBS_ID
+                'card_id' => Card::KING_CLUBS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::NINE_CLUBS_ID
+                'card_id' => Card::NINE_CLUBS_ID,
             ],
         ];
 
@@ -340,7 +348,7 @@ class PlayerActionControllerTest extends BaseTest
 
         $this->gameState->setPlayers();
 
-        $request  = $this->executeActionsToContinue();
+        $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
 
         $this->assertEquals($this->playerThree->getId(), $response['winner']['player']['player_id']);
@@ -349,6 +357,7 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function quadsBeatsFullHouse()
@@ -356,19 +365,19 @@ class PlayerActionControllerTest extends BaseTest
         $wholeCards = [
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::JACK_HEARTS_ID
+                'card_id' => Card::JACK_HEARTS_ID,
             ],
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::JACK_DIAMONDS_ID
+                'card_id' => Card::JACK_DIAMONDS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::KING_CLUBS_ID
+                'card_id' => Card::KING_CLUBS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::QUEEN_DIAMONDS_ID
+                'card_id' => Card::QUEEN_DIAMONDS_ID,
             ],
         ];
 
@@ -392,7 +401,7 @@ class PlayerActionControllerTest extends BaseTest
 
         $this->gameState->setPlayers();
 
-        $request  = $this->executeActionsToContinue();
+        $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
 
         $this->assertEquals($this->playerThree->getId(), $response['winner']['player']['player_id']);
@@ -401,6 +410,7 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function straightFlushBeatsQuads()
@@ -408,19 +418,19 @@ class PlayerActionControllerTest extends BaseTest
         $wholeCards = [
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::JACK_HEARTS_ID
+                'card_id' => Card::JACK_HEARTS_ID,
             ],
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::KING_HEARTS_ID
+                'card_id' => Card::KING_HEARTS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::QUEEN_CLUBS_ID
+                'card_id' => Card::QUEEN_CLUBS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::QUEEN_DIAMONDS_ID
+                'card_id' => Card::QUEEN_DIAMONDS_ID,
             ],
         ];
 
@@ -444,7 +454,7 @@ class PlayerActionControllerTest extends BaseTest
 
         $this->gameState->setPlayers();
 
-        $request  = $this->executeActionsToContinue();
+        $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
 
         $this->assertEquals($this->playerThree->getId(), $response['winner']['player']['player_id']);
@@ -453,6 +463,7 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function royalFlushBeatsStraightFlush()
@@ -460,19 +471,19 @@ class PlayerActionControllerTest extends BaseTest
         $wholeCards = [
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::ACE_HEARTS_ID
+                'card_id' => Card::ACE_HEARTS_ID,
             ],
             [
                 'player' => $this->playerThree,
-                'card_id' => Card::KING_HEARTS_ID
+                'card_id' => Card::KING_HEARTS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::SEVEN_HEARTS_ID
+                'card_id' => Card::SEVEN_HEARTS_ID,
             ],
             [
                 'player' => $this->playerOne,
-                'card_id' => Card::EIGHT_HEARTS_ID
+                'card_id' => Card::EIGHT_HEARTS_ID,
             ],
         ];
 
@@ -481,7 +492,7 @@ class PlayerActionControllerTest extends BaseTest
         $flopCards = [
             ['card_id' => Card::TEN_HEARTS_ID],
             ['card_id' => Card::NINE_HEARTS_ID],
-            ['card_id' => Card::QUEEN_HEARTS_ID]
+            ['card_id' => Card::QUEEN_HEARTS_ID],
         ];
 
         $this->setThisFlop($flopCards);
@@ -496,7 +507,7 @@ class PlayerActionControllerTest extends BaseTest
 
         $this->gameState->setPlayers();
 
-        $request  = $this->executeActionsToContinue();
+        $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
 
         $this->assertEquals($this->playerThree->getId(), $response['winner']['player']['player_id']);

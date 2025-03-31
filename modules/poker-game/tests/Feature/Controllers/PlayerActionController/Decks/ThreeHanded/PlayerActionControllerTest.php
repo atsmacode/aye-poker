@@ -9,7 +9,9 @@ use Atsmacode\PokerGame\Tests\HasStreets;
 
 class PlayerActionControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts, HasStreets;
+    use HasGamePlay;
+    use HasActionPosts;
+    use HasStreets;
 
     protected function setUp(): void
     {
@@ -22,6 +24,7 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function communityCardsWillNoLongerBeInTheDeck()
@@ -34,7 +37,7 @@ class PlayerActionControllerTest extends BaseTest
 
         $this->setRiver();
 
-        $request  = $this->executeActionsToContinue();
+        $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
 
         foreach ($response['communityCards'] as $communityCard) {

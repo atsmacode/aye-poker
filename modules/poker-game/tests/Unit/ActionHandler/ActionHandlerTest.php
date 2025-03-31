@@ -23,11 +23,11 @@ class ActionHandlerTest extends BaseTest
             ->setHand()
             ->setGamePlay();
 
-        $this->potModel      = $this->container->build(Pot::class);
+        $this->potModel = $this->container->build(Pot::class);
         $this->actionHandler = $this->container->build(
             ActionHandler::class,
-            ['gameState' => $this->gameState
-        ]);
+            ['gameState' => $this->gameState,
+            ]);
     }
 
     /** @test */

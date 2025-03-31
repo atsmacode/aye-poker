@@ -5,11 +5,11 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\SitController\ThreeHande
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
 use Atsmacode\PokerGame\Tests\HasGamePlay;
-use Atsmacode\PokerGame\Tests\HasStreets;
 
 class SitControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts;
+    use HasGamePlay;
+    use HasActionPosts;
 
     protected function setUp(): void
     {
@@ -21,6 +21,7 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanStartTheGame()
@@ -40,13 +41,14 @@ class SitControllerTest extends BaseTest
         $this->assertEquals(null, $response['players'][1]['action_id']);
 
         // Each player in the hand has 2 whole cards
-        foreach($response['players'] as $player){
+        foreach ($response['players'] as $player) {
             $this->assertCount(2, $player['whole_cards']);
         }
     }
 
     /**
      * @test
+     *
      * @return void
      */
     public function thePreFlopActionWillInitiallyBeOnPlayerOne()

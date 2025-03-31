@@ -20,9 +20,10 @@ class TableSeatTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function a_table_seat_can_be_updated()
+    public function aTableSeatCanBeUpdated()
     {
         $tableSeat = $this->tableSeatModel->find(['id' => $this->gameState->getSeats()[0]['id']]);
 
@@ -35,12 +36,13 @@ class TableSeatTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function it_can_select_first_active_player_after_dealer()
+    public function itCanSelectFirstActivePlayerAfterDealer()
     {
         $this->gamePlay->start($this->tableSeatModel->find([
-            'id' => $this->gameState->getSeats()[0]['id']
+            'id' => $this->gameState->getSeats()[0]['id'],
         ]));
 
         $tableSeat = $this->tableSeatModel->playerAfterDealer(
@@ -53,6 +55,7 @@ class TableSeatTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanGetTheFirstAvailableSeat()
@@ -68,14 +71,15 @@ class TableSeatTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanGetAPlayersCurrentSeat()
     {
-        $table       = $this->tableModel->create(['name' => 'Test Table', 'seats' => 1]);
-        $player      = $this->createPlayer(1);
-        $tableSeat   = $this->tableSeatModel->create([
-            'table_id' => $table->getId(), 
+        $table = $this->tableModel->create(['name' => 'Test Table', 'seats' => 1]);
+        $player = $this->createPlayer(1);
+        $tableSeat = $this->tableSeatModel->create([
+            'table_id' => $table->getId(),
             'player_id' => $player->getId(),
             'number' => 1,
         ]);

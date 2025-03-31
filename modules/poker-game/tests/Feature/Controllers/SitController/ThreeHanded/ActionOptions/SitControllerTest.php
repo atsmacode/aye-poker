@@ -9,7 +9,9 @@ use Atsmacode\PokerGame\Tests\HasStreets;
 
 class SitControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts, HasStreets;
+    use HasGamePlay;
+    use HasActionPosts;
+    use HasStreets;
 
     protected function setUp(): void
     {
@@ -22,6 +24,7 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function theSmallBlindWillBeFirstToActOnTheFlop()
@@ -39,14 +42,15 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function whenDealerIsSeatThreeSmallBlindWillBeFirstToActOnTheFlop()
     {
         $currentDealer = $this->tableSeatModel->find([
-            'id' => $this->gameState->getSeats()[1]['id']
+            'id' => $this->gameState->getSeats()[1]['id'],
         ]);
-        
+
         $this->gamePlay->start($currentDealer);
 
         $this->givenActionsMeanNewStreetIsDealt();

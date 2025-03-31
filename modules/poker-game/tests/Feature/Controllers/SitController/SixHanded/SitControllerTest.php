@@ -8,7 +8,8 @@ use Atsmacode\PokerGame\Tests\HasGamePlay;
 
 class SitControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts;
+    use HasGamePlay;
+    use HasActionPosts;
 
     protected function setUp(): void
     {
@@ -20,9 +21,10 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function the_pre_flop_action_will_initially_be_on_player_four()
+    public function thePreFlopActionWillInitiallyBeOnPlayerFour()
     {
         $response = $this->sitControllerResponse();
 
@@ -31,9 +33,10 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function if_there_are_two_seats_after_current_dealer_big_blind_will_be_seat_one()
+    public function ifThereAreTwoSeatsAfterCurrentDealerBigBlindWillBeSeatOne()
     {
         $currentDealer = $this->tableSeatFour;
 
@@ -45,9 +48,10 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function if_there_is_one_seat_after_current_dealer_big_blind_will_be_seat_two()
+    public function ifThereIsOneSeatAfterCurrentDealerBigBlindWillBeSeatTwo()
     {
         $currentDealer = $this->tableSeatFive;
 

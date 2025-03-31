@@ -9,7 +9,9 @@ use Atsmacode\PokerGame\Tests\HasStreets;
 
 class PlayerActionControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts, HasStreets;
+    use HasGamePlay;
+    use HasActionPosts;
+    use HasStreets;
 
     protected function setUp(): void
     {
@@ -20,8 +22,9 @@ class PlayerActionControllerTest extends BaseTest
             ->setGamePlay();
     }
 
-     /**
+    /**
      * @test
+     *
      * @return void
      */
     public function whenDealerIsSeatSixAndOnlySmallBlindCallsAndBigBlindChecksItCanDealFlop()

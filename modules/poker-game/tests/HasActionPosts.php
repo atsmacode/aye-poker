@@ -37,13 +37,13 @@ trait HasActionPosts
     private function setPost()
     {
         $requestBody = [
-            'player_id'      => $this->playerOne->getId(),
-            'table_seat_id'  => $this->gameState->getSeats()[0]['id'],
+            'player_id' => $this->playerOne->getId(),
+            'table_seat_id' => $this->gameState->getSeats()[0]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
-            'action_id'      => Action::CALL_ID,
-            'bet_amount'     => 50,
-            'active'         => 1,
-            'stack'          => $this->gameState->getPlayers()[0]['stack']
+            'action_id' => Action::CALL_ID,
+            'bet_amount' => 50,
+            'active' => 1,
+            'stack' => $this->gameState->getPlayers()[0]['stack'],
         ];
 
         return Request::create(
@@ -56,13 +56,13 @@ trait HasActionPosts
     private function setPlayerOneFoldsPost()
     {
         $requestBody = [
-            'player_id'      => $this->playerOne->getId(),
-            'table_seat_id'  => $this->gameState->getSeats()[0]['id'],
+            'player_id' => $this->playerOne->getId(),
+            'table_seat_id' => $this->gameState->getSeats()[0]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
-            'action_id'      => Action::FOLD_ID,
-            'bet_amount'     => null,
-            'active'         => 0,
-            'stack'          => $this->gameState->getPlayers()[0]['stack']
+            'action_id' => Action::FOLD_ID,
+            'bet_amount' => null,
+            'active' => 0,
+            'stack' => $this->gameState->getPlayers()[0]['stack'],
         ];
 
         return Request::create(
@@ -75,13 +75,13 @@ trait HasActionPosts
     private function setPlayerTwoCallsPost()
     {
         $requestBody = [
-            'player_id'      => $this->playerTwo->getId(),
-            'table_seat_id'  => $this->gameState->getSeats()[1]['id'],
+            'player_id' => $this->playerTwo->getId(),
+            'table_seat_id' => $this->gameState->getSeats()[1]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
-            'action_id'      => Action::CALL_ID,
-            'bet_amount'     => 50,
-            'active'         => 1,
-            'stack'          => $this->gameState->getPlayers()[1]['stack']
+            'action_id' => Action::CALL_ID,
+            'bet_amount' => 50,
+            'active' => 1,
+            'stack' => $this->gameState->getPlayers()[1]['stack'],
         ];
 
         return Request::create(
@@ -91,16 +91,16 @@ trait HasActionPosts
         );
     }
 
-    private function setPlayerTwoChecksPost(int $streetNumber = null)
+    private function setPlayerTwoChecksPost(?int $streetNumber = null)
     {
         $requestBody = [
-            'player_id'      => $this->playerTwo->getId(),
-            'table_seat_id'  => $this->gameState->getSeats()[1]['id'],
+            'player_id' => $this->playerTwo->getId(),
+            'table_seat_id' => $this->gameState->getSeats()[1]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[$streetNumber ?: 0]['id'],
-            'action_id'      => Action::CHECK_ID,
-            'bet_amount'     => null,
-            'active'         => 1,
-            'stack'          => $this->gameState->getPlayers()[1]['stack']
+            'action_id' => Action::CHECK_ID,
+            'bet_amount' => null,
+            'active' => 1,
+            'stack' => $this->gameState->getPlayers()[1]['stack'],
         ];
 
         return Request::create(
@@ -113,13 +113,13 @@ trait HasActionPosts
     private function setPlayerTwoFoldsPost()
     {
         $requestBody = [
-            'player_id'      => $this->playerTwo->getId(),
-            'table_seat_id'  => $this->gameState->getSeats()[1]['id'],
+            'player_id' => $this->playerTwo->getId(),
+            'table_seat_id' => $this->gameState->getSeats()[1]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
-            'action_id'      => Action::FOLD_ID,
-            'bet_amount'     => null,
-            'active'         => 0,
-            'stack'          => $this->gameState->getPlayers()[1]['stack']
+            'action_id' => Action::FOLD_ID,
+            'bet_amount' => null,
+            'active' => 0,
+            'stack' => $this->gameState->getPlayers()[1]['stack'],
         ];
 
         return Request::create(
@@ -132,13 +132,13 @@ trait HasActionPosts
     private function setPlayerThreeChecksPost()
     {
         $requestBody = [
-            'player_id'      => $this->playerThree->getId(),
-            'table_seat_id'  => $this->gameState->getSeats()[2]['id'],
+            'player_id' => $this->playerThree->getId(),
+            'table_seat_id' => $this->gameState->getSeats()[2]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
-            'action_id'      => Action::CHECK_ID,
-            'bet_amount'     => null,
-            'active'         => 1,
-            'stack'          => $this->gameState->getPlayers()[2]['stack']
+            'action_id' => Action::CHECK_ID,
+            'bet_amount' => null,
+            'active' => 1,
+            'stack' => $this->gameState->getPlayers()[2]['stack'],
         ];
 
         return Request::create(
@@ -151,13 +151,13 @@ trait HasActionPosts
     private function setPlayerThreeRaisesPost()
     {
         $requestBody = [
-            'player_id'      => $this->playerThree->getId(),
-            'table_seat_id'  => $this->gameState->getSeats()[2]['id'],
+            'player_id' => $this->playerThree->getId(),
+            'table_seat_id' => $this->gameState->getSeats()[2]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
-            'action_id'      => Action::RAISE_ID,
-            'bet_amount'     => 100,
-            'active'         => 1,
-            'stack'          => $this->gameState->getPlayers()[2]['stack']
+            'action_id' => Action::RAISE_ID,
+            'bet_amount' => 100,
+            'active' => 1,
+            'stack' => $this->gameState->getPlayers()[2]['stack'],
         ];
 
         return Request::create(
@@ -170,13 +170,13 @@ trait HasActionPosts
     private function setPlayerFourCallsPost()
     {
         $requestBody = [
-            'player_id'      => $this->playerFour->getId(),
-            'table_seat_id'  => $this->gameState->getSeats()[3]['id'],
+            'player_id' => $this->playerFour->getId(),
+            'table_seat_id' => $this->gameState->getSeats()[3]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
-            'action_id'      => Action::CALL_ID,
-            'bet_amount'     => 50,
-            'active'         => 1,
-            'stack'          => $this->gameState->getPlayers()[3]['stack']
+            'action_id' => Action::CALL_ID,
+            'bet_amount' => 50,
+            'active' => 1,
+            'stack' => $this->gameState->getPlayers()[3]['stack'],
         ];
 
         return Request::create(
@@ -189,13 +189,13 @@ trait HasActionPosts
     private function setPlayerFourFoldsPost()
     {
         $requestBody = [
-            'player_id'      => $this->playerFour->getId(),
-            'table_seat_id'  => $this->gameState->getSeats()[3]['id'],
+            'player_id' => $this->playerFour->getId(),
+            'table_seat_id' => $this->gameState->getSeats()[3]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
-            'action_id'      => Action::FOLD_ID,
-            'bet_amount'     => null,
-            'active'         => 0,
-            'stack'          => $this->gameState->getPlayers()[3]['stack']
+            'action_id' => Action::FOLD_ID,
+            'bet_amount' => null,
+            'active' => 0,
+            'stack' => $this->gameState->getPlayers()[3]['stack'],
         ];
 
         return Request::create(
@@ -208,13 +208,13 @@ trait HasActionPosts
     private function setPlayerFourRaisesPost()
     {
         $requestBody = [
-            'player_id'      => $this->playerFour->getId(),
-            'table_seat_id'  => $this->gameState->getSeats()[3]['id'],
+            'player_id' => $this->playerFour->getId(),
+            'table_seat_id' => $this->gameState->getSeats()[3]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
-            'action_id'      => Action::RAISE_ID,
-            'bet_amount'     => 100,
-            'active'         => 1,
-            'stack'          => $this->gameState->getPlayers()[3]['stack']
+            'action_id' => Action::RAISE_ID,
+            'bet_amount' => 100,
+            'active' => 1,
+            'stack' => $this->gameState->getPlayers()[3]['stack'],
         ];
 
         return Request::create(
@@ -227,13 +227,13 @@ trait HasActionPosts
     private function setPlayerFourChecksPost()
     {
         $requestBody = [
-            'player_id'      => $this->playerFour->getId(),
-            'table_seat_id'  => $this->gameState->getSeats()[3]['id'],
+            'player_id' => $this->playerFour->getId(),
+            'table_seat_id' => $this->gameState->getSeats()[3]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
-            'action_id'      => Action::CHECK_ID,
-            'bet_amount'     => null,
-            'active'         => 1,
-            'stack'          => $this->gameState->getPlayers()[3]['stack']
+            'action_id' => Action::CHECK_ID,
+            'bet_amount' => null,
+            'active' => 1,
+            'stack' => $this->gameState->getPlayers()[3]['stack'],
         ];
 
         return Request::create(
@@ -243,16 +243,16 @@ trait HasActionPosts
         );
     }
 
-    private function setPlayerSixFoldsPost(int $streetNumber = null)
+    private function setPlayerSixFoldsPost(?int $streetNumber = null)
     {
         $requestBody = [
-            'player_id'      => $this->playerSix->getId(),
-            'table_seat_id'  => $this->gameState->getSeats()[5]['id'],
+            'player_id' => $this->playerSix->getId(),
+            'table_seat_id' => $this->gameState->getSeats()[5]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[$streetNumber ?: 0]['id'],
-            'action_id'      => Action::FOLD_ID,
-            'bet_amount'     => null,
-            'active'         => 0,
-            'stack'          => $this->gameState->getPlayers()[5]['stack']
+            'action_id' => Action::FOLD_ID,
+            'bet_amount' => null,
+            'active' => 0,
+            'stack' => $this->gameState->getPlayers()[5]['stack'],
         ];
 
         return Request::create(

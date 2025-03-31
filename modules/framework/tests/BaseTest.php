@@ -15,7 +15,7 @@ abstract class BaseTest extends TestCase
     {
         parent::setUp();
 
-        $dependencyMap   = require('modules/framework/config/dependencies.php');
+        $dependencyMap = require 'modules/framework/config/dependencies.php';
         $this->container = new ServiceManager($dependencyMap);
 
         $this->container->setFactory(ConnectionInterface::class, new DbalTestFactory());

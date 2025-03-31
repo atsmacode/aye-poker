@@ -13,35 +13,37 @@ class CardFactoryTest extends BaseTest
     public function setUp(): void
     {
         parent::setUp();
-        
+
         $this->card = CardFactory::create(Card::ACE_SPADES);
     }
 
     /**
      * @test
+     *
      * @return void
      */
-    public function a_card_has_a_suit()
+    public function aCardHasASuit()
     {
         $this->assertEquals('Spades', $this->card['suit']);
     }
 
     /**
      * @test
+     *
      * @return void
      */
-    public function a_card_has_a_rank()
+    public function aCardHasARank()
     {
         $this->assertEquals('Ace', $this->card['rank']);
     }
 
     /**
      * @test
+     *
      * @return void
      */
-    public function a_card_has_a_ranking()
+    public function aCardHasARanking()
     {
         $this->assertEquals(1, $this->card['ranking']);
     }
-
 }

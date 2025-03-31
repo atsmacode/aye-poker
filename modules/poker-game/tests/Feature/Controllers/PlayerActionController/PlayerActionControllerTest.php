@@ -8,7 +8,8 @@ use Atsmacode\PokerGame\Tests\HasGamePlay;
 
 class PlayerActionControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts;
+    use HasGamePlay;
+    use HasActionPosts;
 
     protected function setUp(): void
     {
@@ -17,18 +18,18 @@ class PlayerActionControllerTest extends BaseTest
         $this->isSixHanded()
             ->setHand()
             ->setGamePlay();
-        
     }
 
     /**
      * @test
+     *
      * @return void
      */
-    public function it_returns_expected_response_keys()
+    public function itReturnsExpectedResponseKeys()
     {
         $this->gamePlay->start();
 
-        $request  = $this->setPost();
+        $request = $this->setPost();
         $response = $this->actionControllerResponse($request);
 
         $this->assertEquals(
@@ -44,7 +45,7 @@ class PlayerActionControllerTest extends BaseTest
             'communityCards',
             'players',
             'winner',
-            'sittingOut'
+            'sittingOut',
         ];
     }
 }

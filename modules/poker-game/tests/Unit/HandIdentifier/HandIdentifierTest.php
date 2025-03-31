@@ -2,11 +2,11 @@
 
 namespace Atsmacode\PokerGame\Tests\Unit\HandIdentifier;
 
-use Atsmacode\PokerGame\HandIdentifier\HandIdentifier;
 use Atsmacode\CardGames\Constants\Card;
 use Atsmacode\CardGames\Constants\Rank;
-use Atsmacode\PokerGame\Constants\HandType;
 use Atsmacode\CardGames\Factory\CardFactory;
+use Atsmacode\PokerGame\Constants\HandType;
+use Atsmacode\PokerGame\HandIdentifier\HandIdentifier;
 use Atsmacode\PokerGame\Tests\BaseTest;
 
 class HandIdentifierTest extends BaseTest
@@ -16,12 +16,13 @@ class HandIdentifierTest extends BaseTest
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->handIdentifier = new HandIdentifier();
     }
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyTheCardWithTheHighestRank()
@@ -53,6 +54,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyAceAsTheHighestRankedCard()
@@ -61,7 +63,7 @@ class HandIdentifierTest extends BaseTest
 
         $wholeCards = [
             $highestCard,
-            CardFactory::create(Card::KING_DIAMONDS)
+            CardFactory::create(Card::KING_DIAMONDS),
         ];
 
         $communityCards = [
@@ -84,6 +86,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyAPair()
@@ -109,6 +112,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyTwoPair()
@@ -134,6 +138,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyTrips()
@@ -159,6 +164,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyFiveHighStraight()
@@ -184,6 +190,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyAceHighStraight()
@@ -209,6 +216,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyAStraightWithADuplicateRank()
@@ -234,6 +242,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifySixDisconnectedStraightCardsIsNotAStraight()
@@ -258,6 +267,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifySixDisconnectedStraightCardsIsNotAStraightAlt()
@@ -282,6 +292,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifySevenDisconnectedStraightCardsIsNotAStraight()
@@ -307,6 +318,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyAFlush()
@@ -331,6 +343,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyAnAceHighFlush()
@@ -356,6 +369,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyAFullHouse()
@@ -380,6 +394,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyQuads()
@@ -405,6 +420,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyAStraightFlush()
@@ -429,6 +445,7 @@ class HandIdentifierTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanIdentifyARoyalFlush()

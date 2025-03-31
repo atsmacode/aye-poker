@@ -9,7 +9,9 @@ use Atsmacode\PokerGame\Tests\HasStreets;
 
 class PlayerActionControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts, HasStreets;
+    use HasGamePlay;
+    use HasActionPosts;
+    use HasStreets;
 
     protected function setUp(): void
     {
@@ -20,11 +22,12 @@ class PlayerActionControllerTest extends BaseTest
             ->setGamePlay();
     }
 
-     /**
+    /**
      * @test
+     *
      * @return void
      */
-    public function it_can_deal_3_cards_to_a_flop()
+    public function itCanDeal3CardsToAFlop()
     {
         $this->gamePlay->start();
 
@@ -38,9 +41,10 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function it_can_deal_1_card_to_a_turn()
+    public function itCanDeal1CardToATurn()
     {
         $this->gamePlay->start();
 
@@ -56,9 +60,10 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function it_can_deal_1_card_to_a_river()
+    public function itCanDeal1CardToARiver()
     {
         $this->gamePlay->start();
 
@@ -76,9 +81,10 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function it_can_reach_showdown_when_all_active_players_can_continue_on_the_river()
+    public function itCanReachShowdownWhenAllActivePlayersCanContinueOnTheRiver()
     {
         $this->gamePlay->start();
 

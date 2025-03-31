@@ -9,7 +9,8 @@ use Atsmacode\PokerGame\Tests\HasGamePlay;
 
 class PlayerActionTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts;
+    use HasGamePlay;
+    use HasActionPosts;
 
     private PlayerAction $playerActionModel;
 
@@ -26,6 +27,7 @@ class PlayerActionTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanGetTheLatestActionOnANewHand()
@@ -33,7 +35,7 @@ class PlayerActionTest extends BaseTest
         $this->gamePlay->start();
         $this->gameState->setBigBlind();
 
-        $bigBlind     = $this->gameState->getBigBlind();
+        $bigBlind = $this->gameState->getBigBlind();
         $latestAction = $this->playerActionModel->getLatestAction($this->hand->getId());
 
         $this->assertEquals($bigBlind['table_seat_id'], $latestAction->getTableSeatId());

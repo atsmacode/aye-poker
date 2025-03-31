@@ -8,7 +8,8 @@ use Atsmacode\PokerGame\Tests\HasGamePlay;
 
 class SitControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts;
+    use HasGamePlay;
+    use HasActionPosts;
 
     protected function setUp(): void
     {
@@ -20,12 +21,13 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function dealtWholeCardsWillNolongerBeInTheDeck()
     {
         $response = $this->sitControllerResponse();
-        
+
         foreach ($response['players'] as $player) {
             foreach ($player['whole_cards'] as $wholeCard) {
                 $this->assertNotContains(

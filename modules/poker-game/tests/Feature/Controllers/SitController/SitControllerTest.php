@@ -2,14 +2,14 @@
 
 namespace Atsmacode\PokerGame\Tests\Feature\Controllers\SitController;
 
-use Atsmacode\PokerGame\Controllers\PotLimitHoldEm\SitController as PotLimitHoldEmSitController;
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
 use Atsmacode\PokerGame\Tests\HasGamePlay;
 
 class SitControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts;
+    use HasGamePlay;
+    use HasActionPosts;
 
     protected function setUp(): void
     {
@@ -20,9 +20,10 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function it_returns_valid_response_keys_on_post_request()
+    public function itReturnsValidResponseKeysOnPostRequest()
     {
         $_SERVER['REQUEST_METHOD'] = 'POST';
 
@@ -36,9 +37,10 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function with_blinds_25_and_50_the_pot_size_will_be_75_once_the_hand_is_started()
+    public function withBlinds25And50ThePotSizeWillBe75OnceTheHandIsStarted()
     {
         $response = $this->sitControllerResponse();
 
@@ -52,7 +54,7 @@ class SitControllerTest extends BaseTest
             'communityCards',
             'players',
             'winner',
-            'sittingOut'
+            'sittingOut',
         ];
     }
 }

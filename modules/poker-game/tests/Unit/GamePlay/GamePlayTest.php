@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Atsmacode\PokerGame\Tests\Unit\GamePlay;
 
@@ -36,13 +36,13 @@ class GamePlayTest extends BaseTest
         $this->assertEquals(null, $response['players'][1]['action_id']);
 
         // Each player in the hand has 2 whole cards
-        foreach($response['players'] as $player){
+        foreach ($response['players'] as $player) {
             $this->assertCount(2, $player['whole_cards']);
         }
     }
 
     /** @test */
-    public function itCanDealANewStreet() 
+    public function itCanDealANewStreet()
     {
         $this->gamePlay->start();
 

@@ -9,7 +9,9 @@ use Atsmacode\PokerGame\Tests\HasStreets;
 
 class SitControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts, HasStreets;
+    use HasGamePlay;
+    use HasActionPosts;
+    use HasStreets;
 
     protected function setUp(): void
     {
@@ -22,6 +24,7 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function theBigBlindWillBeFirstToActOnTheFlop()
@@ -37,14 +40,15 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function whenCurrentDealerIsPlayerOnePlayerTwoWillBeTheNewDealer()
     {
         $currentDealer = $this->tableSeatModel->find([
-            'id' => $this->gameState->getSeats()[0]['id']
+            'id' => $this->gameState->getSeats()[0]['id'],
         ]);
-        
+
         $this->gamePlay->start($currentDealer);
 
         $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
@@ -54,12 +58,13 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function whenCurrentDealerIsPlayerOnePlayerTwoWillBeTheNewSmallBlind()
     {
         $currentDealer = $this->tableSeatModel->find([
-            'id' => $this->gameState->getSeats()[0]['id']
+            'id' => $this->gameState->getSeats()[0]['id'],
         ]);
 
         $this->gamePlay->start($currentDealer);
@@ -71,12 +76,13 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function whenCurrentDealerIsPlayerTwoPlayerOneWillBeTheNewDealer()
     {
         $currentDealer = $this->tableSeatModel->find([
-            'id' => $this->gameState->getSeats()[1]['id']
+            'id' => $this->gameState->getSeats()[1]['id'],
         ]);
 
         $this->gamePlay->start($currentDealer);

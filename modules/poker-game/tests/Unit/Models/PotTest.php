@@ -14,15 +14,16 @@ class PotTest extends BaseTest
     {
         parent::setUp();
 
-        $this->potModel  = $this->container->get(Pot::class);
+        $this->potModel = $this->container->get(Pot::class);
         $this->handModel = $this->container->get(Hand::class);
     }
 
     /**
      * @test
+     *
      * @return void
      */
-    public function a_hand_can_have_a_pot()
+    public function aHandCanHaveAPot()
     {
         $hand = $this->handModel->create(['table_id' => 1]);
 
@@ -30,7 +31,7 @@ class PotTest extends BaseTest
 
         $pot = $this->potModel->create([
             'amount' => 75,
-            'hand_id' => $hand->getId()
+            'hand_id' => $hand->getId(),
         ]);
 
         $this->assertEquals($pot->getId(), $hand->pot()['id']);

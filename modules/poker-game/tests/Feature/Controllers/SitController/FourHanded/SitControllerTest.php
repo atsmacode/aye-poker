@@ -8,7 +8,8 @@ use Atsmacode\PokerGame\Tests\HasGamePlay;
 
 class SitControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts;
+    use HasGamePlay;
+    use HasActionPosts;
 
     protected function setUp(): void
     {
@@ -16,14 +17,14 @@ class SitControllerTest extends BaseTest
 
         $this->isFourHanded()
             ->setGamePlay();
-        
     }
 
     /**
      * @test
+     *
      * @return void
      */
-    public function it_can_start_the_game()
+    public function itCanStartTheGame()
     {
         $response = $this->sitControllerResponse();
 
@@ -40,16 +41,17 @@ class SitControllerTest extends BaseTest
         $this->assertEquals(null, $response['players'][1]['action_id']);
 
         // Each player in the hand has 2 whole cards
-        foreach($response['players'] as $player){
+        foreach ($response['players'] as $player) {
             $this->assertCount(2, $player['whole_cards']);
         }
     }
 
     /**
      * @test
+     *
      * @return void
      */
-    public function the_pre_flop_action_will_initially_be_on_the_player_four()
+    public function thePreFlopActionWillInitiallyBeOnThePlayerFour()
     {
         $response = $this->sitControllerResponse();
 

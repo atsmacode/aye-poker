@@ -3,15 +3,17 @@
 namespace Atsmacode\PokerGame\Tests\Feature\Controllers\PlayerActionController\ActionOptions\SixHanded;
 
 use Atsmacode\PokerGame\Constants\Action;
+use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
 use Atsmacode\PokerGame\Tests\HasGamePlay;
 use Atsmacode\PokerGame\Tests\HasStreets;
-use Atsmacode\PokerGame\Models\PlayerAction;
 
 class PlayerActionControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts, HasStreets;
+    use HasGamePlay;
+    use HasActionPosts;
+    use HasStreets;
 
     private PlayerAction $playerActionModel;
 
@@ -19,7 +21,7 @@ class PlayerActionControllerTest extends BaseTest
     {
         parent::setUp();
 
-        $this->playerActionModel  = $this->container->build(PlayerAction::class);
+        $this->playerActionModel = $this->container->build(PlayerAction::class);
 
         $this->isSixHanded()
             ->setHand()
@@ -28,6 +30,7 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function aPlayerFacingAPreviousRaiseCanFoldCallOrRaise()
@@ -44,7 +47,7 @@ class PlayerActionControllerTest extends BaseTest
         $this->givenPlayerFiveCalls();
         $this->givenPlayerFiveCanContinue();
 
-        $request  = $this->setPlayerSixFoldsPost(streetNumber: 1);
+        $request = $this->setPlayerSixFoldsPost(streetNumber: 1);
         $response = $this->actionControllerResponse($request);
 
         $this->assertTrue($response['players'][1]['action_on']);
@@ -56,6 +59,7 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function theBigBlindCanFoldCheckOrRaiseIfDealerCallsAndSmallBlindFolds()
@@ -74,7 +78,7 @@ class PlayerActionControllerTest extends BaseTest
         $this->givenPlayerOneCalls();
         $this->givenPlayerOneCanContinue();
 
-        $request  = $this->setPlayerTwoFoldsPost();
+        $request = $this->setPlayerTwoFoldsPost();
         $response = $this->actionControllerResponse($request);
 
         $this->assertTrue($response['players'][3]['action_on']);
@@ -88,13 +92,13 @@ class PlayerActionControllerTest extends BaseTest
     {
         $this->gameState->updateHandStreets();
 
-        $handStreets  = $this->gameState->getHandStreets();
+        $handStreets = $this->gameState->getHandStreets();
         $latestStreet = array_pop($handStreets);
 
         $this->playerActionModel->find(['hand_id' => $this->gameState->handId()])
             ->updateBatch([
-                'action_id'      => null,
-                'hand_street_id' => $latestStreet['id']
-            ], 'hand_id = ' . $this->gameState->handId());
+                'action_id' => null,
+                'hand_street_id' => $latestStreet['id'],
+            ], 'hand_id = '.$this->gameState->handId());
     }
 }

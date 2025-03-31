@@ -8,7 +8,8 @@ use Atsmacode\PokerGame\Tests\HasGamePlay;
 
 class SitControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts;
+    use HasGamePlay;
+    use HasActionPosts;
 
     protected function setUp(): void
     {
@@ -17,12 +18,13 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanStartTheGame()
     {
         $this->isHeadsUp()->setGamePlay();
-        
+
         $response = $this->sitControllerResponse();
 
         // The small blind was posted by the dealer
@@ -35,13 +37,14 @@ class SitControllerTest extends BaseTest
         $this->assertEquals('Bet', $response['players'][2]['action_name']);
 
         // Each player in the hand has 2 whole cards
-        foreach($response['players'] as $player){
+        foreach ($response['players'] as $player) {
             $this->assertCount(2, $player['whole_cards']);
         }
     }
 
     /**
      * @test
+     *
      * @return void
      */
     public function thePreFlopActionWillInitiallyBeOnTheDealer()
@@ -55,6 +58,7 @@ class SitControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
     public function itCanResumeTheGame()
@@ -64,7 +68,7 @@ class SitControllerTest extends BaseTest
             ->setGamePlay();
 
         $this->gamePlay->start();
-        
+
         $response = $this->sitControllerResponse();
 
         $this->assertTrue($response['players'][1]['action_on']);

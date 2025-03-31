@@ -9,7 +9,8 @@ use Atsmacode\PokerGame\Tests\HasGamePlay;
 
 class PlayerActionControllerTest extends BaseTest
 {
-    use HasGamePlay, HasActionPosts;
+    use HasGamePlay;
+    use HasActionPosts;
 
     protected function setUp(): void
     {
@@ -22,13 +23,14 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function a_player_facing_a_raise_can_fold_call_or_raise()
+    public function aPlayerFacingARaiseCanFoldCallOrRaise()
     {
         $this->gamePlay->start();
 
-        $request  = $this->setPlayerFourRaisesPost();
+        $request = $this->setPlayerFourRaisesPost();
         $response = $this->actionControllerResponse($request);
 
         $this->assertTrue($response['players'][1]['action_on']);
@@ -40,15 +42,16 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function a_player_facing_a_raise_fold_can_fold_call_or_raise()
+    public function aPlayerFacingARaiseFoldCanFoldCallOrRaise()
     {
         $this->gamePlay->start();
 
         $this->givenPlayerFourRaises();
 
-        $request  = $this->setPlayerOneFoldsPost();
+        $request = $this->setPlayerOneFoldsPost();
         $response = $this->actionControllerResponse($request);
 
         $this->assertTrue($response['players'][2]['action_on']);
@@ -60,13 +63,14 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function a_folded_player_has_no_options()
+    public function aFoldedPlayerHasNoOptions()
     {
         $this->gamePlay->start();
 
-        $request  = $this->setPlayerFourFoldsPost();
+        $request = $this->setPlayerFourFoldsPost();
         $response = $this->actionControllerResponse($request);
 
         $this->assertTrue($response['players'][1]['action_on']);
@@ -75,13 +79,14 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function the_big_blind_facing_a_call_can_fold_check_or_raise()
+    public function theBigBlindFacingACallCanFoldCheckOrRaise()
     {
         $this->gamePlay->start();
 
-        $request  = $this->setPlayerTwoCallsPost();
+        $request = $this->setPlayerTwoCallsPost();
         $response = $this->actionControllerResponse($request);
 
         $this->assertTrue($response['players'][3]['action_on']);
@@ -90,18 +95,20 @@ class PlayerActionControllerTest extends BaseTest
         $this->assertContains(Action::CHECK, $response['players'][3]['availableOptions']);
         $this->assertContains(Action::RAISE, $response['players'][3]['availableOptions']);
     }
+
     /**
      * @test
+     *
      * @return void
      */
-    public function the_big_blind_facing_a_call_fold_can_fold_check_or_raise()
+    public function theBigBlindFacingACallFoldCanFoldCheckOrRaise()
     {
         $this->gamePlay->start();
 
         $this->givenPlayerOneCalls();
         $this->givenPlayerOneCanContinue();
 
-        $request  = $this->setPlayerTwoFoldsPost();
+        $request = $this->setPlayerTwoFoldsPost();
         $response = $this->actionControllerResponse($request);
 
         $this->assertTrue($response['players'][3]['action_on']);
@@ -113,14 +120,14 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function a_player_facing_a_call_can_fold_call_or_raise()
+    public function aPlayerFacingACallCanFoldCallOrRaise()
     {
-        
         $this->gamePlay->start();
 
-        $request  = $this->setPlayerFourCallsPost();
+        $request = $this->setPlayerFourCallsPost();
         $response = $this->actionControllerResponse($request);
 
         $this->assertTrue($response['players'][1]['action_on']);
@@ -132,15 +139,16 @@ class PlayerActionControllerTest extends BaseTest
 
     /**
      * @test
+     *
      * @return void
      */
-    public function the_first_active_player_on_a_new_street_can_fold_check_or_bet()
+    public function theFirstActivePlayerOnANewStreetCanFoldCheckOrBet()
     {
         $this->gamePlay->start();
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
-        $request  = $this->givenActionsMeanNewStreetIsDealt();
+        $request = $this->givenActionsMeanNewStreetIsDealt();
         $response = $this->actionControllerResponse($request);
 
         $this->assertTrue($response['players'][3]['action_on']);
