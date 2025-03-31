@@ -21,6 +21,6 @@ class Deck extends Model
 
     public function find(?array $data = null): ?Deck
     {
-        return parent::find($data); /** @phpstan-ignore return.type */
+        return parent::find($data); /* @phpstan-ignore return.type */
     }
 }

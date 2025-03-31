@@ -129,6 +129,6 @@ class PlayerAction extends Model
 
     public function find(?array $data = null): ?PlayerAction
     {
-        return parent::find($data); /** @phpstan-ignore return.type */
+        return parent::find($data); /* @phpstan-ignore return.type */
     }
 }

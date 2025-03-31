@@ -20,8 +20,9 @@ class GamePlayService
     public function __construct(
         private ContainerInterface $container,
         private ActionHandler $actionHandler,
-        private Hand $handModel
-    ) {}
+        private Hand $handModel,
+    ) {
+    }
 
     public function action(Request $request): array
     {
@@ -38,7 +39,7 @@ class GamePlayService
             $requestBody['stack']
         );
 
-        $gamePlay = $this->container->build(GamePlay::class, [ /** @phpstan-ignore method.notFound */
+        $gamePlay = $this->container->build(GamePlay::class, [/* @phpstan-ignore method.notFound */
             'game' => $this->container->get($this->game),
             'gameState' => $gameState,
         ]);

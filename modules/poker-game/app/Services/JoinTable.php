@@ -21,8 +21,9 @@ class JoinTable
         private Hand $handModel,
         private Table $tableModel,
         private SitHandler $sitHandler,
-        private Player $playerModel
-    ) {}
+        private Player $playerModel,
+    ) {
+    }
 
     public function sit(
         ?int $tableId = null,
@@ -49,7 +50,7 @@ class JoinTable
             : $this->handModel->create(['table_id' => $tableId ?? 1]);
 
         $gameState = $this->container->build(GameState::class, ['hand' => $hand]); /** @phpstan-ignore method.notFound */
-        $gamePlayService = $this->container->build(GamePlay::class, [ /** @phpstan-ignore method.notFound */
+        $gamePlayService = $this->container->build(GamePlay::class, [/* @phpstan-ignore method.notFound */
             'game' => $this->container->get($this->game),
             'gameState' => $gameState,
         ]);

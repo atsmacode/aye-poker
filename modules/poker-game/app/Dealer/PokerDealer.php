@@ -100,6 +100,6 @@ class PokerDealer extends Dealer
 
     public function shuffle(): PokerDealer
     {
-        return parent::shuffle(); /** @phpstan-ignore return.type */
+        return parent::shuffle(); /* @phpstan-ignore return.type */
     }
 }

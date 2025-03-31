@@ -145,7 +145,7 @@ class Start extends HandStep
     /** Needed a way to create unique instances of the model in the container */
     private function findPlayerAction(int $playerId, int $tableSeatId, int $handStreetId): PlayerAction
     {
-        $playerActionModel = $this->container->build(PlayerAction::class); /** @phpstan-ignore  method.notFound */
+        $playerActionModel = $this->container->build(PlayerAction::class); /* @phpstan-ignore  method.notFound */
 
         return $playerActionModel->find([
             'player_id' => $playerId,
@@ -157,7 +157,7 @@ class Start extends HandStep
     /** Needed a way to create unique instances of the model in the container */
     private function findPlayerStack(int $playerId, int $tableId): Stack
     {
-        $stackModel = $this->container->build(Stack::class); /** @phpstan-ignore method.notFound */
+        $stackModel = $this->container->build(Stack::class); /* @phpstan-ignore method.notFound */
 
         return $stackModel->find([
             'player_id' => $playerId,
