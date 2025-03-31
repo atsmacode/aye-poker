@@ -17,6 +17,7 @@ use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Models\WholeCard;
 use Atsmacode\PokerGame\PokerGameConfigProvider;
+use Atsmacode\PokerGame\Services\JoinTable;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 
@@ -33,6 +34,7 @@ abstract class BaseTest extends TestCase
     protected Street              $streetModel;
     protected PokerDealer         $pokerDealer;
     protected ActionHandler       $actionHandler;
+    protected JoinTable           $joinTable;
 
     protected function setUp(): void
     {
@@ -54,5 +56,6 @@ abstract class BaseTest extends TestCase
         $this->streetModel         = $this->container->build(Street::class);
         $this->pokerDealer         = $this->container->build(PokerDealer::class);
         $this->actionHandler       = $this->container->build(ActionHandler::class);
+        $this->joinTable           = $this->container->build(JoinTable::class);
     }
 }

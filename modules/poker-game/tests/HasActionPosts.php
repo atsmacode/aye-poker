@@ -18,14 +18,14 @@ trait HasActionPosts
 
     private function sitControllerResponse($currentDealer = null): array
     {
-        $response = (new PotLimitHoldEmSitController($this->container))->sit($this->table->getId(), $currentDealer);
+        $response = (new PotLimitHoldEmSitController($this->joinTable))->sit($this->table->getId(), $currentDealer);
 
         return json_decode($response->getContent(), true);
     }
 
-    private function sitControllerResponseWithPlayerId($currentDealer = null, int $playerId = null): array
+    private function sitControllerResponseWithPlayerId($currentDealer = null, ?int $playerId = null): array
     {
-        $response = (new PotLimitHoldEmSitController($this->container))->sit(
+        $response = (new PotLimitHoldEmSitController($this->joinTable))->sit(
             $this->table->getId(),
             $currentDealer,
             $playerId
