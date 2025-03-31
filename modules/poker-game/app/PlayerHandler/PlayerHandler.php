@@ -104,17 +104,14 @@ class PlayerHandler implements PlayerHandlerInterface
             case Action::CALL['id']:
                 if ($this->isBigBlindOnUnRaisedFirstStreet($playerActions, $playerAction)) {
                     return [Action::FOLD, Action::CHECK, Action::RAISE];
-                } else {
-                    return [Action::FOLD, Action::CALL, Action::RAISE];
                 }
-                break;
+
+                return [Action::FOLD, Action::CALL, Action::RAISE];
             case Action::BET['id']:
             case Action::RAISE['id']:
                 return [Action::FOLD, Action::CALL, Action::RAISE];
-                break;
             case Action::CHECK['id']:
                 return [Action::FOLD, Action::CHECK, Action::BET];
-                break;
             default:
                 if ($this->isBigBlindOnUnRaisedFirstStreet($playerActions, $playerAction)) {
                     return [Action::FOLD, Action::CHECK, Action::RAISE];
@@ -123,11 +120,9 @@ class PlayerHandler implements PlayerHandlerInterface
                 /* Latest action may be a fold, so we need to check for raisers/callers/bettters before the folder. */
                 if (0 < count($continuingBetters)) {
                     return [Action::FOLD, Action::CALL, Action::RAISE];
-                    break;
                 }
 
                 return [Action::FOLD, Action::CHECK, Action::BET];
-                break;
         }
     }
 

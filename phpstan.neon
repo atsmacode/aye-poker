@@ -6,7 +6,6 @@ parameters:
         - modules/poker-game/app
     ignoreErrors:
         - '#.*no value type specified in iterable type array.*#'
-        - '#.*Unreachable statement.*#'
         - '#.*never written, only read.*#'
         - '#.*never read, only written.*#'
         - '#.*Access to an undefined property.*#'
