@@ -10,11 +10,11 @@ class DatabaseProvider
     public static function getConnection(array $config, string $env): Connection
     {
         return DriverManager::getConnection([
-            'dbname'   => $config['db'][$env]['database'],
-            'user'     => $config['db'][$env]['username'],
+            'dbname' => $config['db'][$env]['database'],
+            'user' => $config['db'][$env]['username'],
             'password' => $config['db'][$env]['password'],
-            'host'     => $config['db'][$env]['servername'],
-            'driver'   => $config['db'][$env]['driver'],
+            'host' => $config['db'][$env]['servername'],
+            'driver' => $config['db'][$env]['driver'],
         ]);
     }
 }

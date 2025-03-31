@@ -10,9 +10,9 @@ class CardGamesConfigProvider extends ConfigProvider
     public function get(): array
     {
         $aggregator = new ConfigAggregator([
-            CardGamesConfig::class
+            CardGamesConfig::class,
         ]);
 
-        return $aggregator->getMergedConfig(); 
+        return $aggregator->getMergedConfig();
     }
 }

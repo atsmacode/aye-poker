@@ -2,7 +2,7 @@
 
 namespace Atsmacode\Framework\Console\Commands;
 
-use \Atsmacode\Framework\Migrations\CreateDatabase as CreateDatabaseMigration;
+use Atsmacode\Framework\Migrations\CreateDatabase as CreateDatabaseMigration;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(
@@ -11,11 +11,10 @@ use Symfony\Component\Console\Attribute\AsCommand;
     hidden: false,
     aliases: ['app:create-database']
 )]
-
 class CreateDatabase extends Migrator
 {
     protected array $buildClasses = [
-        CreateDatabaseMigration::class
+        CreateDatabaseMigration::class,
     ];
 
     protected static $defaultName = 'app:create-database';

@@ -5,19 +5,18 @@ namespace Atsmacode\Framework\Dbal;
 use Atsmacode\Framework\Database\ConnectionInterface;
 use Atsmacode\Framework\Database\Database;
 use Psr\Log\LoggerInterface;
-use ReflectionClass;
 
 abstract class Model extends Database
 {
     private \ReflectionClass $reflection;
-    protected string         $table;
-    protected int            $id;
-    protected array          $content = [];
+    protected string $table;
+    protected int $id;
+    protected array $content = [];
 
     public function __construct(
         ConnectionInterface $connection,
         LoggerInterface $logger,
-        \ReflectionClass $reflection
+        \ReflectionClass $reflection,
     ) {
         parent::__construct($connection, $logger);
 
@@ -46,7 +45,7 @@ abstract class Model extends Database
 
     public function find(?array $data = null): ?self
     {
-        $rows       = null;
+        $rows = null;
         $properties = $this->compileWhereStatement($data);
 
         try {
@@ -55,12 +54,14 @@ abstract class Model extends Database
             ");
 
             $results = $stmt->executeQuery();
-            $rows    = $results->fetchAllAssociative();
+            $rows = $results->fetchAllAssociative();
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
 
-        if (!$rows) { return $this; }
+        if (!$rows) {
+            return $this;
+        }
 
         $this->content = $rows;
 
@@ -68,7 +69,7 @@ abstract class Model extends Database
 
         return $this;
 
-        /** 
+        /*
          * @todo Would like to return $this->build($rows)
          * here. Caused a lot of failing unit tests.
          */
@@ -76,13 +77,15 @@ abstract class Model extends Database
 
     public function create(?array $data = null): self
     {
-        $id              = null;
+        $id = null;
         $insertStatement = $this->compileInsertStatement($data);
 
         try {
             $stmt = $this->connection->prepare($insertStatement);
 
-            foreach ($data as $column => &$value) { $stmt->bindParam($column, $value); }
+            foreach ($data as $column => &$value) {
+                $stmt->bindParam($column, $value);
+            }
 
             $stmt->executeQuery();
 
@@ -112,7 +115,9 @@ abstract class Model extends Database
             $stmt = $this->connection->prepare($properties);
 
             foreach ($data as $column => &$value) {
-                if ($value !== null) { $stmt->bindParam(':'.$column, $value); }
+                if (null !== $value) {
+                    $stmt->bindParam(':'.$column, $value);
+                }
             }
 
             $stmt->executeQuery();
@@ -133,7 +138,9 @@ abstract class Model extends Database
         try {
             $stmt = $this->connection->prepare($properties);
 
-            foreach ($data as $column => &$value) { $stmt->bindParam(':'.$column, $value); }
+            foreach ($data as $column => &$value) {
+                $stmt->bindParam(':'.$column, $value);
+            }
 
             $stmt->executeQuery();
         } catch (\Exception $e) {
@@ -199,18 +206,20 @@ abstract class Model extends Database
     private function compileUpdateStatement(array $data): string
     {
         $properties = "UPDATE {$this->table} SET ";
-        $pointer    = 1;
+        $pointer = 1;
 
         foreach ($data as $column => $value) {
-            if ($value !== null) {
-                $properties .= $column . " = :". $column;
+            if (null !== $value) {
+                $properties .= $column.' = :'.$column;
 
-                if ($pointer < count($data)) { $properties .= ", "; };
+                if ($pointer < count($data)) {
+                    $properties .= ', ';
+                }
             }
 
-            $pointer++;
+            ++$pointer;
         }
-    
+
         $properties .= " WHERE id = {$this->id}";
 
         return $properties;
@@ -219,38 +228,44 @@ abstract class Model extends Database
     private function compileUpdateBatchStatement(array $data, ?string $where = null): string
     {
         $properties = "UPDATE {$this->table} SET ";
-        $pointer    = 1;
+        $pointer = 1;
 
         foreach ($data as $column => $value) {
-            $properties .= $column . " = :". $column;
+            $properties .= $column.' = :'.$column;
 
-            if ($pointer < count($data)) { $properties .= ", "; };
+            if ($pointer < count($data)) {
+                $properties .= ', ';
+            }
 
-            $pointer++;
-        };
+            ++$pointer;
+        }
 
-        if ($where) { $properties .= " WHERE {$where}"; }
+        if ($where) {
+            $properties .= " WHERE {$where}";
+        }
 
         return $properties;
     }
 
     private function compileWhereStatement(array $data): string
     {
-        $properties = "WHERE ";
-        $pointer    = 1;
+        $properties = 'WHERE ';
+        $pointer = 1;
 
         foreach ($data as $column => $value) {
-            if ($value === null) {
-                $properties .= $column . " IS NULL";
-            } else if (is_int($value)) {
-                $properties .= $column . " = ". $value;
+            if (null === $value) {
+                $properties .= $column.' IS NULL';
+            } elseif (is_int($value)) {
+                $properties .= $column.' = '.$value;
             } else {
-                $properties .= $column . " = '". $value . "'";
+                $properties .= $column." = '".$value."'";
             }
 
-            if ($pointer < count($data)) { $properties .= " AND "; };
+            if ($pointer < count($data)) {
+                $properties .= ' AND ';
+            }
 
-            $pointer++;
+            ++$pointer;
         }
 
         return $properties;
@@ -260,7 +275,7 @@ abstract class Model extends Database
     {
         $properties = "INSERT INTO {$this->table} (";
         $properties = $this->compileColumns($data, $properties);
-        $properties .= "VALUES (";
+        $properties .= 'VALUES (';
 
         reset($data);
 
@@ -276,9 +291,13 @@ abstract class Model extends Database
         foreach (array_keys($data) as $column) {
             $properties .= $column;
 
-            if ($pointer < count($data)) { $properties .= ", "; } else { $properties .= ") "; };
+            if ($pointer < count($data)) {
+                $properties .= ', ';
+            } else {
+                $properties .= ') ';
+            }
 
-            $pointer++;
+            ++$pointer;
         }
 
         return $properties;
@@ -287,13 +306,17 @@ abstract class Model extends Database
     private function compileValues(array $data, string $properties): string
     {
         $pointer = 1;
-        
+
         foreach (array_keys($data) as $column) {
             $properties .= ':'.$column;
 
-            if ($pointer < count($data)) { $properties .= ", "; } else { $properties .= ")"; };
+            if ($pointer < count($data)) {
+                $properties .= ', ';
+            } else {
+                $properties .= ')';
+            }
 
-            $pointer++;
+            ++$pointer;
         }
 
         return $properties;
@@ -302,7 +325,7 @@ abstract class Model extends Database
     /** Uses reflection to set private properties of child Model class */
     protected function setModelProperties(array $result): void
     {
-        if (count($result) === 1) {
+        if (1 === count($result)) {
             foreach (array_shift($result) as $column => $value) {
                 if ($this->reflection->hasProperty($column)) {
                     $property = $this->reflection->getProperty($column);

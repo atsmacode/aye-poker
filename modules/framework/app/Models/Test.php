@@ -10,8 +10,8 @@ class Test extends Model
     use Collection;
 
     protected string $table = 'test';
-    private string   $name;
-    private string   $test_desc;
+    private string $name;
+    private string $test_desc;
 
     public function getId(): int
     {

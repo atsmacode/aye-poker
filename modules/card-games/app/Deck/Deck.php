@@ -59,7 +59,7 @@ class Deck
         Card::TEN_SPADES,
         Card::JACK_SPADES,
         Card::QUEEN_SPADES,
-        Card::KING_SPADES
+        Card::KING_SPADES,
     ];
 
     public function __construct()

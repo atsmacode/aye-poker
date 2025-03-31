@@ -18,21 +18,21 @@ trait Collection
     /**
      * Used when $this->content is an array of the DB properties:
      * array(10) {
-     *   [0] => array(4) {      
-     *     'id' =>       
-     *     int(11)       
-     *     'amount' =>   
-     *     int(1000)     
+     *   [0] => array(4) {
+     *     'id' =>
+     *     int(11)
+     *     'amount' =>
+     *     int(1000)
      *     'player_id' =>
-     *     int(1)        
-     *     'table_id' => 
      *     int(1)
-     *     ...   
+     *     'table_id' =>
+     *     int(1)
+     *     ...
      *   }
      *   ...
      * }
-     * 
-     * And when desired result is a single self instance.          
+     *
+     * And when desired result is a single self instance.
      */
     public function search(string $column, mixed $value): ?Model
     {
@@ -40,7 +40,7 @@ trait Collection
             array_column($this->content, $column)
         );
 
-        if ($key !== false && array_key_exists($key, $this->content)) {
+        if (false !== $key && array_key_exists($key, $this->content)) {
             return self::find($this->content[$key]);
         }
 
@@ -49,7 +49,7 @@ trait Collection
 
     /**
      * Used when $this->content is an array of Models:
-     * 
+     *
      * array(1) {
      *   [14] =>
      *   class App\Models\Stack#69 (13) {
@@ -58,21 +58,20 @@ trait Collection
      *       public $username =>
      *       string(4) "root"
      * ...
-     * 
+     *
      * And when desired result is an array of selfs.
-     * 
+     *
      * @return array<Model>
      */
     public function searchMultiple(string $column, mixed $value): ?array
     {
-
         $keys = array_keys(
             array_column($this->content, $column),
             $value
         );
 
         if (count($keys) > 0) {
-            $this->content = array_filter($this->content, function($key) use($keys){
+            $this->content = array_filter($this->content, function ($key) use ($keys) {
                 return in_array($key, $keys);
             }, ARRAY_FILTER_USE_KEY);
 
@@ -84,10 +83,9 @@ trait Collection
 
     public function slice(int $start, int $finish): ?Model
     {
-
         $items = array_slice($this->content, $start, $finish);
 
-        if (count($items) === 1) {
+        if (1 === count($items)) {
             return self::find(array_shift($items));
         }
 
@@ -96,7 +94,7 @@ trait Collection
 
     public function filter(string $column, mixed $value): Model
     {
-        $this->content = array_filter($this->content, function($key) use ($column, $value) {
+        $this->content = array_filter($this->content, function ($key) use ($column, $value) {
             return $this->content[$key][$column] !== $value;
         }, ARRAY_FILTER_USE_KEY);
 
@@ -111,6 +109,7 @@ trait Collection
             if ($a == $b) {
                 return 0;
             }
+
             return ($a > $b) ? -1 : 1;
         });
 

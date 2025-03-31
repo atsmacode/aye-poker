@@ -9,7 +9,7 @@ class Dealer
     public array $deck;
     public array $card;
 
-    public function setDeck(array $deck = null): self
+    public function setDeck(?array $deck = null): self
     {
         if ($deck) {
             $this->deck = $deck;
@@ -52,7 +52,7 @@ class Dealer
 
         $this->card = $card;
 
-        $reject = array_filter($this->deck, function($value) use($card) {
+        $reject = array_filter($this->deck, function ($value) use ($card) {
             return $value !== $card;
         });
 
@@ -63,14 +63,14 @@ class Dealer
 
     private function pickSpecificCard(string $rank, string $suit): self
     {
-        $filter = array_filter($this->deck, function($value) use($rank, $suit) {
+        $filter = array_filter($this->deck, function ($value) use ($rank, $suit) {
             return $value['rank'] === $rank && $value['suit'] === $suit;
         });
 
         $this->card = array_values($filter)[0];
-        $card       = $this->card;
+        $card = $this->card;
 
-        $reject = array_filter($this->deck, function($value) use($card) {
+        $reject = array_filter($this->deck, function ($value) use ($card) {
             return $value !== $card;
         });
 

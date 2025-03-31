@@ -12,13 +12,13 @@ class DbalConnection implements ConnectionInterface
 
     public function __construct(array $config, string $env)
     {
-        $this->database   = $config['db'][$env]['database'];
+        $this->database = $config['db'][$env]['database'];
         $this->connection = DriverManager::getConnection([
-            'dbname'   => $config['db'][$env]['database'],
-            'user'     => $config['db'][$env]['username'],
+            'dbname' => $config['db'][$env]['database'],
+            'user' => $config['db'][$env]['username'],
             'password' => $config['db'][$env]['password'],
-            'host'     => $config['db'][$env]['servername'],
-            'driver'   => $config['db'][$env]['driver'],
+            'host' => $config['db'][$env]['servername'],
+            'driver' => $config['db'][$env]['driver'],
         ]);
     }
 

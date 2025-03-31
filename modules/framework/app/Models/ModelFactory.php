@@ -13,7 +13,7 @@ class ModelFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): Model
     {
         $connection = $container->get(ConnectionInterface::class);
-        $logger     = $container->get(LoggerInterface::class);
+        $logger = $container->get(LoggerInterface::class);
 
         return new $requestedName(
             $connection,

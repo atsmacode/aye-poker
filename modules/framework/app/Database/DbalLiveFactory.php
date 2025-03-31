@@ -11,7 +11,7 @@ class DbalLiveFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         $configProvider = $container->get(FrameworkConfigProvider::class);
-        $config         = $configProvider->get();
+        $config = $configProvider->get();
 
         return new DbalConnection($config, 'live');
     }

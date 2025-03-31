@@ -4,11 +4,11 @@ namespace Atsmacode\CardGames;
 
 class CardGamesConfig
 {
-    const CONFIG_REF = 'config/card_games.php';
+    public const CONFIG_REF = 'config/card_games.php';
 
     public function __invoke(): array
     {
-        $config  = require(CardGamesConfig::CONFIG_REF);
+        $config = require CardGamesConfig::CONFIG_REF;
 
         return $config['card_games'];
     }
