@@ -6,6 +6,7 @@
 3. Do we need to use DB transactions?
 4. NPM warnings, ignore/fix
 5. Migrations always re-run, implement rollbacks/already-done, custom or package?
+6. Can I use a simple config array map like in Mezzio?
 
 # Bugs
 
@@ -29,7 +30,6 @@
 10. Use Symfony doctrine to create poker_game DB, remove PDO wrapper
 11. Stop using in-app controllers with Request/Response, use interfaces/Exceptions
     * 31/03/25 Using services instead
-12. Too many duplicated factories for dependencies in poker-game
 
 # Features
 
