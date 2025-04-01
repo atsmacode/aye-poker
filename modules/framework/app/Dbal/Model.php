@@ -8,11 +8,18 @@ use Psr\Log\LoggerInterface;
 
 abstract class Model extends Database
 {
+    /**
+     * @var \ReflectionClass<Model>
+     */
     private \ReflectionClass $reflection;
+
     protected string $table;
     protected int $id;
     protected array $content = [];
 
+    /**
+     * @param \ReflectionClass<Model> $reflection
+     */
     public function __construct(
         ConnectionInterface $connection,
         LoggerInterface $logger,
