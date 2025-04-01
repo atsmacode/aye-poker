@@ -32,6 +32,7 @@
     * 31/03/25 Using services instead
 12. Proper solutions for PHP Stan errors I'm ignoring
 13. Review use of Game interface, may be linked to F.9
+14. Use Vue Composition API
 
 # Features
 
