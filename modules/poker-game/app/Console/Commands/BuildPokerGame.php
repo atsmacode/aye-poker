@@ -52,6 +52,8 @@ class BuildPokerGame extends Migrator
         SeedTable::class,
     ];
 
-    /* @phpstan-ignore missingType.property (Overriding framework, defaultName might be Symfony though) */
+    /**
+     * @var string
+     */
     protected static $defaultName = 'app:build-poker-game';
 }

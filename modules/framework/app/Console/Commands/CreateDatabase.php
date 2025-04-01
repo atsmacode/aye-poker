@@ -17,5 +17,8 @@ class CreateDatabase extends Migrator
         CreateDatabaseMigration::class,
     ];
 
+    /**
+     * @var string
+     */
     protected static $defaultName = 'app:create-database';
 }

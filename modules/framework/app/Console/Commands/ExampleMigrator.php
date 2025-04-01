@@ -19,5 +19,8 @@ class ExampleMigrator extends Migrator
         CreateTestTable::class,
     ];
 
+    /**
+     * @var string
+     */
     protected static $defaultName = 'app:build-framework';
 }

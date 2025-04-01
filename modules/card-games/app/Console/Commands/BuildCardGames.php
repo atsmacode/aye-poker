@@ -21,5 +21,9 @@ class BuildCardGames extends Migrator
         CreateCards::class,
         SeedCards::class,
     ];
+
+    /**
+     * @var string
+     */
     protected static $defaultName = 'app:build-card-games';
 }

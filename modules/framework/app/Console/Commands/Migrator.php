@@ -16,6 +16,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 abstract class Migrator extends Command
 {
     protected array $buildClasses;
+
+    /**
+     * @var string
+     */
     protected static $defaultName;
 
     public function __construct(
