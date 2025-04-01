@@ -27,7 +27,7 @@
 7. Remaining PHPStan errors
 8. Get Symfony CLI, unit tests in container
 9. Encode auto-generated password (contains special chars)
-10. Use Symfony doctrine to create poker_game DB, remove PDO wrapper
+10. Use Symfony doctrine for migrations, convert custom ones
 11. Stop using in-app controllers with Request/Response, use interfaces/Exceptions
     * 31/03/25 Using services instead
 12. Proper solutions for PHP Stan errors I'm ignoring
