@@ -3,24 +3,24 @@
 namespace Atsmacode\PokerGame\Console\Commands;
 
 use Atsmacode\Framework\Console\Commands\Migrator;
-use Atsmacode\PokerGame\Database\Migrations\CreateActions;
-use Atsmacode\PokerGame\Database\Migrations\CreateDecks;
-use Atsmacode\PokerGame\Database\Migrations\CreateHands;
-use Atsmacode\PokerGame\Database\Migrations\CreateHandTypes;
-use Atsmacode\PokerGame\Database\Migrations\CreatePlayerActionLogs;
-use Atsmacode\PokerGame\Database\Migrations\CreatePlayerActions;
-use Atsmacode\PokerGame\Database\Migrations\CreatePlayers;
-use Atsmacode\PokerGame\Database\Migrations\CreatePots;
-use Atsmacode\PokerGame\Database\Migrations\CreateStacks;
-use Atsmacode\PokerGame\Database\Migrations\CreateStreets;
-use Atsmacode\PokerGame\Database\Migrations\CreateTables;
-use Atsmacode\PokerGame\Database\Migrations\CreateWholeCards;
-use Atsmacode\PokerGame\Database\Seeders\SeedActions;
-use Atsmacode\PokerGame\Database\Seeders\SeedDevTable;
-use Atsmacode\PokerGame\Database\Seeders\SeedHandTypes;
-use Atsmacode\PokerGame\Database\Seeders\SeedPlayers;
-use Atsmacode\PokerGame\Database\Seeders\SeedStreets;
-use Atsmacode\PokerGame\Database\Seeders\SeedTable;
+use Atsmacode\PokerGame\Database\Migrations\Legacy\CreateActions;
+use Atsmacode\PokerGame\Database\Migrations\Legacy\CreateDecks;
+use Atsmacode\PokerGame\Database\Migrations\Legacy\CreateHands;
+use Atsmacode\PokerGame\Database\Migrations\Legacy\CreateHandTypes;
+use Atsmacode\PokerGame\Database\Migrations\Legacy\CreatePlayerActionLogs;
+use Atsmacode\PokerGame\Database\Migrations\Legacy\CreatePlayerActions;
+use Atsmacode\PokerGame\Database\Migrations\Legacy\CreatePlayers;
+use Atsmacode\PokerGame\Database\Migrations\Legacy\CreatePots;
+use Atsmacode\PokerGame\Database\Migrations\Legacy\CreateStacks;
+use Atsmacode\PokerGame\Database\Migrations\Legacy\CreateStreets;
+use Atsmacode\PokerGame\Database\Migrations\Legacy\CreateTables;
+use Atsmacode\PokerGame\Database\Migrations\Legacy\CreateWholeCards;
+use Atsmacode\PokerGame\Database\Seeders\Legacy\SeedActions;
+use Atsmacode\PokerGame\Database\Seeders\Legacy\SeedDevTable;
+use Atsmacode\PokerGame\Database\Seeders\Legacy\SeedHandTypes;
+use Atsmacode\PokerGame\Database\Seeders\Legacy\SeedPlayers;
+use Atsmacode\PokerGame\Database\Seeders\Legacy\SeedStreets;
+use Atsmacode\PokerGame\Database\Seeders\Legacy\SeedTable;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(
