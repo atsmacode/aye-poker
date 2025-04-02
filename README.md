@@ -1,13 +1,13 @@
 # About
 
-This is the front-end that communicates with my [atsmacode/poker-game](https://github.com/atsmacode/poker-game) package and allows a poker game to be played in the browser with the traditional table and player graphics found in most online poker games. It looks like this:
+This is a poker game with the traditional table and player graphics found in most online poker games. It looks like this:
 
 ![Flop Action](/screenshots/flop_action.png)
 
-Other simple packages I created for use here are:
-
-* [atsmacode/card-games](https://github.com/atsmacode/card-games) - This could be used to create any card based game
-* [atsmacode/framework](https://github.com/atsmacode/framework) - Some basic utilities like Models and DB connections
+Notes on modules:
+* `modules/poker-game` - This is the core logic of the game
+* `modules/card-games` - This could be used to create any card based game
+* `modules/framework` - Some basic utilities like Models and DB connections
 
 Live page updates during game play are powered by the Mercure Hub: https://mercure.rocks/
 
@@ -69,7 +69,7 @@ Here's an example of how I plan and map out changes using Lucid Charts:
 
 [Registration & Auth Flow](/documentation/registration_and_auth_flow.pdf)
 
-# Commands
+# Other Commands
 
 ## Build Poker Game DB:
 
@@ -79,13 +79,7 @@ Build the test DB:
 
 > dev/builddb
 
-Individual Drop, Create and Seed commands. Remove '-d true' for prodution:
-
-> php dev/BuildAyePoker.php app:create-database -d true
-
-> php dev/BuildAyePoker.php app:build-card-games -d true
-
-> php dev/BuildAyePoker.php app:build-poker-game -d true
+Individual Drop, Create and Seed commands listed in that bash file. Remove '-d true' for prodution.
 
 ### Windows
 
@@ -93,17 +87,17 @@ Build the test DB:
 
 > .\dev\builddb.bat
 
-Individual Drop, Create and Seed commands. Remove '-d true' for prodution:
+Individual Drop, Create and Seed commands listed in that bash file. Remove '-d true' for prodution.
 
-> php .\dev\BuildAyePoker.php app:create-database -d true
+# Unit Tests & Code Style/Standards
 
-> php .\dev\BuildAyePoker.php app:build-card-games -d true
+> dev/test
 
-> php .\dev\BuildAyePoker.php app:build-poker-game -d true
+> dev/cs
 
 ## Aye Poker Migrations
 
-> php bin/console doctrine:migrations:migrate
+> php bin/console doctrine:migrations:migrate -n
 
 ## Front End
 
@@ -150,8 +144,4 @@ return [
 
 ```
 
-# Composer
-
-## Doctrine Dbal
-
-I specified v3.5.5 in composer.json as a -dev version was being pulled in with -W and caused composer update errors
+Similar format for using card-games or framework modules independently.

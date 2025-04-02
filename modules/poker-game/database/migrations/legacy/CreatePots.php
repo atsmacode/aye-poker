@@ -1,29 +1,26 @@
 <?php
 
-namespace Atsmacode\PokerGame\Database\Migrations;
+namespace Atsmacode\PokerGame\Database\Migrations\Legacy;
 
 use Atsmacode\Framework\Database\Database;
 use Doctrine\DBAL\Schema\Schema;
 
-class CreateWholeCards extends Database
+class CreatePots extends Database
 {
     public static array $methods = [
-        'createWholeCardsTable',
+        'createPotsTable',
     ];
 
-    public function createWholeCardsTable(): void
+    public function createPotsTable(): void
     {
         try {
             $schema = new Schema();
-            $table  = $schema->createTable('whole_cards');
+            $table  = $schema->createTable('pots');
 
             $table->addColumn('id', 'integer', ['unsigned' => true])->setAutoincrement(true);
-            $table->addColumn('card_id', 'integer', ['unsigned' => true])->setNotnull(false);
+            $table->addColumn('amount', 'integer')->setNotnull(false);
             $table->addColumn('hand_id', 'integer', ['unsigned' => true])->setNotnull(true);
-            $table->addColumn('player_id', 'integer', ['unsigned' => true])->setNotnull(true);
-            $table->addForeignKeyConstraint('cards', ['card_id'], ['id']);
             $table->addForeignKeyConstraint('hands', ['hand_id'], ['id']);
-            $table->addForeignKeyConstraint('players', ['player_id'], ['id']);
             $table->setPrimaryKey(['id']);
 
             $dbPlatform = $this->connection->getDatabasePlatform();

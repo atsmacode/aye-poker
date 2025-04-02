@@ -1,25 +1,24 @@
 <?php
 
-namespace Atsmacode\PokerGame\Database\Migrations;
+namespace Atsmacode\PokerGame\Database\Migrations\Legacy;
 
 use Atsmacode\Framework\Database\Database;
 use Doctrine\DBAL\Schema\Schema;
 
-class CreatePlayers extends Database
+class CreateStreets extends Database
 {
     public static array $methods = [
-        'createPlayersTable',
+        'createStreetsTable',
     ];
 
-    public function createPlayersTable(): void
+    public function createStreetsTable(): void
     {
         try {
             $schema = new Schema();
-            $table  = $schema->createTable('players');
+            $table  = $schema->createTable('streets');
 
             $table->addColumn('id', 'integer', ['unsigned' => true])->setAutoincrement(true);
-            $table->addColumn('name', 'string', ['length' => 32])->setNotnull(true);
-            $table->addUniqueConstraint(['name']);
+            $table->addColumn('name', 'string')->setNotnull(true);
             $table->setPrimaryKey(['id']);
 
             $dbPlatform = $this->connection->getDatabasePlatform();
