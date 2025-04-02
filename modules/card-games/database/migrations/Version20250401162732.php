@@ -31,6 +31,7 @@ final class Version20250401162732 extends AbstractMigration
         $suits->addColumn('id', 'integer', ['unsigned' => true])->setAutoincrement(true);
         $suits->addColumn('name', 'string', ['length' => 32])->setNotnull(true);
         $suits->addColumn('ranking', 'integer', ['length' => 2])->setNotnull(true);
+        $ranks->addColumn('abbreviation', 'string', ['length' => 30])->setNotnull(true);
         $suits->setPrimaryKey(['id']);
 
         $table  = $schema->createTable('cards');

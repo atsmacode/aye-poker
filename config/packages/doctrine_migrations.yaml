@@ -3,6 +3,8 @@ doctrine_migrations:
         # namespace is arbitrary but should be different from App\Migrations
         # as migrations classes should NOT be autoloaded
         'DoctrineMigrations': '%kernel.project_dir%/migrations'
-        'Atsmacode\CardGames': 'modules/card-games/database/migrations'
-        'Atsmacode\PokerGame': 'modules/poker-game/database/migrations'
+        'Atsmacode\CardGames\Migrations': 'modules/card-games/database/migrations'
+        'Atsmacode\PokerGame\Migrations': 'modules/poker-game/database/migrations'
+        'Atsmacode\CardGames\Seeders': 'modules/card-games/database/seeders'
+        'Atsmacode\PokerGame\Seeders': 'modules/poker-game/database/seeders'
     enable_profiler: false
