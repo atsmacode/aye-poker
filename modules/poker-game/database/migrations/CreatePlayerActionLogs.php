@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\Database\Migrations\Legacy;
+namespace Atsmacode\PokerGame\Database\Migrations;
 
 use Atsmacode\Framework\Database\Database;
 use Doctrine\DBAL\Schema\Schema;

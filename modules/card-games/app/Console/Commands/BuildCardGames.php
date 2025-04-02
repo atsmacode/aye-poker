@@ -2,8 +2,8 @@
 
 namespace Atsmacode\CardGames\Console\Commands;
 
-use Atsmacode\CardGames\Database\Migrations\Legacy\CreateCards;
-use Atsmacode\CardGames\Database\Seeders\Legacy\SeedCards;
+use Atsmacode\CardGames\Database\Migrations\CreateCards;
+use Atsmacode\CardGames\Database\Seeders\SeedCards;
 use Atsmacode\Framework\Console\Commands\Migrator;
 use Atsmacode\Framework\Migrations\CreateDatabase;
 use Symfony\Component\Console\Attribute\AsCommand;

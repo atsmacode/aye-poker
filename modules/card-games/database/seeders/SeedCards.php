@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\CardGames\Database\Seeders\Legacy;
+namespace Atsmacode\CardGames\Database\Seeders;
 
 use Atsmacode\CardGames\Constants\Rank;
 use Atsmacode\CardGames\Constants\Suit;

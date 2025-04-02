@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Atsmacode\PokerGame;
+namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250402053717 extends AbstractMigration
+final class Version20250402054948 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,9 +20,11 @@ final class Version20250402053717 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $schema = new Schema();
-        $table  = $schema->createTable('actions');
+        $table  = $schema->createTable('decks');
         $table->addColumn('id', 'integer', ['unsigned' => true])->setAutoincrement(true);
-        $table->addColumn('name', 'string', ['length' => 32])->setNotnull(true);
+        $table->addColumn('cards', 'string', ['length' => 20000])->setNotnull(true);
+        $table->addColumn('hand_id', 'integer', ['unsigned' => true])->setNotnull(true);
+        $table->addForeignKeyConstraint('hands', ['hand_id'], ['id']);
         $table->setPrimaryKey(['id']);
 
         foreach($schema->toSql($this->platform) as $sql) {
@@ -32,6 +34,6 @@ final class Version20250402053717 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $schema->dropTable('actions');
+        $schema->dropTable('decks');
     }
 }

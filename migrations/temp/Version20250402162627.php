@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Atsmacode\CardGames\Seeders;
+namespace DoctrineMigrations;
 
 use Atsmacode\CardGames\Constants\Rank;
 use Atsmacode\CardGames\Constants\Suit;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Atsmacode\PokerGame;
+namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250402054709 extends AbstractMigration
+final class Version20250402054411 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,13 +20,14 @@ final class Version20250402054709 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $schema = new Schema();
-        $table  = $schema->createTable('stacks');
+        $table  = $schema->createTable('whole_cards');
         $table->addColumn('id', 'integer', ['unsigned' => true])->setAutoincrement(true);
-        $table->addColumn('amount', 'bigint')->setNotnull(false);
+        $table->addColumn('card_id', 'integer', ['unsigned' => true])->setNotnull(false);
+        $table->addColumn('hand_id', 'integer', ['unsigned' => true])->setNotnull(true);
         $table->addColumn('player_id', 'integer', ['unsigned' => true])->setNotnull(true);
-        $table->addColumn('table_id', 'integer', ['unsigned' => true])->setNotnull(true);
+        $table->addForeignKeyConstraint('cards', ['card_id'], ['id']);
+        $table->addForeignKeyConstraint('hands', ['hand_id'], ['id']);
         $table->addForeignKeyConstraint('players', ['player_id'], ['id']);
-        $table->addForeignKeyConstraint('tables', ['table_id'], ['id']);
         $table->setPrimaryKey(['id']);
 
         foreach($schema->toSql($this->platform) as $sql) {
@@ -36,6 +37,6 @@ final class Version20250402054709 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $schema->dropTable('stacks');
+        $schema->dropTable('whole_cards');
     }
 }

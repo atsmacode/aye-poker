@@ -1,29 +1,32 @@
 <?php
 
-namespace Atsmacode\PokerGame\Database\Migrations\Legacy;
+namespace Atsmacode\PokerGame\Database\Migrations;
 
 use Atsmacode\Framework\Database\Database;
 use Doctrine\DBAL\Schema\Schema;
 
-class CreateWholeCards extends Database
+class CreateStacks extends Database
 {
     public static array $methods = [
-        'createWholeCardsTable',
+        'createStacksTable',
     ];
 
-    public function createWholeCardsTable(): void
+    /**
+     * TODO amount is not unsigned to allow negative values
+     * until 'player loses/zero-chips feature is added.
+     */
+    public function createStacksTable(): void
     {
         try {
             $schema = new Schema();
-            $table  = $schema->createTable('whole_cards');
+            $table  = $schema->createTable('stacks');
 
             $table->addColumn('id', 'integer', ['unsigned' => true])->setAutoincrement(true);
-            $table->addColumn('card_id', 'integer', ['unsigned' => true])->setNotnull(false);
-            $table->addColumn('hand_id', 'integer', ['unsigned' => true])->setNotnull(true);
+            $table->addColumn('amount', 'bigint')->setNotnull(false);
             $table->addColumn('player_id', 'integer', ['unsigned' => true])->setNotnull(true);
-            $table->addForeignKeyConstraint('cards', ['card_id'], ['id']);
-            $table->addForeignKeyConstraint('hands', ['hand_id'], ['id']);
+            $table->addColumn('table_id', 'integer', ['unsigned' => true])->setNotnull(true);
             $table->addForeignKeyConstraint('players', ['player_id'], ['id']);
+            $table->addForeignKeyConstraint('tables', ['table_id'], ['id']);
             $table->setPrimaryKey(['id']);
 
             $dbPlatform = $this->connection->getDatabasePlatform();

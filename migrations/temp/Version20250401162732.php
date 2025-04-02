@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Atsmacode\CardGames;
+namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -30,16 +30,15 @@ final class Version20250401162732 extends AbstractMigration
         $suits  = $schema->createTable('suits');
         $suits->addColumn('id', 'integer', ['unsigned' => true])->setAutoincrement(true);
         $suits->addColumn('name', 'string', ['length' => 32])->setNotnull(true);
-        $suits->addColumn('ranking', 'integer', ['length' => 2])->setNotnull(true);
-        $ranks->addColumn('abbreviation', 'string', ['length' => 30])->setNotnull(true);
+        $suits->addColumn('abbreviation', 'string', ['length' => 30])->setNotnull(true);
         $suits->setPrimaryKey(['id']);
 
         $table  = $schema->createTable('cards');
         $table->addColumn('id', 'integer', ['unsigned' => true])->setAutoincrement(true);
         $table->addColumn('rank_id', 'integer', ['unsigned' => true])->setNotnull(true);
         $table->addColumn('suit_id', 'integer', ['unsigned' => true])->setNotnull(true);
-        $table->addForeignKeyConstraint($ranks, ['suit_id'], ['id']);
-        $table->addForeignKeyConstraint($suits, ['rank_id'], ['id']);
+        $table->addForeignKeyConstraint($ranks, ['rank_id'], ['id']);
+        $table->addForeignKeyConstraint($suits, ['suit_id'], ['id']);
         $table->setPrimaryKey(['id']);
 
         foreach($schema->toSql($this->platform) as $sql) {

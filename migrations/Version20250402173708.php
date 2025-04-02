@@ -1,8 +1,10 @@
 <?php
 
-namespace Atsmacode\PokerGame\Console\Commands;
+declare(strict_types=1);
 
-use Atsmacode\Framework\Console\Commands\Migrator;
+namespace DoctrineMigrations;
+
+use Atsmacode\CardGames\Database\Migrations\CreateCards;
 use Atsmacode\PokerGame\Database\Migrations\CreateActions;
 use Atsmacode\PokerGame\Database\Migrations\CreateDecks;
 use Atsmacode\PokerGame\Database\Migrations\CreateHands;
@@ -15,45 +17,46 @@ use Atsmacode\PokerGame\Database\Migrations\CreateStacks;
 use Atsmacode\PokerGame\Database\Migrations\CreateStreets;
 use Atsmacode\PokerGame\Database\Migrations\CreateTables;
 use Atsmacode\PokerGame\Database\Migrations\CreateWholeCards;
+use Atsmacode\CardGames\Database\Seeders\SeedCards;
 use Atsmacode\PokerGame\Database\Seeders\SeedActions;
 use Atsmacode\PokerGame\Database\Seeders\SeedDevTable;
 use Atsmacode\PokerGame\Database\Seeders\SeedHandTypes;
 use Atsmacode\PokerGame\Database\Seeders\SeedPlayers;
 use Atsmacode\PokerGame\Database\Seeders\SeedStreets;
 use Atsmacode\PokerGame\Database\Seeders\SeedTable;
-use Symfony\Component\Console\Attribute\AsCommand;
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
 
-#[AsCommand(
-    name: 'app:build-poker-game',
-    description: 'Populate the DB with all resources',
-    hidden: false,
-    aliases: ['app:build-poker-game']
-)]
-class BuildPokerGame extends Migrator
+/**
+ * Auto-generated Migration: Please modify to your needs!
+ */
+final class Version20250402173708 extends AbstractMigration
 {
-    protected array $buildClasses = [
-        CreateHandTypes::class,
-        CreatePlayers::class,
-        CreateTables::class,
-        CreateActions::class,
-        CreateStreets::class,
-        CreateHands::class,
-        CreateWholeCards::class,
-        CreatePlayerActions::class,
-        CreateStacks::class,
-        CreatePots::class,
-        CreateDecks::class,
-        SeedHandTypes::class,
-        SeedDevTable::class,
-        SeedPlayers::class,
-        SeedStreets::class,
-        SeedActions::class,
-        CreatePlayerActionLogs::class,
-        SeedTable::class,
+    /**
+     * In the order we need to migrate and seed.
+     */
+    private array $migrations = [
+        CreateCards::class
     ];
 
-    /**
-     * @var string
-     */
-    protected static $defaultName = 'app:build-poker-game';
+    public function getDescription(): string
+    {
+        return 'Create & seed all Atsmacode\PokerGame schemas';
+    }
+
+    public function up(Schema $schema): void
+    {
+        foreach($this->migrations as $migration) {
+            foreach($migration::up($this->connection) as $sql) {
+                $this->addSql($sql);
+            }
+        }
+    }
+
+    public function down(Schema $schema): void
+    {
+        foreach($this->migrations as $migration) {
+            $migration::down($schema);
+        }
+    }
 }
