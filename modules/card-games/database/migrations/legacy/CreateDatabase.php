@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\CardGames\Database\Migrations;
+namespace Atsmacode\CardGames\Database\Migrations\Legacy;
 
 use Atsmacode\Framework\Database\Database;
 
