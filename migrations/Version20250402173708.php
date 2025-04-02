@@ -55,7 +55,7 @@ final class Version20250402173708 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        foreach($this->migrations as $migration) {
+        foreach(array_reverse($this->migrations) as $migration) {
             $migration::down($schema);
         }
     }
