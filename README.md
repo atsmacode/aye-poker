@@ -77,7 +77,7 @@ Here's an example of how I plan and map out changes using Lucid Charts:
 
 Build the test DB:
 
-> dev/builddb
+> dev/dbtest
 
 Individual Drop, Create and Seed commands listed in that bash file. Remove '-d true' for prodution.
 
@@ -95,10 +95,6 @@ Individual Drop, Create and Seed commands listed in that bash file. Remove '-d t
 
 > dev/cs
 
-## Aye Poker Migrations
-
-> php bin/console doctrine:migrations:migrate -n
-
 ## Front End
 
 > npm install OR yarn install
@@ -113,7 +109,7 @@ Using Laragon, the following example path to run PHP might be useful:
 
 # Configs
 
-You need to add poker_game.php to configure your local DB credentials and log path, like so:
+You may need to add poker_game.php to configure your local DB credentials and log path, like so:
 
 ```
 <?php
