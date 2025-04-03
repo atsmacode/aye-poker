@@ -14,7 +14,7 @@ final class Version20250402055356 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'create_player_action_logs_table';
     }
 
     public function up(Schema $schema): void

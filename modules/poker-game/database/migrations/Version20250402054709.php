@@ -14,7 +14,7 @@ final class Version20250402054709 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'create_stacks_table';
     }
 
     public function up(Schema $schema): void

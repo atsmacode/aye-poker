@@ -16,7 +16,7 @@ final class Version20250402162627 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'seed_ranks_and_suits';
     }
 
     public function up(Schema $schema): void
@@ -32,7 +32,7 @@ final class Version20250402162627 extends AbstractMigration
                 ->setParameter($queryBuilder->createNamedParameter($rank['rankAbbreviation']), $rank['rankAbbreviation'])
                 ->setParameter($queryBuilder->createNamedParameter($rank['ranking']), $rank['ranking']);
 
-            $queryBuilder->executeStatement();
+            $this->addSql($queryBuilder->getSql(), $queryBuilder->getParameters());
         }
 
         foreach(Suit::ALL as $suit) {
@@ -44,7 +44,7 @@ final class Version20250402162627 extends AbstractMigration
                 ->setParameter($queryBuilder->createNamedParameter($suit['suit']), $suit['suit'])
                 ->setParameter($queryBuilder->createNamedParameter($suit['suitAbbreviation']), $suit['suitAbbreviation']);
                 
-            $queryBuilder->executeStatement();
+            $this->addSql($queryBuilder->getSql(), $queryBuilder->getParameters());
         }
 
         foreach(Suit::ALL as $suit){
@@ -57,7 +57,7 @@ final class Version20250402162627 extends AbstractMigration
                     ->setParameter($queryBuilder->createNamedParameter($rank['rank_id']), $rank['rank_id'])
                     ->setParameter($queryBuilder->createNamedParameter($suit['suit_id']), $suit['suit_id']);
                     
-                $queryBuilder->executeStatement();
+                $this->addSql($queryBuilder->getSql(), $queryBuilder->getParameters());
             }
         }
     }

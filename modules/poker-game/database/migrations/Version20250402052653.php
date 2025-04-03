@@ -14,7 +14,7 @@ final class Version20250402052653 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'create_hand_types_table';
     }
 
     public function up(Schema $schema): void

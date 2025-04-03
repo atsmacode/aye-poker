@@ -14,7 +14,7 @@ final class Version20250402054411 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'create_whole_cards_table';
     }
 
     public function up(Schema $schema): void

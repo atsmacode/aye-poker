@@ -15,7 +15,7 @@ final class Version20250403061730 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Insert all Poker hand types';
+        return 'seed_hand_types';
     }
 
     public function up(Schema $schema): void
@@ -30,7 +30,7 @@ final class Version20250403061730 extends AbstractMigration
                 ->setParameter($queryBuilder->createNamedParameter($handType['name']), $handType['name'])
                 ->setParameter($queryBuilder->createNamedParameter($handType['ranking']), $handType['ranking']);
 
-            $queryBuilder->executeStatement();
+            $this->addSql($queryBuilder->getSql(), $queryBuilder->getParameters());
         }
     }
 

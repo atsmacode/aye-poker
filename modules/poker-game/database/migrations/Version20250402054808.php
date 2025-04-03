@@ -14,7 +14,7 @@ final class Version20250402054808 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'create_pots_table';
     }
 
     public function up(Schema $schema): void
