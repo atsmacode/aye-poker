@@ -7,13 +7,13 @@ use Atsmacode\PokerGame\Tests\BaseTest;
 
 class HandTypeTest extends BaseTest
 {
-    private HandType $handTypeModel;
+    private HandType $handType;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->handTypeModel = $this->container->get(HandType::class);
+        $this->handType = $this->container->get(HandType::class);
     }
 
     /**
@@ -23,7 +23,7 @@ class HandTypeTest extends BaseTest
      */
     public function aHandTypeCanBeCreated()
     {
-        $handType = $this->handTypeModel->create(['name' => 'High Card 24', 'ranking' => 16]);
+        $handType = $this->handType->create(['name' => 'High Card 24', 'ranking' => 16]);
 
         $this->assertEquals('High Card 24', $handType->getName());
         $this->assertEquals(16, $handType->getRanking());
@@ -36,7 +36,7 @@ class HandTypeTest extends BaseTest
      */
     public function aHandTypeCanBeFound()
     {
-        $handType = $this->handTypeModel->find(['name' => 'High Card', 'ranking' => 10]);
+        $handType = $this->handType->find(['name' => 'High Card', 'ranking' => 10]);
 
         $this->assertEquals('High Card', $handType->getName());
         $this->assertEquals(10, $handType->getRanking());
