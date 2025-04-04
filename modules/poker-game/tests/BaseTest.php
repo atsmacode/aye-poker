@@ -17,6 +17,7 @@ use Atsmacode\PokerGame\Models\WholeCard;
 use Atsmacode\PokerGame\PokerGameConfigProvider;
 use Atsmacode\PokerGame\Services\GamePlayService;
 use Atsmacode\PokerGame\Services\JoinTable;
+use Faker;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 
@@ -58,5 +59,12 @@ abstract class BaseTest extends TestCase
         $this->actionHandler = $this->container->build(ActionHandler::class);
         $this->joinTable = $this->container->build(JoinTable::class);
         $this->gamePlayService = $this->container->build(GamePlayService::class);
+    }
+
+    protected function fakeName(): string
+    {
+        $faker = Faker\Factory::create();
+
+        return $faker->unique()->name();
     }
 }

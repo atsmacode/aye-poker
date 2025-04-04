@@ -36,7 +36,7 @@ class BetHandlerTest extends BaseTest
     public function aBetAmountIsAddedToThePotAndSubtractedFromThePlayerStack()
     {
         $table = $this->tableModel->create(['name' => 'Test Table', 'seats' => 3]);
-        $player = $this->playerModel->create(['name' => 'Player 1']);
+        $player = $this->playerModel->create(['name' => $this->fakeName()]);
 
         $stack = $this->stackModel->create([
             'amount' => 1000,
