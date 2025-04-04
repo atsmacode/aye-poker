@@ -59,6 +59,15 @@ abstract class BaseTest extends TestCase
         $this->actionHandler = $this->container->build(ActionHandler::class);
         $this->joinTable = $this->container->build(JoinTable::class);
         $this->gamePlayService = $this->container->build(GamePlayService::class);
+
+        $this->container->get(ConnectionInterface::class)->beginTransaction();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        $this->container->get(ConnectionInterface::class)->rollback();
     }
 
     protected function fakeName(): string

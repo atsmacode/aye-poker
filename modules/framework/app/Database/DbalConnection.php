@@ -31,4 +31,14 @@ class DbalConnection implements ConnectionInterface
     {
         return $this->database;
     }
+
+    public function beginTransaction(): void
+    {
+        $this->connection->beginTransaction();
+    }
+
+    public function rollback(): void
+    {
+        $this->connection->rollback();
+    }
 }
