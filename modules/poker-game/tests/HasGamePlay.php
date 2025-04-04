@@ -36,7 +36,7 @@ trait HasGamePlay
     {
         $playerModel = $this->container->build(Player::class);
 
-        return $playerModel->create(['name' => $this->fakeName()]);
+        return $playerModel->create(['name' => $this->fake->unique()->name()]);
     }
 
     private function createTableSeat(int $tableId, int $playerId, int $number)

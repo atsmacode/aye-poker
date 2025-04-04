@@ -33,7 +33,7 @@ class SitHandlerTest extends BaseTest
 
         $this->tableSeatModel->create(['table_id' => $table->getId(), 'number' => 1]);
 
-        $player = $this->playerModel->create(['name' => $this->fakeName()]);
+        $player = $this->playerModel->create(['name' => $this->fake->unique()->name()]);
         $tableSeat = $this->sitHandler->sit($player->getId(), $table->getId());
 
         $this->assertEquals($player->getId(), $tableSeat->getPlayerId());

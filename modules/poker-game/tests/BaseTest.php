@@ -18,6 +18,7 @@ use Atsmacode\PokerGame\PokerGameConfigProvider;
 use Atsmacode\PokerGame\Services\GamePlayService;
 use Atsmacode\PokerGame\Services\JoinTable;
 use Faker;
+use Faker\Generator as Fake;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 
@@ -36,6 +37,7 @@ abstract class BaseTest extends TestCase
     protected ActionHandler $actionHandler;
     protected JoinTable $joinTable;
     protected GamePlayService $gamePlayService;
+    protected Fake $fake;
 
     protected function setUp(): void
     {
@@ -59,6 +61,7 @@ abstract class BaseTest extends TestCase
         $this->actionHandler = $this->container->build(ActionHandler::class);
         $this->joinTable = $this->container->build(JoinTable::class);
         $this->gamePlayService = $this->container->build(GamePlayService::class);
+        $this->fake = Faker\Factory::create();
 
         $this->container->get(ConnectionInterface::class)->beginTransaction();
     }
@@ -68,12 +71,5 @@ abstract class BaseTest extends TestCase
         parent::tearDown();
 
         $this->container->get(ConnectionInterface::class)->rollback();
-    }
-
-    protected function fakeName(): string
-    {
-        $faker = Faker\Factory::create();
-
-        return $faker->unique()->name();
     }
 }

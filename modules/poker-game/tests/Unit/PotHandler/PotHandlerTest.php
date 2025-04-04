@@ -49,7 +49,7 @@ class PotHandlerTest extends BaseTest
     public function aPotCanBeAwardedToAPlayer()
     {
         $table = $this->tableModel->create(['name' => 'Test Table', 'seats' => 3]);
-        $player = $this->playerModel->create(['name' => $this->fakeName()]);
+        $player = $this->playerModel->create(['name' => $this->fake->unique()->name()]);
 
         $stack = $this->stackModel->create([
             'amount' => 1000,
