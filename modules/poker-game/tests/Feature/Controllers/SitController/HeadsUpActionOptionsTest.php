@@ -1,13 +1,13 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Feature\Controllers\SitController\HeadsUp\ActionOptions;
+namespace Atsmacode\PokerGame\Tests\Feature\Controllers\SitController;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
 use Atsmacode\PokerGame\Tests\HasGamePlay;
 use Atsmacode\PokerGame\Tests\HasStreets;
 
-class SitControllerTest extends BaseTest
+class HeadsUpActionOptionsTest extends BaseTest
 {
     use HasGamePlay;
     use HasActionPosts;

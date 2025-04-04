@@ -1,13 +1,13 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Feature\Controllers\PlayerActionController\HoldEmStreetTest\SixHanded;
+namespace Atsmacode\PokerGame\Tests\Feature\Controllers\PlayerActionController;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
 use Atsmacode\PokerGame\Tests\HasGamePlay;
 use Atsmacode\PokerGame\Tests\HasStreets;
 
-class PlayerActionControllerTest extends BaseTest
+class SixHandedStreetTest extends BaseTest
 {
     use HasGamePlay;
     use HasActionPosts;

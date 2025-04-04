@@ -1,12 +1,12 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Feature\Controllers\SitController\FourHanded;
+namespace Atsmacode\PokerGame\Tests\Feature\Controllers\SitController;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
 use Atsmacode\PokerGame\Tests\HasGamePlay;
 
-class SitControllerTest extends BaseTest
+class FourHandedTest extends BaseTest
 {
     use HasGamePlay;
     use HasActionPosts;

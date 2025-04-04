@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Feature\Controllers\PlayerActionController\ActionOptions\SixHanded;
+namespace Atsmacode\PokerGame\Tests\Feature\Controllers\PlayerActionController;
 
 use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\Models\PlayerAction;
@@ -9,7 +9,7 @@ use Atsmacode\PokerGame\Tests\HasActionPosts;
 use Atsmacode\PokerGame\Tests\HasGamePlay;
 use Atsmacode\PokerGame\Tests\HasStreets;
 
-class PlayerActionControllerTest extends BaseTest
+class SixHandedActionOptionsTest extends BaseTest
 {
     use HasGamePlay;
     use HasActionPosts;
