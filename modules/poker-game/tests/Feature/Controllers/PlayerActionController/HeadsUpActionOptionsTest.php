@@ -15,13 +15,13 @@ class HeadsUpActionOptionsTest extends BaseTest
     use HasActionPosts;
     use HasStreets;
 
-    private PlayerAction $playerActionModel;
+    private PlayerAction $playerAction;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->playerActionModel = $this->container->build(PlayerAction::class);
+        $this->playerAction = $this->container->build(PlayerAction::class);
 
         $this->isHeadsUp()
             ->setHand()
@@ -85,7 +85,7 @@ class HeadsUpActionOptionsTest extends BaseTest
         $handStreets = $this->gameState->getHandStreets();
         $latestStreet = array_pop($handStreets);
 
-        $this->playerActionModel->find(['hand_id' => $this->gameState->handId()])
+        $this->playerAction->find(['hand_id' => $this->gameState->handId()])
             ->updateBatch([
                 'action_id' => null,
                 'hand_street_id' => $latestStreet['id'],

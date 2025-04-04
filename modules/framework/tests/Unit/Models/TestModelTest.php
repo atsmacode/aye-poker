@@ -6,30 +6,30 @@ use Atsmacode\Framework\Models\Test;
 
 class TestModelTest extends BaseTest
 {
-    private Test $testModel;
+    private Test $test;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->testModel = $this->container->get(Test::class);
+        $this->test = $this->container->get(Test::class);
     }
 
     /** @test */
     public function itCanCreateAndFindRecord()
     {
-        $test = $this->testModel->create(['name' => 'Test Name', 'test_desc' => 'Test Description.']);
+        $test = $this->test->create(['name' => 'Test Name', 'test_desc' => 'Test Description.']);
 
         $this->assertEquals(
             $test->getId(),
-            $this->testModel->find(['id' => $test->getId()])->getId()
+            $this->test->find(['id' => $test->getId()])->getId()
         );
     }
 
     /** @test */
     public function contentCanBeSet()
     {
-        $test = $this->testModel->create(['name' => 'Test Name', 'test_desc' => 'Test Description.']);
+        $test = $this->test->create(['name' => 'Test Name', 'test_desc' => 'Test Description.']);
 
         $test->setContent([]);
 

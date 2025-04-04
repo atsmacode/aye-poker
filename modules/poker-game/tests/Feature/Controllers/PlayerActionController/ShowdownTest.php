@@ -22,14 +22,14 @@ class ShowdownTest extends BaseTest
     use HasStreets;
 
     private Start $start;
-    private HandStreetCard $handStreetCardModel;
+    private HandStreetCard $handStreetCard;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->start = $this->container->build(Start::class);
-        $this->handStreetCardModel = $this->container->build(HandStreetCard::class);
+        $this->handStreetCard = $this->container->build(HandStreetCard::class);
 
         $this->isThreeHanded()
             ->setHand()

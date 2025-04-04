@@ -8,14 +8,14 @@ use Atsmacode\PokerGame\Tests\BaseTest;
 
 class PotTest extends BaseTest
 {
-    private Pot $potModel;
+    private Pot $pot;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->potModel = $this->container->get(Pot::class);
-        $this->handModel = $this->container->get(Hand::class);
+        $this->pot = $this->container->get(Pot::class);
+        $this->hand = $this->container->get(Hand::class);
     }
 
     /**
@@ -25,11 +25,11 @@ class PotTest extends BaseTest
      */
     public function aHandCanHaveAPot()
     {
-        $hand = $this->handModel->create(['table_id' => 1]);
+        $hand = $this->hand->create(['table_id' => 1]);
 
         $this->assertEmpty($hand->pot());
 
-        $pot = $this->potModel->create([
+        $pot = $this->pot->create([
             'amount' => 75,
             'hand_id' => $hand->getId(),
         ]);

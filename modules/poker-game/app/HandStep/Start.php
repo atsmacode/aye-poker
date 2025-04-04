@@ -18,11 +18,11 @@ class Start extends HandStep
 {
     public function __construct(
         private ContainerInterface $container,
-        private Street $streetModel,
-        private HandStreet $handStreetModel,
-        private PlayerAction $playerActionModel,
-        private Stack $stackModel,
-        private TableSeat $tableSeatModel,
+        private Street $street,
+        private HandStreet $handStreet,
+        private PlayerAction $playerAction,
+        private Stack $stack,
+        private TableSeat $tableSeat,
         private BetHandler $betHandler,
     ) {
     }
@@ -55,12 +55,12 @@ class Start extends HandStep
 
     public function initiateStreetActions(): self
     {
-        $street = $this->handStreetModel->create([
-            'street_id' => $this->streetModel->find(['name' => 'Pre-flop'])->getId(), 'hand_id' => $this->gameState->handId(),
+        $street = $this->handStreet->create([
+            'street_id' => $this->street->find(['name' => 'Pre-flop'])->getId(), 'hand_id' => $this->gameState->handId(),
         ]);
 
         foreach ($this->gameState->getSeats() as $seat) {
-            $this->playerActionModel->create([
+            $this->playerAction->create([
                 'player_id' => $seat['player_id'],
                 'hand_street_id' => $street->getId(),
                 'table_seat_id' => $seat['id'],
@@ -81,7 +81,7 @@ class Start extends HandStep
             $playerTableStack = $this->findPlayerStack($seat['player_id'], $this->gameState->tableId());
 
             if (0 === count($playerTableStack->getContent())) {
-                $tableStacks[$seat['player_id']] = $this->stackModel->create([
+                $tableStacks[$seat['player_id']] = $this->stack->create([
                     'amount' => 1000,
                     'player_id' => $seat['player_id'],
                     'table_id' => $this->gameState->tableId(),
@@ -99,7 +99,7 @@ class Start extends HandStep
     public function setDealerAndBlindSeats(?TableSeat $currentDealer): self
     {
         if (1 === $this->gameState->handStreetCount()) {
-            $bigBlind = $this->playerActionModel->find(['hand_id' => $this->gameState->handId(), 'big_blind' => 1]);
+            $bigBlind = $this->playerAction->find(['hand_id' => $this->gameState->handId(), 'big_blind' => 1]);
 
             if ($bigBlind->isNotEmpty()) {
                 $bigBlind->update(['big_blind' => 0]);
@@ -116,15 +116,15 @@ class Start extends HandStep
             : $this->getNextDealerAndBlindSeats($currentDealer);
 
         if ($currentDealer) {
-            $currentDealerSeat = $this->tableSeatModel->find(['id' => $currentDealer['id'], 'table_id' => $this->gameState->tableId()]);
+            $currentDealerSeat = $this->tableSeat->find(['id' => $currentDealer['id'], 'table_id' => $this->gameState->tableId()]);
             $currentDealerSeat->update(['is_dealer' => 0]);
         }
 
-        $newDealerSeat = $this->tableSeatModel->find(['id' => $dealer['id'], 'table_id' => $this->gameState->tableId()]);
+        $newDealerSeat = $this->tableSeat->find(['id' => $dealer['id'], 'table_id' => $this->gameState->tableId()]);
         $newDealerSeat->update(['is_dealer' => 1]);
 
-        $handStreetId = $this->handStreetModel->find([
-            'street_id' => $this->streetModel->find(['name' => $this->gameState->getGame()->getStreets()[1]['name']])->getId(),
+        $handStreetId = $this->handStreet->find([
+            'street_id' => $this->street->find(['name' => $this->gameState->getGame()->getStreets()[1]['name']])->getId(),
             'hand_id' => $this->gameState->handId(),
         ])->getId();
 
@@ -145,9 +145,9 @@ class Start extends HandStep
     /** Needed a way to create unique instances of the model in the container */
     private function findPlayerAction(int $playerId, int $tableSeatId, int $handStreetId): PlayerAction
     {
-        $playerActionModel = $this->container->build(PlayerAction::class); /* @phpstan-ignore  method.notFound */
+        $playerAction = $this->container->build(PlayerAction::class); /* @phpstan-ignore  method.notFound */
 
-        return $playerActionModel->find([
+        return $playerAction->find([
             'player_id' => $playerId,
             'table_seat_id' => $tableSeatId,
             'hand_street_id' => $handStreetId,
@@ -157,9 +157,9 @@ class Start extends HandStep
     /** Needed a way to create unique instances of the model in the container */
     private function findPlayerStack(int $playerId, int $tableId): Stack
     {
-        $stackModel = $this->container->build(Stack::class); /* @phpstan-ignore method.notFound */
+        $stack = $this->container->build(Stack::class); /* @phpstan-ignore method.notFound */
 
-        return $stackModel->find([
+        return $stack->find([
             'player_id' => $playerId,
             'table_id' => $tableId,
         ]);

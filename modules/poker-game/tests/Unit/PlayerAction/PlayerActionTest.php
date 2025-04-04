@@ -36,7 +36,7 @@ class PlayerActionTest extends BaseTest
         $this->gameState->setBigBlind();
 
         $bigBlind = $this->gameState->getBigBlind();
-        $latestAction = $this->playerActionModel->getLatestAction($this->hand->getId());
+        $latestAction = $this->playerActionModel->getLatestAction($this->testHand->getId());
 
         $this->assertEquals($bigBlind['table_seat_id'], $latestAction->getTableSeatId());
     }

@@ -47,7 +47,7 @@ class ThreeHandedActionOptionsTest extends BaseTest
      */
     public function whenDealerIsSeatThreeSmallBlindWillBeFirstToActOnTheFlop()
     {
-        $currentDealer = $this->tableSeatModel->find([
+        $currentDealer = $this->tableSeat->find([
             'id' => $this->gameState->getSeats()[1]['id'],
         ]);
 

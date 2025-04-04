@@ -16,9 +16,9 @@ class BetHandler extends Database
 {
     public function __construct(
         private PotHandler $potHandler,
-        private PlayerActionLog $playerActionLogModel,
-        private Stack $stackModel,
-        private TableSeat $tableSeatModel,
+        private PlayerActionLog $playerActionLog,
+        private Stack $stack,
+        private TableSeat $tableSeat,
     ) {
     }
 
@@ -33,7 +33,7 @@ class BetHandler extends Database
         if ($betAmount) {
             $stack = $stackAmount - $betAmount;
 
-            $this->stackModel->change($stack, $playerId, $tableId);
+            $this->stack->change($stack, $playerId, $tableId);
             $this->potHandler->updatePot($betAmount, $hand->getId());
         }
 
@@ -56,7 +56,7 @@ class BetHandler extends Database
             'updated_at' => date('Y-m-d H:i:s', strtotime('- 10 seconds')),
         ]);
 
-        $this->playerActionLogModel->create([
+        $this->playerActionLog->create([
             'player_status_id' => $smallBlind->getId(),
             'bet_amount' => 25.0,
             'small_blind' => 1,
@@ -68,7 +68,7 @@ class BetHandler extends Database
             'created_at' => date('Y-m-d H:i:s', time()),
         ]);
 
-        $this->tableSeatModel->find(['id' => $smallBlind->getTableSeatId()])
+        $this->tableSeat->find(['id' => $smallBlind->getTableSeatId()])
             ->update([
                 'can_continue' => 0,
             ]);
@@ -89,7 +89,7 @@ class BetHandler extends Database
             'updated_at' => date('Y-m-d H:i:s', strtotime('- 5 seconds')),
         ]);
 
-        $this->playerActionLogModel->create([
+        $this->playerActionLog->create([
             'player_status_id' => $bigBlind->getId(),
             'bet_amount' => 50.0,
             'big_blind' => 1,
@@ -101,7 +101,7 @@ class BetHandler extends Database
             'created_at' => date('Y-m-d H:i:s', time()),
         ]);
 
-        $this->tableSeatModel->find(['id' => $bigBlind->getTableSeatId()])
+        $this->tableSeat->find(['id' => $bigBlind->getTableSeatId()])
             ->update([
                 'can_continue' => 0,
             ]);

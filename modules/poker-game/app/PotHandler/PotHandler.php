@@ -9,26 +9,26 @@ use Atsmacode\PokerGame\Models\Stack;
 class PotHandler
 {
     public function __construct(
-        private Stack $stackModel,
-        private Pot $potModel,
+        private Stack $stack,
+        private Pot $pot,
     ) {
     }
 
     public function initiatePot(Hand $hand): void
     {
-        $this->potModel->create(['amount' => 0, 'hand_id' => $hand->getId()]);
+        $this->pot->create(['amount' => 0, 'hand_id' => $hand->getId()]);
     }
 
     public function awardPot(int $stackAmount, int $potAmount, int $playerId, int $tableId): void
     {
         $amount = $stackAmount + $potAmount;
 
-        $this->stackModel->change($amount, $playerId, $tableId);
+        $this->stack->change($amount, $playerId, $tableId);
     }
 
     public function updatePot(float $betAmount, int $handId): void
     {
-        $pot = $this->potModel->find(['hand_id' => $handId]);
+        $pot = $this->pot->find(['hand_id' => $handId]);
         $pot->update(['amount' => $pot->getAmount() + $betAmount]);
     }
 }

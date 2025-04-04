@@ -42,7 +42,7 @@ class GameState
 
     public function initiate(Hand $hand): void
     {
-        $this->hand = $hand;
+        $this->setHand($hand);
         $this->tableId = $hand->getTableId();
         $this->handId = (int) $hand->getId();
         $this->seats = $this->gameData->getSeats($this->tableId);

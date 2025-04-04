@@ -18,10 +18,10 @@ class JoinTable
 
     public function __construct(
         private ContainerInterface $container,
-        private Hand $handModel,
-        private Table $tableModel,
+        private Hand $hand,
+        private Table $table,
         private SitHandler $sitHandler,
-        private Player $playerModel,
+        private Player $player,
     ) {
     }
 
@@ -34,7 +34,7 @@ class JoinTable
             $playerSeat = $this->sitHandler->sit($playerId);
             $tableId = $playerSeat->getTableId();
 
-            if (2 > count($this->tableModel->hasMultiplePlayers($tableId))) {
+            if (2 > count($this->table->hasMultiplePlayers($tableId))) {
                 return [
                     'message' => 'Waiting for more players to join.',
                     'players' => $this->setWaitingPlayerData($playerId, $playerSeat->getId(), $playerSeat->getNumber()),
@@ -42,12 +42,12 @@ class JoinTable
             }
         }
 
-        $currentHand = $this->handModel->find(['table_id' => $tableId, 'completed_on' => null]);
+        $currentHand = $this->hand->find(['table_id' => $tableId, 'completed_on' => null]);
         $currentHandIsActive = !empty($currentHand->getContent());
 
         $hand = $currentHandIsActive
             ? $currentHand
-            : $this->handModel->create(['table_id' => $tableId ?? 1]);
+            : $this->hand->create(['table_id' => $tableId ?? 1]);
 
         $gameState = $this->container->build(GameState::class, ['hand' => $hand]); /** @phpstan-ignore method.notFound */
         $gamePlayService = $this->container->build(GamePlay::class, [/* @phpstan-ignore method.notFound */
@@ -62,7 +62,7 @@ class JoinTable
 
     private function setWaitingPlayerData(int $playerId, int $tableSeatId, int $seatNumber): array
     {
-        $playerName = $this->playerModel->find(['id' => $playerId])->getName();
+        $playerName = $this->player->find(['id' => $playerId])->getName();
 
         return [
             $seatNumber => [

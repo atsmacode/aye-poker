@@ -36,7 +36,7 @@ class ActionHandlerTest extends BaseTest
         $this->gamePlay->start();
 
         $response = $this->actionHandler->handle(
-            $this->hand,
+            $this->testHand,
             $this->playerOne->getId(),
             $this->tableSeatOne->getId(),
             1,

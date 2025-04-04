@@ -11,8 +11,8 @@ use Atsmacode\PokerGame\Models\PlayerActionLog;
 class PlayerActionFactory
 {
     public function __construct(
-        private PlayerAction $playerActionModel,
-        private PlayerActionLog $playerActionLogModel,
+        private PlayerAction $playerAction,
+        private PlayerActionLog $playerActionLog,
     ) {
     }
 
@@ -23,7 +23,7 @@ class PlayerActionFactory
         ?float $betAmount,
         int $active,
     ): PlayerAction {
-        $playerAction = $this->playerActionModel->find(['id' => $playerActionId]);
+        $playerAction = $this->playerAction->find(['id' => $playerActionId]);
 
         $playerAction->update([
             'action_id' => $actionId,
@@ -32,7 +32,7 @@ class PlayerActionFactory
         ]);
 
         if (null !== $actionId) {
-            $this->playerActionLogModel->create([
+            $this->playerActionLog->create([
                 'player_status_id' => $playerAction->getId(),
                 'bet_amount' => $playerAction->getBetAmount(),
                 'big_blind' => (int) $playerAction->isBigBlind(),
