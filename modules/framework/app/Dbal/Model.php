@@ -66,22 +66,7 @@ abstract class Model extends Database
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
 
-        $clone = clone $this;
-
-        if (!$rows) {
-            return $clone;
-        }
-
-        $clone->content = $rows;
-
-        $clone->setModelProperties($rows);
-
-        return $clone;
-
-        /*
-         * @todo Would like to return $this->build($rows)
-         * here. Caused a lot of failing unit tests.
-         */
+        return $this->build($rows);
     }
 
     public function create(?array $data = null): self
@@ -103,16 +88,22 @@ abstract class Model extends Database
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
 
-        return $this->build(array_merge(['id' => $id], $data));
+        return $this->build([array_merge(['id' => $id], $data)]);
     }
 
     public function build(array $data): self
     {
-        $this->content = $data;
+        $clone = clone $this;
 
-        $this->setModelProperties([$data]);
+        if (!$data) {
+            return $clone;
+        }
 
-        return $this;
+        $clone->content = $data;
+
+        $clone->setModelProperties($data);
+
+        return $clone;
     }
 
     /** To be used to update a single model instance. */
