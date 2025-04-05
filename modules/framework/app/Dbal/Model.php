@@ -62,7 +62,7 @@ abstract class Model extends Database
 
             $results = $stmt->executeQuery();
             $rows = $results->fetchAllAssociative();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 
             return null;
@@ -86,7 +86,7 @@ abstract class Model extends Database
             $stmt->executeQuery();
 
             $id = $this->connection->lastInsertId();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 
             return null;
@@ -126,7 +126,7 @@ abstract class Model extends Database
             }
 
             $stmt->executeQuery();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 
             return null;
@@ -148,7 +148,7 @@ abstract class Model extends Database
             }
 
             $stmt->executeQuery();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 
             return false;
@@ -168,7 +168,7 @@ abstract class Model extends Database
 
             $results = $stmt->executeQuery();
             $rows = $results->fetchAllAssociative();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 
             return null;
@@ -195,7 +195,7 @@ abstract class Model extends Database
             $stmt->executeQuery();
 
             $rows = $stmt->fetchAllAssociative();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 
             return null;
@@ -231,7 +231,7 @@ abstract class Model extends Database
             $stmt->executeQuery();
 
             return true;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 
             return false;
