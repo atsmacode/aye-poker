@@ -66,15 +66,17 @@ abstract class Model extends Database
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
 
+        $clone = clone $this;
+
         if (!$rows) {
-            return $this;
+            return $clone;
         }
 
-        $this->content = $rows;
+        $clone->content = $rows;
 
-        $this->setModelProperties($rows);
+        $clone->setModelProperties($rows);
 
-        return $this;
+        return $clone;
 
         /*
          * @todo Would like to return $this->build($rows)
@@ -132,9 +134,7 @@ abstract class Model extends Database
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
         }
 
-        $this->content = $this->find(['id' => $this->id])->content;
-
-        return $this;
+        return $this->refresh();
     }
 
     /** To be used to update a multiple model instances. */
@@ -152,6 +152,30 @@ abstract class Model extends Database
             $stmt->executeQuery();
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+        }
+
+        return $this;
+    }
+
+    public function refresh(): ?self
+    {
+        $rows = null;
+
+        try {
+            $stmt = $this->connection->prepare("
+                SELECT * FROM {$this->table} WHERE id = {$this->id}
+            ");
+
+            $results = $stmt->executeQuery();
+            $rows = $results->fetchAllAssociative();
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+        }
+
+        if ($rows) {
+            $this->content = $rows;
+
+            $this->setModelProperties($rows);
         }
 
         return $this;
