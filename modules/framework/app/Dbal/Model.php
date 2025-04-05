@@ -97,7 +97,7 @@ abstract class Model extends Database
 
     public function build(array $data): ?self
     {
-        /** Use cloning to ensure we get a fresh Model */
+        /** Use cloning to ensure we get a fresh Model in DI/container context */
         $clone = clone $this;
 
         if (!$data) {
