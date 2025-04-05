@@ -24,7 +24,7 @@ class StackTest extends BaseTest
         $this->players = $this->container->get(Player::class);
 
         $this->testTable = $this->tables->create(['name' => 'Test Table', 'seats' => 1]);
-        $this->player1 = $this->createPlayer(1);
+        $this->player1 = $this->createPlayer();
     }
 
     /**

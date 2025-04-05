@@ -77,7 +77,7 @@ class TableSeatTest extends BaseTest
     public function itCanGetAPlayersCurrentSeat()
     {
         $table = $this->tables->create(['name' => 'Test Table', 'seats' => 1]);
-        $player = $this->createPlayer(1);
+        $player = $this->createPlayer();
         $tableSeat = $this->tableSeats->create([
             'table_id' => $table->getId(),
             'player_id' => $player->getId(),
