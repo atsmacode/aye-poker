@@ -77,17 +77,16 @@ class Start extends HandStep
         $tableStacks = [];
 
         foreach ($this->gameState->getSeats() as $seat) {
-            /** Looks like the count() check was added as there's only 1 table being handled. */
             $playerTableStack = $this->findPlayerStack($seat['player_id'], $this->gameState->tableId());
 
-            if ($playerTableStack && 0 === count($playerTableStack->getContent())) {
+            if ($playerTableStack) {
+                $tableStacks[$seat['player_id']] = $playerTableStack;
+            } else {
                 $tableStacks[$seat['player_id']] = $this->stacks->create([
                     'amount' => 1000,
                     'player_id' => $seat['player_id'],
                     'table_id' => $this->gameState->tableId(),
                 ]);
-            } else {
-                $tableStacks[$seat['player_id']] = $playerTableStack;
             }
         }
 
