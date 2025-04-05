@@ -18,11 +18,11 @@ class Start extends HandStep
 {
     public function __construct(
         private ContainerInterface $container,
-        private Street $street,
-        private HandStreet $handStreet,
-        private PlayerAction $playerAction,
-        private Stack $stack,
-        private TableSeat $tableSeat,
+        private Street $streets,
+        private HandStreet $handStreets,
+        private PlayerAction $playerActions,
+        private Stack $stacks,
+        private TableSeat $tableSeats,
         private BetHandler $betHandler,
     ) {
     }
@@ -55,12 +55,12 @@ class Start extends HandStep
 
     public function initiateStreetActions(): self
     {
-        $street = $this->handStreet->create([
-            'street_id' => $this->street->find(['name' => 'Pre-flop'])->getId(), 'hand_id' => $this->gameState->handId(),
+        $street = $this->handStreets->create([
+            'street_id' => $this->streets->find(['name' => 'Pre-flop'])->getId(), 'hand_id' => $this->gameState->handId(),
         ]);
 
         foreach ($this->gameState->getSeats() as $seat) {
-            $this->playerAction->create([
+            $this->playerActions->create([
                 'player_id' => $seat['player_id'],
                 'hand_street_id' => $street->getId(),
                 'table_seat_id' => $seat['id'],
@@ -81,7 +81,7 @@ class Start extends HandStep
             $playerTableStack = $this->findPlayerStack($seat['player_id'], $this->gameState->tableId());
 
             if (0 === count($playerTableStack->getContent())) {
-                $tableStacks[$seat['player_id']] = $this->stack->create([
+                $tableStacks[$seat['player_id']] = $this->stacks->create([
                     'amount' => 1000,
                     'player_id' => $seat['player_id'],
                     'table_id' => $this->gameState->tableId(),
@@ -99,7 +99,7 @@ class Start extends HandStep
     public function setDealerAndBlindSeats(?TableSeat $currentDealer): self
     {
         if (1 === $this->gameState->handStreetCount()) {
-            $bigBlind = $this->playerAction->find(['hand_id' => $this->gameState->handId(), 'big_blind' => 1]);
+            $bigBlind = $this->playerActions->find(['hand_id' => $this->gameState->handId(), 'big_blind' => 1]);
 
             if ($bigBlind->isNotEmpty()) {
                 $bigBlind->update(['big_blind' => 0]);
@@ -116,15 +116,15 @@ class Start extends HandStep
             : $this->getNextDealerAndBlindSeats($currentDealer);
 
         if ($currentDealer) {
-            $currentDealerSeat = $this->tableSeat->find(['id' => $currentDealer['id'], 'table_id' => $this->gameState->tableId()]);
+            $currentDealerSeat = $this->tableSeats->find(['id' => $currentDealer['id'], 'table_id' => $this->gameState->tableId()]);
             $currentDealerSeat->update(['is_dealer' => 0]);
         }
 
-        $newDealerSeat = $this->tableSeat->find(['id' => $dealer['id'], 'table_id' => $this->gameState->tableId()]);
+        $newDealerSeat = $this->tableSeats->find(['id' => $dealer['id'], 'table_id' => $this->gameState->tableId()]);
         $newDealerSeat->update(['is_dealer' => 1]);
 
-        $handStreetId = $this->handStreet->find([
-            'street_id' => $this->street->find(['name' => $this->gameState->getGame()->getStreets()[1]['name']])->getId(),
+        $handStreetId = $this->handStreets->find([
+            'street_id' => $this->streets->find(['name' => $this->gameState->getGame()->getStreets()[1]['name']])->getId(),
             'hand_id' => $this->gameState->handId(),
         ])->getId();
 

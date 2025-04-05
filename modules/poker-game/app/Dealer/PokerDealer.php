@@ -12,8 +12,8 @@ use Atsmacode\PokerGame\Models\WholeCard;
 class PokerDealer extends Dealer
 {
     public function __construct(
-        private WholeCard $wholeCard,
-        private HandStreetCard $handStreetCard,
+        private WholeCard $wholeCards,
+        private HandStreetCard $handStreetCards,
         private Deck $deckModel,
     ) {
         $this->deck = (new BaseDeck())->cards;
@@ -25,7 +25,7 @@ class PokerDealer extends Dealer
 
         while ($dealtCards < $cardCount) {
             foreach ($players as $player) {
-                $this->wholeCard->create([
+                $this->wholeCards->create([
                     'player_id' => $player['player_id'],
                     'card_id' => $this->pickCard()->getCard()['id'],
                     'hand_id' => $handId ?? null,
@@ -45,7 +45,7 @@ class PokerDealer extends Dealer
         while ($dealtCards < $cardCount) {
             $cardId = $this->pickCard()->getCard()['id'];
 
-            $this->handStreetCard->create([
+            $this->handStreetCards->create([
                 'card_id' => $cardId,
                 'hand_street_id' => $handStreet->getId(),
             ]);
@@ -60,7 +60,7 @@ class PokerDealer extends Dealer
     {
         $cardId = $this->pickCard($rank, $suit)->getCard()['id'];
 
-        $this->handStreetCard->create([
+        $this->handStreetCards->create([
             'card_id' => $cardId,
             'hand_street_id' => $handStreet->getId(),
         ]);

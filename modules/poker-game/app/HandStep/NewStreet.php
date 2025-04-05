@@ -14,10 +14,10 @@ use Atsmacode\PokerGame\Models\TableSeat;
 class NewStreet extends HandStep
 {
     public function __construct(
-        private Street $street,
-        private TableSeat $tableSeat,
-        private HandStreet $handStreet,
-        private PlayerAction $playerAction,
+        private Street $streets,
+        private TableSeat $tableSeats,
+        private HandStreet $handStreets,
+        private PlayerAction $playerActions,
     ) {
     }
 
@@ -27,11 +27,11 @@ class NewStreet extends HandStep
 
         $handStreetCount = 0 < $this->gameState->handStreetCount() ? $this->gameState->handStreetCount() : 1;
 
-        $newStreetId = $this->street->find([
+        $newStreetId = $this->streets->find([
             'name' => $this->gameState->getGame()->getStreets()[$handStreetCount + 1]['name'],
         ])->getId();
 
-        $handStreet = $this->handStreet->create([
+        $handStreet = $this->handStreets->create([
             'street_id' => $newStreetId,
             'hand_id' => $this->gameState->handId(),
         ]);
@@ -52,12 +52,12 @@ class NewStreet extends HandStep
 
     private function updatePlayerStatusesOnNewStreet(int $handStreetId): void
     {
-        $this->tableSeat->find(['table_id' => $this->gameState->tableId()])
+        $this->tableSeats->find(['table_id' => $this->gameState->tableId()])
             ->updateBatch([
                 'can_continue' => 0,
             ], 'table_id = '.$this->gameState->tableId());
 
-        $this->playerAction->find(['hand_id' => $this->gameState->handId()])
+        $this->playerActions->find(['hand_id' => $this->gameState->handId()])
             ->updateBatch([
                 'action_id' => null,
                 'hand_street_id' => $handStreetId,

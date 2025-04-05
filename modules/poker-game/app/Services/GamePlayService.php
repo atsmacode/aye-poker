@@ -20,14 +20,14 @@ class GamePlayService
     public function __construct(
         private ContainerInterface $container,
         private ActionHandler $actionHandler,
-        private Hand $hand,
+        private Hand $hands,
     ) {
     }
 
     public function action(Request $request): array
     {
         $requestBody = $request->toArray();
-        $hand = $this->hand->latest();
+        $hand = $this->hands->latest();
         $gameState = $this->actionHandler->handle(
             $hand,
             $requestBody['player_id'],

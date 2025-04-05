@@ -16,7 +16,7 @@ class PlayerHandler implements PlayerHandlerInterface
     private GameState $gameState;
 
     public function __construct(
-        private TableSeat $tableSeat,
+        private TableSeat $tableSeats,
     ) {
     }
 
@@ -80,7 +80,7 @@ class PlayerHandler implements PlayerHandlerInterface
 
     private function getActionOnForNewStreet(array $dealer, array $firstActivePlayer): array
     {
-        $playerAfterDealer = $this->tableSeat->playerAfterDealer($this->gameState->handId(), $dealer['table_seat_id']);
+        $playerAfterDealer = $this->tableSeats->playerAfterDealer($this->gameState->handId(), $dealer['table_seat_id']);
 
         return 0 < count($playerAfterDealer->getContent()) ? $playerAfterDealer->getContent()[0] : $firstActivePlayer;
     }
@@ -88,7 +88,7 @@ class PlayerHandler implements PlayerHandlerInterface
     private function getOptionsViaLatestAction(array $playerAction): array
     {
         $latestAction = $this->gameState->getLatestAction();
-        $continuingBetters = $this->tableSeat->getContinuingBetters((string) $this->gameState->getHand()->getId());
+        $continuingBetters = $this->tableSeats->getContinuingBetters((string) $this->gameState->getHand()->getId());
         $playerActions = $this->gameState->getPlayers();
 
         if ($this->gameState->isNewStreet()) {

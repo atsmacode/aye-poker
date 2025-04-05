@@ -14,22 +14,22 @@ use Atsmacode\PokerGame\Models\TableSeat;
 class GameData
 {
     public function __construct(
-        private Hand $hand,
-        private Table $table,
-        private Player $player,
-        private TableSeat $tableSeat,
-        private PlayerAction $playerAction,
+        private Hand $hands,
+        private Table $tables,
+        private Player $players,
+        private TableSeat $tableSeats,
+        private PlayerAction $playerActions,
     ) {
     }
 
     public function getSeats(int $tableId): array
     {
-        return $this->table->getSeats($tableId);
+        return $this->tables->getSeats($tableId);
     }
 
     public function getPlayers(int $handId): array
     {
-        return $this->hand->getPlayers($handId);
+        return $this->hands->getPlayers($handId);
     }
 
     public function getWholeCards(array $players, int $handId): array
@@ -37,7 +37,7 @@ class GameData
         $wholeCards = [];
 
         foreach ($players as $player) {
-            foreach ($this->player->getWholeCards($handId, $player['player_id']) as $wholeCard) {
+            foreach ($this->players->getWholeCards($handId, $player['player_id']) as $wholeCard) {
                 if (array_key_exists($wholeCard['player_id'], $wholeCards)) {
                     array_push($wholeCards[$wholeCard['player_id']], $wholeCard);
                 } else {
@@ -51,21 +51,21 @@ class GameData
 
     public function getCommunityCards(int $handId): array
     {
-        return $this->hand->getCommunityCards($handId);
+        return $this->hands->getCommunityCards($handId);
     }
 
     public function getBigBlind(int $handId): array
     {
-        return $this->tableSeat->getBigBlind($handId);
+        return $this->tableSeats->getBigBlind($handId);
     }
 
     public function getLatestAction(int $handId): PlayerAction
     {
-        return $this->playerAction->getLatestAction($handId);
+        return $this->playerActions->getLatestAction($handId);
     }
 
     public function getStreetActions(int $handStreetId): array
     {
-        return $this->playerAction->getStreetActions($handStreetId);
+        return $this->playerActions->getStreetActions($handStreetId);
     }
 }
