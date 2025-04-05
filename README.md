@@ -33,16 +33,15 @@ Live page updates during game play are powered by the Mercure Hub: https://mercu
 The key steps to get the app started on a local dev environment are:
 
 1. Copy the .env.template to .env
-2. Create a DB for the Symfony app
-3. Download the [symfony-cli](https://symfony.com/download)
-4. Run the following command: `dev/start`
+2. Download the [symfony-cli](https://symfony.com/download)
+3. Run the following command: `dev/start`
     * This will do the following:
        * Install Composer dependencies
        * Migrate the Aye Poker & Poker Game DBs
        * Install NPM dependencies
        * Start the Symfony local server
     * Symfony will provide a link to the app where you can register & login. Something like: http://127.0.0.1:8000
-5. Open a new terminal and switch to the following directory for your OS: `cd mercure/mac` or `cd mercure/linux`. Then:
+4. Open a new terminal and switch to the following directory for your OS: `cd mercure/mac` or `cd mercure/linux`. Then:
 
 ```
 MERCURE_PUBLISHER_JWT_KEY='!ChangeThisMercureHubJWTSecretKey!' \
@@ -50,13 +49,13 @@ MERCURE_SUBSCRIBER_JWT_KEY='!ChangeThisMercureHubJWTSecretKey!' \
 ./mercure run --config dev.Caddyfile
 ```
 
-6. Now you're ready to play:
+5. Now you're ready to play:
     * Open at least 2 private browser tabs
     * Register an account in each session and log in
     * Click the 'Play Now' button
     * The game should automatically start after the second user joins the table
 
-Step #5 will start the Mercure Hub. Installation guide can be found here: https://mercure.rocks/docs/hub/install
+Step #4 will start the Mercure Hub. Installation guide can be found here: https://mercure.rocks/docs/hub/install
 
 
 > If you can't get Mercure running, simply refresh the page after acting in the game to see the updated state of the game.

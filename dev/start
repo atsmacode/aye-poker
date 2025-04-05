@@ -2,6 +2,7 @@
 cp .env.template .env
 composer install
 php bin/console app:build -m
+php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate -n
 php bin/console doctrine:migrations:migrate -n --all-or-nothing --configuration=config/migrations/card_games.yaml
 php bin/console doctrine:migrations:migrate -n --all-or-nothing --configuration=config/migrations/poker_game.yaml
