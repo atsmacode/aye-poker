@@ -1,2 +1,3 @@
 migrations_paths:
     'Atsmacode\CardGames': 'modules/card-games/database/migrations'
+connection: poker_game

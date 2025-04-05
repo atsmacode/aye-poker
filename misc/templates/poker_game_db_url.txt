@@ -1,0 +1,2 @@
+
+POKER_GAME_DB_URL="mysql://%s:%s@%s:3306/%s?serverVersion=8&charset=utf8mb4"

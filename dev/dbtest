@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
-php dev/BuildAyePoker.php app:create-database -d true
-php dev/BuildAyePoker.php app:build-card-games -d true
-php dev/BuildAyePoker.php app:build-poker-game -d true
+
+# To run these, set the following .env value first, replacing the ALL_CAPS placeholders with credentials:
+    # POKER_GAME_DB_TEST_URL="mysql://USER:PASSWORD@localhost:3306/POKER_GAME_TEST_DB_NAME?serverVersion=8&charset=utf8mb4"
+
+php bin/console doctrine:database:create --connection=poker_game_test
+php bin/console doctrine:migrations:migrate -n --all-or-nothing --configuration=config/migrations/card_games.yaml --conn=poker_game_test
+php bin/console doctrine:migrations:migrate -n --all-or-nothing --configuration=config/migrations/poker_game.yaml --conn=poker_game_test
+
+# Legacy migrations (should still work)
+# php dev/BuildAyePoker.php app:create-database -d true
+# php dev/BuildAyePoker.php app:build-card-games -d true
+# php dev/BuildAyePoker.php app:build-poker-game -d true

@@ -1,14 +1,18 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # Symfony migrations
+php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate -n --all-or-nothing
 
 # The natural & required order to run the migrations for the modules is as follows:
 
-# 1. card-games migrations
+# 1. Create Database
+php bin/console doctrine:database:create --connection=poker_game
+
+# 2. card-games migrations
 php bin/console doctrine:migrations:migrate -n --all-or-nothing --configuration=config/migrations/card_games.yaml
 
-# 2. poker-game migrations
+# 3. poker-game migrations
 php bin/console doctrine:migrations:migrate -n --all-or-nothing --configuration=config/migrations/poker_game.yaml
 
 # Legacy migrations (should still work)

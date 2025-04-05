@@ -56,7 +56,7 @@ class BuildCommand extends Command
 
         if (! $noConfig) {
             try {
-                $output->writeln("Populating .env with DB credentials");
+                $output->writeln("Populating .env with Symfony DB credentials");
                 $template = file_get_contents('misc/templates/database_url.txt');
     
                 $filesystem->appendToFile('.env', sprintf(
@@ -77,8 +77,8 @@ class BuildCommand extends Command
         }
 
         $qPokerGameName = new Question(
-            '<question>Please enter the database name for the Poker Game application (press enter to use default \'aye_poker\'):</question> ',
-            'aye_poker'
+            '<question>Please enter the database name for the Poker Game application (press enter to use default \'poker_game\'):</question> ',
+            'poker_game'
         );
         $qPokerGameUser = new Question('<question>Please enter the database username for the Poker Game application:</question> ');
         $qPokerGamePass = new Question('<question>Please enter the database password for the Poker Game application:</question> ');
@@ -107,6 +107,26 @@ class BuildCommand extends Command
             }
 
             $output->writeln("<info>Successfully created {$pokerConfigPath}</info>");
+
+            try {
+                $output->writeln("Populating .env with Poker Game DB credentials");
+                $template = file_get_contents('misc/templates/poker_game_db_url.txt');
+    
+                $filesystem->appendToFile('.env', sprintf(
+                        $template,
+                        $pokerUser,
+                        $pokerPass,
+                        $pokerHost,
+                        $pokerName
+                    )
+                );
+            } catch (\Exception $e) {
+                $output->writeln("Failed to populate .env: {$e->getMessage()}");
+    
+                return Command::FAILURE;
+            }
+
+            $output->writeln("<info>Successfully populated .env</info>");
         }
 
         if (! $noMigrate) {

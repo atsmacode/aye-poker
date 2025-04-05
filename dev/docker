@@ -17,7 +17,7 @@ fi
 
 docker compose up -d --build
 docker exec -it aye-poker php bin/console app:devpw
-docker exec -it aye-poker php bin/console app:build -dm
+docker exec -it aye-poker php bin/console app:build --docker --no-migration
 
 until docker exec -it aye-poker php bin/console doctrine:migrations:migrate -n --all-or-nothing
 do

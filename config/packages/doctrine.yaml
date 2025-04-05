@@ -1,6 +1,6 @@
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
+        default_connection: default
         # user: root
         # password: PASSWORD
         # host: 127.0.0.1
@@ -9,6 +9,13 @@ doctrine:
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
         #server_version: '15'
+        connections:
+            default:
+                url: '%env(resolve:DATABASE_URL)%'
+            poker_game:
+                url: '%env(resolve:POKER_GAME_DB_URL)%'
+            poker_game_test:
+                url: '%env(resolve:POKER_GAME_DB_TEST_URL)%'
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
