@@ -25,7 +25,7 @@ class BetHandler extends Database
     /** @todo Don't need the entire hand model, can pass ID */
     public function handle(
         Hand $hand,
-        int $stackAmount,
+        ?int $stackAmount,
         int $playerId,
         int $tableId,
         ?float $betAmount = null,
@@ -73,9 +73,11 @@ class BetHandler extends Database
                 'can_continue' => 0,
             ]);
 
+        $sbStack = $gameState->getStacks()[$smallBlind->getPlayerId()];
+
         $this->handle(
             $hand,
-            $gameState->getStacks()[$smallBlind->getPlayerId()]->getAmount(),
+            $sbStack ? $sbStack->getAmount() : 0,
             $smallBlind->getPlayerId(),
             $hand->getTableId(),
             $smallBlind->getBetAmount()
@@ -106,9 +108,11 @@ class BetHandler extends Database
                 'can_continue' => 0,
             ]);
 
+        $bbStack = $gameState->getStacks()[$bigBlind->getPlayerId()];
+
         $this->handle(
             $hand,
-            $gameState->getStacks()[$bigBlind->getPlayerId()]->getAmount(),
+            $bbStack ? $bbStack->getAmount() : 0,
             $bigBlind->getPlayerId(),
             $hand->getTableId(),
             $bigBlind->getBetAmount()

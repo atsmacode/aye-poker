@@ -19,7 +19,7 @@ class PotHandler
         $this->pots->create(['amount' => 0, 'hand_id' => $hand->getId()]);
     }
 
-    public function awardPot(int $stackAmount, int $potAmount, int $playerId, int $tableId): void
+    public function awardPot(?int $stackAmount, int $potAmount, int $playerId, int $tableId): void
     {
         $amount = $stackAmount + $potAmount;
 

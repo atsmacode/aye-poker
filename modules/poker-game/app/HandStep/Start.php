@@ -80,7 +80,7 @@ class Start extends HandStep
             /** Looks like the count() check was added as there's only 1 table being handled. */
             $playerTableStack = $this->findPlayerStack($seat['player_id'], $this->gameState->tableId());
 
-            if (0 === count($playerTableStack->getContent())) {
+            if ($playerTableStack && 0 === count($playerTableStack->getContent())) {
                 $tableStacks[$seat['player_id']] = $this->stacks->create([
                     'amount' => 1000,
                     'player_id' => $seat['player_id'],
@@ -155,7 +155,7 @@ class Start extends HandStep
     }
 
     /** Needed a way to create unique instances of the model in the container */
-    private function findPlayerStack(int $playerId, int $tableId): Stack
+    private function findPlayerStack(int $playerId, int $tableId): ?Stack
     {
         $stack = $this->container->build(Stack::class); /* @phpstan-ignore method.notFound */
 

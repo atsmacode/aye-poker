@@ -33,6 +33,7 @@
 12. Proper solutions for PHP Stan errors I'm ignoring
 13. Review use of Game interface, may be linked to F.9
 14. Use Vue Composition API
+15. After allowing null returns from Model, I allowed various $stack params to be ?int, which might be odd in some cases. Where would a player not have a stack?
 
 # Features
 

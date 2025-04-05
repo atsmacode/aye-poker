@@ -31,7 +31,7 @@ class ActionHandler implements ActionHandlerInterface
         ?float $betAmount,
         int $actionId,
         int $active,
-        int $stack,
+        ?int $stack,
     ): GameState {
         $playerAction = $this->playerActions->find([
             'player_id' => $playerId,

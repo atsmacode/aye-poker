@@ -64,12 +64,14 @@ abstract class Model extends Database
             $rows = $results->fetchAllAssociative();
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
 
         return $this->build($rows);
     }
 
-    public function create(?array $data = null): self
+    public function create(?array $data = null): ?self
     {
         $id = null;
         $insertStatement = $this->compileInsertStatement($data);
@@ -86,18 +88,20 @@ abstract class Model extends Database
             $id = $this->connection->lastInsertId();
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
 
         return $this->build([array_merge(['id' => $id], $data)]);
     }
 
-    public function build(array $data): self
+    public function build(array $data): ?self
     {
         /** Use cloning to ensure we get a fresh Model */
         $clone = clone $this;
 
         if (!$data) {
-            return $clone;
+            return null;
         }
 
         $clone->content = $data;
@@ -108,7 +112,7 @@ abstract class Model extends Database
     }
 
     /** To be used to update a single model instance. */
-    public function update(array $data): self
+    public function update(array $data): ?self
     {
         $properties = $this->compileUpdateStatement($data);
 
@@ -124,13 +128,15 @@ abstract class Model extends Database
             $stmt->executeQuery();
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
 
         return $this->refresh();
     }
 
     /** To be used to update a multiple model instances. */
-    public function updateBatch(array $data, ?string $where = null): self
+    public function updateBatch(array $data, ?string $where = null): bool
     {
         $properties = $this->compileUpdateBatchStatement($data, $where);
 
@@ -144,9 +150,11 @@ abstract class Model extends Database
             $stmt->executeQuery();
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return false;
         }
 
-        return $this;
+        return true;
     }
 
     public function refresh(): ?self
@@ -162,6 +170,8 @@ abstract class Model extends Database
             $rows = $results->fetchAllAssociative();
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
 
         if ($rows) {
@@ -173,7 +183,7 @@ abstract class Model extends Database
         return $this;
     }
 
-    public function all(): self
+    public function all(): ?self
     {
         $rows = null;
 
@@ -187,6 +197,8 @@ abstract class Model extends Database
             $rows = $stmt->fetchAllAssociative();
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
 
         $this->content = $rows;
@@ -199,7 +211,7 @@ abstract class Model extends Database
      * required. The condition if ($value !== null) { causes
      * problem from time to time in the other methods.
      */
-    public function setValue(string $column, string $value): ?Model
+    public function setValue(string $column, string $value): bool
     {
         $query = "
             UPDATE
@@ -218,11 +230,11 @@ abstract class Model extends Database
             $stmt->bindParam(':value', $value);
             $stmt->executeQuery();
 
-            return $this;
+            return true;
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 
-            return null;
+            return false;
         }
     }
 

@@ -89,9 +89,8 @@ class PokerDealer extends Dealer
     public function setSavedDeck(int $handId): PokerDealer
     {
         $savedDeck = $this->deckModel->find(['hand_id' => $handId]);
-        $hasSavedDeck = !empty($savedDeck->getContent());
 
-        if ($hasSavedDeck) {
+        if ($savedDeck) {
             $this->deck = $savedDeck->getDeck();
         }
 

@@ -43,7 +43,7 @@ class JoinTable
         }
 
         $currentHand = $this->hands->find(['table_id' => $tableId, 'completed_on' => null]);
-        $currentHandIsActive = !empty($currentHand->getContent());
+        $currentHandIsActive = $currentHand ?? false;
 
         $hand = $currentHandIsActive
             ? $currentHand
