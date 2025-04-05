@@ -22,7 +22,7 @@ class Controller
 
         $player = $this->player->find(['name' => $requestContent['name']]);
 
-        if ($player->exists()) {
+        if ($player) {
             return new Response(json_encode(['error' => 'Player with this name already exists.']));
         }
 
