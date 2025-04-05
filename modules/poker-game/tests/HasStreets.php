@@ -6,8 +6,8 @@ trait HasStreets
 {
     protected function setFlop()
     {
-        $flop = $this->handStreet->create([
-            'street_id' => $this->street->find(['name' => 'Flop'])->getId(),
+        $flop = $this->handStreets->create([
+            'street_id' => $this->streets->find(['name' => 'Flop'])->getId(),
             'hand_id' => $this->gameState->handId(),
         ]);
 
@@ -20,8 +20,8 @@ trait HasStreets
 
     protected function setTurn()
     {
-        $turn = $this->handStreet->create([
-            'street_id' => $this->street->find(['name' => 'Turn'])->getId(),
+        $turn = $this->handStreets->create([
+            'street_id' => $this->streets->find(['name' => 'Turn'])->getId(),
             'hand_id' => $this->gameState->handId(),
         ]);
 
@@ -34,8 +34,8 @@ trait HasStreets
 
     protected function setRiver()
     {
-        $river = $this->handStreet->create([
-            'street_id' => $this->street->find(['name' => 'River'])->getId(),
+        $river = $this->handStreets->create([
+            'street_id' => $this->streets->find(['name' => 'River'])->getId(),
             'hand_id' => $this->gameState->handId(),
         ]);
 
@@ -48,13 +48,13 @@ trait HasStreets
 
     protected function setThisFlop(array $flopCards): void
     {
-        $flop = $this->handStreet->create([
-            'street_id' => $this->street->find(['name' => $this->gameState->getGame()->streets[1]['name']])->getId(),
+        $flop = $this->handStreets->create([
+            'street_id' => $this->streets->find(['name' => $this->gameState->getGame()->streets[1]['name']])->getId(),
             'hand_id' => $this->gameState->handId(),
         ]);
 
         foreach ($flopCards as $card) {
-            $this->handStreetCard->create([
+            $this->handStreetCards->create([
                 'hand_street_id' => $flop->getId(),
                 'card_id' => $card['card_id'],
             ]);
@@ -63,12 +63,12 @@ trait HasStreets
 
     protected function setThisTurn(array $turnCard): void
     {
-        $turn = $this->handStreet->create([
-            'street_id' => $this->street->find(['name' => $this->gameState->getGame()->streets[2]['name']])->getId(),
+        $turn = $this->handStreets->create([
+            'street_id' => $this->streets->find(['name' => $this->gameState->getGame()->streets[2]['name']])->getId(),
             'hand_id' => $this->gameState->handId(),
         ]);
 
-        $this->handStreetCard->create([
+        $this->handStreetCards->create([
             'hand_street_id' => $turn->getId(),
             'card_id' => $turnCard['card_id'],
         ]);
@@ -76,12 +76,12 @@ trait HasStreets
 
     protected function setThisRiver(array $riverCard): void
     {
-        $river = $this->handStreet->create([
-            'street_id' => $this->street->find(['name' => $this->gameState->getGame()->streets[3]['name']])->getId(),
+        $river = $this->handStreets->create([
+            'street_id' => $this->streets->find(['name' => $this->gameState->getGame()->streets[3]['name']])->getId(),
             'hand_id' => $this->gameState->handId(),
         ]);
 
-        $this->handStreetCard->create([
+        $this->handStreetCards->create([
             'hand_street_id' => $river->getId(),
             'card_id' => $riverCard['card_id'],
         ]);

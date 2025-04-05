@@ -66,14 +66,14 @@ trait HasGamePlay
 
     private function setTable(int $seatCount)
     {
-        $this->testTable = $this->table->create(['name' => 'Test Table', 'seats' => $seatCount]);
+        $this->testTable = $this->tables->create(['name' => 'Test Table', 'seats' => $seatCount]);
 
         return $this;
     }
 
     private function setHand()
     {
-        $this->testHand = $this->hand->create(['table_id' => $this->testTable->getId()]);
+        $this->testHand = $this->hands->create(['table_id' => $this->testTable->getId()]);
 
         return $this;
     }
@@ -108,7 +108,7 @@ trait HasGamePlay
 
     private function isFourHanded()
     {
-        $this->testTable = $this->table->create(['name' => 'Test Table', 'seats' => 4]);
+        $this->testTable = $this->tables->create(['name' => 'Test Table', 'seats' => 4]);
 
         $this->playerOne = $this->createPlayer(1);
         $this->playerTwo = $this->createPlayer(2);
@@ -127,7 +127,7 @@ trait HasGamePlay
 
     private function isSixHanded()
     {
-        $this->testTable = $this->table->create(['name' => 'Test Table', 'seats' => 6]);
+        $this->testTable = $this->tables->create(['name' => 'Test Table', 'seats' => 6]);
 
         $this->playerOne = $this->createPlayer(1);
         $this->playerTwo = $this->createPlayer(2);
@@ -150,7 +150,7 @@ trait HasGamePlay
 
     private function givenPlayerOneCanContinue()
     {
-        $this->tableSeat->find(['id' => $this->gameState->getSeats()[0]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeats()[0]['id']])
             ->update([
                 'can_continue' => 1,
             ]);
@@ -158,7 +158,7 @@ trait HasGamePlay
 
     private function givenPlayerOneCanNotContinue()
     {
-        $this->tableSeat->find(['id' => $this->gameState->getSeats()[0]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeats()[0]['id']])
             ->update([
                 'can_continue' => 0,
             ]);
@@ -270,7 +270,7 @@ trait HasGamePlay
 
     private function givenPlayerTwoCanContinue()
     {
-        $this->tableSeat->find(['id' => $this->gameState->getSeats()[1]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeats()[1]['id']])
             ->update([
                 'can_continue' => 1,
             ]);
@@ -278,7 +278,7 @@ trait HasGamePlay
 
     private function givenPlayerTwoCanNotContinue()
     {
-        $this->tableSeat->find(['id' => $this->gameState->getSeats()[1]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeats()[1]['id']])
             ->update([
                 'can_continue' => 0,
             ]);
@@ -338,7 +338,7 @@ trait HasGamePlay
 
     private function givenPlayerThreeCanNotContinue()
     {
-        $this->tableSeat->find(['id' => $this->gameState->getSeats()[2]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeats()[2]['id']])
             ->update([
                 'can_continue' => 0,
             ]);
@@ -372,7 +372,7 @@ trait HasGamePlay
 
     private function givenPlayerThreeCanContinue()
     {
-        $this->tableSeat->find(['id' => $this->gameState->getSeats()[2]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeats()[2]['id']])
             ->update([
                 'can_continue' => 1,
             ]);
@@ -432,7 +432,7 @@ trait HasGamePlay
 
     private function givenPlayerFourCanContinue()
     {
-        $this->tableSeat->find(['id' => $this->gameState->getSeats()[3]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeats()[3]['id']])
             ->update([
                 'can_continue' => 1,
             ]);
@@ -440,7 +440,7 @@ trait HasGamePlay
 
     private function givenPlayerFourCanNotContinue()
     {
-        $this->tableSeat->find(['id' => $this->gameState->getSeats()[3]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeats()[3]['id']])
             ->update([
                 'can_continue' => 0,
             ]);
@@ -474,7 +474,7 @@ trait HasGamePlay
 
     private function givenPlayerFiveCanContinue()
     {
-        $this->tableSeat->find(['id' => $this->gameState->getSeats()[4]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeats()[4]['id']])
             ->update([
                 'can_continue' => 1,
             ]);
@@ -482,7 +482,7 @@ trait HasGamePlay
 
     private function givenPlayerFiveCanNotContinue()
     {
-        $this->tableSeat->find(['id' => $this->gameState->getSeats()[4]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeats()[4]['id']])
             ->update([
                 'can_continue' => 0,
             ]);
@@ -503,7 +503,7 @@ trait HasGamePlay
 
     private function givenPlayerSixCanContinue()
     {
-        $this->tableSeat->find(['id' => $this->gameState->getSeats()[5]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeats()[5]['id']])
             ->update([
                 'can_continue' => 1,
             ]);
@@ -511,7 +511,7 @@ trait HasGamePlay
 
     private function givenPlayerSixCanNotContinue()
     {
-        $this->tableSeat->find(['id' => $this->gameState->getSeats()[5]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeats()[5]['id']])
             ->update([
                 'can_continue' => 0,
             ]);
@@ -520,7 +520,7 @@ trait HasGamePlay
     protected function setWholeCards($wholeCards)
     {
         foreach ($wholeCards as $card) {
-            $this->wholeCard->create([
+            $this->wholeCards->create([
                 'player_id' => $card['player']->getId(),
                 'card_id' => $card['card_id'],
                 'hand_id' => $this->gameState->handId(),

@@ -12,18 +12,18 @@ class StackTest extends BaseTest
 {
     use HasGamePlay;
 
-    private Stack $stack;
+    private Stack $stacks;
     private Player $player1;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->stack = $this->container->get(Stack::class);
-        $this->table = $this->container->get(Table::class);
-        $this->player = $this->container->get(Player::class);
+        $this->stacks = $this->container->get(Stack::class);
+        $this->tables = $this->container->get(Table::class);
+        $this->players = $this->container->get(Player::class);
 
-        $this->testTable = $this->table->create(['name' => 'Test Table', 'seats' => 1]);
+        $this->testTable = $this->tables->create(['name' => 'Test Table', 'seats' => 1]);
         $this->player1 = $this->createPlayer(1);
     }
 
@@ -34,7 +34,7 @@ class StackTest extends BaseTest
      */
     public function aPlayerCanHaveAStack()
     {
-        $stack = $this->stack->create([
+        $stack = $this->stacks->create([
             'amount' => 1000,
             'table_id' => $this->testTable->getId(),
             'player_id' => $this->player1->getId(),

@@ -12,7 +12,7 @@ class PlayerActionTest extends BaseTest
     use HasGamePlay;
     use HasActionPosts;
 
-    private PlayerAction $playerAction;
+    private PlayerAction $playerActions;
 
     protected function setUp(): void
     {
@@ -22,7 +22,7 @@ class PlayerActionTest extends BaseTest
             ->setHand()
             ->setGamePlay();
 
-        $this->playerAction = $this->container->build(PlayerAction::class);
+        $this->playerActions = $this->container->build(PlayerAction::class);
     }
 
     /**
@@ -36,7 +36,7 @@ class PlayerActionTest extends BaseTest
         $this->gameState->setBigBlind();
 
         $bigBlind = $this->gameState->getBigBlind();
-        $latestAction = $this->playerAction->getLatestAction($this->testHand->getId());
+        $latestAction = $this->playerActions->getLatestAction($this->testHand->getId());
 
         $this->assertEquals($bigBlind['table_seat_id'], $latestAction->getTableSeatId());
     }

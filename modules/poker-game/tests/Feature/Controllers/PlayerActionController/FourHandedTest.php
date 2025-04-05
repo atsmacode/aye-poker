@@ -68,7 +68,7 @@ class FourHandedTest extends BaseTest
 
         $this->actionControllerResponse($request);
 
-        $this->assertCount(2, $this->handStreet->find(['hand_id' => $this->gameState->handId()])->getContent());
+        $this->assertCount(2, $this->handStreets->find(['hand_id' => $this->gameState->handId()])->getContent());
     }
 
     /**
@@ -123,7 +123,7 @@ class FourHandedTest extends BaseTest
      */
     public function ifTheDealerIsSeatTwoAndTheFirstActiveSeatOnANewStreetTheFirstActiveSeatAfterThemWillBeFirstToAct()
     {
-        $this->gamePlay->start($this->tableSeat->find([
+        $this->gamePlay->start($this->tableSeats->find([
             'id' => $this->gameState->getSeats()[0]['id'],
         ]));
 
@@ -132,7 +132,7 @@ class FourHandedTest extends BaseTest
         $request = $this->givenActionsMeanNewStreetIsDealtWhenDealerIsSeatTwo();
         $response = $this->actionControllerResponse($request);
 
-        $this->assertCount(2, $this->handStreet->find(['hand_id' => $this->gameState->handId()])->getContent());
+        $this->assertCount(2, $this->handStreets->find(['hand_id' => $this->gameState->handId()])->getContent());
 
         $this->assertTrue($response['players'][3]['action_on']);
     }
@@ -144,7 +144,7 @@ class FourHandedTest extends BaseTest
      */
     public function ifThereIsOneSeatAfterCurrentDealerBigBlindWillBeSeatTwo()
     {
-        $this->gamePlay->start($this->tableSeat->find([
+        $this->gamePlay->start($this->tableSeats->find([
             'id' => $this->gameState->getSeats()[2]['id'],
         ]));
 

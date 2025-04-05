@@ -50,7 +50,7 @@ class SixHandedStreetTest extends BaseTest
 
         $this->actionControllerResponse($request);
 
-        $this->assertCount(2, $this->handStreet->find(['hand_id' => $this->gameState->handId()])->getContent());
-        $this->assertCount(3, $this->handStreet->getStreetCards($this->gameState->handId(), 2));
+        $this->assertCount(2, $this->handStreets->find(['hand_id' => $this->gameState->handId()])->getContent());
+        $this->assertCount(3, $this->handStreets->getStreetCards($this->gameState->handId(), 2));
     }
 }

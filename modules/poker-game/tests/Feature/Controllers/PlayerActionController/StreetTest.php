@@ -35,8 +35,8 @@ class StreetTest extends BaseTest
 
         $this->actionControllerResponse($request);
 
-        $this->assertCount(2, $this->handStreet->find(['hand_id' => $this->gameState->handId()])->getContent());
-        $this->assertCount(3, $this->handStreet->getStreetCards($this->gameState->handId(), 2));
+        $this->assertCount(2, $this->handStreets->find(['hand_id' => $this->gameState->handId()])->getContent());
+        $this->assertCount(3, $this->handStreets->getStreetCards($this->gameState->handId(), 2));
     }
 
     /**
@@ -54,8 +54,8 @@ class StreetTest extends BaseTest
 
         $this->actionControllerResponse($request);
 
-        $this->assertCount(3, $this->handStreet->find(['hand_id' => $this->gameState->handId()])->getContent());
-        $this->assertCount(1, $this->handStreet->getStreetCards($this->gameState->handId(), 3));
+        $this->assertCount(3, $this->handStreets->find(['hand_id' => $this->gameState->handId()])->getContent());
+        $this->assertCount(1, $this->handStreets->getStreetCards($this->gameState->handId(), 3));
     }
 
     /**
@@ -75,8 +75,8 @@ class StreetTest extends BaseTest
 
         $this->actionControllerResponse($request);
 
-        $this->assertCount(4, $this->handStreet->find(['hand_id' => $this->gameState->handId()])->getContent());
-        $this->assertCount(1, $this->handStreet->getStreetCards($this->gameState->handId(), 4));
+        $this->assertCount(4, $this->handStreets->find(['hand_id' => $this->gameState->handId()])->getContent());
+        $this->assertCount(1, $this->handStreets->getStreetCards($this->gameState->handId(), 4));
     }
 
     /**

@@ -25,7 +25,7 @@ class TableSeatTest extends BaseTest
      */
     public function aTableSeatCanBeUpdated()
     {
-        $tableSeat = $this->tableSeat->find(['id' => $this->gameState->getSeats()[0]['id']]);
+        $tableSeat = $this->tableSeats->find(['id' => $this->gameState->getSeats()[0]['id']]);
 
         $this->assertEquals(0, (int) $tableSeat->canContinue());
 
@@ -41,11 +41,11 @@ class TableSeatTest extends BaseTest
      */
     public function itCanSelectFirstActivePlayerAfterDealer()
     {
-        $this->gamePlay->start($this->tableSeat->find([
+        $this->gamePlay->start($this->tableSeats->find([
             'id' => $this->gameState->getSeats()[0]['id'],
         ]));
 
-        $tableSeat = $this->tableSeat->playerAfterDealer(
+        $tableSeat = $this->tableSeats->playerAfterDealer(
             $this->gameState->handId(),
             $this->gameState->getSeats()[0]['id']
         );
@@ -60,11 +60,11 @@ class TableSeatTest extends BaseTest
      */
     public function itCanGetTheFirstAvailableSeat()
     {
-        $table = $this->table->create(['name' => 'Test Table', 'seats' => 1]);
+        $table = $this->tables->create(['name' => 'Test Table', 'seats' => 1]);
 
-        $this->tableSeat->create(['table_id' => $table->getId(), 'number' => 1]);
+        $this->tableSeats->create(['table_id' => $table->getId(), 'number' => 1]);
 
-        $tableSeat = $this->tableSeat->getFirstAvailableSeat($table->getId());
+        $tableSeat = $this->tableSeats->getFirstAvailableSeat($table->getId());
 
         $this->assertEquals($table->getId(), $tableSeat->getContent()['table_id']);
     }
@@ -76,15 +76,15 @@ class TableSeatTest extends BaseTest
      */
     public function itCanGetAPlayersCurrentSeat()
     {
-        $table = $this->table->create(['name' => 'Test Table', 'seats' => 1]);
+        $table = $this->tables->create(['name' => 'Test Table', 'seats' => 1]);
         $player = $this->createPlayer(1);
-        $tableSeat = $this->tableSeat->create([
+        $tableSeat = $this->tableSeats->create([
             'table_id' => $table->getId(),
             'player_id' => $player->getId(),
             'number' => 1,
         ]);
 
-        $currentSeat = $this->tableSeat->getCurrentPlayerSeat($player->getId());
+        $currentSeat = $this->tableSeats->getCurrentPlayerSeat($player->getId());
 
         $this->assertEquals($tableSeat->getId(), $currentSeat->getId());
     }

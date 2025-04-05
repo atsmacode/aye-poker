@@ -13,19 +13,19 @@ use Atsmacode\PokerGame\Tests\BaseTest;
 class PotHandlerTest extends BaseTest
 {
     private PotHandler $potHandler;
-    private Stack $stack;
-    private Pot $pot;
+    private Stack $stacks;
+    private Pot $pots;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->potHandler = $this->container->get(PotHandler::class);
-        $this->table = $this->container->get(Table::class);
-        $this->player = $this->container->get(Player::class);
-        $this->stack = $this->container->get(Stack::class);
-        $this->pot = $this->container->get(Pot::class);
-        $this->hand = $this->container->get(Hand::class);
+        $this->tables = $this->container->get(Table::class);
+        $this->players = $this->container->get(Player::class);
+        $this->stacks = $this->container->get(Stack::class);
+        $this->pots = $this->container->get(Pot::class);
+        $this->hands = $this->container->get(Hand::class);
     }
 
     /**
@@ -35,8 +35,8 @@ class PotHandlerTest extends BaseTest
      */
     public function aPotCanBeInitiated()
     {
-        $table = $this->table->create(['name' => 'Test Table', 'seats' => 3]);
-        $hand = $this->hand->create(['table_id' => $table->getId()]);
+        $table = $this->tables->create(['name' => 'Test Table', 'seats' => 3]);
+        $hand = $this->hands->create(['table_id' => $table->getId()]);
 
         $this->assertNotInstanceOf(Pot::class, $this->potHandler->initiatePot($hand));
     }
@@ -48,25 +48,25 @@ class PotHandlerTest extends BaseTest
      */
     public function aPotCanBeAwardedToAPlayer()
     {
-        $table = $this->table->create(['name' => 'Test Table', 'seats' => 3]);
-        $player = $this->player->create(['name' => $this->fake->unique()->name()]);
+        $table = $this->tables->create(['name' => 'Test Table', 'seats' => 3]);
+        $player = $this->players->create(['name' => $this->fake->unique()->name()]);
 
-        $stack = $this->stack->create([
+        $stack = $this->stacks->create([
             'amount' => 1000,
             'table_id' => $table->getId(),
             'player_id' => $player->getId(),
         ]);
 
-        $hand = $this->hand->create(['table_id' => $table->getId()]);
-        $pot = $this->pot->create([
+        $hand = $this->hands->create(['table_id' => $table->getId()]);
+        $pot = $this->pots->create([
             'amount' => 75,
             'hand_id' => $hand->getId(),
         ]);
 
-        $this->assertEquals(1000, $this->stack->find(['id' => $stack->getId()])->getAmount());
+        $this->assertEquals(1000, $this->stacks->find(['id' => $stack->getId()])->getAmount());
 
         $this->potHandler->awardPot($stack->getAmount(), $pot->getAmount(), $player->getId(), $table->getId());
 
-        $this->assertEquals(1075, $this->stack->find(['id' => $stack->getId()])->getAmount());
+        $this->assertEquals(1075, $this->stacks->find(['id' => $stack->getId()])->getAmount());
     }
 }

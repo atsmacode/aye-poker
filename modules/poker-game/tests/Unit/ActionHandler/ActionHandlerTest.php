@@ -13,7 +13,7 @@ class ActionHandlerTest extends BaseTest
 {
     use HasGamePlay;
 
-    private Pot $potModel;
+    private Pot $pots;
 
     protected function setUp(): void
     {
@@ -23,7 +23,7 @@ class ActionHandlerTest extends BaseTest
             ->setHand()
             ->setGamePlay();
 
-        $this->potModel = $this->container->build(Pot::class);
+        $this->pots = $this->container->build(Pot::class);
         $this->actionHandler = $this->container->build(
             ActionHandler::class,
             ['gameState' => $this->gameState,

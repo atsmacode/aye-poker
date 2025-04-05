@@ -12,7 +12,7 @@ class PokerDealerTest extends BaseTest
 {
     use HasGamePlay;
 
-    private Deck $deckModel;
+    private Deck $decks;
 
     protected function setUp(): void
     {
@@ -22,7 +22,7 @@ class PokerDealerTest extends BaseTest
             ->setHand()
             ->setGamePlay();
 
-        $this->deckModel = $this->container->build(Deck::class);
+        $this->decks = $this->container->build(Deck::class);
     }
 
     /**
@@ -35,13 +35,13 @@ class PokerDealerTest extends BaseTest
         $handId = $this->testHand->getId();
 
         foreach ($this->testTable->getSeats() as $tableSeat) {
-            $this->assertCount(0, $this->player->getWholeCards($handId, $tableSeat['player_id']));
+            $this->assertCount(0, $this->players->getWholeCards($handId, $tableSeat['player_id']));
         }
 
         $this->pokerDealer->setDeck()->saveDeck($handId)->shuffle()->dealTo($this->testTable->getSeats(), 1, $handId);
 
         foreach ($this->testTable->getSeats() as $tableSeat) {
-            $this->assertCount(1, $this->player->getWholeCards($handId, $tableSeat['player_id']));
+            $this->assertCount(1, $this->players->getWholeCards($handId, $tableSeat['player_id']));
         }
     }
 
@@ -53,9 +53,9 @@ class PokerDealerTest extends BaseTest
     public function itCanDealAStreetCard()
     {
         $handId = $this->testHand->getId();
-        $handStreet = $this->handStreet->create([
-            'street_id' => $this->street->find(['name' => 'Flop'])->getId(),
-            'hand_id' => $this->hand->create(['table_id' => $this->testTable->getId()])->getId(),
+        $handStreet = $this->handStreets->create([
+            'street_id' => $this->streets->find(['name' => 'Flop'])->getId(),
+            'hand_id' => $this->hands->create(['table_id' => $this->testTable->getId()])->getId(),
         ]);
 
         $this->pokerDealer->setDeck()->saveDeck($handId)->dealStreetCards(
@@ -75,9 +75,9 @@ class PokerDealerTest extends BaseTest
     public function itCanDealASpecificStreetCard()
     {
         $handId = $this->testHand->getId();
-        $handStreet = $this->handStreet->create([
-            'street_id' => $this->street->find(['name' => 'Flop'])->getId(),
-            'hand_id' => $this->hand->create(['table_id' => $this->testTable->getId()])->getId(),
+        $handStreet = $this->handStreets->create([
+            'street_id' => $this->streets->find(['name' => 'Flop'])->getId(),
+            'hand_id' => $this->hands->create(['table_id' => $this->testTable->getId()])->getId(),
         ]);
 
         $card = CardFactory::create(Card::ACE_HEARTS);

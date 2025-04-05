@@ -15,13 +15,13 @@ class SixHandedActionOptionsTest extends BaseTest
     use HasActionPosts;
     use HasStreets;
 
-    private PlayerAction $playerAction;
+    private PlayerAction $playerActions;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->playerAction = $this->container->build(PlayerAction::class);
+        $this->playerActions = $this->container->build(PlayerAction::class);
 
         $this->isSixHanded()
             ->setHand()
@@ -95,7 +95,7 @@ class SixHandedActionOptionsTest extends BaseTest
         $handStreets = $this->gameState->getHandStreets();
         $latestStreet = array_pop($handStreets);
 
-        $this->playerAction->find(['hand_id' => $this->gameState->handId()])
+        $this->playerActions->find(['hand_id' => $this->gameState->handId()])
             ->updateBatch([
                 'action_id' => null,
                 'hand_street_id' => $latestStreet['id'],

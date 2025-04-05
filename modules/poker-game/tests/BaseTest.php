@@ -25,14 +25,14 @@ use PHPUnit\Framework\TestCase;
 abstract class BaseTest extends TestCase
 {
     protected ServiceManager $container;
-    protected Table $table;
-    protected Hand $hand;
-    protected Player $player;
-    protected TableSeat $tableSeat;
-    protected HandStreet $handStreet;
+    protected Table $tables;
+    protected Hand $hands;
+    protected Player $players;
+    protected TableSeat $tableSeats;
+    protected HandStreet $handStreets;
     protected PlayerActionFactory $playerActionFactory;
-    protected WholeCard $wholeCard;
-    protected Street $street;
+    protected WholeCard $wholeCards;
+    protected Street $streets;
     protected PokerDealer $pokerDealer;
     protected ActionHandler $actionHandler;
     protected JoinTable $joinTable;
@@ -49,14 +49,14 @@ abstract class BaseTest extends TestCase
         $this->container = new ServiceManager($pokerGameDependencyMap);
         $this->container->setFactory(ConnectionInterface::class, new DbalTestFactory());
 
-        $this->table = $this->container->build(Table::class);
-        $this->hand = $this->container->build(Hand::class);
-        $this->player = $this->container->build(Player::class);
-        $this->tableSeat = $this->container->build(TableSeat::class);
-        $this->handStreet = $this->container->build(HandStreet::class);
+        $this->tables = $this->container->build(Table::class);
+        $this->hands = $this->container->build(Hand::class);
+        $this->players = $this->container->build(Player::class);
+        $this->tableSeats = $this->container->build(TableSeat::class);
+        $this->handStreets = $this->container->build(HandStreet::class);
         $this->playerActionFactory = $this->container->build(PlayerActionFactory::class);
-        $this->wholeCard = $this->container->build(WholeCard::class);
-        $this->street = $this->container->build(Street::class);
+        $this->wholeCards = $this->container->build(WholeCard::class);
+        $this->streets = $this->container->build(Street::class);
         $this->pokerDealer = $this->container->build(PokerDealer::class);
         $this->actionHandler = $this->container->build(ActionHandler::class);
         $this->joinTable = $this->container->build(JoinTable::class);

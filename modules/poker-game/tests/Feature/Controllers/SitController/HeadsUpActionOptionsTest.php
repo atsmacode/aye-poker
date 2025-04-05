@@ -45,7 +45,7 @@ class HeadsUpActionOptionsTest extends BaseTest
      */
     public function whenCurrentDealerIsPlayerOnePlayerTwoWillBeTheNewDealer()
     {
-        $currentDealer = $this->tableSeat->find([
+        $currentDealer = $this->tableSeats->find([
             'id' => $this->gameState->getSeats()[0]['id'],
         ]);
 
@@ -63,7 +63,7 @@ class HeadsUpActionOptionsTest extends BaseTest
      */
     public function whenCurrentDealerIsPlayerOnePlayerTwoWillBeTheNewSmallBlind()
     {
-        $currentDealer = $this->tableSeat->find([
+        $currentDealer = $this->tableSeats->find([
             'id' => $this->gameState->getSeats()[0]['id'],
         ]);
 
@@ -81,7 +81,7 @@ class HeadsUpActionOptionsTest extends BaseTest
      */
     public function whenCurrentDealerIsPlayerTwoPlayerOneWillBeTheNewDealer()
     {
-        $currentDealer = $this->tableSeat->find([
+        $currentDealer = $this->tableSeats->find([
             'id' => $this->gameState->getSeats()[1]['id'],
         ]);
 
