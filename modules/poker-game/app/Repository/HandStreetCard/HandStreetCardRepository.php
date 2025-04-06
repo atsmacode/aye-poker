@@ -11,7 +11,7 @@ class HandStreetCardRepository extends Database
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
             $queryBuilder
-                ->select('*')
+                ->select('hsc.*')
                 ->from('hand_streets', 'hs')
                 ->leftJoin('hs', 'hand_street_cards', 'hsc', 'hs.id = hsc.hand_street_id')
                 ->where('hs.hand_id = '.$queryBuilder->createNamedParameter($handId))
