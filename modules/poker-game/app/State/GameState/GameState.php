@@ -173,7 +173,7 @@ class GameState
 
     public function setCommunityCards(): self
     {
-        $this->communityCards = $this->gameRepo->getCommunityCards($this->handId);
+        $this->communityCards = $this->hand->getCommunityCards();
 
         return $this;
     }

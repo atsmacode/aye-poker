@@ -49,11 +49,6 @@ class GameRepository
         return $wholeCards;
     }
 
-    public function getCommunityCards(int $handId): array
-    {
-        return $this->hands->getCommunityCards($handId);
-    }
-
     public function getBigBlind(int $handId): array
     {
         return $this->tableSeats->getBigBlind($handId);

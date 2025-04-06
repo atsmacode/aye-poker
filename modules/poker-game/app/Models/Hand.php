@@ -180,10 +180,8 @@ class Hand extends Model
         }
     }
 
-    public function getCommunityCards(?int $handId = null): ?array
+    public function getCommunityCards(): ?array
     {
-        $handId = $handId ?? $this->id;
-
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
             $queryBuilder
@@ -201,7 +199,7 @@ class Hand extends Model
                 ->leftJoin('hsc', 'cards', 'c', 'hsc.card_id = c.id')
                 ->leftJoin('c', 'ranks', 'r', 'c.rank_id = r.id')
                 ->leftJoin('c', 'suits', 's', 'c.suit_id = s.id')
-                ->where('h.id = '.$queryBuilder->createNamedParameter($handId))
+                ->where('h.id = '.$queryBuilder->createNamedParameter($this->id))
                 ->orderBy('hsc.id', 'ASC');
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
