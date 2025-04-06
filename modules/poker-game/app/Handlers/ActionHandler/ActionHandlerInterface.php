@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Atsmacode\PokerGame\Handlers\ActionHandler;
 
-use Atsmacode\PokerGame\State\GameState\GameState;
+use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\Models\Hand;
 
 interface ActionHandlerInterface

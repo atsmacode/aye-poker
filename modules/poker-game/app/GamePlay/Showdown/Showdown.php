@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\GamePlay\Showdown;
 
-use Atsmacode\PokerGame\State\GameState\GameState;
+use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\GamePlay\HandIdentifier\HandIdentifier;
 
 /**

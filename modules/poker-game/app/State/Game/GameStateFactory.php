@@ -1,10 +1,10 @@
 <?php
 
-namespace Atsmacode\PokerGame\State\GameState;
+namespace Atsmacode\PokerGame\State\Game;
 
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\Repository\Game\GameRepository;
-use Atsmacode\PokerGame\State\PlayerState\PlayerState;
+use Atsmacode\PokerGame\State\Player\PlayerState;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 

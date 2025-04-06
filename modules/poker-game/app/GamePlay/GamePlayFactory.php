@@ -4,12 +4,12 @@ namespace Atsmacode\PokerGame\GamePlay;
 
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\Repository\Game\GameRepository;
-use Atsmacode\PokerGame\State\GameState\GameState;
+use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
 use Atsmacode\PokerGame\GamePlay\HandStep\Showdown;
 use Atsmacode\PokerGame\GamePlay\HandStep\Start;
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\State\PlayerState\PlayerState;
+use Atsmacode\PokerGame\State\Player\PlayerState;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 

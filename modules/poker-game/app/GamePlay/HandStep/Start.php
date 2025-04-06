@@ -3,7 +3,7 @@
 namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
 use Atsmacode\PokerGame\Services\Blinds\BlindService;
-use Atsmacode\PokerGame\State\GameState\GameState;
+use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\Models\HandStreet;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Stack;

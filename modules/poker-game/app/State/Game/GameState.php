@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Atsmacode\PokerGame\State\GameState;
+namespace Atsmacode\PokerGame\State\Game;
 
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\GamePlay\GameStyle\GameStyle;
@@ -10,7 +10,7 @@ use Atsmacode\PokerGame\Repository\Game\GameRepository;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Table;
-use Atsmacode\PokerGame\State\PlayerState\PlayerState;
+use Atsmacode\PokerGame\State\Player\PlayerState;
 
 /** 
  * Mutable. Holds the state of the Game throughout the lifecycle.

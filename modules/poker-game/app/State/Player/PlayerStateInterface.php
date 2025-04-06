@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Atsmacode\PokerGame\State\PlayerState;
+namespace Atsmacode\PokerGame\State\Player;
 
-use Atsmacode\PokerGame\State\GameState\GameState;
+use Atsmacode\PokerGame\State\Game\GameState;
 
 interface PlayerStateInterface
 {

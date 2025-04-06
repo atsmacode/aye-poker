@@ -5,7 +5,7 @@ namespace Atsmacode\PokerGame\Services\Blinds;
 use Atsmacode\Framework\Database\Database;
 use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\Handlers\BetHandler\BetHandler;
-use Atsmacode\PokerGame\State\GameState\GameState;
+use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\PlayerActionLog;
