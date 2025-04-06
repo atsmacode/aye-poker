@@ -5,8 +5,8 @@ namespace Atsmacode\PokerGame\Repository\Game;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\PlayerAction;
-use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\Models\TableSeat;
+use Atsmacode\PokerGame\Repository\Table\TableRepository;
 
 /**
  * Responsible for providing the baseline data a Game needs throught the process.
@@ -15,7 +15,7 @@ class GameRepository
 {
     public function __construct(
         private Hand $hands,
-        private Table $tables,
+        private TableRepository $tableRepo,
         private Player $players,
         private TableSeat $tableSeats,
         private PlayerAction $playerActions,
@@ -24,7 +24,7 @@ class GameRepository
 
     public function getSeats(int $tableId): array
     {
-        return $this->tables->getSeats($tableId);
+        return $this->tableRepo->getSeats($tableId);
     }
 
     public function getPlayers(): array

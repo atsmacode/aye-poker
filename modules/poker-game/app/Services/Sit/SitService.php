@@ -7,9 +7,9 @@ use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
 use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
-use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Handlers\SitHandler\SitHandler;
+use Atsmacode\PokerGame\Repository\Table\TableRepository;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -23,7 +23,7 @@ class SitService
     public function __construct(
         private ContainerInterface $container,
         private Hand $hands,
-        private Table $tables,
+        private TableRepository $tableRepo,
         private SitHandler $sitHandler,
         private Player $players,
     ) {
@@ -38,7 +38,7 @@ class SitService
             $playerSeat = $this->sitHandler->handle($playerId);
             $tableId = $playerSeat->getTableId();
 
-            if (2 > count($this->tables->hasMultiplePlayers($tableId))) {
+            if (2 > count($this->tableRepo->hasMultiplePlayers($tableId))) {
                 return [
                     'message' => 'Waiting for more players to join.',
                     'players' => $this->setWaitingPlayerData($playerId, $playerSeat->getId(), $playerSeat->getNumber()),

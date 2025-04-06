@@ -17,7 +17,8 @@ class ModelFactory implements FactoryInterface
         return new $requestedName(
             $connection,
             $logger,
-            new \ReflectionClass($requestedName)
+            new \ReflectionClass($requestedName),
+            $container,
         );
     }
 }

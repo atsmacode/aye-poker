@@ -4,6 +4,7 @@ namespace Atsmacode\Framework\Models;
 
 use Atsmacode\Framework\Database\ConnectionInterface;
 use Atsmacode\Framework\Database\Database;
+use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
 abstract class Model extends Database
@@ -24,6 +25,7 @@ abstract class Model extends Database
         ConnectionInterface $connection,
         LoggerInterface $logger,
         \ReflectionClass $reflection,
+        protected ContainerInterface $container
     ) {
         parent::__construct($connection, $logger);
 

@@ -46,6 +46,7 @@ class DependencyConfig
                     Models\HandType::class => \Atsmacode\Framework\Models\ModelFactory::class,
                     Models\Deck::class => \Atsmacode\Framework\Models\ModelFactory::class,
                     Repository\Hand\HandRepository::class => Repository\Hand\HandRepositoryFactory::class,
+                    Repository\Table\TableRepository::class => Repository\Table\TableRepositoryFactory::class,
                     State\PlayerState\PlayerState::class => State\PlayerState\PlayerStateFactory::class,
                     Handlers\BetHandler\BetHandler::class => Handlers\BetHandler\BetHandlerFactory::class,
                     Services\Pots\PotService::class => Services\Pots\PotServiceFactory::class,
