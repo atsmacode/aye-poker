@@ -2,12 +2,12 @@
 
 namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
-use Atsmacode\PokerGame\Handlers\BetHandler\BetHandler;
 use Atsmacode\PokerGame\Models\HandStreet;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Stack;
 use Atsmacode\PokerGame\Models\Street;
 use Atsmacode\PokerGame\Models\TableSeat;
+use Atsmacode\PokerGame\Services\BlindService\BlindService;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 
@@ -22,7 +22,7 @@ class StartFactory implements FactoryInterface
             $container->get(PlayerAction::class),
             $container->get(Stack::class),
             $container->get(TableSeat::class),
-            $container->get(BetHandler::class)
+            $container->get(BlindService::class)
         );
     }
 }

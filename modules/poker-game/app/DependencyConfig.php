@@ -48,6 +48,7 @@ class DependencyConfig
                     State\PlayerState\PlayerState::class => State\PlayerState\PlayerStateFactory::class,
                     Handlers\BetHandler\BetHandler::class => Handlers\BetHandler\BetHandlerFactory::class,
                     Services\PotService\PotService::class => Services\PotService\PotServiceFactory::class,
+                    Services\BlindService\BlindService::class => Services\BlindService\BlindServiceFactory::class,
                     GamePlay\HandStep\NewStreet::class => GamePlay\HandStep\NewStreetFactory::class,
                     GamePlay\HandStep\Start::class => GamePlay\HandStep\StartFactory::class,
                     GamePlay\HandStep\Showdown::class => GamePlay\HandStep\ShowdownFactory::class,

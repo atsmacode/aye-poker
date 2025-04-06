@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
-use Atsmacode\PokerGame\Handlers\BetHandler\BetHandler;
+use Atsmacode\PokerGame\Services\BlindService\BlindService;
 use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\Models\HandStreet;
 use Atsmacode\PokerGame\Models\PlayerAction;
@@ -23,7 +23,7 @@ class Start extends HandStep
         private PlayerAction $playerActions,
         private Stack $stacks,
         private TableSeat $tableSeats,
-        private BetHandler $betHandler,
+        private BlindService $blindService,
     ) {
     }
 
@@ -136,7 +136,7 @@ class Start extends HandStep
 
         $this->gameState->setLatestAction($bigBlind);
 
-        $this->betHandler->postBlinds($this->gameState->getHand(), $smallBlind, $bigBlind, $this->gameState);
+        $this->blindService->postBlinds($this->gameState->getHand(), $smallBlind, $bigBlind, $this->gameState);
 
         return $this;
     }
