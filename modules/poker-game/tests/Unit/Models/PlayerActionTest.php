@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Unit\PlayerAction;
+namespace Atsmacode\PokerGame\Tests\Unit\Models;
 
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Tests\BaseTest;
