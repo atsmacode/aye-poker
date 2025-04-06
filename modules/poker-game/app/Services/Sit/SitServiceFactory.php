@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\Services;
+namespace Atsmacode\PokerGame\Services\Sit;
 
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;

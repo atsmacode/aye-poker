@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\Controllers;
 
-use Atsmacode\PokerGame\Services\GamePlayService;
+use Atsmacode\PokerGame\Services\GamePlay\GamePlayService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

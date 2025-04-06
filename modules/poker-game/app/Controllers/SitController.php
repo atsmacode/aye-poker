@@ -3,7 +3,7 @@
 namespace Atsmacode\PokerGame\Controllers;
 
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\Services\SitService;
+use Atsmacode\PokerGame\Services\Sit\SitService;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class SitController

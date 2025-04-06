@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\Services;
+namespace Atsmacode\PokerGame\Services\GamePlay;
 
 use Atsmacode\PokerGame\Handlers\ActionHandler\ActionHandler;
 use Atsmacode\PokerGame\GamePlay\Game\PotLimitHoldEm;

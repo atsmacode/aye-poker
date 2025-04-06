@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\Controllers;
 
-use Atsmacode\PokerGame\Services\SitService;
+use Atsmacode\PokerGame\Services\Sit\SitService;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 

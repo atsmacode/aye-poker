@@ -4,8 +4,8 @@ namespace App\Controller\Play\Plhe;
 
 use App\Service\MercureUpdate;
 use App\Service\PokerGame;
-use Atsmacode\PokerGame\Services\GamePlayService;
-use Atsmacode\PokerGame\Services\SitService;
+use Atsmacode\PokerGame\Services\GamePlay\GamePlayService;
+use Atsmacode\PokerGame\Services\Sit\SitService;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
