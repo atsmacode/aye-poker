@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\Dealer;
+namespace Atsmacode\PokerGame\GamePlay\Dealer;
 
 use Atsmacode\CardGames\Dealer\Dealer;
 use Atsmacode\CardGames\Deck\Deck as BaseDeck;

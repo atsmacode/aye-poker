@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Unit\PokerDealer;
+namespace Atsmacode\PokerGame\Tests\Unit\GamePlay\Dealer;
 
 use Atsmacode\CardGames\Constants\Card;
 use Atsmacode\CardGames\Factory\CardFactory;

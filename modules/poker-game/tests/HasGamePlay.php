@@ -6,7 +6,7 @@ use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\Game\PotLimitHoldEm;
 use Atsmacode\PokerGame\GamePlay\GamePlay;
 use Atsmacode\PokerGame\GameState\GameState;
-use Atsmacode\PokerGame\HandStep\Start;
+use Atsmacode\PokerGame\GamePlay\HandStep\Start;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\Table;

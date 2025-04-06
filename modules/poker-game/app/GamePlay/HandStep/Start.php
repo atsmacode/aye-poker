@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\HandStep;
+namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
 use Atsmacode\PokerGame\BetHandler\BetHandler;
 use Atsmacode\PokerGame\GameState\GameState;

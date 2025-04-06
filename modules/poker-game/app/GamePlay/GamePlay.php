@@ -4,10 +4,10 @@ namespace Atsmacode\PokerGame\GamePlay;
 
 use Atsmacode\PokerGame\Game\Game;
 use Atsmacode\PokerGame\GameState\GameState;
-use Atsmacode\PokerGame\HandStep\HandStep;
-use Atsmacode\PokerGame\HandStep\NewStreet;
-use Atsmacode\PokerGame\HandStep\Showdown;
-use Atsmacode\PokerGame\HandStep\Start;
+use Atsmacode\PokerGame\GamePlay\HandStep\HandStep;
+use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
+use Atsmacode\PokerGame\GamePlay\HandStep\Showdown;
+use Atsmacode\PokerGame\GamePlay\HandStep\Start;
 use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\PlayerHandler\PlayerHandler;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Atsmacode\PokerGame\GameState;
 
-use Atsmacode\PokerGame\Dealer\PokerDealer;
+use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\Game\Game;
 use Atsmacode\PokerGame\GameData\GameData;
 use Atsmacode\PokerGame\Models\Hand;

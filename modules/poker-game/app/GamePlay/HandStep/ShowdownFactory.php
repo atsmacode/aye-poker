@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\HandStep;
+namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
 use Atsmacode\PokerGame\PotHandler\PotHandler;
 use Laminas\ServiceManager\Factory\FactoryInterface;

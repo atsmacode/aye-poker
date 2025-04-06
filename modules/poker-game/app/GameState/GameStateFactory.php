@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\GameState;
 
-use Atsmacode\PokerGame\Dealer\PokerDealer;
+use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\GameData\GameData;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;

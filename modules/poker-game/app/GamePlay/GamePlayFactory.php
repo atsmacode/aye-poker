@@ -2,12 +2,12 @@
 
 namespace Atsmacode\PokerGame\GamePlay;
 
-use Atsmacode\PokerGame\Dealer\PokerDealer;
+use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\GameData\GameData;
 use Atsmacode\PokerGame\GameState\GameState;
-use Atsmacode\PokerGame\HandStep\NewStreet;
-use Atsmacode\PokerGame\HandStep\Showdown;
-use Atsmacode\PokerGame\HandStep\Start;
+use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
+use Atsmacode\PokerGame\GamePlay\HandStep\Showdown;
+use Atsmacode\PokerGame\GamePlay\HandStep\Start;
 use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\PlayerHandler\PlayerHandler;
 use Laminas\ServiceManager\Factory\FactoryInterface;

@@ -4,7 +4,7 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\PlayerActionController;
 
 use Atsmacode\CardGames\Constants\Card;
 use Atsmacode\PokerGame\Constants\HandType;
-use Atsmacode\PokerGame\HandStep\Start;
+use Atsmacode\PokerGame\GamePlay\HandStep\Start;
 use Atsmacode\PokerGame\Models\HandStreetCard;
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;

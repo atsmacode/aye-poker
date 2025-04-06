@@ -1,12 +1,12 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Unit\HandIdentifier;
+namespace Atsmacode\PokerGame\Tests\Unit\GamePlay\HandIdentifier;
 
 use Atsmacode\CardGames\Constants\Card;
 use Atsmacode\CardGames\Constants\Rank;
 use Atsmacode\CardGames\Factory\CardFactory;
 use Atsmacode\PokerGame\Constants\HandType;
-use Atsmacode\PokerGame\HandIdentifier\HandIdentifier;
+use Atsmacode\PokerGame\GamePlay\HandIdentifier\HandIdentifier;
 use Atsmacode\PokerGame\Tests\BaseTest;
 
 class HandIdentifierTest extends BaseTest

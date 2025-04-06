@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\Dealer;
+namespace Atsmacode\PokerGame\GamePlay\Dealer;
 
 use Atsmacode\PokerGame\Models\Deck;
 use Atsmacode\PokerGame\Models\HandStreetCard;
