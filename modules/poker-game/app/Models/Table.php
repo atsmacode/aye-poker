@@ -12,9 +12,9 @@ class Table extends Model
     public function getSeats(): ?array
     {
         try {
-            $tableRepo = $this->container->get(TableSeatRepository::class);
+            $tableSeatRepo = $this->container->get(TableSeatRepository::class);
 
-            return $tableRepo->getSeats($this->id);
+            return $tableSeatRepo->getSeats($this->id);
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 
@@ -25,9 +25,9 @@ class Table extends Model
     public function hasMultiplePlayers(): ?array
     {
         try {
-            $tableRepo = $this->container->get(TableSeatRepository::class);
+            $tableSeatRepo = $this->container->get(TableSeatRepository::class);
 
-            return $tableRepo->hasMultiplePlayers($this->id);
+            return $tableSeatRepo->hasMultiplePlayers($this->id);
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 
