@@ -1,10 +1,10 @@
 <?php
 
-namespace Atsmacode\PokerGame\Repository\Player;
+namespace Atsmacode\PokerGame\Repository\WholeCard;
 
 use Atsmacode\Framework\Database\Database;
 
-class PlayerRepository extends Database
+class WholeCardRepository extends Database
 {
     public function getWholeCards(int $handId, int $playerId): ?array
     {

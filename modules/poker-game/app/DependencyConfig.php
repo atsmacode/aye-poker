@@ -47,7 +47,7 @@ class DependencyConfig
                     Repository\Hand\HandRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,
                     Repository\Table\TableRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,
                     Repository\HandStreet\HandStreetRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,
-                    Repository\Player\PlayerRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,
+                    Repository\WholeCard\WholeCardRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,
                     Repository\Stack\StackRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,
                     Repository\PlayerAction\PlayerActionRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,
                     State\Player\PlayerState::class => State\Player\PlayerStateFactory::class,
