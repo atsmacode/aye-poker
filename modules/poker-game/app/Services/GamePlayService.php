@@ -3,7 +3,7 @@
 namespace Atsmacode\PokerGame\Services;
 
 use Atsmacode\PokerGame\Handlers\ActionHandler\ActionHandler;
-use Atsmacode\PokerGame\Game\PotLimitHoldEm;
+use Atsmacode\PokerGame\GamePlay\Game\PotLimitHoldEm;
 use Atsmacode\PokerGame\GamePlay\GamePlay;
 use Atsmacode\PokerGame\Models\Hand;
 use Psr\Container\ContainerInterface;
