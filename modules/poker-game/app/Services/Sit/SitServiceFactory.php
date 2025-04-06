@@ -5,7 +5,7 @@ namespace Atsmacode\PokerGame\Services\Sit;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
-use Atsmacode\PokerGame\Repository\Table\TableRepository;
+use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 
@@ -16,7 +16,7 @@ class SitServiceFactory implements FactoryInterface
         return new SitService(
             $container,
             $container->get(Hand::class),
-            $container->get(TableRepository::class),
+            $container->get(TableSeatRepository::class),
             $container->get(SitHandler::class),
             $container->get(Player::class)
         );

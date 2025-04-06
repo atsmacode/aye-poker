@@ -1,10 +1,10 @@
 <?php
 
-namespace Atsmacode\PokerGame\Repository\Table;
+namespace Atsmacode\PokerGame\Repository\TableSeat;
 
 use Atsmacode\Framework\Database\Database;
 
-class TableRepository extends Database
+class TableSeatRepository extends Database
 {
     public function getSeats(int $tableId): ?array
     {
