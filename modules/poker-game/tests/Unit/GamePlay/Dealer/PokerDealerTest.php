@@ -35,13 +35,13 @@ class PokerDealerTest extends BaseTest
         $handId = $this->testHand->getId();
 
         foreach ($this->testTable->getSeats() as $tableSeat) {
-            $this->assertCount(0, $this->players->getWholeCards($handId, $tableSeat['player_id']));
+            $this->assertCount(0, $this->playerRepo->getWholeCards($handId, $tableSeat['player_id']));
         }
 
         $this->pokerDealer->setDeck()->saveDeck($handId)->shuffle()->dealTo($this->testTable->getSeats(), 1, $handId);
 
         foreach ($this->testTable->getSeats() as $tableSeat) {
-            $this->assertCount(1, $this->players->getWholeCards($handId, $tableSeat['player_id']));
+            $this->assertCount(1, $this->playerRepo->getWholeCards($handId, $tableSeat['player_id']));
         }
     }
 

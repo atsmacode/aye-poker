@@ -3,9 +3,9 @@
 namespace Atsmacode\PokerGame\Repository\Game;
 
 use Atsmacode\PokerGame\Models\Hand;
-use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\TableSeat;
+use Atsmacode\PokerGame\Repository\Player\PlayerRepository;
 use Atsmacode\PokerGame\Repository\Table\TableRepository;
 
 /**
@@ -16,7 +16,7 @@ class GameRepository
     public function __construct(
         private Hand $hands,
         private TableRepository $tableRepo,
-        private Player $players,
+        private PlayerRepository $playerRepo,
         private TableSeat $tableSeats,
         private PlayerAction $playerActions,
     ) {
@@ -37,7 +37,7 @@ class GameRepository
         $wholeCards = [];
 
         foreach ($players as $player) {
-            foreach ($this->players->getWholeCards($handId, $player['player_id']) as $wholeCard) {
+            foreach ($this->playerRepo->getWholeCards($handId, $player['player_id']) as $wholeCard) {
                 if (array_key_exists($wholeCard['player_id'], $wholeCards)) {
                     array_push($wholeCards[$wholeCard['player_id']], $wholeCard);
                 } else {

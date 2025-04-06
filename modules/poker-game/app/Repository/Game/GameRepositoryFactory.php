@@ -3,9 +3,9 @@
 namespace Atsmacode\PokerGame\Repository\Game;
 
 use Atsmacode\PokerGame\Models\Hand;
-use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\TableSeat;
+use Atsmacode\PokerGame\Repository\Player\PlayerRepository;
 use Atsmacode\PokerGame\Repository\Table\TableRepository;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
@@ -17,7 +17,7 @@ class GameRepositoryFactory implements FactoryInterface
         return new GameRepository(
             $container->get(Hand::class),
             $container->get(TableRepository::class),
-            $container->get(Player::class),
+            $container->get(PlayerRepository::class),
             $container->get(TableSeat::class),
             $container->get(PlayerAction::class)
         );
