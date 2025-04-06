@@ -84,7 +84,7 @@ class BuildCommand extends Command
         $qPokerGamePass = new Question('<question>Please enter the database password for the Poker Game application:</question> ');
         $qPokerGamePass->setHidden(true);
 
-        $pokerName = $docker ? 'aye_poker' : $helper->ask($input, $output, $qPokerGameName);
+        $pokerName = $docker ? 'poker_game' : $helper->ask($input, $output, $qPokerGameName);
         $pokerUser = $docker ? 'root' : $helper->ask($input, $output, $qPokerGameUser);
         $pokerPass = $docker ? $this->dockerDbPw : $helper->ask($input, $output, $qPokerGamePass);
         $pokerHost = $docker ? 'db' : 'localhost';
