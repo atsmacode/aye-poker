@@ -27,9 +27,9 @@ class GameRepository
         return $this->tables->getSeats($tableId);
     }
 
-    public function getPlayers(int $handId): array
+    public function getPlayers(): array
     {
-        return $this->hands->getPlayers($handId);
+        return $this->hands->getPlayers();
     }
 
     public function getWholeCards(array $players, int $handId): array

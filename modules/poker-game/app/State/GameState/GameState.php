@@ -197,7 +197,7 @@ class GameState
 
     public function setPlayers(): self
     {
-        $this->players = $this->gameRepo->getPlayers($this->handId);
+        $this->players = $this->hand->getPlayers();
 
         return $this;
     }

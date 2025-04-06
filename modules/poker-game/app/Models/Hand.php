@@ -140,7 +140,7 @@ class Hand extends Model
         }
     }
 
-    public function getPlayers(int $handId): ?array
+    public function getPlayers(): ?array
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -169,7 +169,7 @@ class Hand extends Model
                 ->leftJoin('pa', 'players', 'p', 'pa.player_id = p.id')
                 ->leftJoin('pa', 'stacks', 's', 'pa.player_id = s.player_id AND ts.table_id = s.table_id')
                 ->leftJoin('pa', 'actions', 'a', 'pa.action_id = a.id')
-                ->where('pa.hand_id = '.$queryBuilder->createNamedParameter($handId))
+                ->where('pa.hand_id = '.$queryBuilder->createNamedParameter($this->id))
                 ->orderBy('ts.id', 'ASC');
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
