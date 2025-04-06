@@ -1,17 +1,17 @@
 <?php
 
-namespace Atsmacode\PokerGame\PotHandler;
+namespace Atsmacode\PokerGame\Services\PotService;
 
 use Atsmacode\PokerGame\Models\Pot;
 use Atsmacode\PokerGame\Models\Stack;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 
-class PotHandlerFactory implements FactoryInterface
+class PotServiceFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        return new PotHandler(
+        return new PotService(
             $container->get(Stack::class),
             $container->get(Pot::class)
         );

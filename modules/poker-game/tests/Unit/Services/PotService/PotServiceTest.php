@@ -1,18 +1,18 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Unit\PotHandler;
+namespace Atsmacode\PokerGame\Tests\Unit\Services\PotService;
 
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\Pot;
 use Atsmacode\PokerGame\Models\Stack;
 use Atsmacode\PokerGame\Models\Table;
-use Atsmacode\PokerGame\PotHandler\PotHandler;
+use Atsmacode\PokerGame\Services\PotService\PotService;
 use Atsmacode\PokerGame\Tests\BaseTest;
 
 class PotHandlerTest extends BaseTest
 {
-    private PotHandler $potHandler;
+    private PotService $potService;
     private Stack $stacks;
     private Pot $pots;
 
@@ -20,7 +20,7 @@ class PotHandlerTest extends BaseTest
     {
         parent::setUp();
 
-        $this->potHandler = $this->container->get(PotHandler::class);
+        $this->potService = $this->container->get(PotService::class);
         $this->tables = $this->container->get(Table::class);
         $this->players = $this->container->get(Player::class);
         $this->stacks = $this->container->get(Stack::class);
@@ -38,7 +38,7 @@ class PotHandlerTest extends BaseTest
         $table = $this->tables->create(['name' => 'Test Table', 'seats' => 3]);
         $hand = $this->hands->create(['table_id' => $table->getId()]);
 
-        $this->assertNotInstanceOf(Pot::class, $this->potHandler->initiatePot($hand));
+        $this->assertNotInstanceOf(Pot::class, $this->potService->initiatePot($hand));
     }
 
     /**
@@ -65,7 +65,7 @@ class PotHandlerTest extends BaseTest
 
         $this->assertEquals(1000, $this->stacks->find(['id' => $stack->getId()])->getAmount());
 
-        $this->potHandler->awardPot($stack->getAmount(), $pot->getAmount(), $player->getId(), $table->getId());
+        $this->potService->awardPot($stack->getAmount(), $pot->getAmount(), $player->getId(), $table->getId());
 
         $this->assertEquals(1075, $this->stacks->find(['id' => $stack->getId()])->getAmount());
     }

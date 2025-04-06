@@ -10,12 +10,12 @@ use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\PlayerActionLog;
 use Atsmacode\PokerGame\Models\Stack;
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\PotHandler\PotHandler;
+use Atsmacode\PokerGame\Services\PotService\PotService;
 
 class BetHandler extends Database
 {
     public function __construct(
-        private PotHandler $potHandler,
+        private PotService $potService,
         private PlayerActionLog $playerActionLogs,
         private Stack $stacks,
         private TableSeat $tableSeats,
@@ -34,7 +34,7 @@ class BetHandler extends Database
             $stack = $stackAmount - $betAmount;
 
             $this->stacks->change($stack, $playerId, $tableId);
-            $this->potHandler->updatePot($betAmount, $hand->getId());
+            $this->potService->updatePot($betAmount, $hand->getId());
         }
 
         return null;
@@ -46,7 +46,7 @@ class BetHandler extends Database
         PlayerAction $bigBlind,
         GameState $gameState,
     ): void {
-        $this->potHandler->initiatePot($hand);
+        $this->potService->initiatePot($hand);
 
         $smallBlind->update([
             'action_id' => Action::BET_ID,

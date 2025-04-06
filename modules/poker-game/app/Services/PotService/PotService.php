@@ -1,12 +1,12 @@
 <?php
 
-namespace Atsmacode\PokerGame\PotHandler;
+namespace Atsmacode\PokerGame\Services\PotService;
 
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Pot;
 use Atsmacode\PokerGame\Models\Stack;
 
-class PotHandler
+class PotService
 {
     public function __construct(
         private Stack $stacks,

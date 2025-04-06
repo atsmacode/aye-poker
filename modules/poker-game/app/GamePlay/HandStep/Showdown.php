@@ -4,7 +4,7 @@ namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
 use Atsmacode\PokerGame\GameState\GameState;
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\PotHandler\PotHandler;
+use Atsmacode\PokerGame\Services\PotService\PotService;
 use Atsmacode\PokerGame\GamePlay\Showdown\Showdown as TheShowdown;
 
 /**
@@ -12,7 +12,7 @@ use Atsmacode\PokerGame\GamePlay\Showdown\Showdown as TheShowdown;
  */
 class Showdown extends HandStep
 {
-    public function __construct(private PotHandler $potHandler)
+    public function __construct(private PotService $potService)
     {
     }
 
@@ -26,7 +26,7 @@ class Showdown extends HandStep
 
         $this->gameState->setWinner($winner);
 
-        $this->potHandler->awardPot(
+        $this->potService->awardPot(
             $winner['player']['stack'],
             $this->gameState->getPot(),
             $winner['player']['player_id'],
