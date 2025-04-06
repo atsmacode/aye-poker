@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\BetHandler;
+namespace Atsmacode\PokerGame\Handlers\BetHandler;
 
 use Atsmacode\Framework\Database\Database;
 use Atsmacode\PokerGame\Constants\Action;

@@ -3,7 +3,7 @@
 namespace Atsmacode\PokerGame\Tests;
 
 use Atsmacode\Framework\Database\ConnectionInterface;
-use Atsmacode\PokerGame\ActionHandler\ActionHandler;
+use Atsmacode\PokerGame\Handlers\ActionHandler\ActionHandler;
 use Atsmacode\PokerGame\Database\DbalTestFactory;
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\Factory\PlayerActionFactory;

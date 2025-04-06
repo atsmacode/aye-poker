@@ -1,8 +1,8 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Unit\ActionHandler;
+namespace Atsmacode\PokerGame\Tests\Unit\Handlers\ActionHandler;
 
-use Atsmacode\PokerGame\ActionHandler\ActionHandler;
+use Atsmacode\PokerGame\Handlers\ActionHandler\ActionHandler;
 use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\GameState\GameState;
 use Atsmacode\PokerGame\Models\Pot;

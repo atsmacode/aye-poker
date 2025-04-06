@@ -5,7 +5,7 @@ namespace Atsmacode\PokerGame\Services;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\Table;
-use Atsmacode\PokerGame\SitHandler\SitHandler;
+use Atsmacode\PokerGame\Handlers\SitHandler\SitHandler;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 

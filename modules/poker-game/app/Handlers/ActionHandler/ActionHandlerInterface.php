@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Atsmacode\PokerGame\ActionHandler;
+namespace Atsmacode\PokerGame\Handlers\ActionHandler;
 
 use Atsmacode\PokerGame\GameState\GameState;
 use Atsmacode\PokerGame\Models\Hand;

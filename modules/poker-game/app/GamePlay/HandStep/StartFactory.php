@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
-use Atsmacode\PokerGame\BetHandler\BetHandler;
+use Atsmacode\PokerGame\Handlers\BetHandler\BetHandler;
 use Atsmacode\PokerGame\Models\HandStreet;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Stack;

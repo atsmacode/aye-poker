@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\SitHandler;
+namespace Atsmacode\PokerGame\Handlers\SitHandler;
 
 use Atsmacode\PokerGame\Models\TableSeat;
 
