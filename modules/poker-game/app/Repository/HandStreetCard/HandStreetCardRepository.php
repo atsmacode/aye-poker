@@ -1,10 +1,10 @@
 <?php
 
-namespace Atsmacode\PokerGame\Repository\HandStreet;
+namespace Atsmacode\PokerGame\Repository\HandStreetCard;
 
 use Atsmacode\Framework\Database\Database;
 
-class HandStreetRepository extends Database
+class HandStreetCardRepository extends Database
 {
     public function getStreetCards(int $handId, int $streetId): ?array
     {
@@ -18,23 +18,6 @@ class HandStreetRepository extends Database
                 ->andWhere('hs.street_id = '.$queryBuilder->createNamedParameter($streetId));
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
-        } catch (\Exception $e) {
-            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
-
-            return null;
-        }
-    }
-
-    public function getStreetActions(int $handStreetId): ?array
-    {
-        try {
-            $queryBuilder = $this->connection->createQueryBuilder();
-            $queryBuilder
-                ->select('*')
-                ->from('player_actions', 'pa')
-                ->where('pa.hand_street_id = '.$handStreetId);
-
-            return $queryBuilder->executeQuery() ? $queryBuilder->fetchAllAssociative() : [];
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 

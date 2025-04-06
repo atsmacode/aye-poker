@@ -3,7 +3,7 @@
 namespace Atsmacode\PokerGame\Models;
 
 use Atsmacode\Framework\Models\Model;
-use Atsmacode\PokerGame\Repository\HandStreet\HandStreetRepository;
+use Atsmacode\PokerGame\Repository\HandStreetCard\HandStreetCardRepository;
 
 class HandStreet extends Model
 {
@@ -29,9 +29,9 @@ class HandStreet extends Model
     public function getStreetCards(int $handId, int $streetId): ?array
     {
         try {
-            $handStreetRepo = $this->container->get(HandStreetRepository::class);
+            $handStreetRepoCard = $this->container->get(HandStreetCardRepository::class);
 
-            return $handStreetRepo->getStreetCards($handId, $streetId);
+            return $handStreetRepoCard->getStreetCards($handId, $streetId);
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 

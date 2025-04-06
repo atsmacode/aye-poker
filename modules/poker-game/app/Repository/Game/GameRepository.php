@@ -5,7 +5,6 @@ namespace Atsmacode\PokerGame\Repository\Game;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\Repository\HandStreet\HandStreetRepository;
 use Atsmacode\PokerGame\Repository\PlayerAction\PlayerActionRepository;
 use Atsmacode\PokerGame\Repository\Table\TableRepository;
 use Atsmacode\PokerGame\Repository\WholeCard\WholeCardRepository;
@@ -20,8 +19,7 @@ class GameRepository
         private TableRepository $tableRepo,
         private WholeCardRepository $wholeCardRepo,
         private TableSeat $tableSeats,
-        private PlayerActionRepository $playerActionRepo,
-        private HandStreetRepository $handStreetRepo
+        private PlayerActionRepository $playerActionRepo
     ) {
     }
 
@@ -64,6 +62,6 @@ class GameRepository
 
     public function getStreetActions(int $handStreetId): array
     {
-        return $this->handStreetRepo->getStreetActions($handStreetId);
+        return $this->playerActionRepo->getStreetActions($handStreetId);
     }
 }

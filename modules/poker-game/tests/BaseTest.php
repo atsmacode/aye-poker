@@ -15,6 +15,7 @@ use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Models\WholeCard;
 use Atsmacode\PokerGame\PokerGameConfigProvider;
+use Atsmacode\PokerGame\Repository\HandStreetCard\HandStreetCardRepository;
 use Atsmacode\PokerGame\Repository\WholeCard\WholeCardRepository;
 use Atsmacode\PokerGame\Services\GamePlay\GamePlayService;
 use Atsmacode\PokerGame\Services\Sit\SitService;
@@ -40,6 +41,7 @@ abstract class BaseTest extends TestCase
     protected GamePlayService $gamePlayService;
     protected Fake $fake;
     protected WholeCardRepository $wholeCardRepo;
+    protected HandStreetCardRepository $handStreetCardRepo;
 
     protected function setUp(): void
     {
@@ -65,6 +67,7 @@ abstract class BaseTest extends TestCase
         $this->gamePlayService = $this->container->build(GamePlayService::class);
         $this->fake = Faker\Factory::create();
         $this->wholeCardRepo = $this->container->build(WholeCardRepository::class);
+        $this->handStreetCardRepo = $this->container->build(HandStreetCardRepository::class);
 
         $this->container->get(ConnectionInterface::class)->beginTransaction();
     }
