@@ -3,7 +3,7 @@
 namespace Atsmacode\PokerGame\GamePlay;
 
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
-use Atsmacode\PokerGame\GameData\GameData;
+use Atsmacode\PokerGame\Repository\Game\GameRepository;
 use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
 use Atsmacode\PokerGame\GamePlay\HandStep\Showdown;
@@ -18,7 +18,7 @@ class GamePlayFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
         $gameState = isset($options['gameState']) ? $options['gameState'] : new GameState(
-            $container->get(GameData::class),
+            $container->get(GameRepository::class),
             $container->get(PokerDealer::class),
             $container->get(PlayerState::class),
             isset($options['hand']) ? $options['hand'] : null

@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\GameData;
+namespace Atsmacode\PokerGame\Repository\Game;
 
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
@@ -11,7 +11,7 @@ use Atsmacode\PokerGame\Models\TableSeat;
 /**
  * Responsible for providing the baseline data a Hand needs throught the process.
  */
-class GameData
+class GameRepository
 {
     public function __construct(
         private Hand $hands,

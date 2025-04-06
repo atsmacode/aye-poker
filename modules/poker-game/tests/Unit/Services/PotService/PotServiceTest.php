@@ -10,7 +10,7 @@ use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\Services\PotService\PotService;
 use Atsmacode\PokerGame\Tests\BaseTest;
 
-class PotHandlerTest extends BaseTest
+class PotServiceTest extends BaseTest
 {
     private PotService $potService;
     private Stack $stacks;

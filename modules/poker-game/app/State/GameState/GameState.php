@@ -6,7 +6,7 @@ namespace Atsmacode\PokerGame\State\GameState;
 
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\GamePlay\Game\Game;
-use Atsmacode\PokerGame\GameData\GameData;
+use Atsmacode\PokerGame\Repository\Game\GameRepository;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Table;
@@ -32,7 +32,7 @@ class GameState
     private Table $table;
 
     public function __construct(
-        private GameData $gameData,
+        private GameRepository $gameRepo,
         private PokerDealer $pokerDealer,
         private PlayerState $playerState,
         private ?Hand $hand
@@ -47,7 +47,7 @@ class GameState
         $this->setHand($hand);
         $this->tableId = $hand->getTableId();
         $this->handId = (int) $hand->getId();
-        $this->seats = $this->gameData->getSeats($this->tableId);
+        $this->seats = $this->gameRepo->getSeats($this->tableId);
         $this->handStreets = $this->hand->streets();
     }
 
@@ -155,7 +155,7 @@ class GameState
     {
         return isset($this->latestAction)
             ? $this->latestAction
-            : $this->gameData->getLatestAction($this->handId);
+            : $this->gameRepo->getLatestAction($this->handId);
     }
 
     public function getPot(): int
@@ -167,7 +167,7 @@ class GameState
 
     public function setCommunityCards(): self
     {
-        $this->communityCards = $this->gameData->getCommunityCards($this->handId);
+        $this->communityCards = $this->gameRepo->getCommunityCards($this->handId);
 
         return $this;
     }
@@ -179,7 +179,7 @@ class GameState
 
     public function setWholeCards(): self
     {
-        $this->wholeCards = $this->gameData->getWholeCards($this->getPlayers(), $this->handId);
+        $this->wholeCards = $this->gameRepo->getWholeCards($this->getPlayers(), $this->handId);
 
         return $this;
     }
@@ -191,7 +191,7 @@ class GameState
 
     public function setPlayers(): self
     {
-        $this->players = $this->gameData->getPlayers($this->handId);
+        $this->players = $this->gameRepo->getPlayers($this->handId);
 
         return $this;
     }
@@ -289,7 +289,7 @@ class GameState
 
     public function setBigBlind(): void
     {
-        $this->bigBlind = $this->gameData->getBigBlind($this->handId);
+        $this->bigBlind = $this->gameRepo->getBigBlind($this->handId);
     }
 
     public function getBigBlind(): array
@@ -304,7 +304,7 @@ class GameState
 
     public function streetHasNoActions(int $handStreetId): bool
     {
-        $actions = $this->gameData->getStreetActions($handStreetId);
+        $actions = $this->gameRepo->getStreetActions($handStreetId);
         $acted = array_filter($actions, function ($value) { return null !== $value['action_id']; });
 
         return 0 === count($acted);

@@ -52,7 +52,7 @@ class DependencyConfig
                     GamePlay\HandStep\Start::class => GamePlay\HandStep\StartFactory::class,
                     GamePlay\HandStep\Showdown::class => GamePlay\HandStep\ShowdownFactory::class,
                     Factory\PlayerActionFactory::class => Factory\PlayerActionFactoryFactory::class,
-                    GameData\GameData::class => GameData\GameDataFactory::class,
+                    Repository\Game\GameRepository::class => Repository\Game\GameRepositoryFactory::class,
                     GamePlay\GamePlay::class => GamePlay\GamePlayFactory::class,
                     State\GameState\GameState::class => State\GameState\GameStateFactory::class,
                     Handlers\ActionHandler\ActionHandler::class => Handlers\ActionHandler\ActionHandlerFactory::class,
