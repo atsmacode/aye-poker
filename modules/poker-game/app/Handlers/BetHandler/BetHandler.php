@@ -3,8 +3,8 @@
 namespace Atsmacode\PokerGame\Handlers\BetHandler;
 
 use Atsmacode\Framework\Database\Database;
+use Atsmacode\PokerGame\Repository\Stack\StackRepository;
 use Atsmacode\PokerGame\Models\Hand;
-use Atsmacode\PokerGame\Models\Stack;
 use Atsmacode\PokerGame\Services\Pots\PotService;
 
 /**
@@ -16,7 +16,7 @@ class BetHandler extends Database
 {
     public function __construct(
         private PotService $potService,
-        private Stack $stacks
+        private StackRepository $stackRepo
     ) {
     }
 
@@ -31,7 +31,7 @@ class BetHandler extends Database
         if ($betAmount) {
             $stack = $stackAmount - $betAmount;
 
-            $this->stacks->change($stack, $playerId, $tableId);
+            $this->stackRepo->change($stack, $playerId, $tableId);
             $this->potService->updatePot($betAmount, $hand->getId());
         }
 

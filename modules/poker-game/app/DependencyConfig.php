@@ -49,6 +49,7 @@ class DependencyConfig
                     Repository\Table\TableRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,
                     Repository\HandStreet\HandStreetRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,
                     Repository\Player\PlayerRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,
+                    Repository\Stack\StackRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,
                     State\PlayerState\PlayerState::class => State\PlayerState\PlayerStateFactory::class,
                     Handlers\BetHandler\BetHandler::class => Handlers\BetHandler\BetHandlerFactory::class,
                     Services\Pots\PotService::class => Services\Pots\PotServiceFactory::class,

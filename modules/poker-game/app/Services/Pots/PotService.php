@@ -4,7 +4,7 @@ namespace Atsmacode\PokerGame\Services\Pots;
 
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Pot;
-use Atsmacode\PokerGame\Models\Stack;
+use Atsmacode\PokerGame\Repository\Stack\StackRepository;
 
 /**
  * Assorted methods for Pots.
@@ -12,7 +12,7 @@ use Atsmacode\PokerGame\Models\Stack;
 class PotService
 {
     public function __construct(
-        private Stack $stacks,
+        private StackRepository $stackRepo,
         private Pot $pots,
     ) {
     }
@@ -26,7 +26,7 @@ class PotService
     {
         $amount = $stackAmount + $potAmount;
 
-        $this->stacks->change($amount, $playerId, $tableId);
+        $this->stackRepo->change($amount, $playerId, $tableId);
     }
 
     public function updatePot(float $betAmount, int $handId): void
