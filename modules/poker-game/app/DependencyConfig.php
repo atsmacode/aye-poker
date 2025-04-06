@@ -20,7 +20,7 @@ class DependencyConfig
                 //     ConfigAbstractFactory::class,
                 // ],
                 'invokables' => [
-                    PlayerHandler\PlayerHandler::class,
+                    State\PlayerState\PlayerState::class,
                     Game\PotLimitHoldEm::class,
                     Game\PotLimitOmaha::class,
                     Controllers\Player\Controller::class,
@@ -45,7 +45,7 @@ class DependencyConfig
                     Models\HandStreetCard::class => \Atsmacode\Framework\Models\ModelFactory::class,
                     Models\HandType::class => \Atsmacode\Framework\Models\ModelFactory::class,
                     Models\Deck::class => \Atsmacode\Framework\Models\ModelFactory::class,
-                    PlayerHandler\PlayerHandler::class => PlayerHandler\PlayerHandlerFactory::class,
+                    State\PlayerState\PlayerState::class => State\PlayerState\PlayerStateFactory::class,
                     Handlers\BetHandler\BetHandler::class => Handlers\BetHandler\BetHandlerFactory::class,
                     Services\PotService\PotService::class => Services\PotService\PotServiceFactory::class,
                     GamePlay\HandStep\NewStreet::class => GamePlay\HandStep\NewStreetFactory::class,

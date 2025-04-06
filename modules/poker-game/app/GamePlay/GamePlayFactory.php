@@ -9,7 +9,7 @@ use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
 use Atsmacode\PokerGame\GamePlay\HandStep\Showdown;
 use Atsmacode\PokerGame\GamePlay\HandStep\Start;
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\PlayerHandler\PlayerHandler;
+use Atsmacode\PokerGame\State\PlayerState\PlayerState;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 
@@ -20,6 +20,7 @@ class GamePlayFactory implements FactoryInterface
         $gameState = isset($options['gameState']) ? $options['gameState'] : new GameState(
             $container->get(GameData::class),
             $container->get(PokerDealer::class),
+            $container->get(PlayerState::class),
             isset($options['hand']) ? $options['hand'] : null
         );
 
@@ -29,7 +30,6 @@ class GamePlayFactory implements FactoryInterface
             $container->get(Start::class),
             $container->get(NewStreet::class),
             $container->get(Showdown::class),
-            $container->get(PlayerHandler::class),
             $container->get(TableSeat::class)
         );
     }

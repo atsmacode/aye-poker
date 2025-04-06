@@ -9,7 +9,7 @@ use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
 use Atsmacode\PokerGame\GamePlay\HandStep\Showdown;
 use Atsmacode\PokerGame\GamePlay\HandStep\Start;
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\PlayerHandler\PlayerHandler;
+use Atsmacode\PokerGame\State\PlayerState\PlayerState;
 
 /**
  * Responsible for deciding what happens next in a hand and
@@ -23,7 +23,6 @@ class GamePlay
         private Start $start,
         private NewStreet $newStreet,
         private Showdown $showdown,
-        private PlayerHandler $playerHandler,
         private TableSeat $tableSeats,
     ) {
         $this->gameState->setGame($game);
@@ -46,7 +45,7 @@ class GamePlay
         return [
             'pot' => $this->gameState->getPot(),
             'communityCards' => $this->gameState->getCommunityCards(),
-            'players' => $this->playerHandler->handle($this->gameState),
+            'players' => $this->gameState->getPlayerState(),
             'winner' => $this->gameState->getWinner(),
             'sittingOut' => $this->gameState->getSittingOutPlayers(),
         ];

@@ -1,15 +1,15 @@
 <?php
 
-namespace Atsmacode\PokerGame\PlayerHandler;
+namespace Atsmacode\PokerGame\State\PlayerState;
 
 use Atsmacode\PokerGame\Models\TableSeat;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 
-class PlayerHandlerFactory implements FactoryInterface
+class PlayerStateFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        return new PlayerHandler($container->get(TableSeat::class));
+        return new PlayerState($container->get(TableSeat::class));
     }
 }

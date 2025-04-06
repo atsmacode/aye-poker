@@ -10,6 +10,7 @@ use Atsmacode\PokerGame\GameData\GameData;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Table;
+use Atsmacode\PokerGame\State\PlayerState\PlayerState;
 
 class GameState
 {
@@ -33,7 +34,8 @@ class GameState
     public function __construct(
         private GameData $gameData,
         private PokerDealer $pokerDealer,
-        private ?Hand $hand,
+        private PlayerState $playerState,
+        private ?Hand $hand
     ) {
         if ($hand) {
             $this->initiate($hand);
@@ -306,5 +308,10 @@ class GameState
         $acted = array_filter($actions, function ($value) { return null !== $value['action_id']; });
 
         return 0 === count($acted);
+    }
+
+    public function getPlayerState(): array
+    {
+        return $this->playerState->get($this);
     }
 }

@@ -21,7 +21,7 @@ class Showdown extends HandStep
         $this->gameState = $gameState;
 
         $this->gameState->setPlayers();
-        $this->gameState->setWholeCards(); /** This is done again in PlayerHandler, try reduce to 1 call */
+        $this->gameState->setWholeCards(); /** This is done again in PlayerState, try reduce to 1 call */
         $winner = (new TheShowdown($this->gameState))->compileHands()->decideWinner();
 
         $this->gameState->setWinner($winner);

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Atsmacode\PokerGame\PlayerHandler;
+namespace Atsmacode\PokerGame\State\PlayerState;
 
 use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\State\GameState\GameState;
@@ -11,7 +11,7 @@ use Atsmacode\PokerGame\Models\TableSeat;
 /**
  * Responsible for returning the status and options for the players in a hand.
  */
-class PlayerHandler implements PlayerHandlerInterface
+class PlayerState implements PlayerStateInterface
 {
     private GameState $gameState;
 
@@ -20,7 +20,7 @@ class PlayerHandler implements PlayerHandlerInterface
     ) {
     }
 
-    public function handle(GameState $gameState): array
+    public function get(GameState $gameState): array
     {
         $this->gameState = $gameState;
         $playerData = [];
