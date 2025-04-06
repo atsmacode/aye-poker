@@ -5,6 +5,9 @@ namespace Atsmacode\PokerGame\GamePlay\Showdown;
 use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\GamePlay\HandIdentifier\HandIdentifier;
 
+/**
+ * Decide the winnder by comparing the hand types/ranks found by HandIdentifier.
+ */
 class Showdown
 {
     public HandIdentifier $handIdentifier;
@@ -20,10 +23,7 @@ class Showdown
      */
     private array $playerHands = [];
 
-    /**
-     * @param GameState $gameState
-     */
-    public function __construct($gameState)
+    public function __construct(GameState $gameState)
     {
         $this->handIdentifier = new HandIdentifier();
         $this->gameState = $gameState;

@@ -6,6 +6,9 @@ use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Pot;
 use Atsmacode\PokerGame\Models\Stack;
 
+/**
+ * Assorted methods for Pots.
+ */
 class PotService
 {
     public function __construct(

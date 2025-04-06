@@ -9,12 +9,12 @@ use Atsmacode\PokerGame\Models\Hand;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Key service for use in Controllers or applications using this package
+ * internally. Handles an Action Request and initiates GamePlay response.
+ */
 class GamePlayService
 {
-    /**
-     * To be set to the fully qualified class name of an
-     * implementation of the Game interface.
-     */
     protected string $game = PotLimitHoldEm::class;
 
     public function __construct(

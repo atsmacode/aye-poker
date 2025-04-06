@@ -12,6 +12,11 @@ use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\PlayerActionLog;
 use Atsmacode\PokerGame\Models\TableSeat;
 
+/**
+ * Handle an Action performed by a Player.
+ * 
+ * TODO: use/return Action Model
+ */
 class ActionHandler implements ActionHandlerInterface
 {
     public function __construct(

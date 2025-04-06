@@ -6,6 +6,11 @@ use Atsmacode\CardGames\Constants\Rank;
 use Atsmacode\CardGames\Constants\Suit;
 use Atsmacode\PokerGame\Constants\HandType;
 
+/**
+ * Identify Hand Types based on whole/community cards.
+ * 
+ * TODO: use/return HandType Model
+ */
 class HandIdentifier
 {
     private array $handTypes;

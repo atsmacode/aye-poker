@@ -11,8 +11,8 @@ use Atsmacode\PokerGame\GamePlay\HandStep\Start;
 use Atsmacode\PokerGame\Models\TableSeat;
 
 /**
- * Responsible for deciding what happens next in a hand and
- * providing the response to the front-end application.
+ * Responsible for deciding what happens next in a hand based on the
+ * GameState and providing the response to the front-end application.
  */
 class GamePlay
 {

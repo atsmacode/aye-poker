@@ -9,7 +9,7 @@ use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\Models\TableSeat;
 
 /**
- * Responsible for providing the baseline data a Hand needs throught the process.
+ * Responsible for providing the baseline data a Game needs throught the process.
  */
 class GameRepository
 {

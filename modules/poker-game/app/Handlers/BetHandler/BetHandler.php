@@ -12,6 +12,11 @@ use Atsmacode\PokerGame\Models\Stack;
 use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Services\PotService\PotService;
 
+/**
+ * Handle a bet performed by a Player.
+ * 
+ * TODO: Create a Bet Model for use here?
+ */
 class BetHandler extends Database
 {
     public function __construct(

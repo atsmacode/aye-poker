@@ -12,6 +12,10 @@ use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Handlers\SitHandler\SitHandler;
 use Psr\Container\ContainerInterface;
 
+/**
+ * Key service for use in Controllers or applications using this package
+ * internally. Handles a user visiting the page/table and initiates GamePlay response.
+ */
 class JoinTable
 {
     private string $game = PotLimitHoldEm::class;

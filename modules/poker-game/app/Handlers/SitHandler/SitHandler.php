@@ -4,6 +4,9 @@ namespace Atsmacode\PokerGame\Handlers\SitHandler;
 
 use Atsmacode\PokerGame\Models\TableSeat;
 
+/**
+ * Handle a Player taking a seat.
+ */
 class SitHandler
 {
     public function __construct(private TableSeat $tableSeats)

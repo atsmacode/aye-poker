@@ -12,6 +12,12 @@ use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\State\PlayerState\PlayerState;
 
+/** 
+ * Mutable. Holds the state of the Game throughout the lifecycle.
+ * 
+ * Most significantly, GameState is calculated based on the latest player action,
+ * and is passed to the next required HandStep identified by GamePlay.
+ */
 class GameState
 {
     private array $communityCards = [];

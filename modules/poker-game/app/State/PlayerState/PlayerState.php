@@ -9,7 +9,7 @@ use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\Models\TableSeat;
 
 /**
- * Responsible for returning the status and options for the players in a hand.
+ * Responsible for returning the status and options for the players based on the GameState.
  */
 class PlayerState implements PlayerStateInterface
 {
