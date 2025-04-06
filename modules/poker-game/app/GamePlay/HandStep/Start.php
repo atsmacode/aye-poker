@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
-use Atsmacode\PokerGame\Services\BlindService\BlindService;
+use Atsmacode\PokerGame\Services\Blinds\BlindService;
 use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\Models\HandStreet;
 use Atsmacode\PokerGame\Models\PlayerAction;

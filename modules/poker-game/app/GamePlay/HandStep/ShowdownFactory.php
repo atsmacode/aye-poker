@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
-use Atsmacode\PokerGame\Services\PotService\PotService;
+use Atsmacode\PokerGame\Services\Pots\PotService;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 

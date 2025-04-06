@@ -1,13 +1,13 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Unit\Services\PotService;
+namespace Atsmacode\PokerGame\Tests\Unit\Services\Pots;
 
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\Pot;
 use Atsmacode\PokerGame\Models\Stack;
 use Atsmacode\PokerGame\Models\Table;
-use Atsmacode\PokerGame\Services\PotService\PotService;
+use Atsmacode\PokerGame\Services\Pots\PotService;
 use Atsmacode\PokerGame\Tests\BaseTest;
 
 class PotServiceTest extends BaseTest

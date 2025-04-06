@@ -7,7 +7,7 @@ use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Stack;
 use Atsmacode\PokerGame\Models\Street;
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\Services\BlindService\BlindService;
+use Atsmacode\PokerGame\Services\Blinds\BlindService;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 

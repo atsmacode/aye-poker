@@ -4,7 +4,7 @@ namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
 use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\Services\PotService\PotService;
+use Atsmacode\PokerGame\Services\Pots\PotService;
 use Atsmacode\PokerGame\GamePlay\Showdown\Showdown as TheShowdown;
 
 /**

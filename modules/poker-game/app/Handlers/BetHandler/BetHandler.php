@@ -5,7 +5,7 @@ namespace Atsmacode\PokerGame\Handlers\BetHandler;
 use Atsmacode\Framework\Database\Database;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Stack;
-use Atsmacode\PokerGame\Services\PotService\PotService;
+use Atsmacode\PokerGame\Services\Pots\PotService;
 
 /**
  * Handle a bet performed by a Player.
