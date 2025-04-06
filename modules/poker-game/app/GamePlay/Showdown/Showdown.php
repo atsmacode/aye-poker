@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\GamePlay\Showdown;
 
-use Atsmacode\PokerGame\GameState\GameState;
+use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\GamePlay\HandIdentifier\HandIdentifier;
 
 class Showdown

@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
-use Atsmacode\PokerGame\GameState\GameState;
+use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\Models\TableSeat;
 
 abstract class HandStep

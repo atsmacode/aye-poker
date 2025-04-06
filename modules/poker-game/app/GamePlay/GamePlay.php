@@ -3,7 +3,7 @@
 namespace Atsmacode\PokerGame\GamePlay;
 
 use Atsmacode\PokerGame\Game\Game;
-use Atsmacode\PokerGame\GameState\GameState;
+use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\GamePlay\HandStep\HandStep;
 use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
 use Atsmacode\PokerGame\GamePlay\HandStep\Showdown;

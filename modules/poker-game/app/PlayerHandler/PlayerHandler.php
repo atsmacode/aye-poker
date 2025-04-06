@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Atsmacode\PokerGame\PlayerHandler;
 
 use Atsmacode\PokerGame\Constants\Action;
-use Atsmacode\PokerGame\GameState\GameState;
+use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\Models\TableSeat;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\GameState;
+namespace Atsmacode\PokerGame\State\GameState;
 
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\GameData\GameData;

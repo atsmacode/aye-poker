@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Atsmacode\PokerGame\PlayerHandler;
 
-use Atsmacode\PokerGame\GameState\GameState;
+use Atsmacode\PokerGame\State\GameState\GameState;
 
 interface PlayerHandlerInterface
 {

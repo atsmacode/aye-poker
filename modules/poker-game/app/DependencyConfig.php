@@ -54,7 +54,7 @@ class DependencyConfig
                     Factory\PlayerActionFactory::class => Factory\PlayerActionFactoryFactory::class,
                     GameData\GameData::class => GameData\GameDataFactory::class,
                     GamePlay\GamePlay::class => GamePlay\GamePlayFactory::class,
-                    GameState\GameState::class => GameState\GameStateFactory::class,
+                    State\GameState\GameState::class => State\GameState\GameStateFactory::class,
                     Handlers\ActionHandler\ActionHandler::class => Handlers\ActionHandler\ActionHandlerFactory::class,
                     Controllers\PotLimitHoldEm\SitController::class => Controllers\SitControllerFactory::class,
                     Controllers\PotLimitOmaha\SitController::class => Controllers\SitControllerFactory::class,

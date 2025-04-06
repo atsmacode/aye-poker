@@ -6,7 +6,7 @@ namespace Atsmacode\PokerGame\Handlers\ActionHandler;
 
 use Atsmacode\PokerGame\Handlers\BetHandler\BetHandler;
 use Atsmacode\PokerGame\Constants\Action;
-use Atsmacode\PokerGame\GameState\GameState;
+use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\PlayerActionLog;
