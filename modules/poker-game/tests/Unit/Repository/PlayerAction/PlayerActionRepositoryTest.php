@@ -1,18 +1,18 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Unit\Models;
+namespace Atsmacode\PokerGame\Tests\Unit\Repository\PlayerAction;
 
-use Atsmacode\PokerGame\Models\PlayerAction;
+use Atsmacode\PokerGame\Repository\PlayerAction\PlayerActionRepository;
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
 use Atsmacode\PokerGame\Tests\HasGamePlay;
 
-class PlayerActionTest extends BaseTest
+class PlayerActionRepositoryTest extends BaseTest
 {
     use HasGamePlay;
     use HasActionPosts;
 
-    private PlayerAction $playerActions;
+    private PlayerActionRepository $playerActionRepo;
 
     protected function setUp(): void
     {
@@ -22,7 +22,7 @@ class PlayerActionTest extends BaseTest
             ->setHand()
             ->setGamePlay();
 
-        $this->playerActions = $this->container->build(PlayerAction::class);
+        $this->playerActionRepo = $this->container->build(PlayerActionRepository::class);
     }
 
     /**
@@ -36,7 +36,7 @@ class PlayerActionTest extends BaseTest
         $this->gameState->setBigBlind();
 
         $bigBlind = $this->gameState->getBigBlind();
-        $latestAction = $this->playerActions->getLatestAction($this->testHand->getId());
+        $latestAction = $this->playerActionRepo->getLatestAction($this->testHand->getId());
 
         $this->assertEquals($bigBlind['table_seat_id'], $latestAction->getTableSeatId());
     }

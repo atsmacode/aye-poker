@@ -85,48 +85,6 @@ class PlayerAction extends Model
         return $this->table_seat_id;
     }
 
-    public function getLatestAction(int $handId): ?PlayerAction
-    {
-        try {
-            $queryBuilder = $this->connection->createQueryBuilder();
-            $queryBuilder
-                ->select('*')
-                ->from('player_actions', 'pa')
-                ->leftJoin('pa', 'player_action_logs', 'pal', 'pa.id = pal.player_status_id')
-                ->where('pa.hand_id = '.$handId)
-                ->orderBy('pal.id', 'DESC');
-
-            $rows = $queryBuilder->executeQuery() ? $queryBuilder->fetchAssociative() : [];
-
-            $this->content = $rows;
-
-            $this->setModelProperties([$rows]);
-
-            return $this;
-        } catch (\Exception $e) {
-            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
-
-            return null;
-        }
-    }
-
-    public function getStreetActions(int $handStreetId): ?array
-    {
-        try {
-            $queryBuilder = $this->connection->createQueryBuilder();
-            $queryBuilder
-                ->select('*')
-                ->from('player_actions', 'pa')
-                ->where('pa.hand_street_id = '.$handStreetId);
-
-            return $queryBuilder->executeQuery() ? $queryBuilder->fetchAllAssociative() : [];
-        } catch (\Exception $e) {
-            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
-
-            return null;
-        }
-    }
-
     public function find(?array $data = null): ?PlayerAction
     {
         return parent::find($data); /* @phpstan-ignore return.type */

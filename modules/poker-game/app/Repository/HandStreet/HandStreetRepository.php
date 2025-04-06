@@ -24,4 +24,21 @@ class HandStreetRepository extends Database
             return null;
         }
     }
+
+    public function getStreetActions(int $handStreetId): ?array
+    {
+        try {
+            $queryBuilder = $this->connection->createQueryBuilder();
+            $queryBuilder
+                ->select('*')
+                ->from('player_actions', 'pa')
+                ->where('pa.hand_street_id = '.$handStreetId);
+
+            return $queryBuilder->executeQuery() ? $queryBuilder->fetchAllAssociative() : [];
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
+        }
+    }
 }
