@@ -114,6 +114,7 @@ abstract class Model extends Database
     /** To be used to update a single model instance. */
     public function update(array $data): ?self
     {
+        $requestedData = $data;
         $properties = $this->compileUpdateStatement($data);
 
         try {
@@ -132,7 +133,7 @@ abstract class Model extends Database
             return null;
         }
 
-        return $this->refresh();
+        return $this->refresh([$requestedData]);
     }
 
     /** To be used to update a multiple model instances. */
@@ -157,28 +158,30 @@ abstract class Model extends Database
         return true;
     }
 
-    public function refresh(): ?self
+    public function refresh(?array $withData): ?self
     {
         $rows = null;
 
-        try {
-            $stmt = $this->connection->prepare("
-                SELECT * FROM {$this->table} WHERE id = {$this->id}
-            ");
-
-            $results = $stmt->executeQuery();
-            $rows = $results->fetchAllAssociative();
-        } catch (\Throwable $e) {
-            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
-
-            return null;
+        if (!$withData) {
+            try {
+                $stmt = $this->connection->prepare("
+                    SELECT * FROM {$this->table} WHERE id = {$this->id}
+                ");
+    
+                $results = $stmt->executeQuery();
+                $rows = $results->fetchAllAssociative();
+            } catch (\Throwable $e) {
+                $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+    
+                return null;
+            }
         }
 
-        if ($rows) {
-            $this->content = $rows;
+        $data = $withData ?? $rows;
 
-            $this->setModelProperties($rows);
-        }
+        $this->content = $data;
+
+        $this->setModelProperties($data);
 
         return $this;
     }
