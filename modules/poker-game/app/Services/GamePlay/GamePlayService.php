@@ -5,7 +5,7 @@ namespace Atsmacode\PokerGame\Services\GamePlay;
 use Atsmacode\PokerGame\Handlers\ActionHandler\ActionHandler;
 use Atsmacode\PokerGame\GamePlay\GamePlay;
 use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
-use Atsmacode\PokerGame\Models\Hand;
+use Atsmacode\PokerGame\Repository\Hand\HandRepository;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,14 +20,14 @@ class GamePlayService
     public function __construct(
         private ContainerInterface $container,
         private ActionHandler $actionHandler,
-        private Hand $hands,
+        private HandRepository $handRepo,
     ) {
     }
 
     public function action(Request $request): array
     {
         $requestBody = $request->toArray();
-        $hand = $this->hands->latest();
+        $hand = $this->handRepo->getLatest();
         $gameState = $this->actionHandler->handle(
             $hand,
             $requestBody['player_id'],

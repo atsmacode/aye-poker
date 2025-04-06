@@ -30,6 +30,11 @@ class Hand extends Model
         return $this->completed_on;
     }
 
+    public function find(array $data ): ?Hand
+    {
+        return parent::find($data); /* @phpstan-ignore return.type */
+    }
+
     public function streets(): ?array
     {
         try {
@@ -76,44 +81,6 @@ class Hand extends Model
                 ->where('id = '.$queryBuilder->createNamedParameter($this->id));
 
             return $queryBuilder->executeStatement();
-        } catch (\Exception $e) {
-            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
-
-            return null;
-        }
-    }
-
-    public function latest(): ?Hand
-    {
-        $query = sprintf('
-            SELECT * FROM hands ORDER BY id DESC LIMIT 1
-        ');
-
-        try {
-            /**
-             * @todo Using query builder here returns no results and causes:
-             * SQLSTATE[HY000]: General error: 2014 Cannot execute queries while
-             * other unbuffered queries are active.
-             */
-            // $queryBuilder = $this->connection->createQueryBuilder();
-            // $queryBuilder
-            //     ->select('*')
-            //     ->from('hands')
-            //     ->orderBy('id', 'DESC')
-            //     ->setMaxResults(1);
-
-            // $rows = $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
-
-            // $this->setModelProperties($rows);
-
-            // return $this;
-            $stmt = $this->connection->prepare($query);
-            $results = $stmt->executeQuery();
-            $rows = $results->fetchAllAssociative();
-
-            $this->setModelProperties($rows);
-
-            return $this;
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 
