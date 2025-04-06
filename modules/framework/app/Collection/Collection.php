@@ -2,7 +2,7 @@
 
 namespace Atsmacode\Framework\Collection;
 
-use Atsmacode\Framework\Dbal\Model;
+use Atsmacode\Framework\Models\Model;
 
 trait Collection
 {

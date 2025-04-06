@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\Framework\Dbal;
+namespace Atsmacode\Framework\Models;
 
 use Atsmacode\Framework\Database\ConnectionInterface;
 use Atsmacode\Framework\Database\Database;

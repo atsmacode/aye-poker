@@ -3,7 +3,6 @@
 namespace Atsmacode\Framework\Models;
 
 use Atsmacode\Framework\Database\ConnectionInterface;
-use Atsmacode\Framework\Dbal\Model;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;

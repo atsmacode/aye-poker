@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\Models;
 
-use Atsmacode\Framework\Dbal\Model;
+use Atsmacode\Framework\Models\Model;
 
 class Action extends Model
 {
