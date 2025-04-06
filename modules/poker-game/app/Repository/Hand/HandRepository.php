@@ -4,18 +4,9 @@ namespace Atsmacode\PokerGame\Repository\Hand;
 
 use Atsmacode\Framework\Database\Database;
 use Atsmacode\PokerGame\Models\Hand;
-use Psr\Log\LoggerInterface;
 
 class HandRepository extends Database
 {
-    public function __construct(
-        protected mixed $connection,
-        protected LoggerInterface $logger,
-        private Hand $hands
-    ) {
-        parent::__construct($connection, $logger);
-    }
-
     public function getLatest(): ?Hand
     {
         $query = sprintf('
@@ -41,7 +32,9 @@ class HandRepository extends Database
             $results = $stmt->executeQuery();
             $rows =  $results->fetchAllAssociative();
 
-            return $this->hands->find($rows[0]);
+            $hands = $this->container->get(Hand::class);
+
+            return $hands->find($rows[0]);
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 

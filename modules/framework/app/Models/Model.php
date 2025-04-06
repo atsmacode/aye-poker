@@ -25,9 +25,9 @@ abstract class Model extends Database
         ConnectionInterface $connection,
         LoggerInterface $logger,
         \ReflectionClass $reflection,
-        protected ContainerInterface $container
+        ContainerInterface $container
     ) {
-        parent::__construct($connection, $logger);
+        parent::__construct($connection, $logger, $container);
 
         $this->reflection = $reflection;
     }

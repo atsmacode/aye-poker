@@ -56,7 +56,7 @@ abstract class Migrator extends Command
                     $this->container->setFactory(\PDO::class, new $this->legacyTestDbFactory());
                 }
 
-                (new CreateDatabase($this->container->get(\PDO::class), $logger))
+                (new CreateDatabase($this->container->get(\PDO::class), $logger, $this->container))
                     ->dropDatabase()
                     ->createDatabase();
 

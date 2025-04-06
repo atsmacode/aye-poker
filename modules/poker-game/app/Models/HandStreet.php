@@ -3,6 +3,7 @@
 namespace Atsmacode\PokerGame\Models;
 
 use Atsmacode\Framework\Models\Model;
+use Atsmacode\PokerGame\Repository\HandStreet\HandStreetRepository;
 
 class HandStreet extends Model
 {
@@ -28,15 +29,9 @@ class HandStreet extends Model
     public function getStreetCards(int $handId, int $streetId): ?array
     {
         try {
-            $queryBuilder = $this->connection->createQueryBuilder();
-            $queryBuilder
-                ->select('*')
-                ->from('hand_streets', 'hs')
-                ->leftJoin('hs', 'hand_street_cards', 'hsc', 'hs.id = hsc.hand_street_id')
-                ->where('hs.hand_id = '.$queryBuilder->createNamedParameter($handId))
-                ->andWhere('hs.street_id = '.$queryBuilder->createNamedParameter($streetId));
+            $handStreetRepo = $this->container->get(HandStreetRepository::class);
 
-            return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
+            return $handStreetRepo->getStreetCards($handId, $streetId);
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
 

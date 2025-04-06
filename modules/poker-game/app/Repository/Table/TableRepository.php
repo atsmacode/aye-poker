@@ -3,17 +3,9 @@
 namespace Atsmacode\PokerGame\Repository\Table;
 
 use Atsmacode\Framework\Database\Database;
-use Psr\Log\LoggerInterface;
 
 class TableRepository extends Database
 {
-    public function __construct(
-        protected mixed $connection,
-        protected LoggerInterface $logger
-    ) {
-        parent::__construct($connection, $logger);
-    }
-
     public function getSeats(int $tableId): ?array
     {
         try {
