@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Atsmacode\PokerGame\Handlers\ActionHandler;
+namespace Atsmacode\PokerGame\Handlers\Action;
 
-use Atsmacode\PokerGame\Handlers\BetHandler\BetHandler;
+use Atsmacode\PokerGame\Handlers\Bet\BetHandler;
 use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\Models\Hand;

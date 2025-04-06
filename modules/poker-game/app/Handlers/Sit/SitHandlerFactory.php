@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\Handlers\SitHandler;
+namespace Atsmacode\PokerGame\Handlers\Sit;
 
 use Atsmacode\PokerGame\Models\TableSeat;
 use Laminas\ServiceManager\Factory\FactoryInterface;

@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\Services\GamePlay;
 
-use Atsmacode\PokerGame\Handlers\ActionHandler\ActionHandler;
+use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
 use Atsmacode\PokerGame\GamePlay\GamePlay;
 use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
 use Atsmacode\PokerGame\Repository\Hand\HandRepository;

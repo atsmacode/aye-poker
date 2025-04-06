@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\Services\GamePlay;
 
-use Atsmacode\PokerGame\Handlers\ActionHandler\ActionHandler;
+use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
 use Atsmacode\PokerGame\Repository\Hand\HandRepository;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;

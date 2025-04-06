@@ -8,7 +8,7 @@ use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\Handlers\SitHandler\SitHandler;
+use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
 use Atsmacode\PokerGame\Repository\Table\TableRepository;
 use Psr\Container\ContainerInterface;
 

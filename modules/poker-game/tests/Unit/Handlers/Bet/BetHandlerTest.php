@@ -1,8 +1,8 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Unit\Handlers\BetHandler;
+namespace Atsmacode\PokerGame\Tests\Unit\Handlers\Bet;
 
-use Atsmacode\PokerGame\Handlers\BetHandler\BetHandler;
+use Atsmacode\PokerGame\Handlers\Bet\BetHandler;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\Pot;
