@@ -63,7 +63,7 @@ class DependencyConfig
                     Controllers\PotLimitOmaha\PlayerActionController::class => Controllers\PlayerActionControllerFactory::class,
                     Controllers\Player\Controller::class => Controllers\ControllerFactory::class,
                     Handlers\SitHandler\SitHandler::class => Handlers\SitHandler\SitHandlerFactory::class,
-                    Services\JoinTable::class => Services\JoinTableFactory::class,
+                    Services\SitService::class => Services\SitServiceFactory::class,
                     Services\GamePlayService::class => Services\GamePlayServiceFactory::class,
                 ],
             ],

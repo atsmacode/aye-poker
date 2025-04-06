@@ -16,7 +16,7 @@ use Psr\Container\ContainerInterface;
  * Key service for use in Controllers or applications using this package
  * internally. Handles a user visiting the page/table and initiates GamePlay response.
  */
-class JoinTable
+class SitService
 {
     private string $game = PotLimitHoldEm::class;
 

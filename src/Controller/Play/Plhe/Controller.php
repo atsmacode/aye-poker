@@ -5,7 +5,7 @@ namespace App\Controller\Play\Plhe;
 use App\Service\MercureUpdate;
 use App\Service\PokerGame;
 use Atsmacode\PokerGame\Services\GamePlayService;
-use Atsmacode\PokerGame\Services\JoinTable;
+use Atsmacode\PokerGame\Services\SitService;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +40,7 @@ class Controller extends AbstractController
         $serviceManager = $pokerGame->getServiceManager();
         $userPlayer     = $security->getUser()->getUserPlayer();
 
-        $response = $serviceManager->get(JoinTable::class)->sit(playerId: $userPlayer->getPlayerId());
+        $response = $serviceManager->get(SitService::class)->sit(playerId: $userPlayer->getPlayerId());
         $response = $this->addMercureUrlToArray($response, self::MERCURE_ACTION_TOPIC);
         $response = json_encode($response);
     

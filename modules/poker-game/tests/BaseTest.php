@@ -16,7 +16,7 @@ use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Models\WholeCard;
 use Atsmacode\PokerGame\PokerGameConfigProvider;
 use Atsmacode\PokerGame\Services\GamePlayService;
-use Atsmacode\PokerGame\Services\JoinTable;
+use Atsmacode\PokerGame\Services\SitService;
 use Faker;
 use Faker\Generator as Fake;
 use Laminas\ServiceManager\ServiceManager;
@@ -35,7 +35,7 @@ abstract class BaseTest extends TestCase
     protected Street $streets;
     protected PokerDealer $pokerDealer;
     protected ActionHandler $actionHandler;
-    protected JoinTable $joinTable;
+    protected SitService $sitService;
     protected GamePlayService $gamePlayService;
     protected Fake $fake;
 
@@ -59,7 +59,7 @@ abstract class BaseTest extends TestCase
         $this->streets = $this->container->build(Street::class);
         $this->pokerDealer = $this->container->build(PokerDealer::class);
         $this->actionHandler = $this->container->build(ActionHandler::class);
-        $this->joinTable = $this->container->build(JoinTable::class);
+        $this->sitService = $this->container->build(SitService::class);
         $this->gamePlayService = $this->container->build(GamePlayService::class);
         $this->fake = Faker\Factory::create();
 

@@ -3,12 +3,12 @@
 namespace Atsmacode\PokerGame\Controllers;
 
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\Services\JoinTable;
+use Atsmacode\PokerGame\Services\SitService;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class SitController
 {
-    public function __construct(private JoinTable $joinTableService)
+    public function __construct(private SitService $sitService)
     {
     }
 
@@ -20,7 +20,7 @@ abstract class SitController
         ?TableSeat $currentDealer = null,
         ?int $playerId = null,
     ): Response {
-        $response = $this->joinTableService->sit(
+        $response = $this->sitService->sit(
             $tableId,
             $currentDealer,
             $playerId

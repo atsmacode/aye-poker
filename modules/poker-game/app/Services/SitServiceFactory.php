@@ -9,11 +9,11 @@ use Atsmacode\PokerGame\Handlers\SitHandler\SitHandler;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 
-class JoinTableFactory implements FactoryInterface
+class SitServiceFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        return new JoinTable(
+        return new SitService(
             $container,
             $container->get(Hand::class),
             $container->get(Table::class),
