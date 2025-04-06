@@ -13,7 +13,7 @@ class SitHandler
     {
     }
 
-    public function sit(int $playerId, ?int $thisSeat = null): TableSeat
+    public function handle(int $playerId, ?int $thisSeat = null): TableSeat
     {
         $currentSeat = $this->tableSeats->getCurrentPlayerSeat($playerId);
 

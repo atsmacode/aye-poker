@@ -35,7 +35,7 @@ class JoinTable
         ?int $playerId = null,
     ): array {
         if (null !== $playerId) {
-            $playerSeat = $this->sitHandler->sit($playerId);
+            $playerSeat = $this->sitHandler->handle($playerId);
             $tableId = $playerSeat->getTableId();
 
             if (2 > count($this->tables->hasMultiplePlayers($tableId))) {
