@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Atsmacode\PokerGame\State\GameState;
 
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
-use Atsmacode\PokerGame\GamePlay\Game\Game;
+use Atsmacode\PokerGame\GamePlay\GameStyle\GameStyle;
 use Atsmacode\PokerGame\Repository\Game\GameRepository;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
@@ -32,7 +32,7 @@ class GameState
     private array $players;
     private array $stacks;
     private bool $newStreet = false;
-    private Game $game;
+    private GameStyle $gameStyle;
     private PokerDealer $dealer;
     private array $bigBlind;
     private Table $table;
@@ -271,14 +271,14 @@ class GameState
         return $this->newStreet;
     }
 
-    public function setGame(Game $game): void
+    public function setStyle(GameStyle $gameStyle): void
     {
-        $this->game = $game;
+        $this->gameStyle = $gameStyle;
     }
 
-    public function getGame(): Game
+    public function getStyle(): GameStyle
     {
-        return $this->game;
+        return $this->gameStyle;
     }
 
     public function setGameDealer(): void

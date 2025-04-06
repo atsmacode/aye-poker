@@ -28,7 +28,7 @@ class NewStreet extends HandStep
         $handStreetCount = 0 < $this->gameState->handStreetCount() ? $this->gameState->handStreetCount() : 1;
 
         $newStreetId = $this->streets->find([
-            'name' => $this->gameState->getGame()->getStreets()[$handStreetCount + 1]['name'],
+            'name' => $this->gameState->getStyle()->getStreets()[$handStreetCount + 1]['name'],
         ])->getId();
 
         $handStreet = $this->handStreets->create([
@@ -39,7 +39,7 @@ class NewStreet extends HandStep
         $this->gameState->getGameDealer()->dealStreetCards(
             $this->gameState->handId(),
             $handStreet, // @phpstan-ignore argument.type (Model not PlayerAction)
-            $this->gameState->getGame()->getStreets()[$handStreetCount + 1]['community_cards']
+            $this->gameState->getStyle()->getStreets()[$handStreetCount + 1]['community_cards']
         )->setSavedDeck($this->gameState->getHand()->getId());
 
         $this->updatePlayerStatusesOnNewStreet($handStreet->getId());

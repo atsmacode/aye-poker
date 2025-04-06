@@ -3,8 +3,8 @@
 namespace Atsmacode\PokerGame\Services\GamePlay;
 
 use Atsmacode\PokerGame\Handlers\ActionHandler\ActionHandler;
-use Atsmacode\PokerGame\GamePlay\Game\PotLimitHoldEm;
 use Atsmacode\PokerGame\GamePlay\GamePlay;
+use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
 use Atsmacode\PokerGame\Models\Hand;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;

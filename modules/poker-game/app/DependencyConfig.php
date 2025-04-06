@@ -21,8 +21,8 @@ class DependencyConfig
                 // ],
                 'invokables' => [
                     State\PlayerState\PlayerState::class,
-                    GamePlay\Game\PotLimitHoldEm::class,
-                    GamePlay\Game\PotLimitOmaha::class,
+                    GamePlay\GameStyle\PotLimitHoldEm::class,
+                    GamePlay\GameStyle\PotLimitOmaha::class,
                     Controllers\Player\Controller::class,
                 ],
                 'factories' => [

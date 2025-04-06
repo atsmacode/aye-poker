@@ -14,7 +14,7 @@ trait HasStreets
         $this->gameState->getGameDealer()->dealStreetCards(
             $this->gameState->handId(),
             $flop,
-            $this->gameState->getGame()->streets[2]['community_cards']
+            $this->gameState->getStyle()->streets[2]['community_cards']
         );
     }
 
@@ -28,7 +28,7 @@ trait HasStreets
         $this->gameState->getGameDealer()->dealStreetCards(
             $this->gameState->handId(),
             $turn,
-            $this->gameState->getGame()->streets[3]['community_cards']
+            $this->gameState->getStyle()->streets[3]['community_cards']
         );
     }
 
@@ -42,14 +42,14 @@ trait HasStreets
         $this->gameState->getGameDealer()->dealStreetCards(
             $this->gameState->handId(),
             $river,
-            $this->gameState->getGame()->streets[4]['community_cards']
+            $this->gameState->getStyle()->streets[4]['community_cards']
         );
     }
 
     protected function setThisFlop(array $flopCards): void
     {
         $flop = $this->handStreets->create([
-            'street_id' => $this->streets->find(['name' => $this->gameState->getGame()->streets[1]['name']])->getId(),
+            'street_id' => $this->streets->find(['name' => $this->gameState->getStyle()->streets[1]['name']])->getId(),
             'hand_id' => $this->gameState->handId(),
         ]);
 
@@ -64,7 +64,7 @@ trait HasStreets
     protected function setThisTurn(array $turnCard): void
     {
         $turn = $this->handStreets->create([
-            'street_id' => $this->streets->find(['name' => $this->gameState->getGame()->streets[2]['name']])->getId(),
+            'street_id' => $this->streets->find(['name' => $this->gameState->getStyle()->streets[2]['name']])->getId(),
             'hand_id' => $this->gameState->handId(),
         ]);
 
@@ -77,7 +77,7 @@ trait HasStreets
     protected function setThisRiver(array $riverCard): void
     {
         $river = $this->handStreets->create([
-            'street_id' => $this->streets->find(['name' => $this->gameState->getGame()->streets[3]['name']])->getId(),
+            'street_id' => $this->streets->find(['name' => $this->gameState->getStyle()->streets[3]['name']])->getId(),
             'hand_id' => $this->gameState->handId(),
         ]);
 

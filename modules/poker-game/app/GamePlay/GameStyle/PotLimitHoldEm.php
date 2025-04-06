@@ -1,8 +1,8 @@
 <?php
 
-namespace Atsmacode\PokerGame\GamePlay\Game;
+namespace Atsmacode\PokerGame\GamePlay\GameStyle;
 
-class PotLimitHoldEm implements Game
+class PotLimitHoldEm implements GameStyle
 {
     public array $streets;
     public string $limit;
@@ -38,5 +38,10 @@ class PotLimitHoldEm implements Game
     public function getStreets(): array
     {
         return $this->streets;
+    }
+
+    public function getLimit(): string
+    {
+        return 'pot';
     }
 }

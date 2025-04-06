@@ -3,8 +3,8 @@
 namespace Atsmacode\PokerGame\Tests;
 
 use Atsmacode\PokerGame\Constants\Action;
-use Atsmacode\PokerGame\GamePlay\Game\PotLimitHoldEm;
 use Atsmacode\PokerGame\GamePlay\GamePlay;
+use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
 use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\GamePlay\HandStep\Start;
 use Atsmacode\PokerGame\Models\Hand;

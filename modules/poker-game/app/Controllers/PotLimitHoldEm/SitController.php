@@ -3,7 +3,7 @@
 namespace Atsmacode\PokerGame\Controllers\PotLimitHoldEm;
 
 use Atsmacode\PokerGame\Controllers\SitController as BaseSitController;
-use Atsmacode\PokerGame\GamePlay\Game\PotLimitHoldEm;
+use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
 
 class SitController extends BaseSitController
 {

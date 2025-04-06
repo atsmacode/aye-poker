@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\GamePlay;
 
-use Atsmacode\PokerGame\GamePlay\Game\Game;
+use Atsmacode\PokerGame\GamePlay\GameStyle\GameStyle;
 use Atsmacode\PokerGame\State\GameState\GameState;
 use Atsmacode\PokerGame\GamePlay\HandStep\HandStep;
 use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
@@ -18,13 +18,13 @@ class GamePlay
 {
     public function __construct(
         private GameState $gameState,
-        Game $game,
+        GameStyle $gameStyle,
         private Start $start,
         private NewStreet $newStreet,
         private Showdown $showdown,
         private TableSeat $tableSeats,
     ) {
-        $this->gameState->setGame($game);
+        $this->gameState->setStyle($gameStyle);
         $this->gameState->setGameDealer();
     }
 
@@ -83,7 +83,7 @@ class GamePlay
 
     protected function readyForShowdown(): bool
     {
-        return count($this->gameState->getHandStreets()) === count($this->gameState->getGame()->getStreets())
+        return count($this->gameState->getHandStreets()) === count($this->gameState->getStyle()->getStreets())
             && count($this->gameState->getActivePlayers()) === count($this->gameState->getContinuingPlayers());
     }
 
