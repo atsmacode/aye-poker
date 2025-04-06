@@ -50,7 +50,7 @@ abstract class Model extends Database
         return $this->content;
     }
 
-    public function find(?array $data = null): ?self
+    public function find(array $data ): ?self
     {
         $rows = null;
         $properties = $this->compileWhereStatement($data);
@@ -68,10 +68,14 @@ abstract class Model extends Database
             return null;
         }
 
+        if (!$rows) {
+            return null;
+        }
+
         return $this->build($rows);
     }
 
-    public function create(?array $data = null): ?self
+    public function create(array $data): ?self
     {
         $id = null;
         $insertStatement = $this->compileInsertStatement($data);
@@ -95,14 +99,10 @@ abstract class Model extends Database
         return $this->build([array_merge(['id' => $id], $data)]);
     }
 
-    public function build(array $data): ?self
+    public function build(array $data): self
     {
         /** Use cloning to ensure we get a fresh Model in DI/container context */
         $clone = clone $this;
-
-        if (!$data) {
-            return null;
-        }
 
         $clone->content = $data;
 
