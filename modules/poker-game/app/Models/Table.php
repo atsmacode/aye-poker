@@ -11,27 +11,15 @@ class Table extends Model
 
     public function getSeats(): ?array
     {
-        try {
-            $tableSeatRepo = $this->container->get(TableSeatRepository::class);
+        $tableSeatRepo = $this->container->get(TableSeatRepository::class);
 
-            return $tableSeatRepo->getSeats($this->id);
-        } catch (\Exception $e) {
-            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
-
-            return null;
-        }
+        return $tableSeatRepo->getSeats($this->id);
     }
 
     public function hasMultiplePlayers(): ?array
     {
-        try {
-            $tableSeatRepo = $this->container->get(TableSeatRepository::class);
+        $tableSeatRepo = $this->container->get(TableSeatRepository::class);
 
-            return $tableSeatRepo->hasMultiplePlayers($this->id);
-        } catch (\Exception $e) {
-            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
-
-            return null;
-        }
+        return $tableSeatRepo->hasMultiplePlayers($this->id);
     }
 }
