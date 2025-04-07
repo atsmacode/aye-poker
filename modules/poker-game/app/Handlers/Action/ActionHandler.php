@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Atsmacode\PokerGame\Handlers\Action;
 
-use Atsmacode\PokerGame\Handlers\Bet\BetHandler;
 use Atsmacode\PokerGame\Constants\Action;
-use Atsmacode\PokerGame\State\Game\GameState;
+use Atsmacode\PokerGame\Handlers\Bet\BetHandler;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\PlayerActionLog;
 use Atsmacode\PokerGame\Models\TableSeat;
+use Atsmacode\PokerGame\State\Game\GameState;
 
 /**
  * Handle an Action performed by a Player.
- * 
+ *
  * TODO: use/return Action Model
  */
 class ActionHandler implements ActionHandlerInterface

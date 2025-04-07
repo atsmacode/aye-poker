@@ -2,9 +2,9 @@
 
 namespace Atsmacode\PokerGame\Services\Sit;
 
+use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
-use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;

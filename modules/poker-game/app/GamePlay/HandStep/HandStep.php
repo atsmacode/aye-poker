@@ -2,8 +2,8 @@
 
 namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
-use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\Models\TableSeat;
+use Atsmacode\PokerGame\State\Game\GameState;
 
 /**
  * Handle's the unique logic required for each step of a hand based on the GameState.

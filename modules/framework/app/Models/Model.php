@@ -25,7 +25,7 @@ abstract class Model extends Database
         ConnectionInterface $connection,
         LoggerInterface $logger,
         \ReflectionClass $reflection,
-        ContainerInterface $container
+        ContainerInterface $container,
     ) {
         parent::__construct($connection, $logger, $container);
 
@@ -52,7 +52,7 @@ abstract class Model extends Database
         return $this->content;
     }
 
-    public function find(array $data ): ?self
+    public function find(array $data): ?self
     {
         $rows = null;
         $properties = $this->compileWhereStatement($data);
@@ -169,12 +169,12 @@ abstract class Model extends Database
                 $stmt = $this->connection->prepare("
                     SELECT * FROM {$this->table} WHERE id = {$this->id}
                 ");
-    
+
                 $results = $stmt->executeQuery();
                 $rows = $results->fetchAllAssociative();
             } catch (\Throwable $e) {
                 $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
-    
+
                 return null;
             }
         }

@@ -30,7 +30,7 @@ class Hand extends Model
         return $this->completed_on;
     }
 
-    public function find(array $data ): ?Hand
+    public function find(array $data): ?Hand
     {
         return parent::find($data); /* @phpstan-ignore return.type */
     }

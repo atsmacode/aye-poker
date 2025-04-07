@@ -37,7 +37,7 @@ class TableSeatRepositoryTest extends BaseTest
         $this->assertEquals($this->gameState->getSeats()[1]['id'], $tableSeat->getId());
     }
 
-        /**
+    /**
      * @test
      *
      * @return void
@@ -53,7 +53,7 @@ class TableSeatRepositoryTest extends BaseTest
         $this->assertEquals($table->getId(), $tableSeat->getTableId());
     }
 
-        /**
+    /**
      * @test
      *
      * @return void

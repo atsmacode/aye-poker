@@ -2,8 +2,8 @@
 
 namespace Atsmacode\PokerGame\GamePlay\Showdown;
 
-use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\GamePlay\HandIdentifier\HandIdentifier;
+use Atsmacode\PokerGame\State\Game\GameState;
 
 /**
  * Decide the winnder by comparing the hand types/ranks found by HandIdentifier.

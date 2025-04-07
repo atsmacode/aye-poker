@@ -2,10 +2,10 @@
 
 namespace Atsmacode\PokerGame\Tests\Unit\Handlers\Action;
 
-use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
 use Atsmacode\PokerGame\Constants\Action;
-use Atsmacode\PokerGame\State\Game\GameState;
+use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
 use Atsmacode\PokerGame\Models\Pot;
+use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasGamePlay;
 

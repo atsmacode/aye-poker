@@ -5,12 +5,12 @@ namespace Atsmacode\PokerGame\Services\Blinds;
 use Atsmacode\Framework\Database\Database;
 use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\Handlers\Bet\BetHandler;
-use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\PlayerActionLog;
 use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Services\Pots\PotService;
+use Atsmacode\PokerGame\State\Game\GameState;
 
 /**
  * Various methods for posting & incrementing blind bets.
@@ -21,7 +21,7 @@ class BlindService extends Database
         private BetHandler $betHandler,
         private PotService $potService,
         private PlayerActionLog $playerActionLogs,
-        private TableSeat $tableSeats
+        private TableSeat $tableSeats,
     ) {
     }
 

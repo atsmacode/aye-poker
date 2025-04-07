@@ -27,10 +27,10 @@ class HandRepository extends Database
             //     ->setMaxResults(1);
 
             // $row = $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
-            
+
             $stmt = $this->connection->prepare($query);
             $results = $stmt->executeQuery();
-            $rows =  $results->fetchAllAssociative();
+            $rows = $results->fetchAllAssociative();
 
             $hands = $this->container->build(Hand::class);
 

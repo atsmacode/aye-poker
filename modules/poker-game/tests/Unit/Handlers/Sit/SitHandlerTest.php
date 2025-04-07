@@ -2,10 +2,10 @@
 
 namespace Atsmacode\PokerGame\Tests\Unit\Handlers\Sit;
 
+use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
 use Atsmacode\PokerGame\Tests\BaseTest;
 
 class SitHandlerTest extends BaseTest

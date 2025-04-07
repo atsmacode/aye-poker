@@ -17,7 +17,7 @@ class GameRepository
         private Hand $hands,
         private TableSeatRepository $tableSeatRepo,
         private WholeCardRepository $wholeCardRepo,
-        private PlayerActionRepository $playerActionRepo
+        private PlayerActionRepository $playerActionRepo,
     ) {
     }
 

@@ -3,7 +3,6 @@
 namespace Atsmacode\Framework\Models;
 
 use Atsmacode\Framework\Collection\Collection;
-use Atsmacode\Framework\Models\Model;
 
 class Test extends Model
 {

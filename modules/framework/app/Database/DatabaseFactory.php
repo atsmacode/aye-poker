@@ -2,7 +2,6 @@
 
 namespace Atsmacode\Framework\Database;
 
-use Atsmacode\Framework\Database\ConnectionInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;

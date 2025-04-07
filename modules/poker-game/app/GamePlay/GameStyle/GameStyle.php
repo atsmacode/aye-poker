@@ -8,5 +8,6 @@ namespace Atsmacode\PokerGame\GamePlay\GameStyle;
 interface GameStyle
 {
     public function getStreets(): array;
+
     public function getLimit(): string; // TODO: Limit Enum/Constant
 }

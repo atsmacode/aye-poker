@@ -8,7 +8,7 @@ use Atsmacode\PokerGame\Constants\HandType;
 
 /**
  * Identify Hand Types based on whole/community cards.
- * 
+ *
  * TODO: use/return HandType Model
  */
 class HandIdentifier

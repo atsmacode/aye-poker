@@ -5,12 +5,12 @@ namespace Atsmacode\PokerGame\Tests;
 use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\GamePlay\GamePlay;
 use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
-use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\GamePlay\HandStep\Start;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\Models\TableSeat;
+use Atsmacode\PokerGame\State\Game\GameState;
 
 trait HasGamePlay
 {

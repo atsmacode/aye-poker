@@ -3,13 +3,13 @@
 namespace Atsmacode\PokerGame\GamePlay;
 
 use Atsmacode\PokerGame\GamePlay\GameStyle\GameStyle;
-use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\GamePlay\HandStep\HandStep;
 use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
 use Atsmacode\PokerGame\GamePlay\HandStep\Showdown;
 use Atsmacode\PokerGame\GamePlay\HandStep\Start;
 use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
+use Atsmacode\PokerGame\State\Game\GameState;
 
 /**
  * Responsible for deciding what happens next in a hand based on the

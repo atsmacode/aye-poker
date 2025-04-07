@@ -3,10 +3,10 @@
 namespace Atsmacode\PokerGame\Tests;
 
 use Atsmacode\Framework\Database\ConnectionInterface;
-use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
 use Atsmacode\PokerGame\Database\DbalTestFactory;
-use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\Factory\PlayerActionFactory;
+use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
+use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\HandStreet;
 use Atsmacode\PokerGame\Models\Player;

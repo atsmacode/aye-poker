@@ -3,10 +3,10 @@
 namespace Atsmacode\PokerGame\Handlers\Action;
 
 use Atsmacode\PokerGame\Handlers\Bet\BetHandler;
-use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\PlayerActionLog;
 use Atsmacode\PokerGame\Models\TableSeat;
+use Atsmacode\PokerGame\State\Game\GameState;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 

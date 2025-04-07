@@ -4,12 +4,12 @@ namespace Atsmacode\PokerGame\Services\Sit;
 
 use Atsmacode\PokerGame\GamePlay\GamePlay;
 use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
-use Atsmacode\PokerGame\State\Game\GameState;
+use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\TableSeat;
-use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
+use Atsmacode\PokerGame\State\Game\GameState;
 use Psr\Container\ContainerInterface;
 
 /**

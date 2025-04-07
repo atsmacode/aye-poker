@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Atsmacode\PokerGame\State\Player;
 
 use Atsmacode\PokerGame\Constants\Action;
-use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
+use Atsmacode\PokerGame\State\Game\GameState;
 
 /**
  * Responsible for returning the status and options for the players based on the GameState.

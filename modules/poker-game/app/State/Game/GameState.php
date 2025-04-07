@@ -6,15 +6,15 @@ namespace Atsmacode\PokerGame\State\Game;
 
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\GamePlay\GameStyle\GameStyle;
-use Atsmacode\PokerGame\Repository\Game\GameRepository;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Table;
+use Atsmacode\PokerGame\Repository\Game\GameRepository;
 use Atsmacode\PokerGame\State\Player\PlayerState;
 
-/** 
+/**
  * Mutable. Holds the state of the Game throughout the lifecycle.
- * 
+ *
  * Most significantly, GameState is calculated based on the latest player action,
  * and is passed to the next required HandStep identified by GamePlay.
  */
@@ -41,7 +41,7 @@ class GameState
         private GameRepository $gameRepo,
         private PokerDealer $pokerDealer,
         private PlayerState $playerState,
-        private ?Hand $hand
+        private ?Hand $hand,
     ) {
         if ($hand) {
             $this->initiate($hand);
