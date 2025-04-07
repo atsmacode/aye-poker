@@ -7,6 +7,7 @@
 4. NPM warnings, ignore/fix
 5. Migrations always re-run, implement rollbacks/already-done, custom or package?
 6. Can I use a simple config array map like in Mezzio?
+7. Why did I decide to pass $rows into an array in Model? [$rows]
 
 # Bugs
 

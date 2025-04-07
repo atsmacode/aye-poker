@@ -46,4 +46,23 @@ class PlayerActionRepository extends Database
             return null;
         }
     }
+
+    public function getBigBlind(int $handId): ?array
+    {
+        try {
+            $queryBuilder = $this->connection->createQueryBuilder();
+            $queryBuilder
+                ->select('pa.*')
+                ->from('player_actions', 'pa')
+                ->leftJoin('pa', 'table_seats', 'ts', 'pa.table_seat_id = ts.id')
+                ->where('pa.hand_id = '.$queryBuilder->createNamedParameter($handId))
+                ->andWhere('pa.big_blind = 1');
+
+            return $queryBuilder->executeStatement() ? $queryBuilder->fetchAssociative() : [];
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
+        }
+    }
 }

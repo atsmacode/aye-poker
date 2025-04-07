@@ -4,7 +4,6 @@ namespace Atsmacode\PokerGame\Repository\Game;
 
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
-use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Repository\PlayerAction\PlayerActionRepository;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 use Atsmacode\PokerGame\Repository\WholeCard\WholeCardRepository;
@@ -18,7 +17,6 @@ class GameRepository
         private Hand $hands,
         private TableSeatRepository $tableSeatRepo,
         private WholeCardRepository $wholeCardRepo,
-        private TableSeat $tableSeats,
         private PlayerActionRepository $playerActionRepo
     ) {
     }
@@ -52,7 +50,7 @@ class GameRepository
 
     public function getBigBlind(int $handId): array
     {
-        return $this->tableSeats->getBigBlind($handId);
+        return $this->playerActionRepo->getBigBlind($handId);
     }
 
     public function getLatestAction(int $handId): PlayerAction

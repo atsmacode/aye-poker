@@ -3,7 +3,6 @@
 namespace Atsmacode\PokerGame\Repository\Game;
 
 use Atsmacode\PokerGame\Models\Hand;
-use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Repository\PlayerAction\PlayerActionRepository;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 use Atsmacode\PokerGame\Repository\WholeCard\WholeCardRepository;
@@ -18,7 +17,6 @@ class GameRepositoryFactory implements FactoryInterface
             $container->build(Hand::class),
             $container->get(TableSeatRepository::class),
             $container->get(WholeCardRepository::class),
-            $container->build(TableSeat::class),
             $container->get(PlayerActionRepository::class)
         );
     }

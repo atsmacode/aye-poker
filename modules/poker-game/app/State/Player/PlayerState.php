@@ -6,7 +6,7 @@ namespace Atsmacode\PokerGame\State\Player;
 
 use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\State\Game\GameState;
-use Atsmacode\PokerGame\Models\TableSeat;
+use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 
 /**
  * Responsible for returning the status and options for the players based on the GameState.
@@ -16,7 +16,7 @@ class PlayerState implements PlayerStateInterface
     private GameState $gameState;
 
     public function __construct(
-        private TableSeat $tableSeats,
+        private TableSeatRepository $tableSeatRepo,
     ) {
     }
 
@@ -80,7 +80,7 @@ class PlayerState implements PlayerStateInterface
 
     private function getActionOnForNewStreet(array $dealer, array $firstActivePlayer): array
     {
-        $playerAfterDealer = $this->tableSeats->playerAfterDealer($this->gameState->handId(), $dealer['table_seat_id']);
+        $playerAfterDealer = $this->tableSeatRepo->playerAfterDealer($this->gameState->handId(), $dealer['table_seat_id']);
 
         return 0 < count($playerAfterDealer->getContent()) ? $playerAfterDealer->getContent()[0] : $firstActivePlayer;
     }
@@ -88,7 +88,7 @@ class PlayerState implements PlayerStateInterface
     private function getOptionsViaLatestAction(array $playerAction): array
     {
         $latestAction = $this->gameState->getLatestAction();
-        $continuingBetters = $this->tableSeats->getContinuingBetters((string) $this->gameState->getHand()->getId());
+        $continuingBetters = $this->tableSeatRepo->getContinuingBetters((string) $this->gameState->getHand()->getId());
         $playerActions = $this->gameState->getPlayers();
 
         if ($this->gameState->isNewStreet()) {

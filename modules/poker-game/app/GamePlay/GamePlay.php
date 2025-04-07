@@ -9,6 +9,7 @@ use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
 use Atsmacode\PokerGame\GamePlay\HandStep\Showdown;
 use Atsmacode\PokerGame\GamePlay\HandStep\Start;
 use Atsmacode\PokerGame\Models\TableSeat;
+use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 
 /**
  * Responsible for deciding what happens next in a hand based on the
@@ -22,7 +23,7 @@ class GamePlay
         private Start $start,
         private NewStreet $newStreet,
         private Showdown $showdown,
-        private TableSeat $tableSeats,
+        private TableSeatRepository $tableSeatRepo,
     ) {
         $this->gameState->setStyle($gameStyle);
         $this->gameState->setGameDealer();
@@ -65,7 +66,7 @@ class GamePlay
         }
 
         if ($this->theBigBlindIsTheOnlyActivePlayerRemainingPreFlop()) {
-            $this->tableSeats->bigBlindWins($this->gameState->getBigBlind()['table_seat_id']);
+            $this->tableSeatRepo->bigBlindWins($this->gameState->getBigBlind()['table_seat_id']);
 
             return $this->response($this->showdown);
         }
