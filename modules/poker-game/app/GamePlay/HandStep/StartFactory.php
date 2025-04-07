@@ -17,11 +17,11 @@ class StartFactory implements FactoryInterface
     {
         return new Start(
             $container,
-            $container->get(Street::class),
-            $container->get(HandStreet::class),
-            $container->get(PlayerAction::class),
-            $container->get(Stack::class),
-            $container->get(TableSeat::class),
+            $container->build(Street::class),
+            $container->build(HandStreet::class),
+            $container->build(PlayerAction::class),
+            $container->build(Stack::class),
+            $container->build(TableSeat::class),
             $container->get(BlindService::class)
         );
     }

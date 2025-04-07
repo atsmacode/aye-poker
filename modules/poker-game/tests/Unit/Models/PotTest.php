@@ -14,8 +14,8 @@ class PotTest extends BaseTest
     {
         parent::setUp();
 
-        $this->pots = $this->container->get(Pot::class);
-        $this->hands = $this->container->get(Hand::class);
+        $this->pots = $this->container->build(Pot::class);
+        $this->hands = $this->container->build(Hand::class);
     }
 
     /**

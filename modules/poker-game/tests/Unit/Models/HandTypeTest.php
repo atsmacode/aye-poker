@@ -13,7 +13,7 @@ class HandTypeTest extends BaseTest
     {
         parent::setUp();
 
-        $this->handTypes = $this->container->get(HandType::class);
+        $this->handTypes = $this->container->build(HandType::class);
     }
 
     /**

@@ -15,10 +15,10 @@ class SitServiceFactory implements FactoryInterface
     {
         return new SitService(
             $container,
-            $container->get(Hand::class),
+            $container->build(Hand::class),
             $container->get(TableSeatRepository::class),
             $container->get(SitHandler::class),
-            $container->get(Player::class)
+            $container->build(Player::class)
         );
     }
 }

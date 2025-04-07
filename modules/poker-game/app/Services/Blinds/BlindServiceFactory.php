@@ -16,8 +16,8 @@ class BlindServiceFactory implements FactoryInterface
         return new BlindService(
             $container->get(BetHandler::class),
             $container->get(PotService::class),
-            $container->get(PlayerActionLog::class),
-            $container->get(TableSeat::class)
+            $container->build(PlayerActionLog::class),
+            $container->build(TableSeat::class)
         );
     }
 }

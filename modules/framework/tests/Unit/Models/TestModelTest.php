@@ -12,7 +12,7 @@ class TestModelTest extends BaseTest
     {
         parent::setUp();
 
-        $this->test = $this->container->get(Test::class);
+        $this->test = $this->container->build(Test::class);
     }
 
     /** @test */

@@ -32,7 +32,7 @@ class HandRepository extends Database
             $results = $stmt->executeQuery();
             $rows =  $results->fetchAllAssociative();
 
-            $hands = $this->container->get(Hand::class);
+            $hands = $this->container->build(Hand::class);
 
             return $hands->find($rows[0]);
         } catch (\Exception $e) {

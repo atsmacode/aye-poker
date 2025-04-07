@@ -30,7 +30,7 @@ class GamePlayFactory implements FactoryInterface
             $container->get(Start::class),
             $container->get(NewStreet::class),
             $container->get(Showdown::class),
-            $container->get(TableSeat::class)
+            $container->build(TableSeat::class)
         );
     }
 }

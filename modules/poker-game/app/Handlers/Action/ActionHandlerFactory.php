@@ -16,10 +16,10 @@ class ActionHandlerFactory implements FactoryInterface
     {
         return new ActionHandler(
             isset($options['gameState']) ? $options['gameState'] : $container->get(GameState::class),
-            $container->get(PlayerAction::class),
-            $container->get(PlayerActionLog::class),
+            $container->build(PlayerAction::class),
+            $container->build(PlayerActionLog::class),
             $container->get(BetHandler::class),
-            $container->get(TableSeat::class)
+            $container->build(TableSeat::class)
         );
     }
 }

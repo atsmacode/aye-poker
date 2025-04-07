@@ -19,9 +19,9 @@ class StackTest extends BaseTest
     {
         parent::setUp();
 
-        $this->stacks = $this->container->get(Stack::class);
-        $this->tables = $this->container->get(Table::class);
-        $this->players = $this->container->get(Player::class);
+        $this->stacks = $this->container->build(Stack::class);
+        $this->tables = $this->container->build(Table::class);
+        $this->players = $this->container->build(Player::class);
 
         $this->testTable = $this->tables->create(['name' => 'Test Table', 'seats' => 1]);
         $this->player1 = $this->createPlayer();

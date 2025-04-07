@@ -15,10 +15,10 @@ class GameRepositoryFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
         return new GameRepository(
-            $container->get(Hand::class),
+            $container->build(Hand::class),
             $container->get(TableSeatRepository::class),
             $container->get(WholeCardRepository::class),
-            $container->get(TableSeat::class),
+            $container->build(TableSeat::class),
             $container->get(PlayerActionRepository::class)
         );
     }

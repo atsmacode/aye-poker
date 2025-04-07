@@ -13,7 +13,7 @@ class PotServiceFactory implements FactoryInterface
     {
         return new PotService(
             $container->get(StackRepository::class),
-            $container->get(Pot::class)
+            $container->build(Pot::class)
         );
     }
 }

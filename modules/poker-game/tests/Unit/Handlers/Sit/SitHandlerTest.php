@@ -16,9 +16,9 @@ class SitHandlerTest extends BaseTest
     {
         parent::setUp();
 
-        $this->tables = $this->container->get(Table::class);
-        $this->tableSeats = $this->container->get(TableSeat::class);
-        $this->players = $this->container->get(Player::class);
+        $this->tables = $this->container->build(Table::class);
+        $this->tableSeats = $this->container->build(TableSeat::class);
+        $this->players = $this->container->build(Player::class);
         $this->sitHandler = $this->container->get(SitHandler::class);
     }
 

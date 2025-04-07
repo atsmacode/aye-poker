@@ -12,8 +12,8 @@ class PlayerActionFactoryFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
         return new PlayerActionFactory(
-            $container->get(PlayerAction::class),
-            $container->get(PlayerActionLog::class)
+            $container->build(PlayerAction::class),
+            $container->build(PlayerActionLog::class)
         );
     }
 }

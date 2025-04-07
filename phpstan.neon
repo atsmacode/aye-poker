@@ -5,4 +5,10 @@ parameters:
         - modules/card-games/app
         - modules/poker-game/app
     ignoreErrors:
-        - '#.*no value type specified in iterable type array.*#'
+        -
+            message: '#.*Call to an undefined method.*#'
+            paths:
+                - *Factory.php
+                - *Repository.php
+        - 
+            message: '#.*no value type specified in iterable type array.*#'

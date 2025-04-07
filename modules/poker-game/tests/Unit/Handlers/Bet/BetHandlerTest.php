@@ -21,11 +21,11 @@ class BetHandlerTest extends BaseTest
         parent::setUp();
 
         $this->betHandler = $this->container->get(BetHandler::class);
-        $this->tables = $this->container->get(Table::class);
-        $this->players = $this->container->get(Player::class);
-        $this->stacks = $this->container->get(Stack::class);
-        $this->pots = $this->container->get(Pot::class);
-        $this->hands = $this->container->get(Hand::class);
+        $this->tables = $this->container->build(Table::class);
+        $this->players = $this->container->build(Player::class);
+        $this->stacks = $this->container->build(Stack::class);
+        $this->pots = $this->container->build(Pot::class);
+        $this->hands = $this->container->build(Hand::class);
     }
 
     /**

@@ -13,9 +13,9 @@ class PokerDealerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
         return new PokerDealer(
-            $container->get(WholeCard::class),
-            $container->get(HandStreetCard::class),
-            $container->get(Deck::class)
+            $container->build(WholeCard::class),
+            $container->build(HandStreetCard::class),
+            $container->build(Deck::class)
         );
     }
 }
