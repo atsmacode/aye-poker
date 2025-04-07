@@ -5,9 +5,8 @@
     * 30/03/25 Logging to var/log/dev.log setup
 3. Do we need to use DB transactions?
 4. NPM warnings, ignore/fix
-5. Migrations always re-run, implement rollbacks/already-done, custom or package?
-6. Can I use a simple config array map like in Mezzio?
-7. Why did I decide to pass $rows into an array in Model? [$rows]
+5. Can I use a simple config array map like in Mezzio?
+6. Why did I decide to pass $rows into an array in Model? [$rows]
 
 # Bugs
 
@@ -28,7 +27,9 @@
 7. Remaining PHPStan errors
 8. Get Symfony CLI, unit tests in container
 9. Encode auto-generated password (contains special chars)
+    * 07/04/2025 Hard coded for dev, alternatively can use hex openssl which doesn't include special chars
 10. Use Symfony doctrine for migrations, convert custom ones
+    * 07/04/25 Done, leaving legacy classes for now
 11. Stop using in-app controllers with Request/Response, use interfaces/Exceptions
     * 31/03/25 Using services instead
 12. Proper solutions for PHP Stan errors I'm ignoring
@@ -36,6 +37,9 @@
 14. Use Vue Composition API
 15. After allowing null returns from Model, I allowed various $stack params to be ?int, which might be odd in some cases. Where would a player not have a stack?
 16. Separate general DAL methods from Model classes
+    * 07/04/2025 Done, could put all queries into repos and call that from Models
+17. Facade Accessor for Models
+18. Use Enums instead of constants for Cards, Actions etc
 
 # Features
 
