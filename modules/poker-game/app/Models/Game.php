@@ -28,4 +28,14 @@ class Game extends Model
 
         return $tableRepo->getTable($this->table_id);
     }
+
+    public function find(?array $data = null): ?Game
+    {
+        return parent::find($data); /* @phpstan-ignore return.type */
+    }
+
+    public function create(?array $data = null): ?Game
+    {
+        return parent::create($data); /* @phpstan-ignore return.type */
+    }
 }
