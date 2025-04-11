@@ -44,6 +44,7 @@ class DependencyConfig
                     Models\HandStreetCard::class => \Atsmacode\Framework\Models\ModelFactory::class,
                     Models\HandType::class => \Atsmacode\Framework\Models\ModelFactory::class,
                     Models\Deck::class => \Atsmacode\Framework\Models\ModelFactory::class,
+                    Models\Game::class => \Atsmacode\Framework\Models\ModelFactory::class,
                     Repository\Hand\HandRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,
                     Repository\TableSeat\TableSeatRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,
                     Repository\HandStreetCard\HandStreetCardRepository::class => \Atsmacode\Framework\Database\DatabaseFactory::class,

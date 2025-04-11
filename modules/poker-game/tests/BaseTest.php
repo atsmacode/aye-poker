@@ -7,6 +7,7 @@ use Atsmacode\PokerGame\Database\DbalTestFactory;
 use Atsmacode\PokerGame\Factory\PlayerActionFactory;
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
+use Atsmacode\PokerGame\Models\Game;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\HandStreet;
 use Atsmacode\PokerGame\Models\Player;
@@ -44,6 +45,7 @@ abstract class BaseTest extends TestCase
     protected WholeCardRepository $wholeCardRepo;
     protected HandStreetCardRepository $handStreetCardRepo;
     protected TableSeatRepository $tableSeatRepo;
+    protected Game $games;
 
     protected function setUp(): void
     {
@@ -71,6 +73,7 @@ abstract class BaseTest extends TestCase
         $this->wholeCardRepo = $this->container->build(WholeCardRepository::class);
         $this->handStreetCardRepo = $this->container->build(HandStreetCardRepository::class);
         $this->tableSeatRepo = $this->container->build(TableSeatRepository::class);
+        $this->games = $this->container->build(Game::class);
 
         $this->container->get(ConnectionInterface::class)->beginTransaction();
     }
