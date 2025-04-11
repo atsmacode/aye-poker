@@ -40,6 +40,7 @@
     * 07/04/2025 Done, could put all queries into repos and call that from Models
 17. Facade Accessor for Models
 18. Use Enums instead of constants for Cards, Actions etc
+19. Dsiplay errors on front-end. Also not much handling of errors from DB bubbling up.
 
 # Features
 
