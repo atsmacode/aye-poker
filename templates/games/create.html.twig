@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Game{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-6 col-md-4">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endfor %}
+
+            {{ form_start(form) }}
+
+            <div class="mb-3">
+                {{ form_label(form.gameMode) }}
+                {{ form_widget(form.gameMode, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            {% if form.gameMode.vars.errors|length > 0 %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form_errors(form.gameMode) }}
+                </div>
+            {% endif %}
+
+            <div class="mb-3">
+                {{ form_label(form.playerCount) }}
+                {{ form_widget(form.playerCount, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            {% if form.playerCount.vars.errors|length > 0 %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form_errors(form.playerCount) }}
+                </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary float-end">Save</button>
+            
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
