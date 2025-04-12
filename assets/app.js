@@ -115,10 +115,10 @@ createApp({
 			/**
 			 * @todo Improve dynamic generation of action URL - currently using string split (plhe/plom).
 			 */ 
-			let urlParts  = window.location.pathname.split('/');
-			let actionUrl = urlParts.includes('dev') ? urlParts[3] : urlParts[2];
+			// let urlParts  = window.location.pathname.split('/');
+			// let actionUrl = urlParts.includes('dev') ? urlParts[3] : urlParts[2];
 
-			axios.post('/action/' + actionUrl, payload).then(response => {
+			axios.post('/action/plhe', payload).then(response => {
 				console.log(response.data);
 
                 let data = response.data;
@@ -150,7 +150,8 @@ createApp({
 			this.updateMercureUrl(data);
 		},
 		gameData(){
-			axios.post(window.location.pathname).then(response => {
+			var gameId = document.getElementById('game_id').value;
+			axios.post('/play/plhe', {gameId}).then(response => {
 				console.log(response);
 	
 				let data = response.data;

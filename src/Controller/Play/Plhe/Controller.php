@@ -35,12 +35,17 @@ class Controller extends AbstractController
     public function start(
         PokerGame $pokerGame,
         Security $security,
-        MercureUpdate $mercureUpdate
+        MercureUpdate $mercureUpdate,
+        Request $request
     ): Response {
         $serviceManager = $pokerGame->getServiceManager();
         $userPlayer     = $security->getUser()->getUserPlayer();
 
-        $response = $serviceManager->get(SitService::class)->sit(playerId: $userPlayer->getPlayerId());
+        $response = $serviceManager->get(SitService::class)->sit(
+            playerId: $userPlayer->getPlayerId(),
+            gameId: $request->get('gameId')
+        );
+        
         $response = $this->addMercureUrlToArray($response, self::MERCURE_ACTION_TOPIC);
         $response = json_encode($response);
     

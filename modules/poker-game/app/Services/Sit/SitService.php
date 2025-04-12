@@ -33,25 +33,26 @@ class SitService
         ?int $tableId = null,
         ?TableSeat $currentDealer = null,
         ?int $playerId = null,
+        ?int $gameId = null
     ): array {
-        if (null !== $playerId) {
-            $playerSeat = $this->sitHandler->handle($playerId);
-            $tableId = $playerSeat->getTableId();
+        // if (null !== $playerId) {
+        //     $playerSeat = $this->sitHandler->handle($playerId);
+        //     $tableId = $playerSeat->getTableId();
 
-            if (2 > count($this->tableSeatRepo->hasMultiplePlayers($tableId))) {
-                return [
-                    'message' => 'Waiting for more players to join.',
-                    'players' => $this->setWaitingPlayerData($playerId, $playerSeat->getId(), $playerSeat->getNumber()),
-                ];
-            }
-        }
+        //     if (2 > count($this->tableSeatRepo->hasMultiplePlayers($tableId))) {
+        //         return [
+        //             'message' => 'Waiting for more players to join.',
+        //             'players' => $this->setWaitingPlayerData($playerId, $playerSeat->getId(), $playerSeat->getNumber()),
+        //         ];
+        //     }
+        // }
 
-        $currentHand = $this->hands->find(['table_id' => $tableId, 'completed_on' => null]);
+        $currentHand = $this->hands->find(['game_id' => $gameId, 'table_id' => $tableId, 'completed_on' => null]);
         $currentHandIsActive = $currentHand ?? false;
 
         $hand = $currentHandIsActive
             ? $currentHand
-            : $this->hands->create(['table_id' => $tableId ?? 1]);
+            : $this->hands->create(['table_id' => $tableId ?? 1, 'game_id' => $gameId]);
 
         $gameState = $this->container->build(GameState::class, ['hand' => $hand]); /** @phpstan-ignore method.notFound */
         $gamePlayService = $this->container->build(GamePlay::class, [/* @phpstan-ignore method.notFound */

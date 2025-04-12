@@ -31,11 +31,12 @@ class GameController extends AbstractController
     }
 
     #[Route('/games/{gameId}', name: 'show_game', methods: ['GET'])]
-    public function index(Security $security): Response {
+    public function index(Request $request, Security $security): Response {
         $userPlayer = $security->getUser()->getUserPlayer();
 
         return $this->render('play/index.html.twig', [
             'playerId' => $userPlayer->getPlayerId(),
+            'gameId' => $request->attributes->get('_route_params')['gameId']
         ]);
     }
 }
