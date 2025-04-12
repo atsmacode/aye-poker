@@ -12,13 +12,13 @@ class CreateGameFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('gameMode', ChoiceType::class, [
+            ->add('mode', ChoiceType::class, [
                 'choices' => [
                     'Test' => GameMode::TEST->value,
                     // 'real' => GameMode::REAL->value
                 ]
             ])
-            ->add('playerCount', ChoiceType::class, [
+            ->add('player_count', ChoiceType::class, [
                 'choices' => ['1' => 1, '2' => 2, '3' => 3, '4' => 4, '5' => 6],
             ])
         ;

@@ -18,12 +18,12 @@ class GameService
     ) {
     }
 
-    public function create(Request $request): ?Game
+    public function create(mixed $request): ?Game
     {
         // Currently supporting test mode & six seats only.
         $seatCount = 6;
-        $playerCount = $request->get('player_count');
-        $mode = $request->get('mode');
+        $playerCount = $request instanceof Request ? $request->get('player_count') : $request['player_count'];
+        $mode = $request instanceof Request ? $request->get('mode') : $request['mode'];
 
         $table = $this->tables->create(['seats' => $seatCount, 'name' => 'Test Table']);
 

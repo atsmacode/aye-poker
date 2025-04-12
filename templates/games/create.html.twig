@@ -15,24 +15,24 @@
             {{ form_start(form) }}
 
             <div class="mb-3">
-                {{ form_label(form.gameMode) }}
-                {{ form_widget(form.gameMode, {'attr': {'class': 'form-control'}}) }}
+                {{ form_label(form.mode) }}
+                {{ form_widget(form.mode, {'attr': {'class': 'form-control'}}) }}
             </div>
 
-            {% if form.gameMode.vars.errors|length > 0 %}
+            {% if form.mode.vars.errors|length > 0 %}
                 <div class="alert alert-danger" role="alert">
-                    {{ form_errors(form.gameMode) }}
+                    {{ form_errors(form.mode) }}
                 </div>
             {% endif %}
 
             <div class="mb-3">
-                {{ form_label(form.playerCount) }}
-                {{ form_widget(form.playerCount, {'attr': {'class': 'form-control'}}) }}
+                {{ form_label(form.player_count) }}
+                {{ form_widget(form.player_count, {'attr': {'class': 'form-control'}}) }}
             </div>
 
-            {% if form.playerCount.vars.errors|length > 0 %}
+            {% if form.player_count.vars.errors|length > 0 %}
                 <div class="alert alert-danger" role="alert">
-                    {{ form_errors(form.playerCount) }}
+                    {{ form_errors(form.player_count) }}
                 </div>
             {% endif %}
 

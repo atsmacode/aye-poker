@@ -18,7 +18,7 @@
                     </li>
                 {% endif %}
                 {% if app.request.attributes.get('_route') != 'play_plhe' %}
-                 <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link {{ app.request.attributes.get('_route') == 'create_game' ? 'active' }}" aria-current="page" href="{{ path('create_game') }}">New Game</a>
                     </li>
                     <li class="nav-item">
