@@ -4,6 +4,7 @@ namespace App\Controller\Games;
 
 use App\Form\CreateGameFormType;
 use App\Service\PokerGame;
+use Atsmacode\PokerGame\Models\Game;
 use Atsmacode\PokerGame\Services\Games\GameService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -24,19 +25,27 @@ class GameController extends AbstractController
             $serviceManager = $pokerGame->getServiceManager();
             $game = $serviceManager->get(GameService::class)->create($form->getData());
 
-            return $this->redirectToRoute('show_game', ['gameId' => $game->getId()]);
+            return $this->redirectToRoute('show_game', [
+                'gameId' => $game->getId(),
+                'tableId' => $game->getTableId()
+            ]);
         }
 
         return $this->render('games/create.html.twig', ['form' => $form]);
     }
 
     #[Route('/games/{gameId}', name: 'show_game', methods: ['GET'])]
-    public function index(Request $request, Security $security): Response {
+    public function index(Request $request, Security $security, PokerGame $pokerGame): Response {
+        $gameId = $request->attributes->get('_route_params')['gameId'];
         $userPlayer = $security->getUser()->getUserPlayer();
+
+        $serviceManager = $pokerGame->getServiceManager();
+        $game = $serviceManager->get(Game::class)->find(['id' => $gameId]);
 
         return $this->render('play/index.html.twig', [
             'playerId' => $userPlayer->getPlayerId(),
-            'gameId' => $request->attributes->get('_route_params')['gameId']
+            'gameId' => $gameId,
+            'tableId' => $game->getTableId()
         ]);
     }
 }

@@ -151,7 +151,9 @@ createApp({
 		},
 		gameData(){
 			var gameId = document.getElementById('game_id').value;
-			axios.post('/play/plhe', {gameId}).then(response => {
+			var tableId = document.getElementById('table_id').value;
+
+			axios.post('/play/plhe', {gameId, tableId}).then(response => {
 				console.log(response);
 	
 				let data = response.data;
