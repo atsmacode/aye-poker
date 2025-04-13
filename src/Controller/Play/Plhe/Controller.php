@@ -28,6 +28,8 @@ class Controller extends AbstractController
 
         return $this->render('play/index.html.twig', [
             'playerId' => $userPlayer->getPlayerId(),
+            'gameId' => 1, // Default gameId
+            'tableId' => 2 // Default tableId
         ]);
     }
 
