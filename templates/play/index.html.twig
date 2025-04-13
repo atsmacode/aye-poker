@@ -13,32 +13,32 @@
 
 
                 <div id="player-1" class="position-absolute">
-                    <player v-if="1 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[1]" :winner="winner"></player>
+                    <player v-if="1 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[1]" :winner="winner" :mode></player>
                     <player v-else></player>
                 </div>
 
                 <div id="player-2" class="position-absolute">
-                    <player v-if="2 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[2]" :winner="winner"></player>
+                    <player v-if="2 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[2]" :winner="winner" :mode></player>
                     <player v-else></player>
                 </div>
 
                 <div id="player-3" class="position-absolute">
-                    <player v-if="3 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[3]" :winner="winner"></player>
+                    <player v-if="3 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[3]" :winner="winner" :mode></player>
                     <player v-else></player>
                 </div>
 
                 <div id="player-4" class="position-absolute">
-                    <player v-if="4 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[4]" :winner="winner"></player>
+                    <player v-if="4 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[4]" :winner="winner" :mode></player>
                     <player v-else></player>
                 </div>
 
                 <div id="player-5" class="position-absolute">
-                    <player v-if="5 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[5]" :winner="winner"></player>
+                    <player v-if="5 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[5]" :winner="winner" :mode></player>
                     <player v-else></player>
                 </div>
 
                 <div id="player-6" class="position-absolute">
-                    <player v-if="6 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[6]" :winner="winner"></player>
+                    <player v-if="6 in players" @action="action" :auth-player-id="{{ playerId }}" :player="players[6]" :winner="winner" :mode></player>
                     <player v-else></player>
                 </div>
 
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <action-on v-if="!winner" v-for="player in players" @action="action" :auth-player-id="{{ playerId }}" :player="player"></action-on>
+            <action-on v-if="!winner" v-for="player in players" @action="action" :auth-player-id="{{ playerId }}" :player="player" :mode></action-on>
 
             <div v-if="winner" class="card aye-shadow w-100">
                 <div class="card-header text-bg-primary text-center">

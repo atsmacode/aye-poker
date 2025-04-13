@@ -9,7 +9,7 @@ use Atsmacode\PokerGame\GamePlay\GameStyle\GameStyle;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Table;
-use Atsmacode\PokerGame\Repository\Game\GameRepository;
+use Atsmacode\PokerGame\Repository\GameState\GameStateRepository;
 use Atsmacode\PokerGame\State\Player\PlayerState;
 
 /**
@@ -38,7 +38,7 @@ class GameState
     private Table $table;
 
     public function __construct(
-        private GameRepository $gameRepo,
+        private GameStateRepository $gameRepo,
         private PokerDealer $pokerDealer,
         private PlayerState $playerState,
         private ?Hand $hand,
@@ -55,6 +55,11 @@ class GameState
         $this->handId = (int) $hand->getId();
         $this->seats = $this->gameRepo->getSeats($this->tableId);
         $this->handStreets = $this->hand->streets();
+    }
+
+    public function getGameMode(): int
+    {
+        return $this->gameRepo->getTableGame($this->tableId)->getMode();
     }
 
     public function getSeat(int $seatId): ?array

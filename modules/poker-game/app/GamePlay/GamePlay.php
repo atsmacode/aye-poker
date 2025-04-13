@@ -48,6 +48,7 @@ class GamePlay
             'players' => $this->gameState->getPlayerState(),
             'winner' => $this->gameState->getWinner(),
             'sittingOut' => $this->gameState->getSittingOutPlayers(),
+            'mode' => $this->gameState->getGameMode()
         ];
     }
 

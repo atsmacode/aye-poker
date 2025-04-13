@@ -1,5 +1,5 @@
 <template>
-    <div v-if="authPlayerId === player.player_id && true === player.action_on">
+    <div v-if="(authPlayerId === player.player_id || mode === 1) && true === player.action_on">
         <div class="card aye-shadow">
             <div class="card-header text-bg-primary text-center">
                 {{ player.name }}, action is on you
@@ -29,6 +29,10 @@ export default {
         player: {
             type: Object,
             default: null
+        },
+        mode: {
+            type: Number,
+            default: 1
         }
     },
     methods: {

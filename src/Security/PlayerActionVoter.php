@@ -4,8 +4,11 @@ namespace App\Security;
 
 use App\Entity\User;
 use App\Entity\UserPlayer;
+use App\Service\PokerGame;
 use App\Repository\UserPlayerRepository;
+use Atsmacode\PokerGame\Enums\GameMode;
 use Atsmacode\PokerGame\Models\PlayerAction;
+use Atsmacode\PokerGame\Repository\Game\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -16,8 +19,10 @@ class PlayerActionVoter extends Voter
 
     private UserPlayerRepository $userPlayerRepository;
 
-    public function __construct(private EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private PokerGame $pokerGame
+    ) {
         $this->userPlayerRepository = $this->entityManager->getRepository(UserPlayer::class);
     }
 
@@ -48,6 +53,11 @@ class PlayerActionVoter extends Voter
     private function canAction(array $playerAction, User $user): bool
     {
         if (true === in_array('ROLE_ADMIN', $user->getRoles())) { return true; }
+
+        $serviceManager = $this->pokerGame->getServiceManager();
+        $game = $serviceManager->get(GameRepository::class)->getGame($playerAction['gameId']);
+
+        if ($game->getMode() == GameMode::TEST->value) { return true; }
         
         $userPlayer = $this->userPlayerRepository->findOneBy([
             'userId' => $user->getId()

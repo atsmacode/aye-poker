@@ -32,6 +32,7 @@ createApp({
 			communityCards: [],
 			winner: false,
 			sittingOut: [],
+			mode: 1,
 			errors: {},
 			loading: false,
 			message: false,
@@ -95,10 +96,15 @@ createApp({
 		updateMercureUrl(data){
 			this.mercureUrl = data.mercureUrl ? data.mercureUrl : '';
 		},
+		updateMode(data){
+			this.mode = data.mode ? data.mode : 1;
+		},
 		action(action, player){
 			let active = 1;
 
 			if(action.id === 1){ active = 0; }
+
+			let gameId = document.getElementById('game_id').value;
 
 			let payload = {
 				player_id:      player.player_id,
@@ -107,7 +113,8 @@ createApp({
 				hand_street_id: player.hand_street_id,
 				active:         active,
 				bet_amount:     this.actionBetAmounts[action.name],
-				stack:          player.stack
+				stack:          player.stack,
+				gameId:         gameId
 			};
 
 			this.loading = true
@@ -148,10 +155,11 @@ createApp({
 			this.updateSittingOut(data);
 			this.updateMessage(data);
 			this.updateMercureUrl(data);
+			this.updateMode(data);
 		},
 		gameData(){
-			var gameId = document.getElementById('game_id').value;
-			var tableId = document.getElementById('table_id').value;
+			let gameId = document.getElementById('game_id').value;
+			let tableId = document.getElementById('table_id').value;
 
 			axios.post('/play/plhe', {gameId, tableId}).then(response => {
 				console.log(response);

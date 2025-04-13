@@ -11,6 +11,7 @@ class Game extends Model
     protected string $table = 'games';
 
     private int $table_id;
+    private int $mode;
 
     public function setTableId(int $tableId): void
     {
@@ -27,6 +28,16 @@ class Game extends Model
         $tableRepo = $this->container->get(TableRepository::class);
 
         return $tableRepo->getTable($this->table_id);
+    }
+
+    public function setMode(int $mode): void
+    {
+        $this->mode = $mode;
+    }
+
+    public function getMode(): int
+    {
+        return $this->mode;
     }
 
     public function find(?array $data = null): ?Game

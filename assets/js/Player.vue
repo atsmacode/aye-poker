@@ -2,7 +2,7 @@
     <div class="m-1 p-3">
         <template v-if="player">
             <div class="row mb-2 m-0 p-0 justify-content-center" :class="[player.active ? '' : 'opacity-25']">
-                <div v-if="player.whole_cards.length && authPlayerId === player.player_id" v-for="card in player.whole_cards" class="m-0 me-1 bg-white aye-card" v-bind:class="$root.suitColours[card.suit]">
+                <div v-if="(player.whole_cards.length && authPlayerId === player.player_id) || mode === 1" v-for="card in player.whole_cards" class="m-0 me-1 bg-white aye-card" v-bind:class="$root.suitColours[card.suit]">
                     <strong>{{card.rankAbbreviation}}</strong> {{card.suitAbbreviation}}
                 </div>
                 <template v-else-if="player.stack !== null">
@@ -76,6 +76,10 @@ export default {
         authPlayerId: {
             type: Number
         },
+        mode: {
+            type: Number,
+            default: 1
+        }
     },
     methods: {
         isActive(){

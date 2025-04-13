@@ -2,64 +2,53 @@
 
 namespace Atsmacode\PokerGame\Repository\Game;
 
-use Atsmacode\PokerGame\Models\Hand;
-use Atsmacode\PokerGame\Models\PlayerAction;
-use Atsmacode\PokerGame\Repository\PlayerAction\PlayerActionRepository;
-use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
-use Atsmacode\PokerGame\Repository\WholeCard\WholeCardRepository;
+use Atsmacode\PokerGame\Models\Game;
+use Atsmacode\Framework\Database\Database;
 
 /**
  * Responsible for providing the baseline data a Game needs throught the process.
  */
-class GameRepository
+class GameRepository extends Database
 {
-    public function __construct(
-        private Hand $hands,
-        private TableSeatRepository $tableSeatRepo,
-        private WholeCardRepository $wholeCardRepo,
-        private PlayerActionRepository $playerActionRepo,
-    ) {
-    }
-
-    public function getSeats(int $tableId): array
+    public function getGame(int $gameId): ?Game
     {
-        return $this->tableSeatRepo->getSeats($tableId);
-    }
+        try {
+            $queryBuilder = $this->connection->createQueryBuilder();
+            $queryBuilder
+                ->select('*')
+                ->from('games')
+                ->where('id = '.$queryBuilder->createNamedParameter($gameId));
 
-    public function getPlayers(): array
-    {
-        return $this->hands->getPlayers();
-    }
+            $rows = $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
 
-    public function getWholeCards(array $players, int $handId): array
-    {
-        $wholeCards = [];
+            $games = $this->container->build(Game::class);
 
-        foreach ($players as $player) {
-            foreach ($this->wholeCardRepo->getWholeCards($handId, $player['player_id']) as $wholeCard) {
-                if (array_key_exists($wholeCard['player_id'], $wholeCards)) {
-                    array_push($wholeCards[$wholeCard['player_id']], $wholeCard);
-                } else {
-                    $wholeCards[$wholeCard['player_id']][] = $wholeCard;
-                }
-            }
+            return $games->build($rows);
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
         }
-
-        return $wholeCards;
     }
 
-    public function getBigBlind(int $handId): array
+    public function getTableGame(int $tableId): ?Game
     {
-        return $this->playerActionRepo->getBigBlind($handId);
-    }
+        try {
+            $queryBuilder = $this->connection->createQueryBuilder();
+            $queryBuilder
+                ->select('*')
+                ->from('games')
+                ->where('table_id = '.$queryBuilder->createNamedParameter($tableId));
 
-    public function getLatestAction(int $handId): PlayerAction
-    {
-        return $this->playerActionRepo->getLatestAction($handId);
-    }
+            $rows = $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
 
-    public function getStreetActions(int $handStreetId): array
-    {
-        return $this->playerActionRepo->getStreetActions($handStreetId);
+            $games = $this->container->build(Game::class);
+
+            return $games->build($rows);
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
+        }
     }
 }
