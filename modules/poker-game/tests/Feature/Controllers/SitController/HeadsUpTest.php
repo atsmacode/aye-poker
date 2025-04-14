@@ -23,7 +23,9 @@ class HeadsUpTest extends BaseTest
      */
     public function itCanStartTheGame()
     {
-        $this->isHeadsUp()->setGamePlay();
+        $this->isHeadsUp()
+            ->setGame()
+            ->setGamePlay();
 
         $response = $this->sitControllerResponse();
 
@@ -49,7 +51,9 @@ class HeadsUpTest extends BaseTest
      */
     public function thePreFlopActionWillInitiallyBeOnTheDealer()
     {
-        $this->isHeadsUp()->setGamePlay();
+        $this->isHeadsUp()
+            ->setGame()
+            ->setGamePlay();
 
         $response = $this->sitControllerResponse();
 

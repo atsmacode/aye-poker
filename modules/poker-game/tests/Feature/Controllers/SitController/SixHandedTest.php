@@ -16,6 +16,7 @@ class SixHandedTest extends BaseTest
         parent::setUp();
 
         $this->isSixHanded()
+            ->setGame()
             ->setGamePlay();
     }
 

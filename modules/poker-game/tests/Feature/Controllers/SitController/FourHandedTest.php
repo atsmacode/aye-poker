@@ -16,6 +16,7 @@ class FourHandedTest extends BaseTest
         parent::setUp();
 
         $this->isFourHanded()
+            ->setGame()
             ->setGamePlay();
     }
 

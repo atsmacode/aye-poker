@@ -12,7 +12,7 @@ class Table extends Model
     protected string $table = 'tables';
     private ?int $game_id;
 
-    public function setGameId(int $gameId): void
+    public function setGameId(?int $gameId): void
     {
         $this->game_id = $gameId;
     }

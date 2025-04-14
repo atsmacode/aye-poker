@@ -3,9 +3,11 @@
 namespace Atsmacode\PokerGame\Tests;
 
 use Atsmacode\PokerGame\Constants\Action;
+use Atsmacode\PokerGame\Enums\GameMode;
 use Atsmacode\PokerGame\GamePlay\GamePlay;
 use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
 use Atsmacode\PokerGame\GamePlay\HandStep\Start;
+use Atsmacode\PokerGame\Models\Game;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\Table;
@@ -31,6 +33,7 @@ trait HasGamePlay
     private TableSeat $tableSeatFive;
     private TableSeat $tableSeatSix;
     private Table $testTable;
+    private Game $testGame;
 
     private function createPlayer()
     {
@@ -71,8 +74,20 @@ trait HasGamePlay
         return $this;
     }
 
+    private function setGame()
+    {
+        $this->testGame = $this->games->create([
+            'table_id' => $this->testTable->getId(),
+            'mode' => GameMode::REAL->value
+        ]);
+
+        return $this;
+    }
+
     private function setHand()
     {
+        $this->setGame();
+
         $this->testHand = $this->hands->create(['table_id' => $this->testTable->getId()]);
 
         return $this;

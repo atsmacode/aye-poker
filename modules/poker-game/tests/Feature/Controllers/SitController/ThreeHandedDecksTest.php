@@ -16,6 +16,7 @@ class ThreeHandedDecksTest extends BaseTest
         parent::setUp();
 
         $this->isThreeHanded()
+            ->setGame()
             ->setGamePlay();
     }
 

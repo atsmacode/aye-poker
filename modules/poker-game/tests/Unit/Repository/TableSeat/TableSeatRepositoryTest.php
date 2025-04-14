@@ -14,7 +14,7 @@ class TableSeatRepositoryTest extends BaseTest
         parent::setUp();
 
         $this->isThreeHanded()
-            ->sethand()
+            ->setHand()
             ->setGamePlay();
     }
 
