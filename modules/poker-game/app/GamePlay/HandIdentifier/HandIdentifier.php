@@ -229,34 +229,46 @@ class HandIdentifier
 
     private function removeDuplicates(array $cards): array
     {
-        return array_values(array_filter($cards, function ($value, $key) use ($cards) {
-            if (array_key_exists($key - 1, $cards)) {
-                return $value['ranking'] !== $cards[$key - 1]['ranking'];
-            }
+        $seen = [];
+        $unique = [];
 
-            return true;
-        }, ARRAY_FILTER_USE_BOTH));
+        foreach ($cards as $card) {
+            $rank = $card['ranking'];
+
+            if (!isset($seen[$rank])) {
+                $seen[$rank] = true;
+                $unique[] = $card;
+            }
+        }
+
+        return $unique;
     }
 
     private function filterStraightCards(array $cards): array
     {
-        return array_filter($cards, function ($value, $key) use ($cards) {
-            $nextCardExists = array_key_exists($key + 1, $cards);
-            $previousCardExists = array_key_exists($key - 1, $cards);
+        $straight = [];
 
-            $nextCardRankingPlusOne = $nextCardExists ? $cards[$key + 1]['ranking'] + 1 : null;
-            $previousCardRankingMinusOne = $previousCardExists ? $cards[$key - 1]['ranking'] - 1 : null;
-
-            if ($nextCardExists && !$previousCardExists) {
-                return $value['ranking'] === $nextCardRankingPlusOne;
+        foreach ($cards as $card) {
+            if (empty($straight)) {
+                $straight[] = $card;
+    
+                continue;
             }
-
-            if (!$nextCardExists && $previousCardExists) {
-                return $value['ranking'] === $previousCardRankingMinusOne;
+    
+            $last = end($straight);
+    
+            if ($card['ranking'] === $last['ranking'] - 1) {
+                $straight[] = $card;
+    
+                if (count($straight) === 5) {
+                    return $straight;
+                }
+            } else {
+                $straight = [$card];
             }
-
-            return $value['ranking'] === $previousCardRankingMinusOne && $value['ranking'] === $nextCardRankingPlusOne;
-        }, ARRAY_FILTER_USE_BOTH);
+        }
+    
+        return [];
     }
 
     public function highestCard(): self
