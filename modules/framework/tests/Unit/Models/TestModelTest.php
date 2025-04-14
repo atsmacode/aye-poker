@@ -35,4 +35,14 @@ class TestModelTest extends BaseTest
 
         $this->assertEquals([], $test->getContent());
     }
+
+    /** @test */
+    public function aModelCanBeRefreshed()
+    {
+        $test = $this->test->create(['name' => 'Test Name', 'test_desc' => 'Test Description.']);
+
+        $test->refresh([['test_desc' => 'Refreshed Description.']]);
+
+        $this->assertEquals('Refreshed Description.', $test->getTestDesc());
+    }
 }

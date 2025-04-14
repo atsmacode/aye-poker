@@ -162,28 +162,30 @@ abstract class Model extends Database
 
     public function refresh(?array $withData): ?self
     {
-        $rows = null;
+        if ($withData) {
+            $this->content = count($this->content) === 1 ? [array_merge($this->content[0], $withData[0])] : $this->content;
 
-        if (!$withData) {
-            try {
-                $stmt = $this->connection->prepare("
-                    SELECT * FROM {$this->table} WHERE id = {$this->id}
-                ");
+            $this->setModelProperties($this->content);
 
-                $results = $stmt->executeQuery();
-                $rows = $results->fetchAllAssociative();
-            } catch (\Throwable $e) {
-                $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
-
-                return null;
-            }
+            return $this;
         }
 
-        $data = $withData ?? $rows;
+        $rows = null;
 
-        $this->content = $data;
+        try {
+            $stmt = $this->connection->prepare("
+                SELECT * FROM {$this->table} WHERE id = {$this->id}
+            ");
 
-        $this->setModelProperties($data);
+            $results = $stmt->executeQuery();
+            $rows = $results->fetchAllAssociative();
+        } catch (\Throwable $e) {
+            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
+        }
+
+        $this->setModelProperties($rows);
 
         return $this;
     }
