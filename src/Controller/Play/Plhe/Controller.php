@@ -24,10 +24,10 @@ class Controller extends AbstractController
 
     #[Route('/play/plhe', name: 'play_plhe', methods: ['GET'])]
     public function index(Security $security): Response {
-        $userPlayer = $security->getUser()->getUserPlayer();
+        $userPlayer = $security->getUser()?->getUserPlayer();
 
         return $this->render('play/index.html.twig', [
-            'playerId' => $userPlayer->getPlayerId(),
+            'playerId' => $userPlayer?->getPlayerId(),
             'gameId' => 1, // Default gameId
             'tableId' => 2 // Default tableId
         ]);
@@ -41,11 +41,11 @@ class Controller extends AbstractController
         Request $request
     ): Response {
         $serviceManager = $pokerGame->getServiceManager();
-        $userPlayer     = $security->getUser()->getUserPlayer();
+        $userPlayer     = $security->getUser() ? $security->getUser()->getUserPlayer() : null;
         $requestContent = json_decode($request->getContent(), true);
 
         $response = $serviceManager->get(SitService::class)->sit(
-            playerId: $userPlayer->getPlayerId(),
+            playerId: $userPlayer?->getPlayerId(),
             gameId: $requestContent['gameId'],
             tableId: $requestContent['tableId']
         );

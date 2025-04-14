@@ -17,14 +17,14 @@
                         <a class="nav-link {{ app.request.attributes.get('_route') == 'register' ? 'active' }}" aria-current="page" href="{{ path('register') }}">Register</a>
                     </li>
                 {% endif %}
-                {% if app.request.attributes.get('_route') != 'play_plhe' %}
-                    <li class="nav-item">
-                        <a class="nav-link {{ app.request.attributes.get('_route') == 'create_game' ? 'active' }}" aria-current="page" href="{{ path('create_game') }}">New Game</a>
-                    </li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') and app.request.attributes.get('_route') != 'play_plhe' %}
                     <li class="nav-item">
                         <a class="nav-link {{ app.request.attributes.get('_route') == 'play_plhe' ? 'active' }}" aria-current="page" href="{{ path('play_plhe') }}">Play Now</a>
                     </li>
                 {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link {{ app.request.attributes.get('_route') == 'create_game' ? 'active' }}" aria-current="page" href="{{ path('create_game') }}">New Game</a>
+                </li>
                 {# <li class="nav-item">
                     <a class="nav-link {{ app.request.attributes.get('_route') == 'play_plom' ? 'active' }}" aria-current="page" href="{{ path('play_plom') }}">Play PLOM</a>
                 </li> #}

@@ -38,14 +38,18 @@ class PlayerActionVoter extends Voter
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
+        $playerAction = (array) $subject['request'];
+
+        $serviceManager = $this->pokerGame->getServiceManager();
+        $game = $serviceManager->get(GameRepository::class)->getGame($playerAction['gameId']);
+
+        if ($game->getMode() == GameMode::TEST->value) { return true; }
 
         // the user must be logged in; if not, deny access
         if (!$user instanceof User) { return false; } 
 
-        $playerAction = $subject['request'];
-
         return match($attribute) {
-            self::ACTION => $this->canAction((array) $playerAction, $user),
+            self::ACTION => $this->canAction($playerAction, $user),
             default      => throw new \LogicException('This code should not be reached!')
         };
     }
@@ -53,11 +57,6 @@ class PlayerActionVoter extends Voter
     private function canAction(array $playerAction, User $user): bool
     {
         if (true === in_array('ROLE_ADMIN', $user->getRoles())) { return true; }
-
-        $serviceManager = $this->pokerGame->getServiceManager();
-        $game = $serviceManager->get(GameRepository::class)->getGame($playerAction['gameId']);
-
-        if ($game->getMode() == GameMode::TEST->value) { return true; }
         
         $userPlayer = $this->userPlayerRepository->findOneBy([
             'userId' => $user->getId()

@@ -37,13 +37,13 @@ class GameController extends AbstractController
     #[Route('/games/{gameId}', name: 'show_game', methods: ['GET'])]
     public function index(Request $request, Security $security, PokerGame $pokerGame): Response {
         $gameId = $request->attributes->get('_route_params')['gameId'];
-        $userPlayer = $security->getUser()->getUserPlayer();
+        $userPlayer = $security->getUser() ? $security->getUser()->getUserPlayer() : null;
 
         $serviceManager = $pokerGame->getServiceManager();
         $game = $serviceManager->get(Game::class)->find(['id' => $gameId]);
 
         return $this->render('play/index.html.twig', [
-            'playerId' => $userPlayer->getPlayerId(),
+            'playerId' => $userPlayer?->getPlayerId(),
             'gameId' => $gameId,
             'tableId' => $game->getTableId()
         ]);
