@@ -52,30 +52,23 @@ class Dealer
 
         $this->card = $card;
 
-        $reject = array_filter($this->deck, function ($value) use ($card) {
-            return $value !== $card;
-        });
-
-        $this->deck = array_values($reject);
-
         return $this;
     }
 
     private function pickSpecificCard(string $rank, string $suit): self
     {
-        $filter = array_filter($this->deck, function ($value) use ($rank, $suit) {
-            return $value['rank'] === $rank && $value['suit'] === $suit;
-        });
+        foreach ($this->deck as $index => $card) {
+            if ($card['rank'] === $rank && $card['suit'] === $suit) {
+                $this->card = $card;
 
-        $this->card = array_values($filter)[0];
-        $card = $this->card;
+                unset($this->deck[$index]);
 
-        $reject = array_filter($this->deck, function ($value) use ($card) {
-            return $value !== $card;
-        });
+                $this->deck = array_values($this->deck); // reindex
 
-        $this->deck = array_values($reject);
-
-        return $this;
+                return $this;
+            }
+        }
+    
+        throw new \RuntimeException("Card {$rank} of {$suit} not found in deck.");
     }
 }
