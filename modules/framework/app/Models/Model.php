@@ -163,6 +163,7 @@ abstract class Model extends Database
     public function refresh(?array $withData): ?self
     {
         if ($withData) {
+            // If given data, merge it with existing content to save making another request.
             $this->content = count($this->content) === 1 ? [array_merge($this->content[0], $withData[0])] : $this->content;
 
             $this->setModelProperties($this->content);
@@ -367,6 +368,7 @@ abstract class Model extends Database
     /** Uses reflection to set private properties of child Model class */
     protected function setModelProperties(array $result): void
     {
+        // TODO: If 1 Model is found, it's assumed this is the one we want. Could be more intelligently done.
         if (1 === count($result)) {
             foreach (array_shift($result) as $column => $value) {
                 if ($this->reflection->hasProperty($column)) {
