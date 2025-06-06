@@ -41,6 +41,7 @@
 17. Facade Accessor for Models
 18. Use Enums instead of constants for Cards, Actions etc
 19. Dsiplay errors on front-end. Also not much handling of errors from DB bubbling up.
+20. Review general design structure, see what params are needed and where, simplify
 
 # Features
 
