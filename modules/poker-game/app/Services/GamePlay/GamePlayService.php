@@ -27,7 +27,7 @@ class GamePlayService
     public function action(Request $request): array
     {
         $requestBody = $request->toArray();
-        $hand = $this->handRepo->getLatest();
+        $hand = $this->handRepo->getLatest(); // TODO: hand retrieved should be associated with the game/table, not latest of any
         $gameState = $this->actionHandler->handle(
             $hand,
             $requestBody['player_id'],
