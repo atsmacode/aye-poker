@@ -22,6 +22,7 @@ class HandIdentifier
     ];
 
     private array $allCards;
+    private array $allCardsDesc;
     private int|bool $highCard = false;
     private array $pairs = [];
     private array $threeOfAKind = [];
@@ -93,6 +94,7 @@ class HandIdentifier
     public function identify(array $wholeCards, array $communityCards): self
     {
         $this->allCards = array_merge($wholeCards, $communityCards);
+        $this->allCardsDesc = $this->sortAllCardsByDescRanking();
 
         if (true === $this->hasRoyalFlush()) {
             return $this;
@@ -174,7 +176,7 @@ class HandIdentifier
 
     private function getKicker(?array $activeCards = null): ?int
     {
-        $cardRankings = array_column($this->sortAllCardsByDescRanking(), 'ranking');
+        $cardRankings = array_column($this->allCardsDesc, 'ranking');
 
         /*
          * Check against $this->highCard & activeCards so only
@@ -394,14 +396,12 @@ class HandIdentifier
 
     private function hasThisStraight(array $straightCards, ?int $kicker): bool
     {
-        $sortedCardsDesc = $this->sortAllCardsByDescRanking();
-        
         $validRanks = $straightCards;
         
         $straight = [];
         $rankSet = [];
 
-        foreach ($sortedCardsDesc as $card) {
+        foreach ($this->allCardsDesc as $card) {
             $rank = $card['ranking'];
 
             if (!in_array($rank, $validRanks) || in_array($rank, $rankSet)) {
@@ -425,8 +425,7 @@ class HandIdentifier
 
     private function hasAnyOtherStraight(): bool
     {
-        $cardsSortByDesc = $this->sortAllCardsByDescRanking();
-        $removeDuplicates = $this->removeDuplicates($cardsSortByDesc);
+        $removeDuplicates = $this->removeDuplicates($this->allCardsDesc);
 
         $straight = $this->filterStraightCards($removeDuplicates);
 
@@ -523,7 +522,7 @@ class HandIdentifier
     {
         foreach (Suit::ALL as $suit) {
             /* Remove cards not in this suit. This also takes care of duplicates. */
-            $onlyThisSuit = array_values(array_filter($this->sortAllCardsByDescRanking(), function ($item) use ($suit) {
+            $onlyThisSuit = array_values(array_filter($this->allCardsDesc, function ($item) use ($suit) {
                 return $item['suit_id'] === $suit['suit_id'];
             }));
 
