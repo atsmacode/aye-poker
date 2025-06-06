@@ -378,73 +378,46 @@ class HandIdentifier
 
     private function hasFiveHighStraight(): bool
     {
-        $sortedCardsDesc = array_filter($this->sortAllCardsByDescRanking(), function ($value, $key) {
-            $previousCardRanking = null;
-
-            /* Remove duplicates. */
-            if (array_key_exists($key - 1, $this->allCards)) {
-                $previousCardRanking = $this->allCards[$key - 1]['ranking'];
-            }
-
-            switch ($value['ranking']) {
-                case Rank::ACE_RANK_ID:
-                case Rank::DEUCE_RANK_ID:
-                case Rank::THREE_RANK_ID:
-                case Rank::FOUR_RANK_ID:
-                case Rank::FIVE_RANK_ID:
-                    if ($value['ranking'] !== $previousCardRanking) {
-                        return true;
-                    }
-                    break;
-            }
-        }, ARRAY_FILTER_USE_BOTH);
-
-        $straight = array_slice($sortedCardsDesc, 0, 5);
-
-        if ($straight && 5 === count($straight)) {
-            $this->straight = $straight;
-            $this->identifiedHandType['handType'] = $this->getHandType('Straight');
-            $this->identifiedHandType['activeCards'] = array_column($straight, 'ranking');
-            $this->identifiedHandType['kicker'] = array_shift($straight)['ranking'];
-
-            return true;
-        }
-
-        return false;
+        return $this->hasThisStraight(
+            straightCards: [Rank::ACE_RANK_ID, Rank::DEUCE_RANK_ID, Rank::THREE_RANK_ID, Rank::FOUR_RANK_ID, Rank::FIVE_RANK_ID],
+            kicker: Rank::FIVE_RANK_ID
+        );
     }
 
     private function hasAceHighStraight(): bool
     {
-        $sortedCardsDesc = array_filter($this->sortAllCardsByDescRanking(), function ($value, $key) {
-            $previousCardRanking = null;
+        return $this->hasThisStraight(
+            straightCards: [Rank::ACE_RANK_ID, Rank::KING_RANK_ID, Rank::QUEEN_RANK_ID, Rank::JACK_RANK_ID, Rank::TEN_RANK_ID],
+            kicker: Rank::ACE_HIGH_RANK_ID
+        );
+    }
 
-            /* Remove duplicates. */
-            if (array_key_exists($key - 1, $this->allCards)) {
-                $previousCardRanking = $this->allCards[$key - 1]['ranking'];
+    private function hasThisStraight(array $straightCards, ?int $kicker): bool
+    {
+        $sortedCardsDesc = $this->sortAllCardsByDescRanking();
+        
+        $validRanks = $straightCards;
+        
+        $straight = [];
+        $rankSet = [];
+
+        foreach ($sortedCardsDesc as $card) {
+            $rank = $card['ranking'];
+
+            if (!in_array($rank, $validRanks) || in_array($rank, $rankSet)) {
+                continue;
             }
 
-            switch ($value['ranking']) {
-                case Rank::ACE_RANK_ID:
-                case Rank::KING_RANK_ID:
-                case Rank::QUEEN_RANK_ID:
-                case Rank::JACK_RANK_ID:
-                case Rank::TEN_RANK_ID:
-                    if ($value['ranking'] !== $previousCardRanking) {
-                        return true;
-                    }
-                    break;
+            $rankSet[] = $rank;
+            $straight[] = $card;
+
+            if (count($straight) === 5) {
+                $this->straight = $straight;
+                $this->identifiedHandType['handType'] = $this->getHandType('Straight');
+                $this->identifiedHandType['activeCards'] = array_column($straight, 'ranking');
+                $this->identifiedHandType['kicker'] = $kicker;
+                return true;
             }
-        }, ARRAY_FILTER_USE_BOTH);
-
-        $straight = array_slice($sortedCardsDesc, 0, 5);
-
-        if ($straight && 5 === count($straight)) {
-            $this->straight = $straight;
-            $this->identifiedHandType['handType'] = $this->getHandType('Straight');
-            $this->identifiedHandType['activeCards'] = array_column($straight, 'ranking');
-            $this->identifiedHandType['kicker'] = Rank::ACE_HIGH_RANK_ID;
-
-            return true;
         }
 
         return false;
@@ -454,7 +427,6 @@ class HandIdentifier
     {
         $cardsSortByDesc = $this->sortAllCardsByDescRanking();
         $removeDuplicates = $this->removeDuplicates($cardsSortByDesc);
-        $removeDuplicates = array_slice($removeDuplicates, 0, 5);
 
         $straight = $this->filterStraightCards($removeDuplicates);
 
