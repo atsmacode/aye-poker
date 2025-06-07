@@ -277,7 +277,7 @@ class HandIdentifier
         return $this;
     }
 
-    public function hasPair(): bool|self
+    private function checkPairs(): void
     {
         foreach (Rank::ALL as $rank) {
             if (2 === count($this->filterAllCards('rank_id', $rank['rank_id']))) {
@@ -294,7 +294,10 @@ class HandIdentifier
                 }
             }
         }
+    }
 
+    public function hasPair(): bool|self
+    {
         if (1 === count($this->pairs)) {
             $this->identifiedHandType['handType'] = HandType::PAIR;
 
@@ -306,29 +309,13 @@ class HandIdentifier
 
     public function hasTwoPair(): bool|self
     {
-        foreach (Rank::ALL as $rank) {
-            if (2 === count($this->filterAllCards('rank_id', $rank['rank_id']))) {
-                $this->pairs[] = $rank;
-                $this->identifiedHandType['activeCards'][] = $this->checkForHighAceActiveCardRanking($rank) ?: $rank['ranking'];
-                /*
-                 * The showdown may be called pre-flop when the pot is checked down to BB.
-                 * In which case they may have a pair and no other kicker rank.
-                 */
-                if (count($this->allCards) > 2) {
-                    $this->identifiedHandType['kicker'] = $this->getKicker($this->identifiedHandType['activeCards']);
-                } else {
-                    $this->identifiedHandType['kicker'] = $rank['ranking'];
-                }
-            }
-        }
+        $this->checkPairs();
 
         if (2 <= count($this->pairs)) {
             $this->identifiedHandType['handType'] = HandType::TWO_PAIR;
 
             return true;
         }
-
-        $this->pairs = [];
 
         return $this;
     }
