@@ -96,39 +96,39 @@ class HandIdentifier
         $this->allCards = array_merge($wholeCards, $communityCards);
         $this->allCardsDesc = $this->sortAllCardsByDescRanking();
 
-        if (true === $this->hasRoyalFlush()) {
+        if ($this->hasRoyalFlush()) {
             return $this;
         }
 
-        if (true === $this->hasStraightFlush()) {
+        if ($this->hasStraightFlush()) {
             return $this;
         }
 
-        if (true === $this->hasFourOfAKind()) {
+        if ($this->hasFourOfAKind()) {
             return $this;
         }
 
-        if (true === $this->hasFullHouse()) {
+        if ($this->hasFullHouse()) {
             return $this;
         }
 
-        if (true === $this->hasFlush()) {
+        if ($this->hasFlush()) {
             return $this;
         }
 
-        if (true === $this->hasStraight()) {
+        if ($this->hasStraight()) {
             return $this;
         }
 
-        if (true === $this->hasThreeOfAKind()) {
+        if ($this->hasThreeOfAKind()) {
             return $this;
         }
 
-        if (true === $this->hasTwoPair()) {
+        if ($this->hasTwoPair()) {
             return $this;
         }
 
-        if (true === $this->hasPair()) {
+        if ($this->hasPair()) {
             return $this;
         }
 
@@ -296,7 +296,7 @@ class HandIdentifier
         }
     }
 
-    public function hasPair(): bool|self
+    public function hasPair(): bool
     {
         if (1 === count($this->pairs)) {
             $this->identifiedHandType['handType'] = HandType::PAIR;
@@ -304,10 +304,10 @@ class HandIdentifier
             return true;
         }
 
-        return $this;
+        return false;
     }
 
-    public function hasTwoPair(): bool|self
+    public function hasTwoPair(): bool
     {
         $this->checkPairs();
 
@@ -317,10 +317,10 @@ class HandIdentifier
             return true;
         }
 
-        return $this;
+        return false;
     }
 
-    public function hasThreeOfAKind(): bool|self
+    public function hasThreeOfAKind(): bool
     {
         foreach (Rank::ALL as $rank) {
             if (3 === count($this->filterAllCards('rank_id', $rank['rank_id']))) {
@@ -334,24 +334,24 @@ class HandIdentifier
         }
 
         /* @todo There could be 2 trips - add handling for this */
-        return $this;
+        return false;
     }
 
-    public function hasStraight(): bool|self
+    public function hasStraight(): bool
     {
-        if (true === $this->hasFiveHighStraight()) {
+        if ($this->hasFiveHighStraight()) {
             return true;
         }
 
-        if (true === $this->hasAceHighStraight()) {
+        if ($this->hasAceHighStraight()) {
             return true;
         }
 
-        if (true === $this->hasAnyOtherStraight()) {
+        if ($this->hasAnyOtherStraight()) {
             return true;
         }
 
-        return $this;
+        return false;
     }
 
     private function hasFiveHighStraight(): bool
@@ -433,10 +433,10 @@ class HandIdentifier
             }
         }
 
-        return $this;
+        return false;
     }
 
-    public function hasFullHouse(): bool|self
+    public function hasFullHouse(): bool
     {
         $this->checkTripsForFullHouse()->checkPairsForFullHouse();
 
@@ -452,7 +452,7 @@ class HandIdentifier
         $this->threeOfAKind = [];
         $this->identifiedHandType['activeCards'] = [];
 
-        return $this;
+        return false;
     }
 
     private function checkTripsForFullHouse(): self
@@ -478,7 +478,7 @@ class HandIdentifier
         return $this;
     }
 
-    public function hasFourOfAKind(): bool|self
+    public function hasFourOfAKind(): bool
     {
         foreach (Rank::ALL as $rank) {
             if (4 === count($this->filterAllCards('rank_id', $rank['rank_id']))) {
@@ -491,10 +491,10 @@ class HandIdentifier
             }
         }
 
-        return $this;
+        return false;
     }
 
-    public function hasStraightFlush(): bool|self
+    public function hasStraightFlush(): bool
     {
         foreach (Suit::ALL as $suit) {
             $onlyThisSuit = [];
@@ -518,10 +518,10 @@ class HandIdentifier
             }
         }
 
-        return $this;
+        return false;
     }
 
-    public function hasRoyalFlush(): bool|self
+    public function hasRoyalFlush(): bool
     {
         $royalRanks = [Rank::ACE_RANK_ID, Rank::KING_RANK_ID, Rank::QUEEN_RANK_ID, Rank::JACK_RANK_ID, Rank::TEN_RANK_ID];
     
@@ -539,6 +539,6 @@ class HandIdentifier
             }
         }
 
-        return $this;
+        return false;
     }
 }
