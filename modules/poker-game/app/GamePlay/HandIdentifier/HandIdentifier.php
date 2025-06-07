@@ -421,7 +421,7 @@ class HandIdentifier
         return true;
     }
 
-    public function hasFlush(): bool|self
+    public function hasFlush(): bool
     {
         foreach (Suit::ALL as $suit) {
             $flushCards = $this->filterAllCards('suit_id', $suit['suit_id']);
