@@ -521,10 +521,14 @@ class HandIdentifier
     public function hasStraightFlush(): bool|self
     {
         foreach (Suit::ALL as $suit) {
+            $onlyThisSuit = [];
+
             /* Remove cards not in this suit. This also takes care of duplicates. */
-            $onlyThisSuit = array_values(array_filter($this->allCardsDesc, function ($item) use ($suit) {
-                return $item['suit_id'] === $suit['suit_id'];
-            }));
+            foreach($this->allCardsDesc as $card) {
+                if ($card['suit_id'] === $suit['suit_id']) {
+                    $onlyThisSuit[] = $card;
+                }
+            };
 
             $straightFlush = $this->filterStraightCards($onlyThisSuit);
 
@@ -543,13 +547,11 @@ class HandIdentifier
 
     public function hasRoyalFlush(): bool|self
     {
+        $royalRanks = [Rank::ACE_RANK_ID, Rank::KING_RANK_ID, Rank::QUEEN_RANK_ID, Rank::JACK_RANK_ID, Rank::TEN_RANK_ID];
+    
         foreach (Suit::ALL as $suit) {
-            $royalFlush = array_filter($this->allCards, function ($value) use ($suit) {
-                return $value['suit_id'] === $suit['suit_id'] && 'A' === $value['rankAbbreviation']
-                    || $value['suit_id'] === $suit['suit_id'] && 'K' === $value['rankAbbreviation']
-                    || $value['suit_id'] === $suit['suit_id'] && 'Q' === $value['rankAbbreviation']
-                    || $value['suit_id'] === $suit['suit_id'] && 'J' === $value['rankAbbreviation']
-                    || $value['suit_id'] === $suit['suit_id'] && '10' === $value['rankAbbreviation'];
+            $royalFlush = array_filter($this->allCards, function ($value) use ($suit, $royalRanks) {
+                return $value['suit_id'] === $suit['suit_id'] && in_array($value['rank_id'], $royalRanks);
             });
 
             if ($royalFlush && 5 === count($royalFlush)) {
