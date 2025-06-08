@@ -37,7 +37,6 @@ class GamePlayService
             $requestBody['hand_street_id'],
             $requestBody['bet_amount'],
             $requestBody['action_id'],
-            $requestBody['active'],
             $requestBody['stack']
         );
 

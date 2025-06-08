@@ -100,10 +100,6 @@ createApp({
 			this.mode = data.mode ? data.mode : 1;
 		},
 		action(action, player){
-			let active = 1;
-
-			if(action.id === 1){ active = 0; }
-
 			let gameId = document.getElementById('game_id').value;
 
 			let payload = {
@@ -111,7 +107,6 @@ createApp({
 				action_id:      action.id,
 				table_seat_id:  player.table_seat_id,
 				hand_street_id: player.hand_street_id,
-				active:         active,
 				bet_amount:     this.actionBetAmounts[action.name],
 				stack:          player.stack,
 				gameId:         gameId

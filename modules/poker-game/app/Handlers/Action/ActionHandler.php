@@ -35,7 +35,6 @@ class ActionHandler implements ActionHandlerInterface
         int $handStreetId,
         ?float $betAmount,
         int $actionId,
-        int $active,
         ?int $stack,
     ): GameState {
         $playerAction = $this->playerActions->find([
@@ -49,7 +48,7 @@ class ActionHandler implements ActionHandlerInterface
         $playerAction->update([
             'action_id' => $actionId,
             'bet_amount' => $betAmount,
-            'active' => $active,
+            'active' => $actionId === 1 ? 0 : 1 ,
             'updated_at' => date('Y-m-d H:i:s', time()),
         ]);
 
