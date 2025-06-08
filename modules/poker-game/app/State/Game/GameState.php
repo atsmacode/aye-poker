@@ -37,6 +37,7 @@ class GameState
     private PokerDealer $dealer;
     private array $bigBlind;
     private Table $table;
+    private bool $handIsActive;
 
     public function __construct(
         private GameStateRepository $gameRepo,
@@ -325,5 +326,15 @@ class GameState
     public function getPlayerState(): array
     {
         return $this->playerState->get($this);
+    }
+
+    public function handIsActive(): bool
+    {
+        return $this->handIsActive;
+    }
+
+    public function setHandIsActive(bool $active): void
+    {
+        $this->handIsActive = $active;
     }
 }

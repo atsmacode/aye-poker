@@ -6,9 +6,8 @@ use Atsmacode\PokerGame\GamePlay\GamePlay;
 use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
 use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
 use Atsmacode\PokerGame\Models\Hand;
-use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
-use Atsmacode\PokerGame\State\Game\GameState;
+use Atsmacode\PokerGame\State\Player\PlayerState;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -25,7 +24,7 @@ class SitService
         private Hand $hands,
         private TableSeatRepository $tableSeatRepo,
         private SitHandler $sitHandler,
-        private Player $players,
+        private PlayerState $playerState,
     ) {
     }
 
@@ -35,59 +34,15 @@ class SitService
         $gameId = $requestBody['gameId'] ?? null;
         $tableId = $requestBody['tableId'];
 
-        if (null !== $playerId) {
-            $playerSeat = $this->sitHandler->handle($playerId);
-            $tableId = $playerSeat->getTableId();
+        $gameState = $this->sitHandler->handle($tableId, $playerId, $gameId);
 
-            if (2 > count($this->tableSeatRepo->hasMultiplePlayers($tableId))) {
-                return [
-                    'message' => 'Waiting for more players to join.',
-                    'players' => $this->setWaitingPlayerData($playerId, $playerSeat->getId(), $playerSeat->getNumber()),
-                ];
-            }
-        }
-
-        $currentHand = $this->hands->find(['game_id' => $gameId, 'table_id' => $tableId, 'completed_on' => null]);
-        $currentHandIsActive = $currentHand ?? false;
-
-        $hand = $currentHandIsActive
-            ? $currentHand
-            : $this->hands->create(['table_id' => $tableId, 'game_id' => $gameId]);
-
-        $gameState = $this->container->build(GameState::class, ['hand' => $hand]); /** @phpstan-ignore method.notFound */
-        $gamePlayService = $this->container->build(GamePlay::class, [/* @phpstan-ignore method.notFound */
+        $gamePlay = $this->container->build(GamePlay::class, [/* @phpstan-ignore method.notFound */
             'game' => $this->container->get($this->game),
             'gameState' => $gameState,
         ]);
 
-        return $currentHandIsActive
-            ? $gamePlayService->play($gameState)
-            : $gamePlayService->start($gameState->getDealer());
-    }
-
-    private function setWaitingPlayerData(int $playerId, int $tableSeatId, int $seatNumber): array
-    {
-        $playerName = $this->players->find(['id' => $playerId])->getName();
-
-        return [
-            $seatNumber => [
-                'stack' => null,
-                'name' => $playerName,
-                'action_id' => null,
-                'action_name' => null,
-                'player_id' => $playerId,
-                'table_seat_id' => $tableSeatId,
-                'hand_street_id' => null,
-                'bet_amount' => null,
-                'active' => 0,
-                'can_continue' => 0,
-                'is_dealer' => 0,
-                'big_blind' => 0,
-                'small_blind' => 0,
-                'whole_cards' => [],
-                'action_on' => false,
-                'availableOptions' => [],
-            ],
-        ];
+        return $gameState->handIsActive()
+            ? $gamePlay->play($gameState)
+            : $gamePlay->start();
     }
 }

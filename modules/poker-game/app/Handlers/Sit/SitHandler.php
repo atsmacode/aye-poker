@@ -2,30 +2,57 @@
 
 namespace Atsmacode\PokerGame\Handlers\Sit;
 
+use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
+use Atsmacode\PokerGame\State\Game\GameState;
+use Atsmacode\PokerGame\State\Player\PlayerState;
+use Psr\Container\ContainerInterface;
 
 /**
  * Handle a Player taking a seat.
  */
 class SitHandler
 {
-    public function __construct(private TableSeatRepository $tableSeatRepo)
-    {
+    public function __construct(
+        private ?GameState $gameState,
+        private Hand $hands,
+        private TableSeatRepository $tableSeatRepo,
+        private PlayerState $playerState
+    ) {
     }
 
-    public function handle(int $playerId, ?int $thisSeat = null): TableSeat
+    public function handle(int $tableId, ?int $playerId = null, ?int $gameId = null, ?int $thisSeat = null): mixed
     {
-        $currentSeat = $this->tableSeatRepo->getCurrentPlayerSeat($playerId);
+        if (null !== $playerId) {
+            $currentSeat = $this->tableSeatRepo->getCurrentPlayerSeat($playerId);
+    
+            $playerSeat = $thisSeat ? $this->tableSeatRepo->getFirstAvailableSeat($thisSeat) : $currentSeat;
+    
+            $playerSeat->update(['player_id' => $playerId]);
 
-        if (null !== $currentSeat) {
-            return $currentSeat;
+            $tableId = $playerSeat->getTableId();
+
+            if (2 > count($this->tableSeatRepo->hasMultiplePlayers($tableId))) {
+                return [
+                    'message' => 'Waiting for more players to join.',
+                    'players' => $this->playerState->getWaitingPlayerData(
+                        $playerId,
+                        $playerSeat->getId(),
+                        $playerSeat->getNumber()
+                    ),
+                ];
+            }
         }
 
-        $tableSeat = $this->tableSeatRepo->getFirstAvailableSeat($thisSeat);
+        $currentHand = $this->hands->find(['game_id' => $gameId, 'table_id' => $tableId, 'completed_on' => null]);
 
-        $tableSeat->update(['player_id' => $playerId]);
+        $this->gameState->setHandIsActive(! $currentHand ? false : true);
 
-        return $tableSeat;
+        $hand = $currentHand ?? $this->hands->create(['table_id' => $tableId, 'game_id' => $gameId]);
+
+        $this->gameState->initiate($hand);
+
+        return $this->gameState;
     }
 }

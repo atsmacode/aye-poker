@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Atsmacode\PokerGame\State\Player;
 
 use Atsmacode\PokerGame\Constants\Action;
+use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 use Atsmacode\PokerGame\State\Game\GameState;
 
@@ -17,6 +18,7 @@ class PlayerState implements PlayerStateInterface
 
     public function __construct(
         private TableSeatRepository $tableSeatRepo,
+        private Player $players
     ) {
     }
 
@@ -58,6 +60,33 @@ class PlayerState implements PlayerStateInterface
         }
 
         return $playerData;
+    }
+
+    public function getWaitingPlayerData(int $playerId, int $tableSeatId, int $seatNumber): array
+    {
+        $playerName = $this->players->find(['id' => $playerId])->getName();
+
+        return [
+            $seatNumber => [
+                'player_action_id' => null,
+                'stack' => null,
+                'name' => $playerName,
+                'action_id' => null,
+                'action_name' => null,
+                'player_id' => $playerId,
+                'table_seat_id' => $tableSeatId,
+                'hand_street_id' => null,
+                'bet_amount' => null,
+                'active' => 0,
+                'can_continue' => 0,
+                'is_dealer' => 0,
+                'big_blind' => 0,
+                'small_blind' => 0,
+                'whole_cards' => [],
+                'action_on' => false,
+                'availableOptions' => [],
+            ],
+        ];
     }
 
     private function getActionOn(): array

@@ -75,13 +75,13 @@ abstract class BaseTest extends TestCase
         $this->tableSeatRepo = $this->container->build(TableSeatRepository::class);
         $this->games = $this->container->build(Game::class);
 
-        $this->container->get(ConnectionInterface::class)->beginTransaction();
+        //$this->container->get(ConnectionInterface::class)->beginTransaction();
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
 
-        $this->container->get(ConnectionInterface::class)->rollback();
+        //$this->container->get(ConnectionInterface::class)->rollback();
     }
 }
