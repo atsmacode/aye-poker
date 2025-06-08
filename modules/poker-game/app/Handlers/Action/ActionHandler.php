@@ -30,20 +30,20 @@ class ActionHandler implements ActionHandlerInterface
 
     public function handle(
         Hand $hand,
-        int $playerId,
-        int $tableSeatId,
-        int $handStreetId,
+        int $playerActionId,
         ?float $betAmount,
         int $actionId,
         ?int $stack,
     ): GameState {
-        $playerAction = $this->playerActions->find([
-            'player_id' => $playerId,
-            'table_seat_id' => $tableSeatId,
-            'hand_street_id' => $handStreetId,
-        ]);
+        $playerAction = $this->playerActions->find(['id' => $playerActionId]);
 
-        $this->betHandler->handle($hand, $stack, $playerId, $hand->getTableId(), $betAmount);
+        $this->betHandler->handle(
+            $hand,
+            $stack,
+            $playerAction->getPlayerId(),
+            $hand->getTableId(),
+            $betAmount
+        );
 
         $playerAction->update([
             'action_id' => $actionId,
@@ -57,11 +57,11 @@ class ActionHandler implements ActionHandlerInterface
             'bet_amount' => $betAmount,
             'big_blind' => (int) $playerAction->isBigBlind(),
             'small_blind' => (int) $playerAction->isSmallBlind(),
-            'player_id' => $playerId,
+            'player_id' => $playerAction->getPlayerId(),
             'action_id' => $actionId,
             'hand_id' => $hand->getId(),
-            'hand_street_id' => $handStreetId,
-            'table_seat_id' => $tableSeatId,
+            'hand_street_id' => $playerAction->getHandStreetId(),
+            'table_seat_id' => $playerAction->getTableSeatId(),
             'created_at' => date('Y-m-d H:i:s', time()),
         ]);
 

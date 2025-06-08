@@ -37,6 +37,7 @@ trait HasActionPosts
     private function setPost()
     {
         $requestBody = [
+            'player_action_id' => $this->gameState->getPlayers()[0]['player_action_id'],
             'player_id' => $this->playerOne->getId(),
             'table_seat_id' => $this->gameState->getSeats()[0]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
@@ -56,6 +57,7 @@ trait HasActionPosts
     private function setPlayerOneFoldsPost()
     {
         $requestBody = [
+            'player_action_id' => $this->gameState->getPlayers()[0]['player_action_id'],
             'player_id' => $this->playerOne->getId(),
             'table_seat_id' => $this->gameState->getSeats()[0]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
@@ -75,6 +77,7 @@ trait HasActionPosts
     private function setPlayerTwoCallsPost()
     {
         $requestBody = [
+            'player_action_id' => $this->gameState->getPlayers()[1]['player_action_id'],
             'player_id' => $this->playerTwo->getId(),
             'table_seat_id' => $this->gameState->getSeats()[1]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
@@ -94,6 +97,7 @@ trait HasActionPosts
     private function setPlayerTwoChecksPost(?int $streetNumber = null)
     {
         $requestBody = [
+            'player_action_id' => $this->gameState->getPlayers()[1]['player_action_id'],
             'player_id' => $this->playerTwo->getId(),
             'table_seat_id' => $this->gameState->getSeats()[1]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[$streetNumber ?: 0]['id'],
@@ -113,6 +117,7 @@ trait HasActionPosts
     private function setPlayerTwoFoldsPost()
     {
         $requestBody = [
+            'player_action_id' => $this->gameState->getPlayers()[1]['player_action_id'],
             'player_id' => $this->playerTwo->getId(),
             'table_seat_id' => $this->gameState->getSeats()[1]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
@@ -132,6 +137,7 @@ trait HasActionPosts
     private function setPlayerThreeChecksPost()
     {
         $requestBody = [
+            'player_action_id' => $this->gameState->getPlayers()[2]['player_action_id'],
             'player_id' => $this->playerThree->getId(),
             'table_seat_id' => $this->gameState->getSeats()[2]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
@@ -151,6 +157,7 @@ trait HasActionPosts
     private function setPlayerThreeRaisesPost()
     {
         $requestBody = [
+            'player_action_id' => $this->gameState->getPlayers()[2]['player_action_id'],
             'player_id' => $this->playerThree->getId(),
             'table_seat_id' => $this->gameState->getSeats()[2]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
@@ -170,6 +177,7 @@ trait HasActionPosts
     private function setPlayerFourCallsPost()
     {
         $requestBody = [
+            'player_action_id' => $this->gameState->getPlayers()[3]['player_action_id'],
             'player_id' => $this->playerFour->getId(),
             'table_seat_id' => $this->gameState->getSeats()[3]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
@@ -189,6 +197,7 @@ trait HasActionPosts
     private function setPlayerFourFoldsPost()
     {
         $requestBody = [
+            'player_action_id' => $this->gameState->getPlayers()[3]['player_action_id'],
             'player_id' => $this->playerFour->getId(),
             'table_seat_id' => $this->gameState->getSeats()[3]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
@@ -208,6 +217,7 @@ trait HasActionPosts
     private function setPlayerFourRaisesPost()
     {
         $requestBody = [
+            'player_action_id' => $this->gameState->getPlayers()[3]['player_action_id'],
             'player_id' => $this->playerFour->getId(),
             'table_seat_id' => $this->gameState->getSeats()[3]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
@@ -227,6 +237,7 @@ trait HasActionPosts
     private function setPlayerFourChecksPost()
     {
         $requestBody = [
+            'player_action_id' => $this->gameState->getPlayers()[3]['player_action_id'],
             'player_id' => $this->playerFour->getId(),
             'table_seat_id' => $this->gameState->getSeats()[3]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[0]['id'],
@@ -246,6 +257,7 @@ trait HasActionPosts
     private function setPlayerSixFoldsPost(?int $streetNumber = null)
     {
         $requestBody = [
+            'player_action_id' => $this->gameState->getPlayers()[5]['player_action_id'],
             'player_id' => $this->playerSix->getId(),
             'table_seat_id' => $this->gameState->getSeats()[5]['id'],
             'hand_street_id' => $this->gameState->updateHandStreets()->getHandStreets()[$streetNumber ?: 0]['id'],

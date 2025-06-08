@@ -26,8 +26,8 @@ class ActionHandlerTest extends BaseTest
         $this->pots = $this->container->build(Pot::class);
         $this->actionHandler = $this->container->build(
             ActionHandler::class,
-            ['gameState' => $this->gameState,
-            ]);
+            ['gameState' => $this->gameState]
+        );
     }
 
     /** @test */
@@ -40,12 +40,10 @@ class ActionHandlerTest extends BaseTest
 
         $response = $this->actionHandler->handle(
             $this->testHand,
-            $this->playerOne->getId(),
-            $this->tableSeatOne->getId(),
+            $this->gameState->getPlayers()[0]['player_action_id'],
             $handStreet['id'],
             50,
             Action::CALL_ID,
-            1,
             1000
         );
 

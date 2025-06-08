@@ -37,6 +37,7 @@ class PlayerState implements PlayerStateInterface
                 : [];
 
             $playerData[$playerAction['seat_number']] = [
+                'player_action_id' => $playerAction['player_action_id'],
                 'stack' => $stack ?? null,
                 'name' => $playerAction['playerName'],
                 'action_id' => $playerAction['action_id'],

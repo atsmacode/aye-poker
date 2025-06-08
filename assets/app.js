@@ -103,13 +103,11 @@ createApp({
 			let gameId = document.getElementById('game_id').value;
 
 			let payload = {
-				player_id:      player.player_id,
-				action_id:      action.id,
-				table_seat_id:  player.table_seat_id,
-				hand_street_id: player.hand_street_id,
-				bet_amount:     this.actionBetAmounts[action.name],
-				stack:          player.stack,
-				gameId:         gameId
+				player_action_id: player.player_action_id,
+				action_id: action.id,
+				bet_amount: this.actionBetAmounts[action.name],
+				stack: player.stack,
+				gameId: gameId
 			};
 
 			this.loading = true

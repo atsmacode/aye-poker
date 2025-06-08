@@ -11,11 +11,9 @@ interface ActionHandlerInterface
 {
     public function handle(
         Hand $hand,
-        int $playerId,
-        int $tableSeatId,
-        int $handStreetId,
+        int $playerActionId,
         ?float $betAmount,
         int $actionId,
-        int $stack,
+        int $stack
     ): GameState;
 }

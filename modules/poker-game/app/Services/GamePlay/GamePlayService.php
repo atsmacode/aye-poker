@@ -29,12 +29,9 @@ class GamePlayService
         $requestBody = $request->toArray();
         $hand = $this->handRepo->getLatest(); // TODO: hand retrieved should be associated with the game/table, not latest of any
 
-        // TODO: review params, do we need to send all these? Why send 'active'?
         $gameState = $this->actionHandler->handle(
             $hand,
-            $requestBody['player_id'],
-            $requestBody['table_seat_id'],
-            $requestBody['hand_street_id'],
+            $requestBody['player_action_id'],
             $requestBody['bet_amount'],
             $requestBody['action_id'],
             $requestBody['stack']
