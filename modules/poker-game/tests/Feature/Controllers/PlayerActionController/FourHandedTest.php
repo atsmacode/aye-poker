@@ -16,8 +16,7 @@ class FourHandedTest extends BaseTest
         parent::setUp();
 
         $this->isFourHanded()
-            ->setHand()
-            ->setGamePlay();
+            ->setHand();
     }
 
     /**
@@ -27,6 +26,8 @@ class FourHandedTest extends BaseTest
      */
     public function itAddsAPlayerThatCallsTheBigBlindToTheListOfTableSeatsThatCanContinue()
     {
+        $this->setGamePlay();
+
         $this->gamePlay->start();
 
         $request = $this->setPlayerFourCallsPost();
@@ -42,6 +43,8 @@ class FourHandedTest extends BaseTest
      */
     public function itRemovesAFoldedPlayerFromTheListOfSeatsThatCanContinue()
     {
+        $this->setGamePlay();
+
         $this->gamePlay->start();
 
         $this->givenBigBlindRaisesPreFlopCaller();
@@ -60,6 +63,8 @@ class FourHandedTest extends BaseTest
      */
     public function itCanDealANewStreet()
     {
+        $this->setGamePlay();
+
         $this->gamePlay->start();
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
@@ -78,6 +83,8 @@ class FourHandedTest extends BaseTest
      */
     public function theBigBlindWillWinThePotIfAllOtherPlayersFoldPreFlop()
     {
+        $this->setGamePlay();
+
         $this->gamePlay->start();
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
@@ -103,6 +110,8 @@ class FourHandedTest extends BaseTest
      */
     public function thePreFlopActionWillBeBackOnTheBigBlindCallerIfTheBigBlindRaises()
     {
+        $this->setGamePlay();
+
         $this->gamePlay->start();
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
@@ -123,9 +132,10 @@ class FourHandedTest extends BaseTest
      */
     public function ifTheDealerIsSeatTwoAndTheFirstActiveSeatOnANewStreetTheFirstActiveSeatAfterThemWillBeFirstToAct()
     {
-        $this->gamePlay->start($this->tableSeats->find([
-            'id' => $this->gameState->getSeats()[0]['id'],
-        ]));
+        $this->givenCurrentDealerIs($this->playerOne->getId())
+            ->setGamePlay();
+
+        $this->gamePlay->start();
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
@@ -144,9 +154,10 @@ class FourHandedTest extends BaseTest
      */
     public function ifThereIsOneSeatAfterCurrentDealerBigBlindWillBeSeatTwo()
     {
-        $this->gamePlay->start($this->tableSeats->find([
-            'id' => $this->gameState->getSeats()[2]['id'],
-        ]));
+        $this->givenCurrentDealerIs($this->playerThree->getId())
+            ->setGamePlay();
+
+        $this->gamePlay->start();
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
@@ -164,6 +175,8 @@ class FourHandedTest extends BaseTest
      */
     public function ifTheDealerIsTheFirstActiveSeatOnANewStreetTheFirstActiveSeatAfterThemWillBeFirstToAct()
     {
+        $this->setGamePlay();
+
         $this->gamePlay->start();
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());

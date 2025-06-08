@@ -68,7 +68,7 @@ class Dealer
                 return $this;
             }
         }
-    
+
         throw new \RuntimeException("Card {$rank} of {$suit} not found in deck.");
     }
 }

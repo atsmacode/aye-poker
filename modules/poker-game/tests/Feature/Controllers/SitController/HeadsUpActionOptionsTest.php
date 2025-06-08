@@ -18,8 +18,7 @@ class HeadsUpActionOptionsTest extends BaseTest
         parent::setUp();
 
         $this->isHeadsUp()
-            ->setHand()
-            ->setGamePlay();
+            ->setHand();
     }
 
     /**
@@ -29,6 +28,8 @@ class HeadsUpActionOptionsTest extends BaseTest
      */
     public function theBigBlindWillBeFirstToActOnTheFlop()
     {
+        $this->setGamePlay();
+
         $this->gamePlay->start();
 
         $this->setFlop();
@@ -45,11 +46,10 @@ class HeadsUpActionOptionsTest extends BaseTest
      */
     public function whenCurrentDealerIsPlayerOnePlayerTwoWillBeTheNewDealer()
     {
-        $currentDealer = $this->tableSeats->find([
-            'id' => $this->gameState->getSeats()[0]['id'],
-        ]);
+        $this->givenCurrentDealerIs($this->playerOne->getId())
+            ->setGamePlay();
 
-        $this->gamePlay->start($currentDealer);
+        $this->gamePlay->start();
 
         $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
 
@@ -63,11 +63,10 @@ class HeadsUpActionOptionsTest extends BaseTest
      */
     public function whenCurrentDealerIsPlayerOnePlayerTwoWillBeTheNewSmallBlind()
     {
-        $currentDealer = $this->tableSeats->find([
-            'id' => $this->gameState->getSeats()[0]['id'],
-        ]);
+        $this->givenCurrentDealerIs($this->playerOne->getId())
+            ->setGamePlay();
 
-        $this->gamePlay->start($currentDealer);
+        $this->gamePlay->start();
 
         $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
 
@@ -81,11 +80,10 @@ class HeadsUpActionOptionsTest extends BaseTest
      */
     public function whenCurrentDealerIsPlayerTwoPlayerOneWillBeTheNewDealer()
     {
-        $currentDealer = $this->tableSeats->find([
-            'id' => $this->gameState->getSeats()[1]['id'],
-        ]);
+        $this->givenCurrentDealerIs($this->playerTwo->getId())
+            ->setGamePlay();
 
-        $this->gamePlay->start($currentDealer);
+        $this->gamePlay->start();
 
         $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
 

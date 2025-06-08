@@ -2,8 +2,8 @@
 
 namespace Atsmacode\PokerGame\Controllers;
 
-use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Services\Sit\SitService;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class SitController
@@ -12,19 +12,9 @@ abstract class SitController
     {
     }
 
-    /**
-     * TODO Change this to accept Request.
-     */
-    public function sit(
-        ?int $tableId = null,
-        ?TableSeat $currentDealer = null,
-        ?int $playerId = null,
-    ): Response {
-        $response = $this->sitService->sit(
-            $tableId,
-            $currentDealer,
-            $playerId
-        );
+    public function sit(Request $request, ?int $playerId = null): Response
+    {
+        $response = $this->sitService->sit($request, $playerId);
 
         return new Response(json_encode($response));
     }

@@ -3,7 +3,6 @@
 namespace Atsmacode\PokerGame\Models;
 
 use Atsmacode\Framework\Models\Model;
-use Atsmacode\PokerGame\Models\Game;
 use Atsmacode\PokerGame\Repository\Game\GameRepository;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 

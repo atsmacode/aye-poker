@@ -18,8 +18,7 @@ class SixHandedStreetTest extends BaseTest
         parent::setUp();
 
         $this->isSixHanded()
-            ->setHand()
-            ->setGamePlay();
+            ->setHand();
     }
 
     /**
@@ -29,7 +28,10 @@ class SixHandedStreetTest extends BaseTest
      */
     public function whenDealerIsSeatSixAndOnlySmallBlindCallsAndBigBlindChecksItCanDealFlop()
     {
-        $this->gamePlay->start($this->tableSeatSix);
+        $this->givenCurrentDealerIs($this->playerSix->getId())
+            ->setGamePlay();
+
+        $this->gamePlay->start();
 
         $this->givenPlayerThreeFolds();
         $this->givenPlayerThreeCanNotContinue();

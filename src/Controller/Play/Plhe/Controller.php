@@ -42,13 +42,8 @@ class Controller extends AbstractController
     ): Response {
         $serviceManager = $pokerGame->getServiceManager();
         $userPlayer     = $security->getUser() ? $security->getUser()->getUserPlayer() : null;
-        $requestContent = json_decode($request->getContent(), true);
 
-        $response = $serviceManager->get(SitService::class)->sit(
-            playerId: $userPlayer?->getPlayerId(),
-            gameId: $requestContent['gameId'],
-            tableId: $requestContent['tableId']
-        );
+        $response = $serviceManager->get(SitService::class)->sit($request, $userPlayer?->getPlayerId());
         
         $response = $this->addMercureUrlToArray($response, self::MERCURE_ACTION_TOPIC);
         $response = json_encode($response);

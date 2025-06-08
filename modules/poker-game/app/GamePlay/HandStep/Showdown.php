@@ -3,7 +3,6 @@
 namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
 use Atsmacode\PokerGame\GamePlay\Showdown\Showdown as TheShowdown;
-use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Services\Pots\PotService;
 use Atsmacode\PokerGame\State\Game\GameState;
 
@@ -16,7 +15,7 @@ class Showdown extends HandStep
     {
     }
 
-    public function handle(GameState $gameState, ?TableSeat $currentDealer = null): GameState
+    public function handle(GameState $gameState): GameState
     {
         $this->gameState = $gameState;
 

@@ -7,7 +7,6 @@ use Atsmacode\PokerGame\GamePlay\HandStep\HandStep;
 use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
 use Atsmacode\PokerGame\GamePlay\HandStep\Showdown;
 use Atsmacode\PokerGame\GamePlay\HandStep\Start;
-use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 use Atsmacode\PokerGame\State\Game\GameState;
 
@@ -34,11 +33,11 @@ class GamePlay
         $this->gameState = $gameState;
     }
 
-    public function response(?HandStep $step = null, ?TableSeat $currentDealer = null): array
+    public function response(?HandStep $step = null): array
     {
         $this->gameState->setCommunityCards();
 
-        $this->gameState = $step ? $step->handle($this->gameState, $currentDealer) : $this->gameState;
+        $this->gameState = $step ? $step->handle($this->gameState) : $this->gameState;
 
         $this->handleNewStreet();
 
@@ -48,22 +47,22 @@ class GamePlay
             'players' => $this->gameState->getPlayerState(),
             'winner' => $this->gameState->getWinner(),
             'sittingOut' => $this->gameState->getSittingOutPlayers(),
-            'mode' => $this->gameState->getGameMode()
+            'mode' => $this->gameState->getGameMode(),
         ];
     }
 
     /** Specific start method to start new hand on page refresh in SitController */
-    public function start(?TableSeat $currentDealer = null): array
+    public function start(): array
     {
-        return $this->response($this->start, $currentDealer);
+        return $this->response($this->start);
     }
 
-    public function play(GameState $gameState, ?TableSeat $currentDealer = null): array
+    public function play(GameState $gameState): array
     {
         $this->gameState = $gameState;
 
         if ($this->theLastHandWasCompleted()) {
-            return $this->response($this->start, $currentDealer);
+            return $this->response($this->start);
         }
 
         if ($this->theBigBlindIsTheOnlyActivePlayerRemainingPreFlop()) {

@@ -48,7 +48,7 @@ class ActionHandler implements ActionHandlerInterface
         $playerAction->update([
             'action_id' => $actionId,
             'bet_amount' => $betAmount,
-            'active' => $actionId === 1 ? 0 : 1 ,
+            'active' => 1 === $actionId ? 0 : 1,
             'updated_at' => date('Y-m-d H:i:s', time()),
         ]);
 

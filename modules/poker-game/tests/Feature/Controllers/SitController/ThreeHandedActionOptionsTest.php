@@ -18,8 +18,7 @@ class ThreeHandedActionOptionsTest extends BaseTest
         parent::setUp();
 
         $this->isThreeHanded()
-            ->setHand()
-            ->setGamePlay();
+            ->setHand();
     }
 
     /**
@@ -29,6 +28,8 @@ class ThreeHandedActionOptionsTest extends BaseTest
      */
     public function theSmallBlindWillBeFirstToActOnTheFlop()
     {
+        $this->setGamePlay();
+
         $this->gamePlay->start();
 
         $this->givenActionsMeanNewStreetIsDealt();
@@ -47,11 +48,10 @@ class ThreeHandedActionOptionsTest extends BaseTest
      */
     public function whenDealerIsSeatThreeSmallBlindWillBeFirstToActOnTheFlop()
     {
-        $currentDealer = $this->tableSeats->find([
-            'id' => $this->gameState->getSeats()[1]['id'],
-        ]);
+        $this->givenCurrentDealerIs($this->playerTwo->getId())
+            ->setGamePlay();
 
-        $this->gamePlay->start($currentDealer);
+        $this->gamePlay->start();
 
         $this->givenActionsMeanNewStreetIsDealt();
 

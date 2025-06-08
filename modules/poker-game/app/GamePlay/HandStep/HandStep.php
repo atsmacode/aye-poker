@@ -2,7 +2,6 @@
 
 namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
-use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\State\Game\GameState;
 
 /**
@@ -12,7 +11,7 @@ abstract class HandStep
 {
     protected GameState $gameState;
 
-    abstract public function handle(GameState $gameState, ?TableSeat $currentDealer = null): GameState;
+    abstract public function handle(GameState $gameState): GameState;
 
     public function getGameState(): GameState
     {

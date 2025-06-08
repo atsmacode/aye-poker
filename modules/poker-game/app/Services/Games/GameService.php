@@ -14,7 +14,7 @@ class GameService
         private Table $tables,
         private TableSeat $tableSeats,
         private Player $players,
-        private Game $games
+        private Game $games,
     ) {
     }
 
@@ -33,10 +33,10 @@ class GameService
         while ($seatsInserted < $seatCount) {
             $seats[] = $this->tableSeats->create([
                 'table_id' => $table->getId(),
-                'number' => $seatsInserted + 1
+                'number' => $seatsInserted + 1,
             ]);
 
-            $seatsInserted++;
+            ++$seatsInserted;
         }
 
         foreach ($seats as $tableSeat) {

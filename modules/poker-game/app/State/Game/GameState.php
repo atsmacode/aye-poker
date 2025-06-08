@@ -9,6 +9,7 @@ use Atsmacode\PokerGame\GamePlay\GameStyle\GameStyle;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Table;
+use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Repository\GameState\GameStateRepository;
 use Atsmacode\PokerGame\State\Player\PlayerState;
 
@@ -73,12 +74,12 @@ class GameState
         return null;
     }
 
-    public function getDealer(): ?array
+    public function getDealer(): ?TableSeat
     {
         $key = array_search(1, array_column($this->seats, 'is_dealer'));
 
         if (false !== $key) {
-            return $this->seats[$key];
+            return $this->gameRepo->getTableSeat($this->seats[$key]['id']);
         }
 
         return null;

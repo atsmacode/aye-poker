@@ -16,18 +16,29 @@ trait HasActionPosts
         return json_decode($response->getContent(), true);
     }
 
-    private function sitControllerResponse($currentDealer = null): array
+    private function sitControllerResponse(): array
     {
-        $response = (new PotLimitHoldEmSitController($this->sitService))->sit($this->testTable->getId(), $currentDealer);
+        $request = Request::create(
+            uri: '',
+            method: 'POST',
+            content: json_encode(['tableId' => $this->testTable->getId()])
+        );
+
+        $response = (new PotLimitHoldEmSitController($this->sitService))->sit($request, null);
 
         return json_decode($response->getContent(), true);
     }
 
-    private function sitControllerResponseWithPlayerId($currentDealer = null, ?int $playerId = null): array
+    private function sitControllerResponseWithPlayerId(?int $playerId = null): array
     {
+        $request = Request::create(
+            uri: '',
+            method: 'POST',
+            content: json_encode(['tableId' => $this->testTable->getId()])
+        );
+
         $response = (new PotLimitHoldEmSitController($this->sitService))->sit(
-            $this->testTable->getId(),
-            $currentDealer,
+            $request,
             $playerId
         );
 

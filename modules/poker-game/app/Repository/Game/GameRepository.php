@@ -2,8 +2,8 @@
 
 namespace Atsmacode\PokerGame\Repository\Game;
 
-use Atsmacode\PokerGame\Models\Game;
 use Atsmacode\Framework\Database\Database;
+use Atsmacode\PokerGame\Models\Game;
 
 /**
  * Responsible for providing the baseline data a Game needs throught the process.

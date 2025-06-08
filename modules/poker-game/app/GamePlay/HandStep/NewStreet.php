@@ -21,7 +21,7 @@ class NewStreet extends HandStep
     ) {
     }
 
-    public function handle(GameState $gameState, ?TableSeat $currentDealer = null): GameState
+    public function handle(GameState $gameState): GameState
     {
         $this->gameState = $gameState;
 

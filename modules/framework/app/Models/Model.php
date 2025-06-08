@@ -164,7 +164,7 @@ abstract class Model extends Database
     {
         if ($withData) {
             // If given data, merge it with existing content to save making another request.
-            $this->content = count($this->content) === 1 ? [array_merge($this->content[0], $withData[0])] : $this->content;
+            $this->content = 1 === count($this->content) ? [array_merge($this->content[0], $withData[0])] : $this->content;
 
             $this->setModelProperties($this->content);
 

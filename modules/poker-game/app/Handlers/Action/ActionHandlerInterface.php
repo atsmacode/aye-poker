@@ -14,6 +14,6 @@ interface ActionHandlerInterface
         int $playerActionId,
         ?float $betAmount,
         int $actionId,
-        int $stack
+        int $stack,
     ): GameState;
 }

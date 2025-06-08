@@ -16,8 +16,7 @@ class SixHandedTest extends BaseTest
         parent::setUp();
 
         $this->isSixHanded()
-            ->setGame()
-            ->setGamePlay();
+            ->setGame();
     }
 
     /**
@@ -27,6 +26,8 @@ class SixHandedTest extends BaseTest
      */
     public function thePreFlopActionWillInitiallyBeOnPlayerFour()
     {
+        $this->setGamePlay();
+
         $response = $this->sitControllerResponse();
 
         $this->assertTrue($response['players'][4]['action_on']);
@@ -39,9 +40,10 @@ class SixHandedTest extends BaseTest
      */
     public function ifThereAreTwoSeatsAfterCurrentDealerBigBlindWillBeSeatOne()
     {
-        $currentDealer = $this->tableSeatFour;
+        $this->givenCurrentDealerIs($this->playerFour->getId())
+            ->setGamePlay();
 
-        $response = $this->sitControllerResponse($currentDealer);
+        $response = $this->sitControllerResponse();
 
         $this->assertEquals(1, $response['players'][6]['small_blind']);
         $this->assertEquals(1, $response['players'][1]['big_blind']);
@@ -54,9 +56,10 @@ class SixHandedTest extends BaseTest
      */
     public function ifThereIsOneSeatAfterCurrentDealerBigBlindWillBeSeatTwo()
     {
-        $currentDealer = $this->tableSeatFive;
+        $this->givenCurrentDealerIs($this->playerFive->getId())
+            ->setGamePlay();
 
-        $response = $this->sitControllerResponse($currentDealer);
+        $response = $this->sitControllerResponse();
 
         $this->assertEquals(1, $response['players'][1]['small_blind']);
         $this->assertEquals(1, $response['players'][2]['big_blind']);

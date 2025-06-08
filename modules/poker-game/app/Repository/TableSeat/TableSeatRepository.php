@@ -8,6 +8,27 @@ use Atsmacode\PokerGame\Models\TableSeat;
 
 class TableSeatRepository extends Database
 {
+    public function find(int $tableSeatId): ?TableSeat
+    {
+        try {
+            $queryBuilder = $this->connection->createQueryBuilder();
+            $queryBuilder
+                ->select('*')
+                ->from('table_seats')
+                ->where('id = '.$queryBuilder->createNamedParameter($tableSeatId));
+
+            $rows = $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
+
+            $tableSeat = $this->container->build(TableSeat::class);
+
+            return $tableSeat->build($rows);
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
+
+            return null;
+        }
+    }
+
     public function getSeats(int $tableId): ?array
     {
         try {

@@ -9,7 +9,7 @@ enum GameMode: int
 
     public function display(): string
     {
-        return match($this) {
+        return match ($this) {
             self::TEST => 'Test',
             self::REAL => 'Real',
         };

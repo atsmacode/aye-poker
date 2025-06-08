@@ -27,14 +27,14 @@ class Start extends HandStep
     ) {
     }
 
-    public function handle(GameState $gameState, ?TableSeat $currentDealer = null): GameState
+    public function handle(GameState $gameState): GameState
     {
         $this->gameState = $gameState;
         $handId = $this->gameState->getHand()->getId();
 
         $this->initiateStreetActions()
             ->initiatePlayerStacks()
-            ->setDealerAndBlindSeats($currentDealer);
+            ->setDealerAndBlindSeats();
 
         $this->gameState->setPlayers();
 
@@ -95,7 +95,7 @@ class Start extends HandStep
         return $this;
     }
 
-    public function setDealerAndBlindSeats(?TableSeat $currentDealer): self
+    public function setDealerAndBlindSeats(): self
     {
         if (1 === $this->gameState->handStreetCount()) {
             $bigBlind = $this->playerActions->find(['hand_id' => $this->gameState->handId(), 'big_blind' => 1]);
@@ -104,6 +104,8 @@ class Start extends HandStep
                 $bigBlind->update(['big_blind' => 0]);
             }
         }
+
+        $currentDealer = $this->gameState->getDealer();
 
         [
             'currentDealer' => $currentDealer,

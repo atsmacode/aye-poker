@@ -42,7 +42,7 @@ class GameServiceTest extends BaseTest
         while ($playerAssertions < $playerCount) {
             $this->assertContains($playerAssertions + 1, array_column($seats, 'player_id'));
 
-            $playerAssertions ++;
+            ++$playerAssertions;
         }
     }
 
@@ -54,7 +54,7 @@ class GameServiceTest extends BaseTest
             '3 players' => [3],
             '4 players' => [4],
             '5 players' => [5],
-            '6 players' => [6]
+            '6 players' => [6],
         ];
     }
 }

@@ -14,8 +14,7 @@ class TableSeatRepositoryTest extends BaseTest
         parent::setUp();
 
         $this->isThreeHanded()
-            ->setHand()
-            ->setGamePlay();
+            ->setHand();
     }
 
     /**
@@ -25,6 +24,9 @@ class TableSeatRepositoryTest extends BaseTest
      */
     public function itCanSelectFirstActivePlayerAfterDealer()
     {
+        $this->givenCurrentDealerIs($this->playerOne->getId())
+            ->setGamePlay();
+
         $this->gamePlay->start($this->tableSeats->find([
             'id' => $this->gameState->getSeats()[0]['id'],
         ]));
@@ -44,6 +46,8 @@ class TableSeatRepositoryTest extends BaseTest
      */
     public function itCanGetTheFirstAvailableSeat()
     {
+        $this->setGamePlay();
+
         $table = $this->tables->create(['name' => 'Test Table', 'seats' => 1]);
 
         $this->tableSeats->create(['table_id' => $table->getId(), 'number' => 1]);
@@ -60,6 +64,8 @@ class TableSeatRepositoryTest extends BaseTest
      */
     public function itCanGetAPlayersCurrentSeat()
     {
+        $this->setGamePlay();
+
         $table = $this->tables->create(['name' => 'Test Table', 'seats' => 1]);
         $player = $this->createPlayer();
         $tableSeat = $this->tableSeats->create([

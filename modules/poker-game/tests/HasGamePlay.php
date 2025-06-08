@@ -78,7 +78,7 @@ trait HasGamePlay
     {
         $this->testGame = $this->games->create([
             'table_id' => $this->testTable->getId(),
-            'mode' => GameMode::REAL->value
+            'mode' => GameMode::REAL->value,
         ]);
 
         return $this;
@@ -530,6 +530,16 @@ trait HasGamePlay
             ->update([
                 'can_continue' => 0,
             ]);
+    }
+
+    private function givenCurrentDealerIs(int $playerId)
+    {
+        $this->tableSeats->find(['player_id' => $playerId, 'table_id' => $this->testTable->getId()])
+            ->update([
+                'is_dealer' => 1,
+            ]);
+
+        return $this;
     }
 
     protected function setWholeCards($wholeCards)

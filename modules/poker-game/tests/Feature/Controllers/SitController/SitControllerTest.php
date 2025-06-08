@@ -57,7 +57,7 @@ class SitControllerTest extends BaseTest
             'players',
             'winner',
             'sittingOut',
-            'mode'
+            'mode',
         ];
     }
 }

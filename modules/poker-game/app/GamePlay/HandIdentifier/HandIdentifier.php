@@ -242,23 +242,23 @@ class HandIdentifier
         foreach ($cards as $card) {
             if (empty($straight)) {
                 $straight[] = $card;
-    
+
                 continue;
             }
-    
+
             $last = end($straight);
-    
-            if ($card['ranking'] === $last['ranking'] - 1) {
+
+            if ($last['ranking'] - 1 === $card['ranking']) {
                 $straight[] = $card;
-    
-                if (count($straight) === 5) {
+
+                if (5 === count($straight)) {
                     return $straight;
                 }
             } else {
                 $straight = [$card];
             }
         }
-    
+
         return [];
     }
 
@@ -377,7 +377,7 @@ class HandIdentifier
     private function hasThisStraight(array $straightCards, ?int $kicker): bool
     {
         $validRanks = $straightCards;
-        
+
         $straight = [];
         $rankSet = [];
 
@@ -391,11 +391,12 @@ class HandIdentifier
             $rankSet[] = $rank;
             $straight[] = $card;
 
-            if (count($straight) === 5) {
+            if (5 === count($straight)) {
                 $this->straight = $straight;
                 $this->identifiedHandType['handType'] = HandType::STRAIGHT;
                 $this->identifiedHandType['activeCards'] = array_column($straight, 'ranking');
                 $this->identifiedHandType['kicker'] = $kicker;
+
                 return true;
             }
         }
@@ -508,11 +509,11 @@ class HandIdentifier
             $onlyThisSuit = [];
 
             /* Remove cards not in this suit. This also takes care of duplicates. */
-            foreach($this->allCardsDesc as $card) {
+            foreach ($this->allCardsDesc as $card) {
                 if ($card['suit_id'] === $suit['suit_id']) {
                     $onlyThisSuit[] = $card;
                 }
-            };
+            }
 
             $straightFlush = $this->filterStraightCards($onlyThisSuit);
 
@@ -534,7 +535,7 @@ class HandIdentifier
     public function hasRoyalFlush(): bool
     {
         $royalRanks = [Rank::ACE_RANK_ID, Rank::KING_RANK_ID, Rank::QUEEN_RANK_ID, Rank::JACK_RANK_ID, Rank::TEN_RANK_ID];
-    
+
         foreach (Suit::ALL as $suit) {
             $royalFlush = array_filter($this->allCards, function ($value) use ($suit, $royalRanks) {
                 return $value['suit_id'] === $suit['suit_id'] && in_array($value['rank_id'], $royalRanks);
