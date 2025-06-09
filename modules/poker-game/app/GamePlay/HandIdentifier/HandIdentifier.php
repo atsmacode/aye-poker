@@ -286,10 +286,9 @@ class HandIdentifier
 
             $this->pairs[] = $rank;
             $this->identifiedHandType['activeCards'][] = $this->checkForHighAceActiveCardRanking($rank) ?: $rank['ranking'];
-            /*
-                * The showdown may be called pre-flop when the pot is checked down to BB.
-                * In which case they may have a pair and no other kicker rank.
-                */
+
+            // The showdown may be called pre-flop when the pot is checked down to BB.
+            // In which case they may have a pair and no other kicker rank.
             if (count($this->allCards) > 2) {
                 $this->identifiedHandType['kicker'] = $this->getKicker($this->identifiedHandType['activeCards']);
             } else {
