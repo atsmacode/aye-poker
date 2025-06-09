@@ -11,8 +11,7 @@ use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 use Atsmacode\PokerGame\State\Game\GameState;
 
 /**
- * Responsible for deciding what happens next in a hand based on the
- * GameState and providing the response to the front-end application.
+ * Responsible for deciding what happens next in a hand based on the GameState.
  */
 class GamePlay implements ProcessesGameState
 {
