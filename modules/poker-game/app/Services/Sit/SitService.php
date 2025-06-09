@@ -5,9 +5,6 @@ namespace Atsmacode\PokerGame\Services\Sit;
 use Atsmacode\PokerGame\GamePlay\GamePlay;
 use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
 use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
-use Atsmacode\PokerGame\Models\Hand;
-use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
-use Atsmacode\PokerGame\State\Player\PlayerState;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -21,10 +18,7 @@ class SitService
 
     public function __construct(
         private ContainerInterface $container,
-        private Hand $hands,
-        private TableSeatRepository $tableSeatRepo,
-        private SitHandler $sitHandler,
-        private PlayerState $playerState,
+        private SitHandler $sitHandler
     ) {
     }
 
