@@ -3,6 +3,7 @@
 namespace Atsmacode\PokerGame\Services\GamePlay;
 
 use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
+use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
 use Atsmacode\PokerGame\Repository\Hand\HandRepository;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
@@ -14,6 +15,7 @@ class GamePlayServiceFactory implements FactoryInterface
         return new GamePlayService(
             $container,
             $container->get(ActionHandler::class),
+            $container->get(SitHandler::class),
             $container->get(HandRepository::class)
         );
     }

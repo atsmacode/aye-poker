@@ -24,7 +24,7 @@ trait HasActionPosts
             content: json_encode(['tableId' => $this->testTable->getId()])
         );
 
-        $response = (new PotLimitHoldEmSitController($this->sitService))->sit($request, null);
+        $response = (new PotLimitHoldEmSitController($this->gamePlayService))->sit($request, null);
 
         return json_decode($response->getContent(), true);
     }
@@ -37,7 +37,7 @@ trait HasActionPosts
             content: json_encode(['tableId' => $this->testTable->getId()])
         );
 
-        $response = (new PotLimitHoldEmSitController($this->sitService))->sit(
+        $response = (new PotLimitHoldEmSitController($this->gamePlayService))->sit(
             $request,
             $playerId
         );

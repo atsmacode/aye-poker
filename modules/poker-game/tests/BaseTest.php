@@ -20,7 +20,6 @@ use Atsmacode\PokerGame\Repository\HandStreetCard\HandStreetCardRepository;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 use Atsmacode\PokerGame\Repository\WholeCard\WholeCardRepository;
 use Atsmacode\PokerGame\Services\GamePlay\GamePlayService;
-use Atsmacode\PokerGame\Services\Sit\SitService;
 use Faker;
 use Faker\Generator as Fake;
 use Laminas\ServiceManager\ServiceManager;
@@ -39,7 +38,6 @@ abstract class BaseTest extends TestCase
     protected Street $streets;
     protected PokerDealer $pokerDealer;
     protected ActionHandler $actionHandler;
-    protected SitService $sitService;
     protected GamePlayService $gamePlayService;
     protected Fake $fake;
     protected WholeCardRepository $wholeCardRepo;
@@ -67,7 +65,6 @@ abstract class BaseTest extends TestCase
         $this->streets = $this->container->build(Street::class);
         $this->pokerDealer = $this->container->build(PokerDealer::class);
         $this->actionHandler = $this->container->build(ActionHandler::class);
-        $this->sitService = $this->container->build(SitService::class);
         $this->gamePlayService = $this->container->build(GamePlayService::class);
         $this->fake = Faker\Factory::create();
         $this->wholeCardRepo = $this->container->build(WholeCardRepository::class);
