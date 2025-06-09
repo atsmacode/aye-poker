@@ -12,31 +12,27 @@ use Atsmacode\PokerGame\State\Game\GameState;
  */
 class Showdown implements ProcessesGameState
 {
-    protected GameState $gameState;
-    
     public function __construct(private PotService $potService)
     {
     }
 
     public function process(GameState $gameState): GameState
     {
-        $this->gameState = $gameState;
+        $gameState->loadPlayers()->loadWholeCards(); // This is done again in PlayerState, try reduce to 1 call
 
-        $this->gameState->setPlayers();
-        $this->gameState->setWholeCards(); /** This is done again in PlayerState, try reduce to 1 call */
-        $winner = (new TheShowdown($this->gameState))->compileHands()->decideWinner();
+        $winner = (new TheShowdown($gameState))->compileHands()->decideWinner();
 
-        $this->gameState->setWinner($winner);
+        $gameState->setWinner($winner);
 
         $this->potService->awardPot(
             $winner['player']['stack'],
-            $this->gameState->getPot(),
+            $gameState->getPot(),
             $winner['player']['player_id'],
             $winner['player']['table_id']
         );
 
-        $this->gameState->getHand()->complete();
+        $gameState->getHand()->complete();
 
-        return $this->gameState;
+        return $gameState;
     }
 }

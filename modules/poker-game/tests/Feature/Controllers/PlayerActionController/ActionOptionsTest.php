@@ -146,7 +146,7 @@ class ActionOptionsTest extends BaseTest
     {
         $this->handFlow->process($this->gameState);
 
-        $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
+        $this->assertCount(1, $this->gameState->loadHandStreets()->getHandStreets());
 
         $request = $this->givenActionsMeanNewStreetIsDealt();
         $response = $this->actionControllerResponse($request);

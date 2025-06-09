@@ -28,7 +28,7 @@ class PlayerState
         $playerData = [];
         $actionOnGet = $this->getActionOn();
 
-        $this->gameState->setWholeCards();
+        $this->gameState->loadWholeCards();
 
         foreach ($this->gameState->getPlayers() as $playerAction) {
             $actionOn = $actionOnGet && $actionOnGet['player_id'] === $playerAction['player_id'] ? true : false;

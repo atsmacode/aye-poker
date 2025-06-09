@@ -81,7 +81,7 @@ class ShowdownTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -134,7 +134,7 @@ class ShowdownTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -187,7 +187,7 @@ class ShowdownTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -240,7 +240,7 @@ class ShowdownTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -293,7 +293,7 @@ class ShowdownTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -346,7 +346,7 @@ class ShowdownTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -399,7 +399,7 @@ class ShowdownTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -452,7 +452,7 @@ class ShowdownTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -505,7 +505,7 @@ class ShowdownTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);

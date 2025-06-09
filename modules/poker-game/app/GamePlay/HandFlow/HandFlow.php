@@ -32,29 +32,29 @@ class HandFlow implements ProcessesGameState
         $this->gameState = $gameState;
 
         if ($this->theLastHandWasCompleted() || ! $this->gameState->handIsActive()) {
-            return $this->response($this->start);
+            return $this->run($this->start);
         }
 
-        if ($this->theBigBlindIsTheOnlyActivePlayerRemainingPreFlop()) {
+        if ($this->bigBlindRemainsPreFlop()) {
             $this->tableSeatRepo->bigBlindWins($this->gameState->getBigBlind()['table_seat_id']);
 
-            return $this->response($this->showdown);
+            return $this->run($this->showdown);
         }
 
         if ($this->readyForShowdown() || $this->onePlayerRemainsThatCanContinue()) {
-            return $this->response($this->showdown);
+            return $this->run($this->showdown);
         }
 
         if ($this->allActivePlayersCanContinue()) {
-            return $this->response($this->newStreet);
+            return $this->run($this->newStreet);
         }
 
-        return $this->response();
+        return $this->run();
     }
 
-    private function response(?ProcessesGameState $step = null): GameState
+    private function run(?ProcessesGameState $step = null): GameState
     {
-        $this->gameState->setCommunityCards();
+        $this->gameState->loadCommunityCards();
 
         $this->gameState = $step ? $step->process($this->gameState) : $this->gameState;
 
@@ -80,9 +80,9 @@ class HandFlow implements ProcessesGameState
         return count($this->gameState->getActivePlayers()) === count($this->gameState->getContinuingPlayers());
     }
 
-    protected function theBigBlindIsTheOnlyActivePlayerRemainingPreFlop(): bool
+    protected function bigBlindRemainsPreFlop(): bool
     {
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $activePlayers = array_values(array_filter($this->gameState->getPlayers(), function ($player) {
             return 1 === $player['active'];
@@ -102,7 +102,7 @@ class HandFlow implements ProcessesGameState
         $latestStreet = array_pop($handStreets);
 
         if (0 < count($handStreets) && $this->gameState->streetHasNoActions($latestStreet['id'])) {
-            $this->gameState->setNewStreet();
+            $this->gameState->setNewStreet(true);
         }
     }
 }

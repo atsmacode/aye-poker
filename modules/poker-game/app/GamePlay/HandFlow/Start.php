@@ -33,24 +33,23 @@ class Start implements ProcessesGameState
     public function process(GameState $gameState): GameState
     {
         $this->gameState = $gameState;
+
         $handId = $this->gameState->getHand()->getId();
 
         $this->initiateStreetActions()
             ->initiatePlayerStacks()
             ->setDealerAndBlindSeats();
 
-        $this->gameState->setPlayers();
-
-        $this->gameState->getGameDealer()
+        $this->gameState->loadPlayers()
+            ->getGameDealer()
             ->shuffle()
             ->saveDeck($handId);
 
-        if ($this->gameState->getStyle()->getStreets()[1]['whole_cards']) {
-            $this->gameState->getGameDealer()->dealTo(
-                $this->gameState->getSeats(),
-                $this->gameState->getStyle()->getStreets()[1]['whole_cards'],
-                $handId
-            );
+        $wholeCards = $this->gameState->getStyle()->getStreets()[1]['whole_cards'];
+
+        if ($wholeCards) {
+            $this->gameState->getGameDealer()
+                ->dealTo($this->gameState->getSeats(), $wholeCards, $handId);
         }
 
         return $this->gameState;
@@ -77,10 +76,12 @@ class Start implements ProcessesGameState
 
     public function initiatePlayerStacks(): self
     {
+        $tableId = $this->gameState->tableId();
+
         $tableStacks = [];
 
         foreach ($this->gameState->getSeats() as $seat) {
-            $playerTableStack = $this->findPlayerStack($seat['player_id'], $this->gameState->tableId());
+            $playerTableStack = $this->findPlayerStack($seat['player_id'], $tableId);
 
             if ($playerTableStack) {
                 $tableStacks[$seat['player_id']] = $playerTableStack;
@@ -88,7 +89,7 @@ class Start implements ProcessesGameState
                 $tableStacks[$seat['player_id']] = $this->stacks->create([
                     'amount' => 1000,
                     'player_id' => $seat['player_id'],
-                    'table_id' => $this->gameState->tableId(),
+                    'table_id' => $tableId,
                 ]);
             }
         }
@@ -100,8 +101,11 @@ class Start implements ProcessesGameState
 
     public function setDealerAndBlindSeats(): self
     {
+        $handId = $this->gameState->handId();
+        $tableId = $this->gameState->tableId();
+
         if (1 === $this->gameState->handStreetCount()) {
-            $bigBlind = $this->playerActions->find(['hand_id' => $this->gameState->handId(), 'big_blind' => 1]);
+            $bigBlind = $this->playerActions->find(['hand_id' => $handId, 'big_blind' => 1]);
 
             if ($bigBlind->isNotEmpty()) {
                 $bigBlind->update(['big_blind' => 0]);
@@ -120,16 +124,16 @@ class Start implements ProcessesGameState
             : $this->getNextDealerAndBlindSeats($currentDealer);
 
         if ($currentDealer) {
-            $currentDealerSeat = $this->tableSeats->find(['id' => $currentDealer['id'], 'table_id' => $this->gameState->tableId()]);
+            $currentDealerSeat = $this->tableSeats->find(['id' => $currentDealer['id'], 'table_id' => $tableId]);
             $currentDealerSeat->update(['is_dealer' => 0]);
         }
 
-        $newDealerSeat = $this->tableSeats->find(['id' => $dealer['id'], 'table_id' => $this->gameState->tableId()]);
+        $newDealerSeat = $this->tableSeats->find(['id' => $dealer['id'], 'table_id' => $tableId]);
         $newDealerSeat->update(['is_dealer' => 1]);
 
         $handStreetId = $this->handStreets->find([
             'street_id' => $this->streets->find(['name' => $this->gameState->getStyle()->getStreets()[1]['name']])->getId(),
-            'hand_id' => $this->gameState->handId(),
+            'hand_id' => $handId,
         ])->getId();
 
         $smallBlind = $this->findPlayerAction($smallBlindSeat['player_id'], $smallBlindSeat['id'], $handStreetId);
@@ -186,7 +190,7 @@ class Start implements ProcessesGameState
 
     private function getNextDealerAndBlindSeats(?TableSeat $currentDealerSet = null): array
     {
-        $currentDealer = $this->setDealer($currentDealerSet);
+        $currentDealer = $this->getDealer($currentDealerSet);
 
         /* TODO: These must be called in order. Also will only work if all seats have a stack/player. */
         if ($this->noDealerIsSetOrThereIsNoSeatAfterTheCurrentDealer($currentDealer)) {
@@ -217,7 +221,7 @@ class Start implements ProcessesGameState
 
     private function getNextDealerAndBlindSeatsHeadsUp(?TableSeat $currentDealerSet = null): array
     {
-        $currentDealer = $this->setDealer($currentDealerSet);
+        $currentDealer = $this->getDealer($currentDealerSet);
 
         if ($this->noDealerIsSetOrThereIsNoSeatAfterTheCurrentDealer($currentDealer)) {
             $dealer = $this->gameState->getSeats()[0];
@@ -242,7 +246,7 @@ class Start implements ProcessesGameState
         return 2 === count($this->gameState->getSeats());
     }
 
-    private function setDealer(?TableSeat $currentDealerSet = null): ?array
+    private function getDealer(?TableSeat $currentDealerSet = null): ?array
     {
         return $currentDealerSet
             ? $this->gameState->getSeat($currentDealerSet->getId())

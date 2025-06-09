@@ -14,8 +14,6 @@ use Atsmacode\PokerGame\State\Game\GameState;
  */
 class NewStreet implements ProcessesGameState
 {
-    protected GameState $gameState;
-
     public function __construct(
         private Street $streets,
         private TableSeat $tableSeats,
@@ -26,46 +24,32 @@ class NewStreet implements ProcessesGameState
 
     public function process(GameState $gameState): GameState
     {
-        $this->gameState = $gameState;
+        $handStreetCount = 0 < $gameState->handStreetCount() ? $gameState->handStreetCount() : 1;
+        $nextStreet = $gameState->getStyle()->getStreets()[$handStreetCount + 1];
+        $handId = $gameState->handId();
+        $tableId = $gameState->tableId();
 
-        $handStreetCount = 0 < $this->gameState->handStreetCount() ? $this->gameState->handStreetCount() : 1;
+        $newStreetId = $this->streets->find(['name' => $nextStreet['name']])->getId();
+        $handStreet = $this->handStreets->create(['street_id' => $newStreetId, 'hand_id' => $handId]);
 
-        $newStreetId = $this->streets->find([
-            'name' => $this->gameState->getStyle()->getStreets()[$handStreetCount + 1]['name'],
-        ])->getId();
+        $gameState->getGameDealer()
+            ->dealStreetCards($handId, $handStreet, $nextStreet['community_cards']) // @phpstan-ignore argument.type (Model not PlayerAction)
+            ->setSavedDeck($handId);
 
-        $handStreet = $this->handStreets->create([
-            'street_id' => $newStreetId,
-            'hand_id' => $this->gameState->handId(),
-        ]);
+        $this->tableSeats->find(['table_id' => $tableId])
+            ->updateBatch(['can_continue' => 0], 'table_id = '.$tableId);
 
-        $this->gameState->getGameDealer()->dealStreetCards(
-            $this->gameState->handId(),
-            $handStreet, // @phpstan-ignore argument.type (Model not PlayerAction)
-            $this->gameState->getStyle()->getStreets()[$handStreetCount + 1]['community_cards']
-        )->setSavedDeck($this->gameState->getHand()->getId());
-
-        $this->updatePlayerStatusesOnNewStreet($handStreet->getId());
-        $this->gameState->updateHandStreets();
-        $this->gameState->setPlayers();
-        $this->gameState->setCommunityCards();
-
-        return $this->gameState;
-    }
-
-    private function updatePlayerStatusesOnNewStreet(int $handStreetId): void
-    {
-        $this->tableSeats->find(['table_id' => $this->gameState->tableId()])
-            ->updateBatch([
-                'can_continue' => 0,
-            ], 'table_id = '.$this->gameState->tableId());
-
-        $this->playerActions->find(['hand_id' => $this->gameState->handId()])
+        $this->playerActions->find(['hand_id' => $handId])
             ->updateBatch([
                 'action_id' => null,
-                'hand_street_id' => $handStreetId,
-            ], 'hand_id = '.$this->gameState->handId());
+                'hand_street_id' => $handStreet->getId(),
+            ], 'hand_id = '.$handId);
 
-        $this->gameState->setNewStreet();
+        $gameState->setNewStreet(true)
+            ->loadHandStreets()
+            ->loadPlayers()
+            ->loadCommunityCards();
+
+        return $gameState;
     }
 }

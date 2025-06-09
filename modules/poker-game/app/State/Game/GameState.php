@@ -142,7 +142,7 @@ class GameState
         return $this->handStreets;
     }
 
-    public function updateHandStreets(): self
+    public function loadHandStreets(): self
     {
         $this->handStreets = $this->hand->streets();
 
@@ -178,7 +178,7 @@ class GameState
         return isset($pot['amount']) ? $pot['amount'] : 0;
     }
 
-    public function setCommunityCards(): self
+    public function loadCommunityCards(): self
     {
         $this->communityCards = $this->hand->getCommunityCards();
 
@@ -190,7 +190,7 @@ class GameState
         return $this->communityCards;
     }
 
-    public function setWholeCards(): self
+    public function loadWholeCards(): self
     {
         $this->wholeCards = $this->gameRepo->getWholeCards($this->getPlayers(), $this->handId);
 
@@ -202,7 +202,7 @@ class GameState
         return $this->wholeCards;
     }
 
-    public function setPlayers(): self
+    public function loadPlayers(): self
     {
         $this->players = $this->hand->getPlayers();
 
@@ -267,9 +267,11 @@ class GameState
         return $this->stacks;
     }
 
-    public function setNewStreet(): void
+    public function setNewStreet(bool $newStreet): self
     {
-        $this->newStreet = true;
+        $this->newStreet = $newStreet;
+
+        return $this;
     }
 
     /** isNewStreet should be set at the time a new street is dealt. */

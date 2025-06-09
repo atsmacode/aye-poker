@@ -67,7 +67,7 @@ class FourHandedTest extends BaseTest
 
         $this->handFlow->process($this->gameState);
 
-        $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
+        $this->assertCount(1, $this->gameState->loadHandStreets()->getHandStreets());
 
         $request = $this->givenActionsMeanNewStreetIsDealt();
 
@@ -87,7 +87,7 @@ class FourHandedTest extends BaseTest
 
         $this->handFlow->process($this->gameState);
 
-        $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
+        $this->assertCount(1, $this->gameState->loadHandStreets()->getHandStreets());
 
         $this->givenPlayerFourFolds();
         $this->givenPlayerFourCanNotContinue();
@@ -98,7 +98,7 @@ class FourHandedTest extends BaseTest
         $request = $this->setPlayerTwoFoldsPost();
         $response = $this->actionControllerResponse($request);
 
-        $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
+        $this->assertCount(1, $this->gameState->loadHandStreets()->getHandStreets());
         $this->assertEquals(1, $response['players'][3]['can_continue']);
         $this->assertEquals($this->playerThree->getId(), $response['winner']['player']['player_id']);
     }
@@ -114,13 +114,13 @@ class FourHandedTest extends BaseTest
 
         $this->handFlow->process($this->gameState);
 
-        $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
+        $this->assertCount(1, $this->gameState->loadHandStreets()->getHandStreets());
 
         $request = $this->givenBigBlindRaisesPreFlopCaller();
         $response = $this->actionControllerResponse($request);
 
         // We are still on the pre-flop action
-        $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
+        $this->assertCount(1, $this->gameState->loadHandStreets()->getHandStreets());
 
         $this->assertTrue($response['players'][4]['action_on']);
     }
@@ -137,7 +137,7 @@ class FourHandedTest extends BaseTest
 
         $this->handFlow->process($this->gameState);
 
-        $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
+        $this->assertCount(1, $this->gameState->loadHandStreets()->getHandStreets());
 
         $request = $this->givenActionsMeanNewStreetIsDealtWhenDealerIsSeatTwo();
         $response = $this->actionControllerResponse($request);
@@ -159,7 +159,7 @@ class FourHandedTest extends BaseTest
 
         $this->handFlow->process($this->gameState);
 
-        $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
+        $this->assertCount(1, $this->gameState->loadHandStreets()->getHandStreets());
 
         $request = $this->setPost();
         $response = $this->actionControllerResponse($request);
@@ -179,7 +179,7 @@ class FourHandedTest extends BaseTest
 
         $this->handFlow->process($this->gameState);
 
-        $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
+        $this->assertCount(1, $this->gameState->loadHandStreets()->getHandStreets());
 
         $request = $this->givenActionsMeanNewStreetIsDealt();
         $response = $this->actionControllerResponse($request);

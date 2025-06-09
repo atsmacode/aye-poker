@@ -80,7 +80,7 @@ class ShowdownRankingAndKickerTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -133,7 +133,7 @@ class ShowdownRankingAndKickerTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -186,7 +186,7 @@ class ShowdownRankingAndKickerTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -239,7 +239,7 @@ class ShowdownRankingAndKickerTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -292,7 +292,7 @@ class ShowdownRankingAndKickerTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -345,7 +345,7 @@ class ShowdownRankingAndKickerTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -398,7 +398,7 @@ class ShowdownRankingAndKickerTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -451,7 +451,7 @@ class ShowdownRankingAndKickerTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -504,7 +504,7 @@ class ShowdownRankingAndKickerTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -557,7 +557,7 @@ class ShowdownRankingAndKickerTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsToContinue();
         $response = $this->actionControllerResponse($request);
@@ -618,7 +618,7 @@ class ShowdownRankingAndKickerTest extends BaseTest
 
         $this->setThisRiver($riverCard);
 
-        $this->gameState->setPlayers();
+        $this->gameState->loadPlayers();
 
         $request = $this->executeActionsForThreePlayersToContinue();
         $response = $this->actionControllerResponse($request);

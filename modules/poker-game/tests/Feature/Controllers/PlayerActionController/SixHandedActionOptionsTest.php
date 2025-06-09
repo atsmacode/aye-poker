@@ -90,7 +90,7 @@ class SixHandedActionOptionsTest extends BaseTest
 
     private function updateActionsOnNewStreet(): void
     {
-        $this->gameState->updateHandStreets();
+        $this->gameState->loadHandStreets();
 
         $handStreets = $this->gameState->getHandStreets();
         $latestStreet = array_pop($handStreets);
