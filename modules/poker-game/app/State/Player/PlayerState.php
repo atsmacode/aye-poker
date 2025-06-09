@@ -12,7 +12,7 @@ use Atsmacode\PokerGame\State\Game\GameState;
 /**
  * Responsible for returning the status and options for the players based on the GameState.
  */
-class PlayerState implements PlayerStateInterface
+class PlayerState
 {
     private GameState $gameState;
 

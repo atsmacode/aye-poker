@@ -2,6 +2,7 @@
 
 namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
+use Atsmacode\PokerGame\Contracts\ProcessesGameState;
 use Atsmacode\PokerGame\Models\HandStreet;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Street;
@@ -11,8 +12,10 @@ use Atsmacode\PokerGame\State\Game\GameState;
 /**
  * Responsible for the actions required if a hand is to continue to the next street.
  */
-class NewStreet extends HandStep
+class NewStreet implements ProcessesGameState
 {
+    protected GameState $gameState;
+
     public function __construct(
         private Street $streets,
         private TableSeat $tableSeats,
@@ -21,7 +24,7 @@ class NewStreet extends HandStep
     ) {
     }
 
-    public function handle(GameState $gameState): GameState
+    public function process(GameState $gameState): GameState
     {
         $this->gameState = $gameState;
 

@@ -2,6 +2,7 @@
 
 namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
+use Atsmacode\PokerGame\Contracts\ProcessesGameState;
 use Atsmacode\PokerGame\Models\HandStreet;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Stack;
@@ -14,8 +15,10 @@ use Psr\Container\ContainerInterface;
 /**
  * Responsible for the actions required to start a new hand.
  */
-class Start extends HandStep
+class Start implements ProcessesGameState
 {
+    protected GameState $gameState;
+
     public function __construct(
         private ContainerInterface $container,
         private Street $streets,
@@ -27,7 +30,7 @@ class Start extends HandStep
     ) {
     }
 
-    public function handle(GameState $gameState): GameState
+    public function process(GameState $gameState): GameState
     {
         $this->gameState = $gameState;
         $handId = $this->gameState->getHand()->getId();
@@ -244,5 +247,20 @@ class Start extends HandStep
         return $currentDealerSet
             ? $this->gameState->getSeat($currentDealerSet->getId())
             : $this->gameState->getDealer();
+    }
+
+    /**
+     * TODO: Added these for showdown unit testing purposes, consider removing.
+     */
+    public function getGameState(): GameState
+    {
+        return $this->gameState;
+    }
+
+    public function setGameState(GameState $gameState): self
+    {
+        $this->gameState = $gameState;
+
+        return $this;
     }
 }

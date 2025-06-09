@@ -2,6 +2,7 @@
 
 namespace Atsmacode\PokerGame\GamePlay\HandStep;
 
+use Atsmacode\PokerGame\Contracts\ProcessesGameState;
 use Atsmacode\PokerGame\GamePlay\Showdown\Showdown as TheShowdown;
 use Atsmacode\PokerGame\Services\Pots\PotService;
 use Atsmacode\PokerGame\State\Game\GameState;
@@ -9,13 +10,15 @@ use Atsmacode\PokerGame\State\Game\GameState;
 /**
  * Responsible for the actions required if the hand has reached a showdown.
  */
-class Showdown extends HandStep
+class Showdown implements ProcessesGameState
 {
+    protected GameState $gameState;
+    
     public function __construct(private PotService $potService)
     {
     }
 
-    public function handle(GameState $gameState): GameState
+    public function process(GameState $gameState): GameState
     {
         $this->gameState = $gameState;
 

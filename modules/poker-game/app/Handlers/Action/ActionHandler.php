@@ -17,7 +17,7 @@ use Atsmacode\PokerGame\State\Game\GameState;
  *
  * TODO: use/return Action Model
  */
-class ActionHandler implements ActionHandlerInterface
+class ActionHandler
 {
     public function __construct(
         private ?GameState $gameState,

@@ -3,11 +3,9 @@
 namespace Atsmacode\PokerGame\Handlers\Sit;
 
 use Atsmacode\PokerGame\Models\Hand;
-use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\State\Player\PlayerState;
-use Psr\Container\ContainerInterface;
 
 /**
  * Handle a Player taking a seat.

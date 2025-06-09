@@ -4,7 +4,6 @@ namespace Atsmacode\PokerGame\GamePlay;
 
 use Atsmacode\PokerGame\Contracts\ProcessesGameState;
 use Atsmacode\PokerGame\GamePlay\GameStyle\GameStyle;
-use Atsmacode\PokerGame\GamePlay\HandStep\HandStep;
 use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
 use Atsmacode\PokerGame\GamePlay\HandStep\Showdown;
 use Atsmacode\PokerGame\GamePlay\HandStep\Start;
@@ -54,16 +53,11 @@ class GamePlay implements ProcessesGameState
         return $this->response();
     }
 
-    public function setGameState(GameState $gameState): void
-    {
-        $this->gameState = $gameState;
-    }
-
-    private function response(?HandStep $step = null): GameState
+    private function response(?ProcessesGameState $step = null): GameState
     {
         $this->gameState->setCommunityCards();
 
-        $this->gameState = $step ? $step->handle($this->gameState) : $this->gameState;
+        $this->gameState = $step ? $step->process($this->gameState) : $this->gameState;
 
         $this->handleNewStreet();
 
