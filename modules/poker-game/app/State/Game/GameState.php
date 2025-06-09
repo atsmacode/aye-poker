@@ -9,7 +9,6 @@ use Atsmacode\PokerGame\GamePlay\GameStyle\GameStyle;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\Table;
-use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Repository\GameState\GameStateRepository;
 use Atsmacode\PokerGame\State\Player\PlayerState;
 
@@ -331,6 +330,9 @@ class GameState
         return $this->handIsActive;
     }
 
+    /**
+     * TODO: This is more like 'hand was active' or no hand at all
+     */
     public function setHandIsActive(bool $active): void
     {
         $this->handIsActive = $active;
