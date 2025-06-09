@@ -38,8 +38,6 @@ class Start extends HandStep
 
         $this->gameState->setPlayers();
 
-        //var_dump($handId);
-
         $this->gameState->getGameDealer()
             ->shuffle()
             ->saveDeck($handId);

@@ -3,23 +3,28 @@
 namespace Atsmacode\PokerGame\Tests\Unit\Handlers\Sit;
 
 use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
-use Atsmacode\PokerGame\Models\Player;
-use Atsmacode\PokerGame\Models\Table;
-use Atsmacode\PokerGame\Models\TableSeat;
+use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\Tests\BaseTest;
+use Atsmacode\PokerGame\Tests\HasGamePlay;
 
 class SitHandlerTest extends BaseTest
 {
+    use HasGamePlay;
+
     private SitHandler $sitHandler;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->tables = $this->container->build(Table::class);
-        $this->tableSeats = $this->container->build(TableSeat::class);
-        $this->players = $this->container->build(Player::class);
-        $this->sitHandler = $this->container->get(SitHandler::class);
+        $this->isThreeHanded()
+            ->setHand()
+            ->setGamePlay();
+
+        $this->sitHandler = $this->container->build(
+            SitHandler::class,
+            ['gameState' => $this->gameState]
+        );
     }
 
     /**
@@ -27,15 +32,13 @@ class SitHandlerTest extends BaseTest
      *
      * @return void
      */
-    public function itCanSitAPlayerAtATable()
+    public function handleReturnsInstanceOfGameState()
     {
-        $table = $this->tables->create(['name' => 'Test Table', 'seats' => 1]);
+        $response = $this->sitHandler->handle(
+            $this->testTable->getId(),
+            $this->playerOne->getId(),
+        );
 
-        $this->tableSeats->create(['table_id' => $table->getId(), 'number' => 1]);
-
-        $player = $this->players->create(['name' => $this->fake->unique()->name()]);
-        $tableSeat = $this->sitHandler->handle($player->getId(), $table->getId());
-
-        $this->assertEquals($player->getId(), $tableSeat->getPlayerId());
+        $this->assertInstanceOf(GameState::class, $response);
     }
 }
