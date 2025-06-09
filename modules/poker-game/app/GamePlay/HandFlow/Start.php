@@ -81,7 +81,7 @@ class Start implements ProcessesGameState
         $tableStacks = [];
 
         foreach ($this->gameState->getSeats() as $seat) {
-            $playerTableStack = $this->findPlayerStack($seat['player_id'], $tableId);
+            $playerTableStack = $this->stacks->find(['player_id' => $seat['player_id'], 'table_id' => $tableId]);
 
             if ($playerTableStack) {
                 $tableStacks[$seat['player_id']] = $playerTableStack;
@@ -113,14 +113,12 @@ class Start implements ProcessesGameState
             }
         }
 
-        $currentDealer = $this->gameState->getDealer();
-
         [
             'currentDealer' => $currentDealer,
             'dealer' => $dealer,
             'smallBlindSeat' => $smallBlindSeat,
             'bigBlindSeat' => $bigBlindSeat,
-        ] = $this->getNextDealerAndBlinds($currentDealer);
+        ] = $this->getNextDealerAndBlinds();
 
         if ($currentDealer) {
             $currentDealerSeat = $this->tableSeats->find(['id' => $currentDealer['id'], 'table_id' => $tableId]);
@@ -135,12 +133,17 @@ class Start implements ProcessesGameState
             'hand_id' => $handId,
         ])->getId();
 
-        $smallBlind = $this->findPlayerAction($smallBlindSeat['player_id'], $smallBlindSeat['id'], $handStreetId);
-        $bigBlind = $this->findPlayerAction(
-            $bigBlindSeat['player_id'],
-            $bigBlindSeat['id'],
-            $handStreetId
-        );
+        $smallBlind = $this->playerActions->find([
+            'player_id' => $smallBlindSeat['player_id'],
+            'table_seat_id' => $smallBlindSeat['id'],
+            'hand_street_id' => $handStreetId,
+        ]);
+
+        $bigBlind = $this->playerActions->find([
+            'player_id' => $bigBlindSeat['player_id'],
+            'table_seat_id' => $bigBlindSeat['id'],
+            'hand_street_id' => $handStreetId,
+        ]);
 
         $this->gameState->setLatestAction($bigBlind);
 
@@ -149,32 +152,10 @@ class Start implements ProcessesGameState
         return $this;
     }
 
-    /** Needed a way to create unique instances of the model in the container */
-    private function findPlayerAction(int $playerId, int $tableSeatId, int $handStreetId): PlayerAction
+    private function getNextDealerAndBlinds(): array
     {
-        $playerAction = $this->container->build(PlayerAction::class); /* @phpstan-ignore  method.notFound */
-
-        return $playerAction->find([
-            'player_id' => $playerId,
-            'table_seat_id' => $tableSeatId,
-            'hand_street_id' => $handStreetId,
-        ]);
-    }
-
-    /** Needed a way to create unique instances of the model in the container */
-    private function findPlayerStack(int $playerId, int $tableId): ?Stack
-    {
-        $stack = $this->container->build(Stack::class); /* @phpstan-ignore method.notFound */
-
-        return $stack->find([
-            'player_id' => $playerId,
-            'table_id' => $tableId,
-        ]);
-    }
-
-    private function getNextDealerAndBlinds(?TableSeat $currentDealerSet = null): array
-    {
-        $currentDealer = $this->getDealer($currentDealerSet);
+        $currentDealer = $this->gameState->getDealer();
+    
         $seats = $this->gameState->getSeats();
         $seatNumbers = array_column($seats, 'number');
         $total = count($seatNumbers);
@@ -199,12 +180,5 @@ class Start implements ProcessesGameState
             'smallBlindSeat' => $this->gameState->getSeat($smallBlindNumber),
             'bigBlindSeat' => $this->gameState->getSeat($bigBlindNumber),
         ];
-    }
-
-    private function getDealer(?TableSeat $currentDealerSet = null): ?array
-    {
-        return $currentDealerSet
-            ? $this->gameState->getSeat($currentDealerSet->getNumber())
-            : $this->gameState->getDealer();
     }
 }

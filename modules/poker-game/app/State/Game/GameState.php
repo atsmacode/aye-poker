@@ -76,12 +76,12 @@ class GameState
         return null;
     }
 
-    public function getDealer(): ?TableSeat
+    public function getDealer(): ?array
     {
         $key = array_search(1, array_column($this->seats, 'is_dealer'));
 
         if (false !== $key) {
-            return $this->gameRepo->getTableSeat($this->seats[$key]['id']);
+            return $this->seats[$key];
         }
 
         return null;
