@@ -28,7 +28,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function aPlayerFacingARaiseCanFoldCallOrRaise()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $request = $this->setPlayerFourRaisesPost();
         $response = $this->actionControllerResponse($request);
@@ -47,7 +47,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function aPlayerFacingARaiseFoldCanFoldCallOrRaise()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->givenPlayerFourRaises();
 
@@ -68,7 +68,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function aFoldedPlayerHasNoOptions()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $request = $this->setPlayerFourFoldsPost();
         $response = $this->actionControllerResponse($request);
@@ -84,7 +84,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function theBigBlindFacingACallCanFoldCheckOrRaise()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $request = $this->setPlayerTwoCallsPost();
         $response = $this->actionControllerResponse($request);
@@ -103,7 +103,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function theBigBlindFacingACallFoldCanFoldCheckOrRaise()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->givenPlayerOneCalls();
         $this->givenPlayerOneCanContinue();
@@ -125,7 +125,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function aPlayerFacingACallCanFoldCallOrRaise()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $request = $this->setPlayerFourCallsPost();
         $response = $this->actionControllerResponse($request);
@@ -144,7 +144,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function theFirstActivePlayerOnANewStreetCanFoldCheckOrBet()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 

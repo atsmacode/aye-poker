@@ -30,7 +30,7 @@ class ThreeHandedActionOptionsTest extends BaseTest
     {
         $this->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->givenActionsMeanNewStreetIsDealt();
 
@@ -51,7 +51,7 @@ class ThreeHandedActionOptionsTest extends BaseTest
         $this->givenCurrentDealerIs($this->playerTwo->getId())
             ->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->givenActionsMeanNewStreetIsDealt();
 

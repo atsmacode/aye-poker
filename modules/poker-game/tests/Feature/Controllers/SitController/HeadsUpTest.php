@@ -71,7 +71,7 @@ class HeadsUpTest extends BaseTest
             ->setHand()
             ->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $response = $this->sitControllerResponse();
 

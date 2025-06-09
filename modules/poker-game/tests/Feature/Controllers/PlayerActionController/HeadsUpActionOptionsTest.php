@@ -35,7 +35,7 @@ class HeadsUpActionOptionsTest extends BaseTest
      */
     public function thePlayerFirstToActCanFoldCheckOrBet()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $request = $this->givenActionsMeanNewStreetIsDealt();
         $response = $this->actionControllerResponse($request);
@@ -54,7 +54,7 @@ class HeadsUpActionOptionsTest extends BaseTest
      */
     public function actionWillBeOnTheDealerAfterBigBlindActsOnTheFlop()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->setFlop();
 

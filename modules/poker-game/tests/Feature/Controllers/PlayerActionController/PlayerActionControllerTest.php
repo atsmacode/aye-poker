@@ -27,7 +27,7 @@ class PlayerActionControllerTest extends BaseTest
      */
     public function itReturnsExpectedResponseKeys()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $request = $this->setPost();
         $response = $this->actionControllerResponse($request);

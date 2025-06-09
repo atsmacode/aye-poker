@@ -33,7 +33,7 @@ class ActionHandlerTest extends BaseTest
     /** @test */
     public function handleReturnsInstanceOfGameState()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $response = $this->actionHandler->handle(
             $this->testHand,

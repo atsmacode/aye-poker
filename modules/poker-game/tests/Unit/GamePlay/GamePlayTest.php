@@ -21,7 +21,7 @@ class GamePlayTest extends BaseTest
     /** @test */
     public function itCanStartAGame()
     {
-        $gameState = $this->gamePlay->start();
+        $gameState = $this->gamePlay->process($this->gameState);
 
         $players = $gameState->getPlayerState();
 
@@ -46,7 +46,7 @@ class GamePlayTest extends BaseTest
     /** @test */
     public function itCanDealANewStreet()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->executeActionsToContinue();
 
@@ -54,7 +54,7 @@ class GamePlayTest extends BaseTest
 
         $this->gameState->setHandIsActive(true);
 
-        $gameState = $this->gamePlay->play($this->gameState);
+        $gameState = $this->gamePlay->process($this->gameState);
 
         $this->assertCount(2, $gameState->getHandStreets());
         $this->assertCount(3, $gameState->getCommunityCards());

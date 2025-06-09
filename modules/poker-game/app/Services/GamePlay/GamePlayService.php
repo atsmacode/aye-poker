@@ -40,7 +40,7 @@ class GamePlayService
             'gameState' => $gameState,
         ]);
 
-        return GamePlayResponse::get($gamePlay->play($gameState));
+        return GamePlayResponse::get($gamePlay->process($gameState));
     }
 
     public function action(Request $request): array
@@ -61,6 +61,6 @@ class GamePlayService
             'gameState' => $gameState,
         ]);
 
-        return GamePlayResponse::get($gamePlay->play($gameState));
+        return GamePlayResponse::get($gamePlay->process($gameState));
     }
 }

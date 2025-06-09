@@ -35,7 +35,7 @@ class SixHandedActionOptionsTest extends BaseTest
      */
     public function aPlayerFacingAPreviousRaiseCanFoldCallOrRaise()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->setFlop();
 
@@ -64,7 +64,7 @@ class SixHandedActionOptionsTest extends BaseTest
      */
     public function theBigBlindCanFoldCheckOrRaiseIfDealerCallsAndSmallBlindFolds()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->givenPlayerFourFolds();
         $this->givenPlayerFourCanNotContinue();

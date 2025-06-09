@@ -27,9 +27,7 @@ class TableSeatRepositoryTest extends BaseTest
         $this->givenCurrentDealerIs($this->playerOne->getId())
             ->setGamePlay();
 
-        $this->gamePlay->start($this->tableSeats->find([
-            'id' => $this->gameState->getSeats()[0]['id'],
-        ]));
+        $this->gamePlay->process($this->gameState);
 
         $tableSeat = $this->tableSeatRepo->playerAfterDealer(
             $this->gameState->handId(),

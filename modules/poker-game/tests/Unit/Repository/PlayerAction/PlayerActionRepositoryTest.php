@@ -32,7 +32,7 @@ class PlayerActionRepositoryTest extends BaseTest
      */
     public function itCanGetTheLatestActionOnANewHand()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
         $this->gameState->setBigBlind();
 
         $bigBlind = $this->gameState->getBigBlind();

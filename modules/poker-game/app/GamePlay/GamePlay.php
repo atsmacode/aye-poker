@@ -2,6 +2,7 @@
 
 namespace Atsmacode\PokerGame\GamePlay;
 
+use Atsmacode\PokerGame\Contracts\ProcessesGameState;
 use Atsmacode\PokerGame\GamePlay\GameStyle\GameStyle;
 use Atsmacode\PokerGame\GamePlay\HandStep\HandStep;
 use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
@@ -14,7 +15,7 @@ use Atsmacode\PokerGame\State\Game\GameState;
  * Responsible for deciding what happens next in a hand based on the
  * GameState and providing the response to the front-end application.
  */
-class GamePlay
+class GamePlay implements ProcessesGameState
 {
     public function __construct(
         private GameState $gameState,
@@ -28,29 +29,7 @@ class GamePlay
         $this->gameState->setGameDealer();
     }
 
-    public function setGameState(GameState $gameState): void
-    {
-        $this->gameState = $gameState;
-    }
-
-    public function response(?HandStep $step = null): GameState
-    {
-        $this->gameState->setCommunityCards();
-
-        $this->gameState = $step ? $step->handle($this->gameState) : $this->gameState;
-
-        $this->handleNewStreet();
-
-        return $this->gameState;
-    }
-
-    /** Specific start method to start new hand on page refresh in SitController */
-    public function start(): GameState
-    {
-        return $this->response($this->start);
-    }
-
-    public function play(GameState $gameState): GameState
+    public function process(GameState $gameState): GameState
     {
         $this->gameState = $gameState;
 
@@ -73,6 +52,22 @@ class GamePlay
         }
 
         return $this->response();
+    }
+
+    public function setGameState(GameState $gameState): void
+    {
+        $this->gameState = $gameState;
+    }
+
+    private function response(?HandStep $step = null): GameState
+    {
+        $this->gameState->setCommunityCards();
+
+        $this->gameState = $step ? $step->handle($this->gameState) : $this->gameState;
+
+        $this->handleNewStreet();
+
+        return $this->gameState;
     }
 
     protected function readyForShowdown(): bool

@@ -29,7 +29,7 @@ class ThreeHandedDecksTest extends BaseTest
      */
     public function communityCardsWillNoLongerBeInTheDeck()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->setFlop();
 

@@ -31,7 +31,7 @@ class SixHandedStreetTest extends BaseTest
         $this->givenCurrentDealerIs($this->playerSix->getId())
             ->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->givenPlayerThreeFolds();
         $this->givenPlayerThreeCanNotContinue();

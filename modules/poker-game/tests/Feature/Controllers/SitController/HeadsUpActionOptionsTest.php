@@ -30,7 +30,7 @@ class HeadsUpActionOptionsTest extends BaseTest
     {
         $this->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->setFlop();
 
@@ -49,7 +49,7 @@ class HeadsUpActionOptionsTest extends BaseTest
         $this->givenCurrentDealerIs($this->playerOne->getId())
             ->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
 
@@ -66,7 +66,7 @@ class HeadsUpActionOptionsTest extends BaseTest
         $this->givenCurrentDealerIs($this->playerOne->getId())
             ->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
 
@@ -83,7 +83,7 @@ class HeadsUpActionOptionsTest extends BaseTest
         $this->givenCurrentDealerIs($this->playerTwo->getId())
             ->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
 

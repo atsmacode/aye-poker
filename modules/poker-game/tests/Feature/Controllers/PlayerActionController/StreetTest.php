@@ -29,7 +29,7 @@ class StreetTest extends BaseTest
      */
     public function itCanDeal3CardsToAFlop()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $request = $this->executeActionsToContinue();
 
@@ -46,7 +46,7 @@ class StreetTest extends BaseTest
      */
     public function itCanDeal1CardToATurn()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->setFlop();
 
@@ -65,7 +65,7 @@ class StreetTest extends BaseTest
      */
     public function itCanDeal1CardToARiver()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->setFlop();
 
@@ -86,7 +86,7 @@ class StreetTest extends BaseTest
      */
     public function itCanReachShowdownWhenAllActivePlayersCanContinueOnTheRiver()
     {
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->setFlop();
 

@@ -28,7 +28,7 @@ class FourHandedTest extends BaseTest
     {
         $this->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $request = $this->setPlayerFourCallsPost();
         $response = $this->actionControllerResponse($request);
@@ -45,7 +45,7 @@ class FourHandedTest extends BaseTest
     {
         $this->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->givenBigBlindRaisesPreFlopCaller();
         $this->givenPlayerThreeCanContinue();
@@ -65,7 +65,7 @@ class FourHandedTest extends BaseTest
     {
         $this->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
@@ -85,7 +85,7 @@ class FourHandedTest extends BaseTest
     {
         $this->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
@@ -112,7 +112,7 @@ class FourHandedTest extends BaseTest
     {
         $this->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
@@ -135,7 +135,7 @@ class FourHandedTest extends BaseTest
         $this->givenCurrentDealerIs($this->playerOne->getId())
             ->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
@@ -157,7 +157,7 @@ class FourHandedTest extends BaseTest
         $this->givenCurrentDealerIs($this->playerThree->getId())
             ->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
@@ -177,7 +177,7 @@ class FourHandedTest extends BaseTest
     {
         $this->setGamePlay();
 
-        $this->gamePlay->start();
+        $this->gamePlay->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
