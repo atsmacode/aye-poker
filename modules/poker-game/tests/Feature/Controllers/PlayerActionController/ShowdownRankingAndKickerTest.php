@@ -32,8 +32,11 @@ class ShowdownRankingAndKickerTest extends BaseTest
 
         $this->isThreeHanded()
             ->setHand()
-            ->setHandFlow()
-            ->givenTheHandHasStarted();
+            ->setHandFlow();
+
+        $this->handFlow->process(
+            $this->gameState->setTestMode(true) // Skips dealing random cards to players
+        );
     }
 
     /**
@@ -647,16 +650,5 @@ class ShowdownRankingAndKickerTest extends BaseTest
         $this->givenPlayerTwoCanContinue();
 
         return $this->setPlayerThreeChecksPost();
-    }
-
-    private function givenTheHandHasStarted()
-    {
-        $this->start->setGameState($this->gameState)
-            ->initiateStreetActions()
-            ->initiatePlayerStacks()
-            ->setDealerAndBlindSeats(null)
-            ->getGameState();
-
-        return $this;
     }
 }

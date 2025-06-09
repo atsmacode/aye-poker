@@ -38,6 +38,7 @@ class GameState
     private array $bigBlind;
     private Table $table;
     private bool $handIsActive = false;
+    private bool $testMode = false; // Can be used to skip logic for unit tests
 
     public function __construct(
         private GameStateRepository $gameRepo,
@@ -338,5 +339,17 @@ class GameState
     public function setHandIsActive(bool $active): void
     {
         $this->handIsActive = $active;
+    }
+
+    public function testMode(): bool
+    {
+        return $this->testMode;
+    }
+
+    public function setTestMode(bool $testMode): self
+    {
+        $this->testMode = $testMode;
+
+        return $this;
     }
 }

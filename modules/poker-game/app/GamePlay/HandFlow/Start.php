@@ -47,7 +47,7 @@ class Start implements ProcessesGameState
 
         $wholeCards = $this->gameState->getStyle()->getStreets()[1]['whole_cards'];
 
-        if ($wholeCards) {
+        if ($wholeCards && ! $this->gameState->testMode()) {
             $this->gameState->getGameDealer()
                 ->dealTo($this->gameState->getSeats(), $wholeCards, $handId);
         }
@@ -55,7 +55,7 @@ class Start implements ProcessesGameState
         return $this->gameState;
     }
 
-    public function initiateStreetActions(): self
+    private function initiateStreetActions(): self
     {
         $street = $this->handStreets->create([
             'street_id' => $this->streets->find(['name' => 'Pre-flop'])->getId(), 'hand_id' => $this->gameState->handId(),
@@ -74,7 +74,7 @@ class Start implements ProcessesGameState
         return $this;
     }
 
-    public function initiatePlayerStacks(): self
+    private function initiatePlayerStacks(): self
     {
         $tableId = $this->gameState->tableId();
 
@@ -99,10 +99,11 @@ class Start implements ProcessesGameState
         return $this;
     }
 
-    public function setDealerAndBlindSeats(): self
+    private function setDealerAndBlindSeats(): self
     {
         $handId = $this->gameState->handId();
         $tableId = $this->gameState->tableId();
+        $firstStreet = $this->gameState->getStyle()->getStreets()[1]['name'];
 
         if (1 === $this->gameState->handStreetCount()) {
             $bigBlind = $this->playerActions->find(['hand_id' => $handId, 'big_blind' => 1]);
@@ -120,8 +121,8 @@ class Start implements ProcessesGameState
             'smallBlindSeat' => $smallBlindSeat,
             'bigBlindSeat' => $bigBlindSeat,
         ] = $this->isHeadsUp()
-            ? $this->getNextDealerAndBlindSeatsHeadsUp($currentDealer)
-            : $this->getNextDealerAndBlindSeats($currentDealer);
+            ? $this->getNextDealerAndBlindsHeadsUp($currentDealer)
+            : $this->getNextDealerAndBlinds($currentDealer);
 
         if ($currentDealer) {
             $currentDealerSeat = $this->tableSeats->find(['id' => $currentDealer['id'], 'table_id' => $tableId]);
@@ -132,7 +133,7 @@ class Start implements ProcessesGameState
         $newDealerSeat->update(['is_dealer' => 1]);
 
         $handStreetId = $this->handStreets->find([
-            'street_id' => $this->streets->find(['name' => $this->gameState->getStyle()->getStreets()[1]['name']])->getId(),
+            'street_id' => $this->streets->find(['name' => $firstStreet])->getId(),
             'hand_id' => $handId,
         ])->getId();
 
@@ -173,35 +174,35 @@ class Start implements ProcessesGameState
         ]);
     }
 
-    private function noDealerIsSetOrThereIsNoSeatAfterTheCurrentDealer(?array $currentDealer): bool
+    private function noDealerOrNoSeatAfterCurrentDealer(?array $currentDealer): bool
     {
         return !$currentDealer || !$this->gameState->getSeat($currentDealer['id'] + 1);
     }
 
-    private function thereAreThreeSeatsAfterTheCurrentDealer(?array $currentDealer): ?array
+    private function threeSeatsAfterTheCurrentDealer(?array $currentDealer): ?array
     {
         return $this->gameState->getSeat($currentDealer['id'] + 3);
     }
 
-    private function thereAreTwoSeatsAfterTheCurrentDealer(?array $currentDealer): ?array
+    private function twoSeatsAfterTheCurrentDealer(?array $currentDealer): ?array
     {
         return $this->gameState->getSeat($currentDealer['id'] + 2);
     }
 
-    private function getNextDealerAndBlindSeats(?TableSeat $currentDealerSet = null): array
+    private function getNextDealerAndBlinds(?TableSeat $currentDealerSet = null): array
     {
         $currentDealer = $this->getDealer($currentDealerSet);
 
         /* TODO: These must be called in order. Also will only work if all seats have a stack/player. */
-        if ($this->noDealerIsSetOrThereIsNoSeatAfterTheCurrentDealer($currentDealer)) {
+        if ($this->noDealerOrNoSeatAfterCurrentDealer($currentDealer)) {
             $dealer = $this->gameState->getSeats()[0];
             $smallBlindSeat = $this->gameState->getSeat($dealer['id'] + 1);
             $bigBlindSeat = $this->gameState->getSeat($dealer['id'] + 2);
-        } elseif ($this->thereAreThreeSeatsAfterTheCurrentDealer($currentDealer)) {
+        } elseif ($this->threeSeatsAfterTheCurrentDealer($currentDealer)) {
             $dealer = $this->gameState->getSeat($currentDealer['id'] + 1);
             $smallBlindSeat = $this->gameState->getSeat($dealer['id'] + 1);
             $bigBlindSeat = $this->gameState->getSeat($dealer['id'] + 2);
-        } elseif ($this->thereAreTwoSeatsAfterTheCurrentDealer($currentDealer)) {
+        } elseif ($this->twoSeatsAfterTheCurrentDealer($currentDealer)) {
             $dealer = $this->gameState->getSeat($currentDealer['id'] + 1);
             $smallBlindSeat = $this->gameState->getSeat($dealer['id'] + 1);
             $bigBlindSeat = $this->gameState->getSeats()[0];
@@ -219,11 +220,11 @@ class Start implements ProcessesGameState
         ];
     }
 
-    private function getNextDealerAndBlindSeatsHeadsUp(?TableSeat $currentDealerSet = null): array
+    private function getNextDealerAndBlindsHeadsUp(?TableSeat $currentDealerSet = null): array
     {
         $currentDealer = $this->getDealer($currentDealerSet);
 
-        if ($this->noDealerIsSetOrThereIsNoSeatAfterTheCurrentDealer($currentDealer)) {
+        if ($this->noDealerOrNoSeatAfterCurrentDealer($currentDealer)) {
             $dealer = $this->gameState->getSeats()[0];
             $smallBlindSeat = $this->gameState->getSeat($dealer['id']);
             $bigBlindSeat = $this->gameState->getSeat($dealer['id'] + 1);
@@ -251,20 +252,5 @@ class Start implements ProcessesGameState
         return $currentDealerSet
             ? $this->gameState->getSeat($currentDealerSet->getId())
             : $this->gameState->getDealer();
-    }
-
-    /**
-     * TODO: Added these for showdown unit testing purposes, consider removing.
-     */
-    public function getGameState(): GameState
-    {
-        return $this->gameState;
-    }
-
-    public function setGameState(GameState $gameState): self
-    {
-        $this->gameState = $gameState;
-
-        return $this;
     }
 }
