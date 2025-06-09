@@ -1,19 +1,19 @@
 <?php
 
-namespace Atsmacode\PokerGame\GamePlay;
+namespace Atsmacode\PokerGame\GamePlay\HandFlow;
 
 use Atsmacode\PokerGame\Contracts\ProcessesGameState;
 use Atsmacode\PokerGame\GamePlay\GameStyle\GameStyle;
-use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
-use Atsmacode\PokerGame\GamePlay\HandStep\Showdown;
-use Atsmacode\PokerGame\GamePlay\HandStep\Start;
+use Atsmacode\PokerGame\GamePlay\HandFlow\NewStreet;
+use Atsmacode\PokerGame\GamePlay\HandFlow\Showdown;
+use Atsmacode\PokerGame\GamePlay\HandFlow\Start;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 use Atsmacode\PokerGame\State\Game\GameState;
 
 /**
  * Responsible for deciding what happens next in a hand based on the GameState.
  */
-class GamePlay implements ProcessesGameState
+class HandFlow implements ProcessesGameState
 {
     public function __construct(
         private GameState $gameState,

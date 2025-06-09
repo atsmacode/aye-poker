@@ -4,12 +4,12 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\SitController;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 use Atsmacode\PokerGame\Tests\HasStreets;
 
 class HeadsUpActionOptionsTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
     use HasStreets;
 
@@ -28,9 +28,9 @@ class HeadsUpActionOptionsTest extends BaseTest
      */
     public function theBigBlindWillBeFirstToActOnTheFlop()
     {
-        $this->setGamePlay();
+        $this->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->setFlop();
 
@@ -47,9 +47,9 @@ class HeadsUpActionOptionsTest extends BaseTest
     public function whenCurrentDealerIsPlayerOnePlayerTwoWillBeTheNewDealer()
     {
         $this->givenCurrentDealerIs($this->playerOne->getId())
-            ->setGamePlay();
+            ->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
 
@@ -64,9 +64,9 @@ class HeadsUpActionOptionsTest extends BaseTest
     public function whenCurrentDealerIsPlayerOnePlayerTwoWillBeTheNewSmallBlind()
     {
         $this->givenCurrentDealerIs($this->playerOne->getId())
-            ->setGamePlay();
+            ->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
 
@@ -81,9 +81,9 @@ class HeadsUpActionOptionsTest extends BaseTest
     public function whenCurrentDealerIsPlayerTwoPlayerOneWillBeTheNewDealer()
     {
         $this->givenCurrentDealerIs($this->playerTwo->getId())
-            ->setGamePlay();
+            ->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Unit\GamePlay;
+namespace Atsmacode\PokerGame\Tests\Unit\GamePlay\HandFlow;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
-class GamePlayTest extends BaseTest
+class HandFlowTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
 
     protected function setUp(): void
     {
@@ -15,13 +15,13 @@ class GamePlayTest extends BaseTest
 
         $this->isThreeHanded()
             ->setHand()
-            ->setGamePlay();
+            ->setHandFlow();
     }
 
     /** @test */
     public function itCanStartAGame()
     {
-        $gameState = $this->gamePlay->process($this->gameState);
+        $gameState = $this->handFlow->process($this->gameState);
 
         $players = $gameState->getPlayerState();
 
@@ -46,7 +46,7 @@ class GamePlayTest extends BaseTest
     /** @test */
     public function itCanDealANewStreet()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->executeActionsToContinue();
 
@@ -54,7 +54,7 @@ class GamePlayTest extends BaseTest
 
         $this->gameState->setHandIsActive(true);
 
-        $gameState = $this->gamePlay->process($this->gameState);
+        $gameState = $this->handFlow->process($this->gameState);
 
         $this->assertCount(2, $gameState->getHandStreets());
         $this->assertCount(3, $gameState->getCommunityCards());

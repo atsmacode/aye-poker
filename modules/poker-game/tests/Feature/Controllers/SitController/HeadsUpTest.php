@@ -4,11 +4,11 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\SitController;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
 class HeadsUpTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
 
     protected function setUp(): void
@@ -25,7 +25,7 @@ class HeadsUpTest extends BaseTest
     {
         $this->isHeadsUp()
             ->setGame()
-            ->setGamePlay();
+            ->setHandFlow();
 
         $response = $this->sitControllerResponse();
 
@@ -53,7 +53,7 @@ class HeadsUpTest extends BaseTest
     {
         $this->isHeadsUp()
             ->setGame()
-            ->setGamePlay();
+            ->setHandFlow();
 
         $response = $this->sitControllerResponse();
 
@@ -69,9 +69,9 @@ class HeadsUpTest extends BaseTest
     {
         $this->isHeadsUp()
             ->setHand()
-            ->setGamePlay();
+            ->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $response = $this->sitControllerResponse();
 

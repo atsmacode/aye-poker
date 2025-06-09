@@ -1,11 +1,8 @@
 <?php
 
-namespace Atsmacode\PokerGame\GamePlay;
+namespace Atsmacode\PokerGame\GamePlay\HandFlow;
 
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
-use Atsmacode\PokerGame\GamePlay\HandStep\NewStreet;
-use Atsmacode\PokerGame\GamePlay\HandStep\Showdown;
-use Atsmacode\PokerGame\GamePlay\HandStep\Start;
 use Atsmacode\PokerGame\Repository\GameState\GameStateRepository;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 use Atsmacode\PokerGame\State\Game\GameState;
@@ -13,7 +10,7 @@ use Atsmacode\PokerGame\State\Player\PlayerState;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 
-class GamePlayFactory implements FactoryInterface
+class HandFlowFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
@@ -24,7 +21,7 @@ class GamePlayFactory implements FactoryInterface
             isset($options['hand']) ? $options['hand'] : null
         );
 
-        return new GamePlay(
+        return new HandFlow(
             $gameState,
             $options['game'],
             $container->get(Start::class),

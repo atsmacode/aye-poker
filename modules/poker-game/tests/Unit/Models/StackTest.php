@@ -6,11 +6,11 @@ use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\Stack;
 use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\Tests\BaseTest;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
 class StackTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
 
     private Stack $stacks;
     private Player $player1;

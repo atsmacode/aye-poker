@@ -3,11 +3,11 @@
 namespace Atsmacode\PokerGame\Tests\Unit\Models;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
 class GameTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
 
     protected function setUp(): void
     {

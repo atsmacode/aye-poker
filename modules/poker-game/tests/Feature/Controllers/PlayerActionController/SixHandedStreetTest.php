@@ -4,12 +4,12 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\PlayerActionController;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 use Atsmacode\PokerGame\Tests\HasStreets;
 
 class SixHandedStreetTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
     use HasStreets;
 
@@ -29,9 +29,9 @@ class SixHandedStreetTest extends BaseTest
     public function whenDealerIsSeatSixAndOnlySmallBlindCallsAndBigBlindChecksItCanDealFlop()
     {
         $this->givenCurrentDealerIs($this->playerSix->getId())
-            ->setGamePlay();
+            ->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->givenPlayerThreeFolds();
         $this->givenPlayerThreeCanNotContinue();

@@ -5,11 +5,11 @@ namespace Atsmacode\PokerGame\Tests\Unit\Repository\PlayerAction;
 use Atsmacode\PokerGame\Repository\PlayerAction\PlayerActionRepository;
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
 class PlayerActionRepositoryTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
 
     private PlayerActionRepository $playerActionRepo;
@@ -20,7 +20,7 @@ class PlayerActionRepositoryTest extends BaseTest
 
         $this->isThreeHanded()
             ->setHand()
-            ->setGamePlay();
+            ->setHandFlow();
 
         $this->playerActionRepo = $this->container->build(PlayerActionRepository::class);
     }
@@ -32,7 +32,7 @@ class PlayerActionRepositoryTest extends BaseTest
      */
     public function itCanGetTheLatestActionOnANewHand()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
         $this->gameState->setBigBlind();
 
         $bigBlind = $this->gameState->getBigBlind();

@@ -4,12 +4,12 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\SitController;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 use Atsmacode\PokerGame\Tests\HasStreets;
 
 class ThreeHandedActionOptionsTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
     use HasStreets;
 
@@ -28,9 +28,9 @@ class ThreeHandedActionOptionsTest extends BaseTest
      */
     public function theSmallBlindWillBeFirstToActOnTheFlop()
     {
-        $this->setGamePlay();
+        $this->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->givenActionsMeanNewStreetIsDealt();
 
@@ -49,9 +49,9 @@ class ThreeHandedActionOptionsTest extends BaseTest
     public function whenDealerIsSeatThreeSmallBlindWillBeFirstToActOnTheFlop()
     {
         $this->givenCurrentDealerIs($this->playerTwo->getId())
-            ->setGamePlay();
+            ->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->givenActionsMeanNewStreetIsDealt();
 

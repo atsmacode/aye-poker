@@ -4,11 +4,11 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\PlayerActionController;
 
 use Atsmacode\CardGames\Constants\Card;
 use Atsmacode\PokerGame\Constants\HandType;
-use Atsmacode\PokerGame\GamePlay\HandStep\Start;
+use Atsmacode\PokerGame\GamePlay\HandFlow\Start;
 use Atsmacode\PokerGame\Models\HandStreetCard;
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 use Atsmacode\PokerGame\Tests\HasStreets;
 
 /**
@@ -17,7 +17,7 @@ use Atsmacode\PokerGame\Tests\HasStreets;
  */
 class ShowdownRankingAndKickerTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
     use HasStreets;
 
@@ -32,7 +32,7 @@ class ShowdownRankingAndKickerTest extends BaseTest
 
         $this->isThreeHanded()
             ->setHand()
-            ->setGamePlay()
+            ->setHandFlow()
             ->givenTheHandHasStarted();
     }
 

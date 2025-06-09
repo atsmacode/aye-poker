@@ -6,12 +6,12 @@ use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 use Atsmacode\PokerGame\Tests\HasStreets;
 
 class HeadsUpActionOptionsTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
     use HasStreets;
 
@@ -25,7 +25,7 @@ class HeadsUpActionOptionsTest extends BaseTest
 
         $this->isHeadsUp()
             ->setHand()
-            ->setGamePlay();
+            ->setHandFlow();
     }
 
     /**
@@ -35,7 +35,7 @@ class HeadsUpActionOptionsTest extends BaseTest
      */
     public function thePlayerFirstToActCanFoldCheckOrBet()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $request = $this->givenActionsMeanNewStreetIsDealt();
         $response = $this->actionControllerResponse($request);
@@ -54,7 +54,7 @@ class HeadsUpActionOptionsTest extends BaseTest
      */
     public function actionWillBeOnTheDealerAfterBigBlindActsOnTheFlop()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->setFlop();
 

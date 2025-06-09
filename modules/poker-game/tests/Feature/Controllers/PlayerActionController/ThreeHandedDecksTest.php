@@ -4,12 +4,12 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\PlayerActionController;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 use Atsmacode\PokerGame\Tests\HasStreets;
 
 class ThreeHandedDecksTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
     use HasStreets;
 
@@ -19,7 +19,7 @@ class ThreeHandedDecksTest extends BaseTest
 
         $this->isThreeHanded()
             ->setHand()
-            ->setGamePlay();
+            ->setHandFlow();
     }
 
     /**
@@ -29,7 +29,7 @@ class ThreeHandedDecksTest extends BaseTest
      */
     public function communityCardsWillNoLongerBeInTheDeck()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->setFlop();
 

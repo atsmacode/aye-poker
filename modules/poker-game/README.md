@@ -9,8 +9,8 @@ A brief description of how it works is:
 - The SitController starts a new Hand
 - The PlayerActionController accept a Request containing information on which Hand is being played, and what the last thing to happen was (who was the last to act and what action did they take)
 - This data is passed to the ActionHandler which updates the status of all players accordingly and returns a GameState object containing all the information of the current Hand
-- The GameState is passed to a GamePlay class which decides what should happen next in the Hand
-- Depending on what the next step is, the logic is delegated to respective HandStep interfaces which carry out the appropriate process for each thing:
+- The GameState is passed to a HandFlow class which decides what should happen next in the Hand
+- Depending on what the next step is, the logic is delegated to respective HandFlow classes which carry out the appropriate process for each thing:
   - The players are still betting on a street
   - A new street card should be dealt
   - All bets have been called on the river and we have reached showdown

@@ -4,9 +4,9 @@ namespace Atsmacode\PokerGame\Tests;
 
 use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\Enums\GameMode;
-use Atsmacode\PokerGame\GamePlay\GamePlay;
+use Atsmacode\PokerGame\GamePlay\HandFlow\HandFlow;
 use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
-use Atsmacode\PokerGame\GamePlay\HandStep\Start;
+use Atsmacode\PokerGame\GamePlay\HandFlow\Start;
 use Atsmacode\PokerGame\Models\Game;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
@@ -14,9 +14,9 @@ use Atsmacode\PokerGame\Models\Table;
 use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\State\Game\GameState;
 
-trait HasGamePlay
+trait HasHandFlow
 {
-    private GamePlay $gamePlay;
+    private HandFlow $handFlow;
     private GameState $gameState;
     private Start $start;
     private Hand $testHand;
@@ -53,13 +53,13 @@ trait HasGamePlay
         ]);
     }
 
-    private function setGamePlay()
+    private function setHandFlow()
     {
         $this->gameState = $this->container->build(GameState::class, [
             'hand' => isset($this->testHand) ? $this->testHand : null,
         ]);
 
-        $this->gamePlay = $this->container->build(GamePlay::class, [
+        $this->handFlow = $this->container->build(HandFlow::class, [
             'game' => $this->container->get(PotLimitHoldEm::class),
             'gameState' => $this->gameState,
         ]);
@@ -135,7 +135,7 @@ trait HasGamePlay
         $this->tableSeatThree = $this->createTableSeat($this->testTable->getId(), $this->playerThree->getId(), 3);
         $this->tableSeatFour = $this->createTableSeat($this->testTable->getId(), $this->playerFour->getId(), 4);
 
-        $this->setGamePlay();
+        $this->setHandFlow();
 
         return $this;
     }
@@ -158,7 +158,7 @@ trait HasGamePlay
         $this->tableSeatFive = $this->createTableSeat($this->testTable->getId(), $this->playerFive->getId(), 5);
         $this->tableSeatSix = $this->createTableSeat($this->testTable->getId(), $this->playerSix->getId(), 6);
 
-        $this->setGamePlay();
+        $this->setHandFlow();
 
         return $this;
     }

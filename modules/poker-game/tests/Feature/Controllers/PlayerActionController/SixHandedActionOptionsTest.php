@@ -6,12 +6,12 @@ use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 use Atsmacode\PokerGame\Tests\HasStreets;
 
 class SixHandedActionOptionsTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
     use HasStreets;
 
@@ -25,7 +25,7 @@ class SixHandedActionOptionsTest extends BaseTest
 
         $this->isSixHanded()
             ->setHand()
-            ->setGamePlay();
+            ->setHandFlow();
     }
 
     /**
@@ -35,7 +35,7 @@ class SixHandedActionOptionsTest extends BaseTest
      */
     public function aPlayerFacingAPreviousRaiseCanFoldCallOrRaise()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->setFlop();
 
@@ -64,7 +64,7 @@ class SixHandedActionOptionsTest extends BaseTest
      */
     public function theBigBlindCanFoldCheckOrRaiseIfDealerCallsAndSmallBlindFolds()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->givenPlayerFourFolds();
         $this->givenPlayerFourCanNotContinue();

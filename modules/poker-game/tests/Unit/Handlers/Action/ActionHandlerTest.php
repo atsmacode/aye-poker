@@ -7,11 +7,11 @@ use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
 use Atsmacode\PokerGame\Models\Pot;
 use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\Tests\BaseTest;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
 class ActionHandlerTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
 
     private Pot $pots;
 
@@ -21,7 +21,7 @@ class ActionHandlerTest extends BaseTest
 
         $this->isThreeHanded()
             ->setHand()
-            ->setGamePlay();
+            ->setHandFlow();
 
         $this->pots = $this->container->build(Pot::class);
         $this->actionHandler = $this->container->build(
@@ -33,7 +33,7 @@ class ActionHandlerTest extends BaseTest
     /** @test */
     public function handleReturnsInstanceOfGameState()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $response = $this->actionHandler->handle(
             $this->testHand,

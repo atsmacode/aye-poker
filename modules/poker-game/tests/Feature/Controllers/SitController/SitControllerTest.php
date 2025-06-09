@@ -4,11 +4,11 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\SitController;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
 class SitControllerTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
 
     protected function setUp(): void
@@ -17,7 +17,7 @@ class SitControllerTest extends BaseTest
 
         $this->isSixHanded()
             ->setGame()
-            ->setGamePlay();
+            ->setHandFlow();
     }
 
     /**

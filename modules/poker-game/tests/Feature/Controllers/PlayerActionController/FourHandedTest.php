@@ -4,11 +4,11 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\PlayerActionController;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
 class FourHandedTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
 
     protected function setUp(): void
@@ -26,9 +26,9 @@ class FourHandedTest extends BaseTest
      */
     public function itAddsAPlayerThatCallsTheBigBlindToTheListOfTableSeatsThatCanContinue()
     {
-        $this->setGamePlay();
+        $this->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $request = $this->setPlayerFourCallsPost();
         $response = $this->actionControllerResponse($request);
@@ -43,9 +43,9 @@ class FourHandedTest extends BaseTest
      */
     public function itRemovesAFoldedPlayerFromTheListOfSeatsThatCanContinue()
     {
-        $this->setGamePlay();
+        $this->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->givenBigBlindRaisesPreFlopCaller();
         $this->givenPlayerThreeCanContinue();
@@ -63,9 +63,9 @@ class FourHandedTest extends BaseTest
      */
     public function itCanDealANewStreet()
     {
-        $this->setGamePlay();
+        $this->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
@@ -83,9 +83,9 @@ class FourHandedTest extends BaseTest
      */
     public function theBigBlindWillWinThePotIfAllOtherPlayersFoldPreFlop()
     {
-        $this->setGamePlay();
+        $this->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
@@ -110,9 +110,9 @@ class FourHandedTest extends BaseTest
      */
     public function thePreFlopActionWillBeBackOnTheBigBlindCallerIfTheBigBlindRaises()
     {
-        $this->setGamePlay();
+        $this->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
@@ -133,9 +133,9 @@ class FourHandedTest extends BaseTest
     public function ifTheDealerIsSeatTwoAndTheFirstActiveSeatOnANewStreetTheFirstActiveSeatAfterThemWillBeFirstToAct()
     {
         $this->givenCurrentDealerIs($this->playerOne->getId())
-            ->setGamePlay();
+            ->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
@@ -155,9 +155,9 @@ class FourHandedTest extends BaseTest
     public function ifThereIsOneSeatAfterCurrentDealerBigBlindWillBeSeatTwo()
     {
         $this->givenCurrentDealerIs($this->playerThree->getId())
-            ->setGamePlay();
+            ->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 
@@ -175,9 +175,9 @@ class FourHandedTest extends BaseTest
      */
     public function ifTheDealerIsTheFirstActiveSeatOnANewStreetTheFirstActiveSeatAfterThemWillBeFirstToAct()
     {
-        $this->setGamePlay();
+        $this->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 

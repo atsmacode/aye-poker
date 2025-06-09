@@ -6,11 +6,11 @@ use Atsmacode\CardGames\Constants\Card;
 use Atsmacode\CardGames\Factory\CardFactory;
 use Atsmacode\PokerGame\Models\Deck;
 use Atsmacode\PokerGame\Tests\BaseTest;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
 class PokerDealerTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
 
     private Deck $decks;
 
@@ -20,7 +20,7 @@ class PokerDealerTest extends BaseTest
 
         $this->isThreeHanded()
             ->setHand()
-            ->setGamePlay();
+            ->setHandFlow();
 
         $this->decks = $this->container->build(Deck::class);
     }

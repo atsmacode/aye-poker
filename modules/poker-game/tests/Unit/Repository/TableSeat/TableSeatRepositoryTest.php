@@ -3,11 +3,11 @@
 namespace Atsmacode\PokerGame\Tests\Unit\Repository\TableSeat;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
 class TableSeatRepositoryTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
 
     protected function setUp(): void
     {
@@ -25,9 +25,9 @@ class TableSeatRepositoryTest extends BaseTest
     public function itCanSelectFirstActivePlayerAfterDealer()
     {
         $this->givenCurrentDealerIs($this->playerOne->getId())
-            ->setGamePlay();
+            ->setHandFlow();
 
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $tableSeat = $this->tableSeatRepo->playerAfterDealer(
             $this->gameState->handId(),
@@ -44,7 +44,7 @@ class TableSeatRepositoryTest extends BaseTest
      */
     public function itCanGetTheFirstAvailableSeat()
     {
-        $this->setGamePlay();
+        $this->setHandFlow();
 
         $table = $this->tables->create(['name' => 'Test Table', 'seats' => 1]);
 
@@ -62,7 +62,7 @@ class TableSeatRepositoryTest extends BaseTest
      */
     public function itCanGetAPlayersCurrentSeat()
     {
-        $this->setGamePlay();
+        $this->setHandFlow();
 
         $table = $this->tables->create(['name' => 'Test Table', 'seats' => 1]);
         $player = $this->createPlayer();

@@ -5,11 +5,11 @@ namespace Atsmacode\PokerGame\Tests\Unit\Handlers\Sit;
 use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
 use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\Tests\BaseTest;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
 class SitHandlerTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
 
     private SitHandler $sitHandler;
 
@@ -19,7 +19,7 @@ class SitHandlerTest extends BaseTest
 
         $this->isThreeHanded()
             ->setHand()
-            ->setGamePlay();
+            ->setHandFlow();
 
         $this->sitHandler = $this->container->build(
             SitHandler::class,

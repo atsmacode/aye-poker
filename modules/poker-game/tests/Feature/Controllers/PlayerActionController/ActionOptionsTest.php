@@ -5,11 +5,11 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\PlayerActionController;
 use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
 class ActionOptionsTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
 
     protected function setUp(): void
@@ -18,7 +18,7 @@ class ActionOptionsTest extends BaseTest
 
         $this->isFourHanded()
             ->setHand()
-            ->setGamePlay();
+            ->setHandFlow();
     }
 
     /**
@@ -28,7 +28,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function aPlayerFacingARaiseCanFoldCallOrRaise()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $request = $this->setPlayerFourRaisesPost();
         $response = $this->actionControllerResponse($request);
@@ -47,7 +47,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function aPlayerFacingARaiseFoldCanFoldCallOrRaise()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->givenPlayerFourRaises();
 
@@ -68,7 +68,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function aFoldedPlayerHasNoOptions()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $request = $this->setPlayerFourFoldsPost();
         $response = $this->actionControllerResponse($request);
@@ -84,7 +84,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function theBigBlindFacingACallCanFoldCheckOrRaise()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $request = $this->setPlayerTwoCallsPost();
         $response = $this->actionControllerResponse($request);
@@ -103,7 +103,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function theBigBlindFacingACallFoldCanFoldCheckOrRaise()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->givenPlayerOneCalls();
         $this->givenPlayerOneCanContinue();
@@ -125,7 +125,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function aPlayerFacingACallCanFoldCallOrRaise()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $request = $this->setPlayerFourCallsPost();
         $response = $this->actionControllerResponse($request);
@@ -144,7 +144,7 @@ class ActionOptionsTest extends BaseTest
      */
     public function theFirstActivePlayerOnANewStreetCanFoldCheckOrBet()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->assertCount(1, $this->gameState->updateHandStreets()->getHandStreets());
 

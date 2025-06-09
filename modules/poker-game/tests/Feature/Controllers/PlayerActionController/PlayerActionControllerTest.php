@@ -4,11 +4,11 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\PlayerActionController;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
 class PlayerActionControllerTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
 
     protected function setUp(): void
@@ -17,7 +17,7 @@ class PlayerActionControllerTest extends BaseTest
 
         $this->isSixHanded()
             ->setHand()
-            ->setGamePlay();
+            ->setHandFlow();
     }
 
     /**
@@ -27,7 +27,7 @@ class PlayerActionControllerTest extends BaseTest
      */
     public function itReturnsExpectedResponseKeys()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $request = $this->setPost();
         $response = $this->actionControllerResponse($request);

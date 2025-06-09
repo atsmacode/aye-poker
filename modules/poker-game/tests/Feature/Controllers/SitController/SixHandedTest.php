@@ -4,11 +4,11 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\SitController;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 
 class SixHandedTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
 
     protected function setUp(): void
@@ -26,7 +26,7 @@ class SixHandedTest extends BaseTest
      */
     public function thePreFlopActionWillInitiallyBeOnPlayerFour()
     {
-        $this->setGamePlay();
+        $this->setHandFlow();
 
         $response = $this->sitControllerResponse();
 
@@ -41,7 +41,7 @@ class SixHandedTest extends BaseTest
     public function ifThereAreTwoSeatsAfterCurrentDealerBigBlindWillBeSeatOne()
     {
         $this->givenCurrentDealerIs($this->playerFour->getId())
-            ->setGamePlay();
+            ->setHandFlow();
 
         $response = $this->sitControllerResponse();
 
@@ -57,7 +57,7 @@ class SixHandedTest extends BaseTest
     public function ifThereIsOneSeatAfterCurrentDealerBigBlindWillBeSeatTwo()
     {
         $this->givenCurrentDealerIs($this->playerFive->getId())
-            ->setGamePlay();
+            ->setHandFlow();
 
         $response = $this->sitControllerResponse();
 

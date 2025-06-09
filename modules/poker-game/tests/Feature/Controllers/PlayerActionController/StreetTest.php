@@ -4,12 +4,12 @@ namespace Atsmacode\PokerGame\Tests\Feature\Controllers\PlayerActionController;
 
 use Atsmacode\PokerGame\Tests\BaseTest;
 use Atsmacode\PokerGame\Tests\HasActionPosts;
-use Atsmacode\PokerGame\Tests\HasGamePlay;
+use Atsmacode\PokerGame\Tests\HasHandFlow;
 use Atsmacode\PokerGame\Tests\HasStreets;
 
 class StreetTest extends BaseTest
 {
-    use HasGamePlay;
+    use HasHandFlow;
     use HasActionPosts;
     use HasStreets;
 
@@ -19,7 +19,7 @@ class StreetTest extends BaseTest
 
         $this->isThreeHanded()
             ->setHand()
-            ->setGamePlay();
+            ->setHandFlow();
     }
 
     /**
@@ -29,7 +29,7 @@ class StreetTest extends BaseTest
      */
     public function itCanDeal3CardsToAFlop()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $request = $this->executeActionsToContinue();
 
@@ -46,7 +46,7 @@ class StreetTest extends BaseTest
      */
     public function itCanDeal1CardToATurn()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->setFlop();
 
@@ -65,7 +65,7 @@ class StreetTest extends BaseTest
      */
     public function itCanDeal1CardToARiver()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->setFlop();
 
@@ -86,7 +86,7 @@ class StreetTest extends BaseTest
      */
     public function itCanReachShowdownWhenAllActivePlayersCanContinueOnTheRiver()
     {
-        $this->gamePlay->process($this->gameState);
+        $this->handFlow->process($this->gameState);
 
         $this->setFlop();
 

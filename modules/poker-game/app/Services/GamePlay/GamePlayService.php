@@ -2,7 +2,7 @@
 
 namespace Atsmacode\PokerGame\Services\GamePlay;
 
-use Atsmacode\PokerGame\GamePlay\GamePlay;
+use Atsmacode\PokerGame\GamePlay\HandFlow\HandFlow;
 use Atsmacode\PokerGame\GamePlay\GamePlayResponse;
 use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
 use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
@@ -35,12 +35,12 @@ class GamePlayService
 
         $gameState = $this->sitHandler->handle($tableId, $playerId, $gameId);
 
-        $gamePlay = $this->container->build(GamePlay::class, [/* @phpstan-ignore method.notFound */
+        $handFlow = $this->container->build(HandFlow::class, [/* @phpstan-ignore method.notFound */
             'game' => $this->container->get($this->game),
             'gameState' => $gameState,
         ]);
 
-        return GamePlayResponse::get($gamePlay->process($gameState));
+        return GamePlayResponse::get($handFlow->process($gameState));
     }
 
     public function action(Request $request): array
@@ -56,11 +56,11 @@ class GamePlayService
             $requestBody['stack']
         );
 
-        $gamePlay = $this->container->build(GamePlay::class, [/* @phpstan-ignore method.notFound */
+        $handFlow = $this->container->build(HandFlow::class, [/* @phpstan-ignore method.notFound */
             'game' => $this->container->get($this->game),
             'gameState' => $gameState,
         ]);
 
-        return GamePlayResponse::get($gamePlay->process($gameState));
+        return GamePlayResponse::get($handFlow->process($gameState));
     }
 }
