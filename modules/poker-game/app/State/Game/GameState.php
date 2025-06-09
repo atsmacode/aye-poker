@@ -37,7 +37,7 @@ class GameState
     private PokerDealer $dealer;
     private array $bigBlind;
     private Table $table;
-    private bool $handIsActive;
+    private bool $handIsActive = false;
 
     public function __construct(
         private GameStateRepository $gameRepo,

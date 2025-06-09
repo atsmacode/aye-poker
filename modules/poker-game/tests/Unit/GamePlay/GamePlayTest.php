@@ -21,22 +21,24 @@ class GamePlayTest extends BaseTest
     /** @test */
     public function itCanStartAGame()
     {
-        $response = $this->gamePlay->start();
+        $gameState = $this->gamePlay->start();
+
+        $players = $gameState->getPlayerState();
 
         // The small blind was posted
-        $this->assertEquals(25, $response['players'][2]['bet_amount']);
-        $this->assertEquals('Bet', $response['players'][2]['action_name']);
+        $this->assertEquals(25, $players[2]['bet_amount']);
+        $this->assertEquals('Bet', $players[2]['action_name']);
 
         // The big blind was posted
-        $this->assertEquals(50, $response['players'][3]['bet_amount']);
-        $this->assertEquals('Bet', $response['players'][3]['action_name']);
+        $this->assertEquals(50, $players[3]['bet_amount']);
+        $this->assertEquals('Bet', $players[3]['action_name']);
 
         // The dealer, seat 1, has not acted yet
-        $this->assertEquals(null, $response['players'][1]['bet_amount']);
-        $this->assertEquals(null, $response['players'][1]['action_id']);
+        $this->assertEquals(null, $players[1]['bet_amount']);
+        $this->assertEquals(null, $players[1]['action_id']);
 
         // Each player in the hand has 2 whole cards
-        foreach ($response['players'] as $player) {
+        foreach ($players as $player) {
             $this->assertCount(2, $player['whole_cards']);
         }
     }
@@ -50,10 +52,12 @@ class GamePlayTest extends BaseTest
 
         $this->gameState->setPlayers();
 
-        $response = $this->gamePlay->play($this->gameState);
+        $this->gameState->setHandIsActive(true);
 
-        $this->assertCount(2, $this->handStreets->find(['hand_id' => $this->gameState->handId()])->getContent());
-        $this->assertCount(3, $response['communityCards']);
+        $gameState = $this->gamePlay->play($this->gameState);
+
+        $this->assertCount(2, $gameState->getHandStreets());
+        $this->assertCount(3, $gameState->getCommunityCards());
     }
 
     protected function executeActionsToContinue()

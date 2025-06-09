@@ -3,6 +3,7 @@
 namespace Atsmacode\PokerGame\Services\GamePlay;
 
 use Atsmacode\PokerGame\GamePlay\GamePlay;
+use Atsmacode\PokerGame\GamePlay\GamePlayResponse;
 use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
 use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
 use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
@@ -39,9 +40,7 @@ class GamePlayService
             'gameState' => $gameState,
         ]);
 
-        return $gameState->handIsActive()
-            ? $gamePlay->play($gameState)
-            : $gamePlay->start();
+        return GamePlayResponse::get($gamePlay->play($gameState));
     }
 
     public function action(Request $request): array
@@ -62,6 +61,6 @@ class GamePlayService
             'gameState' => $gameState,
         ]);
 
-        return $gamePlay->play($gameState);
+        return GamePlayResponse::get($gamePlay->play($gameState));
     }
 }

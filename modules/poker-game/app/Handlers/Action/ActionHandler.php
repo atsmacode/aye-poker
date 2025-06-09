@@ -68,6 +68,7 @@ class ActionHandler implements ActionHandlerInterface
         $this->gameState->initiate($hand);
         $this->gameState->setLatestAction($playerAction);
         $this->gameState->setBigBlind();
+        $this->gameState->setHandIsActive(true);
 
         $this->updateSeatStatusOfLatestAction();
         $this->updateAllOtherSeatsBasedOnLatestAction();
