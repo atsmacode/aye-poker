@@ -22,6 +22,7 @@ class SitHandler
 
     public function handle(int $tableId, ?int $playerId = null, ?int $gameId = null, ?int $thisSeat = null): mixed
     {
+        // TODO: Why would playerId be null?
         if (null !== $playerId) {
             $currentSeat = $this->tableSeatRepo->getCurrentPlayerSeat($playerId);
     
@@ -31,6 +32,7 @@ class SitHandler
 
             $tableId = $playerSeat->getTableId();
 
+            // TODO: Return this within GameState
             if (2 > count($this->tableSeatRepo->hasMultiplePlayers($tableId))) {
                 return [
                     'message' => 'Waiting for more players to join.',
