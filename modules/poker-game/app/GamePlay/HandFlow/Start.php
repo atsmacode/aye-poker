@@ -120,9 +120,7 @@ class Start implements ProcessesGameState
             'dealer' => $dealer,
             'smallBlindSeat' => $smallBlindSeat,
             'bigBlindSeat' => $bigBlindSeat,
-        ] = $this->isHeadsUp()
-            ? $this->getNextDealerAndBlindsHeadsUp($currentDealer)
-            : $this->getNextDealerAndBlinds($currentDealer);
+        ] = $this->getNextDealerAndBlinds($currentDealer);
 
         if ($currentDealer) {
             $currentDealerSeat = $this->tableSeats->find(['id' => $currentDealer['id'], 'table_id' => $tableId]);
@@ -174,83 +172,39 @@ class Start implements ProcessesGameState
         ]);
     }
 
-    private function noDealerOrNoSeatAfterCurrentDealer(?array $currentDealer): bool
-    {
-        return !$currentDealer || !$this->gameState->getSeat($currentDealer['id'] + 1);
-    }
-
-    private function threeSeatsAfterTheCurrentDealer(?array $currentDealer): ?array
-    {
-        return $this->gameState->getSeat($currentDealer['id'] + 3);
-    }
-
-    private function twoSeatsAfterTheCurrentDealer(?array $currentDealer): ?array
-    {
-        return $this->gameState->getSeat($currentDealer['id'] + 2);
-    }
-
     private function getNextDealerAndBlinds(?TableSeat $currentDealerSet = null): array
     {
         $currentDealer = $this->getDealer($currentDealerSet);
+        $seats = $this->gameState->getSeats();
+        $seatNumbers = array_column($seats, 'number');
+        $total = count($seatNumbers);
+        
+        $currentDealerIndex = $currentDealer
+            ? array_search($currentDealer['number'], $seatNumbers, true)
+            : -1;
 
-        /* TODO: These must be called in order. Also will only work if all seats have a stack/player. */
-        if ($this->noDealerOrNoSeatAfterCurrentDealer($currentDealer)) {
-            $dealer = $this->gameState->getSeats()[0];
-            $smallBlindSeat = $this->gameState->getSeat($dealer['id'] + 1);
-            $bigBlindSeat = $this->gameState->getSeat($dealer['id'] + 2);
-        } elseif ($this->threeSeatsAfterTheCurrentDealer($currentDealer)) {
-            $dealer = $this->gameState->getSeat($currentDealer['id'] + 1);
-            $smallBlindSeat = $this->gameState->getSeat($dealer['id'] + 1);
-            $bigBlindSeat = $this->gameState->getSeat($dealer['id'] + 2);
-        } elseif ($this->twoSeatsAfterTheCurrentDealer($currentDealer)) {
-            $dealer = $this->gameState->getSeat($currentDealer['id'] + 1);
-            $smallBlindSeat = $this->gameState->getSeat($dealer['id'] + 1);
-            $bigBlindSeat = $this->gameState->getSeats()[0];
+        if ($total === 2) { // Heads up
+            $dealerNumber     = $seatNumbers[($currentDealerIndex + 1) % $total];
+            $smallBlindNumber = $dealerNumber; // Dealer is always small blind heads up
+            $bigBlindNumber   = $seatNumbers[($currentDealerIndex + 2) % $total];
         } else {
-            $dealer = $this->gameState->getSeat($currentDealer['id'] + 1);
-            $smallBlindSeat = $this->gameState->getSeats()[0];
-            $bigBlindSeat = $this->gameState->getSeats()[1];
+            $dealerNumber     = $seatNumbers[($currentDealerIndex + 1) % $total];
+            $smallBlindNumber = $seatNumbers[($currentDealerIndex + 2) % $total];
+            $bigBlindNumber   = $seatNumbers[($currentDealerIndex + 3) % $total];
         }
-
+        
         return [
             'currentDealer' => $currentDealer,
-            'dealer' => $dealer,
-            'smallBlindSeat' => $smallBlindSeat,
-            'bigBlindSeat' => $bigBlindSeat,
+            'dealer' => $this->gameState->getSeat($dealerNumber),
+            'smallBlindSeat' => $this->gameState->getSeat($smallBlindNumber),
+            'bigBlindSeat' => $this->gameState->getSeat($bigBlindNumber),
         ];
-    }
-
-    private function getNextDealerAndBlindsHeadsUp(?TableSeat $currentDealerSet = null): array
-    {
-        $currentDealer = $this->getDealer($currentDealerSet);
-
-        if ($this->noDealerOrNoSeatAfterCurrentDealer($currentDealer)) {
-            $dealer = $this->gameState->getSeats()[0];
-            $smallBlindSeat = $this->gameState->getSeat($dealer['id']);
-            $bigBlindSeat = $this->gameState->getSeat($dealer['id'] + 1);
-        } else {
-            $dealer = $this->gameState->getSeat($currentDealer['id'] + 1);
-            $smallBlindSeat = $this->gameState->getSeats()[1];
-            $bigBlindSeat = $this->gameState->getSeats()[0];
-        }
-
-        return [
-            'currentDealer' => $currentDealer,
-            'dealer' => $dealer,
-            'smallBlindSeat' => $smallBlindSeat,
-            'bigBlindSeat' => $bigBlindSeat,
-        ];
-    }
-
-    private function isHeadsUp(): bool
-    {
-        return 2 === count($this->gameState->getSeats());
     }
 
     private function getDealer(?TableSeat $currentDealerSet = null): ?array
     {
         return $currentDealerSet
-            ? $this->gameState->getSeat($currentDealerSet->getId())
+            ? $this->gameState->getSeat($currentDealerSet->getNumber())
             : $this->gameState->getDealer();
     }
 }

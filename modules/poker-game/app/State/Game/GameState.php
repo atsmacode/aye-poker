@@ -65,9 +65,9 @@ class GameState
         return $this->gameRepo->getTableGame($this->tableId)->getMode();
     }
 
-    public function getSeat(int $seatId): ?array
+    public function getSeat(int $number): ?array
     {
-        $key = array_search($seatId, array_column($this->seats, 'id'));
+        $key = array_search($number, array_column($this->seats, 'number'));
 
         if (false !== $key) {
             return $this->seats[$key];
@@ -311,11 +311,6 @@ class GameState
     public function getBigBlind(): array
     {
         return $this->bigBlind;
-    }
-
-    public function isHeadsUp(): bool
-    {
-        return 2 === count($this->getActivePlayers());
     }
 
     public function streetHasNoActions(int $handStreetId): bool
