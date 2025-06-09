@@ -14,6 +14,8 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Responsible for the actions required to start a new hand.
+ * 
+ * TODO: Consider extracting the private methods into dedicated hand flow classes.
  */
 class Start implements ProcessesGameState
 {
