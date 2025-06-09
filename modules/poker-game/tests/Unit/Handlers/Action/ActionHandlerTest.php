@@ -34,14 +34,10 @@ class ActionHandlerTest extends BaseTest
     public function handleReturnsInstanceOfGameState()
     {
         $this->gamePlay->start();
-        $this->gameState->updateHandStreets();
-
-        $handStreet = $this->gameState->getHandStreets()[0];
 
         $response = $this->actionHandler->handle(
             $this->testHand,
             $this->gameState->getPlayers()[0]['player_action_id'],
-            $handStreet['id'],
             50,
             Action::CALL_ID,
             1000
