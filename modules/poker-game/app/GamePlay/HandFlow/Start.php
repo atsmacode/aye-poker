@@ -162,6 +162,7 @@ class Start implements ProcessesGameState
         $seatNumbers = array_column($seats, 'number');
         $total = count($seatNumbers);
         
+        // Uses array indexes for modulo math
         $currentDealerIndex = $currentDealer
             ? array_search($currentDealer['number'], $seatNumbers, true)
             : -1;
