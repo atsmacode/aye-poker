@@ -36,7 +36,7 @@ class GameState
     private PokerDealer $dealer;
     private array $bigBlind;
     private Table $table;
-    private bool $wasInProgress = false; // Can be used to detect if we are starting/continuing the game in HandFlow
+    private bool $wasInProgress = false; // Can be used to detect if we are starting/continuing a hand in HandFlow
     private bool $testMode = false; // Can be used to skip logic for unit tests
 
     public function __construct(
