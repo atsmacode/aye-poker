@@ -36,7 +36,7 @@ class GameState
     private PokerDealer $dealer;
     private array $bigBlind;
     private Table $table;
-    private bool $handIsActive = false;
+    private bool $wasInProgress = false; // Can be used to detect if we are starting/continuing the game in HandFlow
     private bool $testMode = false; // Can be used to skip logic for unit tests
 
     public function __construct(
@@ -325,17 +325,14 @@ class GameState
         return $this->playerState->get($this);
     }
 
-    public function handIsActive(): bool
+    public function wasInProgress(): bool
     {
-        return $this->handIsActive;
+        return $this->wasInProgress;
     }
 
-    /**
-     * TODO: This is more like 'hand was active' or no hand at all.
-     */
-    public function setHandIsActive(bool $active): void
+    public function setWasInProgress(bool $was): void
     {
-        $this->handIsActive = $active;
+        $this->wasInProgress = $was;
     }
 
     public function testMode(): bool

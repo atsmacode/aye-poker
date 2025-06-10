@@ -50,7 +50,7 @@ class HandFlowTest extends BaseTest
 
         $this->executeActionsToContinue();
 
-        $this->gameState->loadPlayers()->setHandIsActive(true);
+        $this->gameState->loadPlayers()->setWasInProgress(true);
 
         $gameState = $this->handFlow->process($this->gameState);
 
