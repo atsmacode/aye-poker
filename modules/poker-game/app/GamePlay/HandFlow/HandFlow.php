@@ -28,7 +28,7 @@ class HandFlow implements ProcessesGameState
     {
         $this->gameState = $gameState;
 
-        if ($this->theLastHandWasCompleted() || ! $this->gameState->wasInProgress()) {
+        if ($this->theLastHandWasCompleted() || ! $this->gameState->handWasActive()) {
             return $this->run($this->start);
         }
 

@@ -47,7 +47,7 @@ class SitHandler
 
         $currentHand = $this->hands->find(['game_id' => $gameId, 'table_id' => $tableId, 'completed_on' => null]);
 
-        $this->gameState->setWasInProgress(!$currentHand ? false : true);
+        $this->gameState->setHandWasActive(!$currentHand ? false : true);
 
         $hand = $currentHand ?? $this->hands->create(['table_id' => $tableId, 'game_id' => $gameId]);
 

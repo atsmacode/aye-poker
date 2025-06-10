@@ -68,7 +68,7 @@ class ActionHandler
         $this->gameState->initiate($hand);
         $this->gameState->setLatestAction($playerAction);
         $this->gameState->setBigBlind();
-        $this->gameState->setWasInProgress(true);
+        $this->gameState->setHandWasActive(true);
 
         $this->updateSeatStatusOfLatestAction();
         $this->updateAllOtherSeatsBasedOnLatestAction();
