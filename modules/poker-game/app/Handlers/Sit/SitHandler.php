@@ -16,7 +16,7 @@ class SitHandler
         private ?GameState $gameState,
         private Hand $hands,
         private TableSeatRepository $tableSeatRepo,
-        private PlayerState $playerState
+        private PlayerState $playerState,
     ) {
     }
 
@@ -25,9 +25,9 @@ class SitHandler
         // TODO: Why would playerId be null?
         if (null !== $playerId) {
             $currentSeat = $this->tableSeatRepo->getCurrentPlayerSeat($playerId);
-    
+
             $playerSeat = $thisSeat ? $this->tableSeatRepo->getFirstAvailableSeat($thisSeat) : $currentSeat;
-    
+
             $playerSeat->update(['player_id' => $playerId]);
 
             $tableId = $playerSeat->getTableId();
@@ -47,11 +47,11 @@ class SitHandler
 
         $currentHand = $this->hands->find(['game_id' => $gameId, 'table_id' => $tableId, 'completed_on' => null]);
 
-        $this->gameState->setHandIsActive(! $currentHand ? false : true);
+        $this->gameState->setHandIsActive(!$currentHand ? false : true);
 
         $hand = $currentHand ?? $this->hands->create(['table_id' => $tableId, 'game_id' => $gameId]);
 
-        $this->gameState->initiate($hand);
+        $this->gameState->initiate($hand); // @phpstan-ignore argument.type
 
         return $this->gameState;
     }

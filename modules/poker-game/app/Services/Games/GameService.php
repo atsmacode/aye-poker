@@ -40,12 +40,12 @@ class GameService
         }
 
         foreach ($seats as $tableSeat) {
-            if ($tableSeat->getNumber() > $playerCount) {
+            if ($tableSeat->getNumber() > $playerCount) { /* @phpstan-ignore method.notFound */
                 break;
             }
 
             // The first players in the DB are the 'test' players. That matches the seat numbers.
-            $player = $this->players->find(['id' => $tableSeat->getNumber()]);
+            $player = $this->players->find(['id' => $tableSeat->getNumber()]); /* @phpstan-ignore method.notFound */
 
             $tableSeat->update(['player_id' => $player->getId()]);
         }

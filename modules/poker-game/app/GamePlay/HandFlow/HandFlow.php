@@ -4,9 +4,6 @@ namespace Atsmacode\PokerGame\GamePlay\HandFlow;
 
 use Atsmacode\PokerGame\Contracts\ProcessesGameState;
 use Atsmacode\PokerGame\GamePlay\GameStyle\GameStyle;
-use Atsmacode\PokerGame\GamePlay\HandFlow\NewStreet;
-use Atsmacode\PokerGame\GamePlay\HandFlow\Showdown;
-use Atsmacode\PokerGame\GamePlay\HandFlow\Start;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 use Atsmacode\PokerGame\State\Game\GameState;
 
@@ -31,7 +28,7 @@ class HandFlow implements ProcessesGameState
     {
         $this->gameState = $gameState;
 
-        if ($this->theLastHandWasCompleted() || ! $this->gameState->handIsActive()) {
+        if ($this->theLastHandWasCompleted() || !$this->gameState->handIsActive()) {
             return $this->run($this->start);
         }
 

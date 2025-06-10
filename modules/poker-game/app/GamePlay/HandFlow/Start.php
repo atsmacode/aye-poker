@@ -10,11 +10,10 @@ use Atsmacode\PokerGame\Models\Street;
 use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Services\Blinds\BlindService;
 use Atsmacode\PokerGame\State\Game\GameState;
-use Psr\Container\ContainerInterface;
 
 /**
  * Responsible for the actions required to start a new hand.
- * 
+ *
  * TODO: Consider extracting the private methods into dedicated hand flow classes.
  */
 class Start implements ProcessesGameState
@@ -22,7 +21,6 @@ class Start implements ProcessesGameState
     protected GameState $gameState;
 
     public function __construct(
-        private ContainerInterface $container,
         private Street $streets,
         private HandStreet $handStreets,
         private PlayerAction $playerActions,
@@ -49,7 +47,7 @@ class Start implements ProcessesGameState
 
         $wholeCards = $this->gameState->getStyle()->getStreets()[1]['whole_cards'];
 
-        if ($wholeCards && ! $this->gameState->testMode()) {
+        if ($wholeCards && !$this->gameState->testMode()) {
             $this->gameState->getGameDealer()
                 ->dealTo($this->gameState->getSeats(), $wholeCards, $handId);
         }
@@ -157,26 +155,26 @@ class Start implements ProcessesGameState
     private function getNextDealerAndBlinds(): array
     {
         $currentDealer = $this->gameState->getDealer();
-    
+
         $seats = $this->gameState->getSeats();
         $seatNumbers = array_column($seats, 'number');
         $total = count($seatNumbers);
-        
+
         // Uses array indexes for modulo math
         $currentDealerIndex = $currentDealer
             ? array_search($currentDealer['number'], $seatNumbers, true)
             : -1;
 
-        if ($total === 2) { // Heads up
-            $dealerNumber     = $seatNumbers[($currentDealerIndex + 1) % $total];
+        if (2 === $total) { // Heads up
+            $dealerNumber = $seatNumbers[($currentDealerIndex + 1) % $total];
             $smallBlindNumber = $dealerNumber; // Dealer is always small blind heads up
-            $bigBlindNumber   = $seatNumbers[($currentDealerIndex + 2) % $total];
+            $bigBlindNumber = $seatNumbers[($currentDealerIndex + 2) % $total];
         } else {
-            $dealerNumber     = $seatNumbers[($currentDealerIndex + 1) % $total];
+            $dealerNumber = $seatNumbers[($currentDealerIndex + 1) % $total];
             $smallBlindNumber = $seatNumbers[($currentDealerIndex + 2) % $total];
-            $bigBlindNumber   = $seatNumbers[($currentDealerIndex + 3) % $total];
+            $bigBlindNumber = $seatNumbers[($currentDealerIndex + 3) % $total];
         }
-        
+
         return [
             'currentDealer' => $currentDealer,
             'dealer' => $this->gameState->getSeat($dealerNumber),

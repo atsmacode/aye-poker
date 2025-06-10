@@ -4,8 +4,8 @@ namespace Atsmacode\PokerGame\Tests;
 
 use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\Enums\GameMode;
-use Atsmacode\PokerGame\GamePlay\HandFlow\HandFlow;
 use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
+use Atsmacode\PokerGame\GamePlay\HandFlow\HandFlow;
 use Atsmacode\PokerGame\GamePlay\HandFlow\Start;
 use Atsmacode\PokerGame\Models\Game;
 use Atsmacode\PokerGame\Models\Hand;

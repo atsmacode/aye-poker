@@ -50,7 +50,7 @@ class GameState
         }
     }
 
-    public function initiate(Hand $hand): void
+    public function initiate(?Hand $hand): void
     {
         $this->setHand($hand);
         $this->tableId = $hand->getTableId();
@@ -331,7 +331,7 @@ class GameState
     }
 
     /**
-     * TODO: This is more like 'hand was active' or no hand at all
+     * TODO: This is more like 'hand was active' or no hand at all.
      */
     public function setHandIsActive(bool $active): void
     {

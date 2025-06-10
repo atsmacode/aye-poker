@@ -18,7 +18,7 @@ class PlayerState
 
     public function __construct(
         private TableSeatRepository $tableSeatRepo,
-        private Player $players
+        private Player $players,
     ) {
     }
 
