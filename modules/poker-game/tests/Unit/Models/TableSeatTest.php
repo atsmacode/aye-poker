@@ -25,7 +25,7 @@ class TableSeatTest extends BaseTest
      */
     public function aTableSeatCanBeUpdated()
     {
-        $tableSeat = $this->tableSeats->find(['id' => $this->gameState->getSeats()[0]['id']]);
+        $tableSeat = $this->tableSeats->find(['id' => $this->gameState->getSeat(1)['id']]);
 
         $this->assertEquals(0, (int) $tableSeat->canContinue());
 

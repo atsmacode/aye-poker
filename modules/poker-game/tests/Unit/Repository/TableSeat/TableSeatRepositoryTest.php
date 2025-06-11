@@ -31,10 +31,10 @@ class TableSeatRepositoryTest extends BaseTest
 
         $tableSeat = $this->tableSeatRepo->playerAfterDealer(
             $this->gameState->handId(),
-            $this->gameState->getSeats()[0]['id']
+            $this->gameState->getSeat(1)['id']
         );
 
-        $this->assertEquals($this->gameState->getSeats()[1]['id'], $tableSeat->getId());
+        $this->assertEquals($this->gameState->getSeat(2)['id'], $tableSeat->getId());
     }
 
     /**

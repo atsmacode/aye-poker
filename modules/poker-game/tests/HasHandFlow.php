@@ -165,7 +165,7 @@ trait HasHandFlow
 
     private function givenPlayerOneCanContinue()
     {
-        $this->tableSeats->find(['id' => $this->gameState->getSeats()[0]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeat(1)['id']])
             ->update([
                 'can_continue' => 1,
             ]);
@@ -173,7 +173,7 @@ trait HasHandFlow
 
     private function givenPlayerOneCanNotContinue()
     {
-        $this->tableSeats->find(['id' => $this->gameState->getSeats()[0]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeat(1)['id']])
             ->update([
                 'can_continue' => 0,
             ]);
@@ -285,7 +285,7 @@ trait HasHandFlow
 
     private function givenPlayerTwoCanContinue()
     {
-        $this->tableSeats->find(['id' => $this->gameState->getSeats()[1]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeat(2)['id']])
             ->update([
                 'can_continue' => 1,
             ]);
@@ -293,7 +293,7 @@ trait HasHandFlow
 
     private function givenPlayerTwoCanNotContinue()
     {
-        $this->tableSeats->find(['id' => $this->gameState->getSeats()[1]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeat(2)['id']])
             ->update([
                 'can_continue' => 0,
             ]);
@@ -353,7 +353,7 @@ trait HasHandFlow
 
     private function givenPlayerThreeCanNotContinue()
     {
-        $this->tableSeats->find(['id' => $this->gameState->getSeats()[2]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeat(3)['id']])
             ->update([
                 'can_continue' => 0,
             ]);
@@ -387,7 +387,7 @@ trait HasHandFlow
 
     private function givenPlayerThreeCanContinue()
     {
-        $this->tableSeats->find(['id' => $this->gameState->getSeats()[2]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeat(3)['id']])
             ->update([
                 'can_continue' => 1,
             ]);
@@ -447,7 +447,7 @@ trait HasHandFlow
 
     private function givenPlayerFourCanContinue()
     {
-        $this->tableSeats->find(['id' => $this->gameState->getSeats()[3]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeat(4)['id']])
             ->update([
                 'can_continue' => 1,
             ]);
@@ -455,7 +455,7 @@ trait HasHandFlow
 
     private function givenPlayerFourCanNotContinue()
     {
-        $this->tableSeats->find(['id' => $this->gameState->getSeats()[3]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeat(4)['id']])
             ->update([
                 'can_continue' => 0,
             ]);
@@ -489,7 +489,7 @@ trait HasHandFlow
 
     private function givenPlayerFiveCanContinue()
     {
-        $this->tableSeats->find(['id' => $this->gameState->getSeats()[4]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeat(5)['id']])
             ->update([
                 'can_continue' => 1,
             ]);
@@ -497,7 +497,7 @@ trait HasHandFlow
 
     private function givenPlayerFiveCanNotContinue()
     {
-        $this->tableSeats->find(['id' => $this->gameState->getSeats()[4]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeat(5)['id']])
             ->update([
                 'can_continue' => 0,
             ]);
@@ -518,7 +518,7 @@ trait HasHandFlow
 
     private function givenPlayerSixCanContinue()
     {
-        $this->tableSeats->find(['id' => $this->gameState->getSeats()[5]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeat(6)['id']])
             ->update([
                 'can_continue' => 1,
             ]);
@@ -526,7 +526,7 @@ trait HasHandFlow
 
     private function givenPlayerSixCanNotContinue()
     {
-        $this->tableSeats->find(['id' => $this->gameState->getSeats()[5]['id']])
+        $this->tableSeats->find(['id' => $this->gameState->getSeat(6)['id']])
             ->update([
                 'can_continue' => 0,
             ]);
