@@ -27,7 +27,7 @@ class GamePlayService
     ) {
     }
 
-    public function sit(Request $request, ?int $playerId = null): array
+    public function sit(Request $request, int $playerId): array
     {
         $requestBody = $request->toArray();
         $gameId = $requestBody['gameId'] ?? null;
