@@ -26,9 +26,13 @@ class HandFlow implements ProcessesGameState
 
     public function process(GameState $gameState): GameState
     {
+        if ($gameState->waiting()) {
+            return $gameState;
+        }
+
         $this->gameState = $gameState;
 
-        if ($this->theLastHandWasCompleted() || ! $this->gameState->handWasActive()) {
+        if ($this->theLastHandWasCompleted() || !$this->gameState->handWasActive()) {
             return $this->run($this->start);
         }
 
@@ -90,7 +94,7 @@ class HandFlow implements ProcessesGameState
 
     protected function theLastHandWasCompleted(): bool
     {
-        return null !== $this->gameState->getHand()->getCompletedOn();
+        return null !== $this->gameState->getHand()?->getCompletedOn();
     }
 
     private function handleNewStreet(): void

@@ -58,6 +58,7 @@ class SitControllerTest extends BaseTest
             'winner',
             'sittingOut',
             'mode',
+            'message',
         ];
     }
 }

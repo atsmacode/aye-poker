@@ -15,6 +15,7 @@ class GamePlayResponse
             'winner' => $gameState->getWinner(),
             'sittingOut' => $gameState->getSittingOutPlayers(),
             'mode' => $gameState->getGameMode(),
+            'message' => $gameState->getMessage(),
         ];
     }
 }

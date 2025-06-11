@@ -104,6 +104,7 @@ createApp({
 
 			let payload = {
 				player_action_id: player.player_action_id,
+				player_id: player.player_id, // Need this for canAction logic
 				action_id: action.id,
 				bet_amount: this.actionBetAmounts[action.name],
 				stack: player.stack,

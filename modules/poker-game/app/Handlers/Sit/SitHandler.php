@@ -20,29 +20,24 @@ class SitHandler
     ) {
     }
 
-    public function handle(int $tableId, ?int $playerId = null, ?int $gameId = null, ?int $thisSeat = null): mixed
+    public function handle(int $tableId, int $playerId, ?int $gameId = null): mixed
     {
-        // TODO: Why would playerId be null?
-        if (null !== $playerId) {
-            $currentSeat = $this->tableSeatRepo->getCurrentPlayerSeat($playerId);
+        $currentSeat = $this->tableSeatRepo->getCurrentPlayerSeat($playerId);
+        $playerSeat = $currentSeat ?? $this->tableSeatRepo->getFirstAvailableSeat($tableId);
 
-            $playerSeat = $thisSeat ? $this->tableSeatRepo->getFirstAvailableSeat($thisSeat) : $currentSeat;
+        $playerSeat->update(['player_id' => $playerId]);
 
-            $playerSeat->update(['player_id' => $playerId]);
+        if (2 > count($this->tableSeatRepo->hasMultiplePlayers($playerSeat->getTableId()))) {
+            $players = $this->playerState->getWaitingPlayerData(
+                $playerId,
+                $playerSeat->getId(),
+                $playerSeat->getNumber()
+            );
 
-            $tableId = $playerSeat->getTableId();
-
-            // TODO: Return this within GameState
-            if (2 > count($this->tableSeatRepo->hasMultiplePlayers($tableId))) {
-                return [
-                    'message' => 'Waiting for more players to join.',
-                    'players' => $this->playerState->getWaitingPlayerData(
-                        $playerId,
-                        $playerSeat->getId(),
-                        $playerSeat->getNumber()
-                    ),
-                ];
-            }
+            return $this->gameState
+                ->setWaiting(true)
+                ->setMessage('Waiting for more players to join.')
+                ->setPlayers($players);
         }
 
         $currentHand = $this->hands->find(['game_id' => $gameId, 'table_id' => $tableId, 'completed_on' => null]);

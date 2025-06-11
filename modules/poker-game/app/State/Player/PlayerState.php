@@ -62,6 +62,9 @@ class PlayerState
         return $playerData;
     }
 
+    /**
+     * TODO: I think this assumes only 1 player is waiting.
+     */
     public function getWaitingPlayerData(int $playerId, int $tableSeatId, int $seatNumber): array
     {
         $playerName = $this->players->find(['id' => $playerId])->getName();

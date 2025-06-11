@@ -12,7 +12,7 @@ abstract class SitController
     {
     }
 
-    public function sit(Request $request, ?int $playerId = null): Response
+    public function sit(Request $request, int $playerId): Response
     {
         $response = $this->gamePlay->sit($request, $playerId);
 

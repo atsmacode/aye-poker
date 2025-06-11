@@ -34,7 +34,7 @@ class HeadsUpActionOptionsTest extends BaseTest
 
         $this->setFlop();
 
-        $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
+        $response = $this->sitControllerResponse();
 
         $this->assertEquals(true, $response['players'][2]['action_on']);
     }
@@ -51,7 +51,7 @@ class HeadsUpActionOptionsTest extends BaseTest
 
         $this->handFlow->process($this->gameState);
 
-        $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
+        $response = $this->sitControllerResponse();
 
         $this->assertEquals(1, $response['players'][2]['is_dealer']);
     }
@@ -68,7 +68,7 @@ class HeadsUpActionOptionsTest extends BaseTest
 
         $this->handFlow->process($this->gameState);
 
-        $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
+        $response = $this->sitControllerResponse();
 
         $this->assertEquals(1, $response['players'][2]['small_blind']);
     }
@@ -85,7 +85,7 @@ class HeadsUpActionOptionsTest extends BaseTest
 
         $this->handFlow->process($this->gameState);
 
-        $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
+        $response = $this->sitControllerResponse();
 
         $this->assertEquals(1, $response['players'][1]['is_dealer']);
     }

@@ -40,9 +40,13 @@ class Controller extends AbstractController
         Request $request
     ): Response {
         $serviceManager = $pokerGame->getServiceManager();
-        $userPlayer     = $security->getUser() ? $security->getUser()->getUserPlayer() : null;
+        $userPlayer = $security->getUser()?->getUserPlayer();
 
-        $response = $serviceManager->get(GamePlayService::class)->sit($request, $userPlayer?->getPlayerId());
+        if (!$userPlayer) {
+            return new Response(json_encode(['message' => 'Not logged in.']));
+        }
+
+        $response = $serviceManager->get(GamePlayService::class)->sit($request, $userPlayer->getPlayerId());
         
         $response = $this->addMercureUrlToArray($response, self::MERCURE_ACTION_TOPIC);
         $response = json_encode($response);

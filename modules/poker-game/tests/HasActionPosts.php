@@ -24,22 +24,9 @@ trait HasActionPosts
             content: json_encode(['tableId' => $this->testTable->getId()])
         );
 
-        $response = (new PotLimitHoldEmSitController($this->gamePlayService))->sit($request, null);
-
-        return json_decode($response->getContent(), true);
-    }
-
-    private function sitControllerResponseWithPlayerId(?int $playerId = null): array
-    {
-        $request = Request::create(
-            uri: '',
-            method: 'POST',
-            content: json_encode(['tableId' => $this->testTable->getId()])
-        );
-
         $response = (new PotLimitHoldEmSitController($this->gamePlayService))->sit(
             $request,
-            $playerId
+            $this->playerOne->getId()
         );
 
         return json_decode($response->getContent(), true);

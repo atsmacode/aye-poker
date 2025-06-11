@@ -38,6 +38,8 @@ class GameState
     private Table $table;
     private bool $handWasActive = false; // Can be used to detect if we are starting/continuing a hand in HandFlow
     private bool $testMode = false; // Can be used to skip logic for unit tests
+    private string $message = '';
+    private bool $waiting = false;
 
     public function __construct(
         private GameStateRepository $gameRepo,
@@ -59,8 +61,12 @@ class GameState
         $this->handStreets = $this->hand->streets();
     }
 
-    public function getGameMode(): int
+    public function getGameMode(): ?int
     {
+        if ($this->waiting) {
+            return null;
+        }
+
         return $this->gameRepo->getTableGame($this->tableId)->getMode();
     }
 
@@ -171,8 +177,12 @@ class GameState
             : $this->gameRepo->getLatestAction($this->handId);
     }
 
-    public function getPot(): int
+    public function getPot(): ?int
     {
+        if ($this->waiting) {
+            return null;
+        }
+
         $pot = $this->hand->pot();
 
         return isset($pot['amount']) ? $pot['amount'] : 0;
@@ -180,13 +190,17 @@ class GameState
 
     public function loadCommunityCards(): self
     {
-        $this->communityCards = $this->hand->getCommunityCards();
+        $this->communityCards = !$this->hand ? [] : $this->hand->getCommunityCards();
 
         return $this;
     }
 
-    public function getCommunityCards(): array
+    public function getCommunityCards(): ?array
     {
+        if ($this->waiting) {
+            return null;
+        }
+
         return $this->communityCards;
     }
 
@@ -209,13 +223,24 @@ class GameState
         return $this;
     }
 
+    public function setPlayers(array $players): self
+    {
+        $this->players = $players;
+
+        return $this;
+    }
+
     public function getPlayers(): array
     {
         return $this->players;
     }
 
-    public function getSittingOutPlayers(): array
+    public function getSittingOutPlayers(): ?array
     {
+        if ($this->waiting) {
+            return null;
+        }
+
         return array_diff(
             array_column($this->getSeats(), 'player_id'),
             array_column($this->getPlayers(), 'player_id')
@@ -254,6 +279,10 @@ class GameState
 
     public function getWinner(): ?array
     {
+        if ($this->waiting) {
+            return null;
+        }
+
         return $this->winner;
     }
 
@@ -322,6 +351,10 @@ class GameState
 
     public function getPlayerState(): array
     {
+        if ($this->waiting) {
+            return $this->players; // TODO: Assumes this was set elsewhere
+        }
+
         return $this->playerState->get($this);
     }
 
@@ -343,6 +376,30 @@ class GameState
     public function setTestMode(bool $testMode): self
     {
         $this->testMode = $testMode;
+
+        return $this;
+    }
+
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): self
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    public function waiting(): bool
+    {
+        return $this->waiting;
+    }
+
+    public function setWaiting(bool $waiting): self
+    {
+        $this->waiting = $waiting;
 
         return $this;
     }

@@ -36,7 +36,7 @@ class ThreeHandedActionOptionsTest extends BaseTest
 
         $this->setFlop();
 
-        $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
+        $response = $this->sitControllerResponse();
 
         $this->assertEquals(true, $response['players'][2]['action_on']);
     }
@@ -57,7 +57,7 @@ class ThreeHandedActionOptionsTest extends BaseTest
 
         $this->setFlop();
 
-        $response = $this->sitControllerResponseWithPlayerId(playerId: $this->playerOne->getId());
+        $response = $this->sitControllerResponse();
 
         $this->assertEquals(true, $response['players'][1]['action_on']);
     }
