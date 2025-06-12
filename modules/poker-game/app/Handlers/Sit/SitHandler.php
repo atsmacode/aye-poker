@@ -20,26 +20,30 @@ class SitHandler
     ) {
     }
 
-    public function handle(int $tableId, int $playerId, ?int $gameId = null): mixed
+    public function handle(int $tableId, ?int $playerId = null, ?int $gameId = null): mixed
     {
-        $currentSeat = $this->tableSeatRepo->getCurrentPlayerSeat($playerId);
-        $playerSeat = $currentSeat ?? $this->tableSeatRepo->getFirstAvailableSeat($tableId);
+        // Real game only
+        if (null !== $playerId) {
+            $currentSeat = $this->tableSeatRepo->getCurrentPlayerSeat($playerId);
+            $playerSeat = $currentSeat ?? $this->tableSeatRepo->getFirstAvailableSeat($tableId);
 
-        $playerSeat->update(['player_id' => $playerId]);
+            $playerSeat->update(['player_id' => $playerId]);
 
-        if (2 > count($this->tableSeatRepo->hasMultiplePlayers($playerSeat->getTableId()))) {
-            $players = $this->playerState->getWaitingPlayerData(
-                $playerId,
-                $playerSeat->getId(),
-                $playerSeat->getNumber()
-            );
+            if (2 > count($this->tableSeatRepo->hasMultiplePlayers($playerSeat->getTableId()))) {
+                $players = $this->playerState->getWaitingPlayerData(
+                    $playerId,
+                    $playerSeat->getId(),
+                    $playerSeat->getNumber()
+                );
 
-            return $this->gameState
-                ->setWaiting(true)
-                ->setMessage('Waiting for more players to join.')
-                ->setPlayers($players);
+                return $this->gameState
+                    ->setWaiting(true)
+                    ->setMessage('Waiting for more players to join.')
+                    ->setPlayers($players);
+            }
         }
 
+        // Real & test
         $currentHand = $this->hands->find(['game_id' => $gameId, 'table_id' => $tableId, 'completed_on' => null]);
 
         $this->gameState->setHandWasActive(!$currentHand ? false : true);
