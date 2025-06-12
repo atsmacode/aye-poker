@@ -42,6 +42,7 @@
 18. Use Enums instead of constants for Cards, Actions etc
 19. Dsiplay errors on front-end. Also not much handling of errors from DB bubbling up.
 20. Review general design structure, see what params are needed and where, simplify
+21. Use Enums or Constants for loading streets, currently using mix of GameStyle & Street models
 
 # Features
 

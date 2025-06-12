@@ -8,8 +8,8 @@ use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\LoadStacks;
 
 class PotLimitHoldEm implements GameStyle
 {
-    public array $streets;
-    public string $limit;
+    private array $streets;
+    private string $limit;
 
     public function __construct()
     {
@@ -44,9 +44,14 @@ class PotLimitHoldEm implements GameStyle
         return $this->streets;
     }
 
+    public function getStreet(int $id): array
+    {
+        return $this->streets[$id];
+    }
+
     public function getLimit(): string
     {
-        return 'pot';
+        return $this->limit;
     }
 
     public function startSteps(): array
