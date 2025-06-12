@@ -6,55 +6,38 @@ trait HasStreets
 {
     protected function setFlop()
     {
-        $flop = $this->handStreets->create([
-            'street_id' => $this->streets->find(['name' => 'Flop'])->getId(),
-            'hand_id' => $this->gameState->handId(),
-        ]);
-
-        $street = $this->gameState->getStyle()->getStreet(2);
-
-        $this->gameState->getGameDealer()->dealStreetCards(
-            $this->gameState->handId(),
-            $flop,
-            $street['community_cards']
-        );
+        $this->setStreet(2);
     }
 
     protected function setTurn()
     {
-        $turn = $this->handStreets->create([
-            'street_id' => $this->streets->find(['name' => 'Turn'])->getId(),
-            'hand_id' => $this->gameState->handId(),
-        ]);
-
-        $street = $this->gameState->getStyle()->getStreet(3);
-
-        $this->gameState->getGameDealer()->dealStreetCards(
-            $this->gameState->handId(),
-            $turn,
-            $street['community_cards']
-        );
+        $this->setStreet(3);
     }
 
     protected function setRiver()
     {
-        $river = $this->handStreets->create([
-            'street_id' => $this->streets->find(['name' => 'River'])->getId(),
+        $this->setStreet(4);
+    }
+
+    protected function setStreet(int $streetId)
+    {
+        $street = $this->gameState->getStyle()->getStreet($streetId);
+
+        $handStreet = $this->handStreets->create([
+            'street_id' => $this->streets->find(['name' => $street['name']])->getId(),
             'hand_id' => $this->gameState->handId(),
         ]);
 
-        $street = $this->gameState->getStyle()->getStreet(4);
-
         $this->gameState->getGameDealer()->dealStreetCards(
             $this->gameState->handId(),
-            $river,
+            $handStreet,
             $street['community_cards']
         );
     }
 
     protected function setThisFlop(array $flopCards): void
     {
-        $street = $this->gameState->getStyle()->getStreet(1);
+        $street = $this->gameState->getStyle()->getStreet(2);
 
         $flop = $this->handStreets->create([
             'street_id' => $this->streets->find(['name' => $street['name']])->getId(),
@@ -69,33 +52,28 @@ trait HasStreets
         }
     }
 
-    protected function setThisTurn(array $turnCard): void
+    protected function setThisTurn(array $card): void
     {
-        $street = $this->gameState->getStyle()->getStreet(3);
-
-        $turn = $this->handStreets->create([
-            'street_id' => $this->streets->find(['name' => $street['name']])->getId(),
-            'hand_id' => $this->gameState->handId(),
-        ]);
-
-        $this->handStreetCards->create([
-            'hand_street_id' => $turn->getId(),
-            'card_id' => $turnCard['card_id'],
-        ]);
+        $this->setStreetCard(3, $card);
     }
 
-    protected function setThisRiver(array $riverCard): void
+    protected function setThisRiver(array $card): void
     {
-        $street = $this->gameState->getStyle()->getStreet(4);
+        $this->setStreetCard(4, $card);
+    }
 
-        $river = $this->handStreets->create([
+    protected function setStreetCard(int $streetId, array $card): void
+    {
+        $street = $this->gameState->getStyle()->getStreet($streetId);
+
+        $handStreet = $this->handStreets->create([
             'street_id' => $this->streets->find(['name' => $street['name']])->getId(),
             'hand_id' => $this->gameState->handId(),
         ]);
 
         $this->handStreetCards->create([
-            'hand_street_id' => $river->getId(),
-            'card_id' => $riverCard['card_id'],
+            'hand_street_id' => $handStreet->getId(),
+            'card_id' => $card['card_id'],
         ]);
     }
 }
