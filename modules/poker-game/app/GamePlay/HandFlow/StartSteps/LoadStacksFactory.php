@@ -1,15 +1,15 @@
 <?php
 
-namespace Atsmacode\PokerGame\GamePlay\HandFlow;
+namespace Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps;
 
-use Atsmacode\PokerGame\Pipelines\GameStatePipeline;
+use Atsmacode\PokerGame\Models\Stack;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 
-class StartFactory implements FactoryInterface
+class LoadStacksFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        return new Start($container->build(GameStatePipeline::class));
+        return new LoadStacks($container->build(Stack::class));
     }
 }

@@ -2,6 +2,10 @@
 
 namespace Atsmacode\PokerGame\GamePlay\GameStyle;
 
+use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\CreatePlayerActions;
+use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\DealerAndBlinds;
+use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\LoadStacks;
+
 class PotLimitOmaha implements GameStyle
 {
     public array $streets;
@@ -43,5 +47,14 @@ class PotLimitOmaha implements GameStyle
     public function getLimit(): string
     {
         return 'pot';
+    }
+
+    public function startSteps(): array
+    {
+        return [
+            CreatePlayerActions::class,
+            LoadStacks::class,
+            DealerAndBlinds::class,
+        ];
     }
 }
