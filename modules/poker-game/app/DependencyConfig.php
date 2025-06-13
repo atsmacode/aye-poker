@@ -4,11 +4,10 @@ namespace Atsmacode\PokerGame;
 
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\CreatePlayerActions;
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\CreatePlayerActionsFactory;
-use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\DealerAndBlinds;
-use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\DealerAndBlindsFactory;
+use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\SetDealerAndBlinds;
+use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\SetDealerAndBlindsFactory;
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\LoadStacks;
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\LoadStacksFactory;
-use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 
 class DependencyConfig
 {
@@ -80,7 +79,7 @@ class DependencyConfig
                     Services\GamePlay\GamePlayService::class => Services\GamePlay\GamePlayServiceFactory::class,
                     Services\Games\GameService::class => Services\Games\GameServiceFactory::class,
                     CreatePlayerActions::class => CreatePlayerActionsFactory::class,
-                    DealerAndBlinds::class => DealerAndBlindsFactory::class,
+                    SetDealerAndBlinds::class => SetDealerAndBlindsFactory::class,
                     LoadStacks::class => LoadStacksFactory::class,
                     Pipelines\GameStatePipeline::class => Pipelines\GameStatePipelineFactory::class,
                 ],

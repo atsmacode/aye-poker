@@ -10,11 +10,11 @@ use Atsmacode\PokerGame\Services\Blinds\BlindService;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 
-class DealerAndBlindsFactory implements FactoryInterface
+class SetDealerAndBlindsFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
     {
-        return new DealerAndBlinds(
+        return new SetDealerAndBlinds(
             $container->build(Street::class),
             $container->build(HandStreet::class),
             $container->build(PlayerAction::class),

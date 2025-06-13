@@ -3,7 +3,7 @@
 namespace Atsmacode\PokerGame\GamePlay\GameStyle;
 
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\CreatePlayerActions;
-use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\DealerAndBlinds;
+use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\SetDealerAndBlinds;
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\LoadStacks;
 
 class PotLimitHoldEm implements GameStyle
@@ -59,7 +59,7 @@ class PotLimitHoldEm implements GameStyle
         return [
             CreatePlayerActions::class,
             LoadStacks::class,
-            DealerAndBlinds::class,
+            SetDealerAndBlinds::class,
         ];
     }
 }

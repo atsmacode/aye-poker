@@ -10,7 +10,7 @@ use Atsmacode\PokerGame\Models\TableSeat;
 use Atsmacode\PokerGame\Services\Blinds\BlindService;
 use Atsmacode\PokerGame\State\Game\GameState;
 
-class DealerAndBlinds implements ProcessesGameState
+class SetDealerAndBlinds implements ProcessesGameState
 {
     protected GameState $gameState;
 
