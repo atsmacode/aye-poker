@@ -21,25 +21,10 @@ class Start implements ProcessesGameState
 
     public function process(GameState $gameState): GameState
     {
-        $handId = $gameState->getHand()->getId();
-        $style = $gameState->getStyle();
-
+        $startSteps = $gameState->getStyle()->startSteps();
         $gameState = $this->pipeline
-            ->add($style->startSteps())
+            ->add($startSteps)
             ->run($gameState);
-
-        $gameState->loadPlayers()
-            ->getGameDealer()
-            ->shuffle()
-            ->saveDeck($handId);
-
-        $wholeCards = $style->getStreets()[1]['whole_cards'];
-
-        if ($wholeCards && !$gameState->testMode()) {
-            $gameState
-                ->getGameDealer()
-                ->dealTo($gameState->getSeats(), $wholeCards, $handId);
-        }
 
         return $gameState;
     }

@@ -3,6 +3,7 @@
 namespace Atsmacode\PokerGame\GamePlay\GameStyle;
 
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\CreatePlayerActions;
+use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\DealCards;
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\SetDealerAndBlinds;
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\LoadStacks;
 
@@ -55,6 +56,7 @@ class PotLimitOmaha implements GameStyle
             CreatePlayerActions::class,
             LoadStacks::class,
             SetDealerAndBlinds::class,
+            DealCards::class,
         ];
     }
 }

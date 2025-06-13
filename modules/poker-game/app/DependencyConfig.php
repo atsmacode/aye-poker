@@ -4,6 +4,7 @@ namespace Atsmacode\PokerGame;
 
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\CreatePlayerActions;
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\CreatePlayerActionsFactory;
+use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\DealCards;
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\SetDealerAndBlinds;
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\SetDealerAndBlindsFactory;
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\LoadStacks;
@@ -28,6 +29,7 @@ class DependencyConfig
                     GamePlay\GameStyle\PotLimitHoldEm::class,
                     GamePlay\GameStyle\PotLimitOmaha::class,
                     Controllers\Player\Controller::class,
+                    DealCards::class,
                 ],
                 'factories' => [
                     PokerGameConfigProvider::class => PokerGameConfigProviderFactory::class,
