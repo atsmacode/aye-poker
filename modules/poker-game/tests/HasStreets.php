@@ -19,9 +19,9 @@ trait HasStreets
         $this->setStreet(4);
     }
 
-    protected function setStreet(int $streetId)
+    protected function setStreet(int $number)
     {
-        $street = $this->gameState->getStyle()->getStreet($streetId);
+        $street = $this->gameState->getStyle()->getStreet($number);
 
         $handStreet = $this->handStreets->create([
             'street_id' => $this->streets->find(['name' => $street['name']])->getId(),
@@ -35,18 +35,18 @@ trait HasStreets
         );
     }
 
-    protected function setThisFlop(array $flopCards): void
+    protected function setThisFlop(array $cards): void
     {
         $street = $this->gameState->getStyle()->getStreet(2);
 
-        $flop = $this->handStreets->create([
+        $handStreet = $this->handStreets->create([
             'street_id' => $this->streets->find(['name' => $street['name']])->getId(),
             'hand_id' => $this->gameState->handId(),
         ]);
 
-        foreach ($flopCards as $card) {
+        foreach ($cards as $card) {
             $this->handStreetCards->create([
-                'hand_street_id' => $flop->getId(),
+                'hand_street_id' => $handStreet->getId(),
                 'card_id' => $card['card_id'],
             ]);
         }
@@ -62,9 +62,9 @@ trait HasStreets
         $this->setStreetCard(4, $card);
     }
 
-    protected function setStreetCard(int $streetId, array $card): void
+    protected function setStreetCard(int $number, array $card): void
     {
-        $street = $this->gameState->getStyle()->getStreet($streetId);
+        $street = $this->gameState->getStyle()->getStreet($number);
 
         $handStreet = $this->handStreets->create([
             'street_id' => $this->streets->find(['name' => $street['name']])->getId(),
