@@ -3,6 +3,7 @@
 namespace Atsmacode\PokerGame\Tests;
 
 use Atsmacode\Framework\Database\ConnectionInterface;
+use Atsmacode\Framework\Database\DbalConnection;
 use Atsmacode\PokerGame\Database\DbalTestFactory;
 use Atsmacode\PokerGame\Factory\PlayerActionFactory;
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
@@ -24,6 +25,7 @@ use Faker;
 use Faker\Generator as Fake;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 
 abstract class BaseTest extends TestCase
 {
@@ -53,7 +55,12 @@ abstract class BaseTest extends TestCase
         $pokerGameDependencyMap = $config['dependencies'];
 
         $this->container = new ServiceManager($pokerGameDependencyMap);
-        $this->container->setFactory(ConnectionInterface::class, new DbalTestFactory());
+        $this->container->setFactory(ConnectionInterface::class, function(ContainerInterface $c) {
+            $configProvider = $c->get(PokerGameConfigProvider::class);
+            $config         = $configProvider->get();
+    
+            return new DbalConnection($config, 'test');
+        });
 
         $this->tables = $this->container->build(Table::class);
         $this->hands = $this->container->build(Hand::class);

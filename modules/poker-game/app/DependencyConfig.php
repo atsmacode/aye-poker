@@ -3,6 +3,7 @@
 namespace Atsmacode\PokerGame;
 
 use Atsmacode\Framework\Database\DatabaseFactory;
+use Atsmacode\Framework\Database\DbalConnection;
 use Atsmacode\Framework\Models\ModelFactory;
 use Atsmacode\PokerGame\Factory\PlayerActionFactory;
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
@@ -56,7 +57,12 @@ class DependencyConfig
                 ],
                 'factories' => [
                     PokerGameConfigProvider::class => factory(fn() => new PokerGameConfigProvider('')),
-                    \Atsmacode\Framework\Database\ConnectionInterface::class => Database\DbalLiveFactory::class,
+                    \Atsmacode\Framework\Database\ConnectionInterface::class => function(ContainerInterface $c) {
+                        $configProvider = $c->get(PokerGameConfigProvider::class);
+                        $config         = $configProvider->get();
+                
+                        return new DbalConnection($config, 'live');
+                    },
                     \PDO::class => Database\PdoLiveFactory::class,
                     \Psr\Log\LoggerInterface::class => LoggerFactory::class,
                     PlayerActionFactory::class => factory(fn($c) => new PlayerActionFactory(
