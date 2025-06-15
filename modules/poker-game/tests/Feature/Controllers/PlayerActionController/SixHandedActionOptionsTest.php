@@ -47,7 +47,7 @@ class SixHandedActionOptionsTest extends BaseTest
         $this->givenPlayerFiveCalls();
         $this->givenPlayerFiveCanContinue();
 
-        $request = $this->setPlayerSixFoldsPost(streetNumber: 1);
+        $request = $this->setPlayerSixFoldsPost();
         $response = $this->actionControllerResponse($request);
 
         $this->assertTrue($response['players'][1]['action_on']);

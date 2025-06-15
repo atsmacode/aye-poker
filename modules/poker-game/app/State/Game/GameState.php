@@ -55,9 +55,12 @@ class GameState
     public function initiate(?Hand $hand): void
     {
         $this->setHand($hand);
+
         $this->tableId = $hand->getTableId();
         $this->handId = (int) $hand->getId();
-        $this->seats = $this->gameRepo->getSeats($this->tableId);
+
+        $this->loadSeats();
+
         $this->handStreets = $this->hand->streets();
     }
 
@@ -72,35 +75,42 @@ class GameState
 
     public function getSeat(int $number): ?array
     {
-        $key = array_search($number, array_column($this->seats, 'number'));
-
-        if (false !== $key) {
-            return $this->seats[$key];
+        if (!isset($this->seats[$number])) {
+            return null;
         }
 
-        return null;
+        return $this->seats[$number];
+    }
+
+    public function loadSeats(): void
+    {
+        $seats = $this->gameRepo->getSeats($this->tableId);
+
+        foreach ($seats as $seat) {
+            $this->seats[$seat['number']] = $seat;
+        }
     }
 
     public function getDealer(): ?array
     {
-        $key = array_search(1, array_column($this->seats, 'is_dealer'));
+        $key = array_search(1, array_column($this->seats, 'is_dealer', 'number'));
 
-        if (false !== $key) {
-            return $this->seats[$key];
+        if (false === $key) {
+            return null;
         }
 
-        return null;
+        return $this->seats[$key];
     }
 
     public function getSeatAction(int $seatId): ?array
     {
         $key = array_search($seatId, array_column($this->actions, 'table_seat_id'));
 
-        if (false !== $key) {
-            return $this->actions[$key];
+        if (false === $key) {
+            return null;
         }
 
-        return null;
+        return $this->actions[$key];
     }
 
     public function setActions(?array $actions): void
@@ -222,7 +232,11 @@ class GameState
 
     public function loadPlayers(): self
     {
-        $this->players = $this->hand->getPlayers();
+        $players = $this->hand->getPlayers();
+
+        foreach ($players as $player) {
+            $this->players[$player['player_id']] = $player;
+        }
 
         return $this;
     }
@@ -237,6 +251,15 @@ class GameState
     public function getPlayers(): array
     {
         return $this->players;
+    }
+
+    public function getPlayer(int $playerId): ?array
+    {
+        if (!isset($this->players[$playerId])) {
+            return null;
+        }
+
+        return $this->players[$playerId];
     }
 
     public function getSittingOutPlayers(): ?array
@@ -267,7 +290,7 @@ class GameState
 
     public function firstActivePlayer(): ?array
     {
-        $key = array_search(1, array_column($this->players, 'active'));
+        $key = array_search(1, array_column($this->players, 'active', 'player_id'));
 
         if (false !== $key) {
             return $this->players[$key];

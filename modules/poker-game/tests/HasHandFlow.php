@@ -182,7 +182,7 @@ trait HasHandFlow
     private function givenPlayerOneCalls()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[0]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerOne->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::CALL_ID,
             betAmount: 50,
@@ -195,7 +195,7 @@ trait HasHandFlow
     private function givenPlayerOnePreviouslyCalled()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[0]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerOne->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: null,
             betAmount: 50,
@@ -208,7 +208,7 @@ trait HasHandFlow
     private function givenPlayerOneFolds()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[0]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerOne->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::FOLD_ID,
             betAmount: null,
@@ -221,7 +221,7 @@ trait HasHandFlow
     private function givenPlayerOneRaisesBigBlind()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[0]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerOne->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::RAISE_ID,
             betAmount: 100,
@@ -234,7 +234,7 @@ trait HasHandFlow
     private function givenPlayerTwoCalls()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[1]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerTwo->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::CALL_ID,
             betAmount: 50,
@@ -247,7 +247,7 @@ trait HasHandFlow
     private function givenPlayerTwoFolds()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[1]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerTwo->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::FOLD_ID,
             betAmount: null,
@@ -260,7 +260,7 @@ trait HasHandFlow
     private function givenPlayerTwoChecks()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[1]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerTwo->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::CHECK_ID,
             betAmount: null,
@@ -273,7 +273,7 @@ trait HasHandFlow
     private function givenPlayerTwoPreviouslyChecked()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[1]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerTwo->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: null,
             betAmount: null,
@@ -302,7 +302,7 @@ trait HasHandFlow
     private function givenPlayerThreeCalls()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[2]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerThree->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::CALL_ID,
             betAmount: 50,
@@ -315,7 +315,7 @@ trait HasHandFlow
     private function givenPlayerThreePreviouslyCalled()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[2]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerThree->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: null,
             betAmount: 50,
@@ -328,7 +328,7 @@ trait HasHandFlow
     private function givenPlayerThreeChecks()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[2]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerThree->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::CHECK_ID,
             betAmount: null,
@@ -341,7 +341,7 @@ trait HasHandFlow
     private function givenPlayerThreeFolds()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[2]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerThree->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::FOLD_ID,
             betAmount: null,
@@ -362,7 +362,7 @@ trait HasHandFlow
     private function givenPlayerThreeCallsSmallBlind()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[2]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerThree->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::CALL_ID,
             betAmount: 25,
@@ -375,7 +375,7 @@ trait HasHandFlow
     private function givenPlayerThreeRaises()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[2]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerThree->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::RAISE_ID,
             betAmount: 100,
@@ -396,7 +396,7 @@ trait HasHandFlow
     private function givenPlayerFourFolds()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[3]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerFour->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::FOLD_ID,
             betAmount: null,
@@ -409,7 +409,7 @@ trait HasHandFlow
     private function givenPlayerFourCalls()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[3]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerFour->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::CALL_ID,
             betAmount: 50.00,
@@ -422,7 +422,7 @@ trait HasHandFlow
     private function givenPlayerFourChecks()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[3]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerFour->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::CHECK_ID,
             betAmount: null,
@@ -435,7 +435,7 @@ trait HasHandFlow
     private function givenPlayerFourRaises()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[3]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerFour->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::RAISE_ID,
             betAmount: 100,
@@ -464,7 +464,7 @@ trait HasHandFlow
     private function givenPlayerFiveCalls()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[4]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerFive->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::CALL_ID,
             betAmount: 50,
@@ -477,7 +477,7 @@ trait HasHandFlow
     private function givenPlayerFiveFolds()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[4]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerFive->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::FOLD_ID,
             betAmount: null,
@@ -506,7 +506,7 @@ trait HasHandFlow
     private function givenPlayerSixFolds()
     {
         $playerAction = $this->playerActionFactory->create(
-            playerActionId: $this->gameState->getPlayers()[5]['player_action_id'],
+            playerActionId: $this->gameState->getPlayer($this->playerSix->getId())['player_action_id'],
             handId: $this->gameState->handId(),
             actionId: Action::FOLD_ID,
             betAmount: null,

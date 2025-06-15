@@ -37,7 +37,7 @@ class ActionHandlerTest extends BaseTest
 
         $response = $this->actionHandler->handle(
             $this->testHand,
-            $this->gameState->getPlayers()[0]['player_action_id'],
+            $this->gameState->getPlayer($this->playerOne->getId())['player_action_id'],
             50,
             Action::CALL_ID,
             1000

@@ -60,7 +60,7 @@ class HeadsUpActionOptionsTest extends BaseTest
 
         $this->updateActionsOnNewStreet();
 
-        $request = $this->setPlayerTwoChecksPost(streetNumber: 1);
+        $request = $this->setPlayerTwoChecksPost();
         $response = $this->actionControllerResponse($request);
 
         $this->assertTrue($response['players'][1]['action_on']);
