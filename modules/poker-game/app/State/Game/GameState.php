@@ -206,6 +206,10 @@ class GameState
 
     public function loadWholeCards(): self
     {
+        if (count($this->wholeCards) > 0) {
+            return $this;
+        }
+
         $this->wholeCards = $this->gameRepo->getWholeCards($this->getPlayers(), $this->handId);
 
         return $this;

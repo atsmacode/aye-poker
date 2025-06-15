@@ -18,9 +18,13 @@ class Showdown implements ProcessesGameState
 
     public function process(GameState $gameState): GameState
     {
-        $gameState->loadPlayers()->loadWholeCards(); // This is done again in PlayerState, try reduce to 1 call
+        $gameState
+            ->loadPlayers()
+            ->loadWholeCards(); // This is done again in PlayerState, try reduce to 1 call
 
-        $winner = (new TheShowdown($gameState))->compileHands()->decideWinner();
+        $winner = (new TheShowdown($gameState))
+            ->compileHands()
+            ->decideWinner();
 
         $gameState->setWinner($winner);
 
