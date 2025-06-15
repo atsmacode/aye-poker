@@ -5,7 +5,6 @@ namespace Atsmacode\PokerGame;
 use Atsmacode\Framework\Database\DatabaseFactory;
 use Atsmacode\Framework\Models\ModelFactory;
 use Atsmacode\PokerGame\Factory\PlayerActionFactory;
-use Atsmacode\PokerGame\Factory\PlayerActionFactoryFactory;
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\GamePlay\HandFlow\NewStreet;
 use Atsmacode\PokerGame\GamePlay\HandFlow\Showdown;
@@ -60,7 +59,10 @@ class DependencyConfig
                     \Atsmacode\Framework\Database\ConnectionInterface::class => Database\DbalLiveFactory::class,
                     \PDO::class => Database\PdoLiveFactory::class,
                     \Psr\Log\LoggerInterface::class => LoggerFactory::class,
-                    PlayerActionFactory::class => PlayerActionFactoryFactory::class,
+                    PlayerActionFactory::class => factory(fn($c) => new PlayerActionFactory(
+                        $c->build(Models\PlayerAction::class),
+                        $c->build(Models\PlayerActionLog::class)
+                    )),
 
                     // Models
                     Models\Street::class => ModelFactory::class,
