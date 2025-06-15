@@ -7,7 +7,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(
     name: 'app:create-database',
-    description: 'Populate the DB with all resources',
+    description: 'Populate the DB with all resources (legacy, use Symfony migrations instead)',
     hidden: false,
     aliases: ['app:create-database']
 )]
