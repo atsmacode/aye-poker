@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use Atsmacode\PokerGame\PokerGameConfigProvider;
-use Atsmacode\PokerGame\PokerGameRelConfigProviderFactory;
 use Laminas\ServiceManager\ServiceManager;
 
 class PokerGame
@@ -15,7 +14,7 @@ class PokerGame
 
         $serviceManager = new ServiceManager($pokerGameDependencyMap);
 
-        $serviceManager->setFactory(PokerGameConfigProvider::class, new PokerGameRelConfigProviderFactory());
+        $serviceManager->setFactory(PokerGameConfigProvider::class, fn() => new PokerGameConfigProvider('../'));
 
         return $serviceManager;
     }

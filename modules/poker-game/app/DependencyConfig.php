@@ -56,7 +56,7 @@ class DependencyConfig
                     DealCards::class,
                 ],
                 'factories' => [
-                    PokerGameConfigProvider::class => PokerGameConfigProviderFactory::class,
+                    PokerGameConfigProvider::class => factory(fn() => new PokerGameConfigProvider('')),
                     \Atsmacode\Framework\Database\ConnectionInterface::class => Database\DbalLiveFactory::class,
                     \PDO::class => Database\PdoLiveFactory::class,
                     \Psr\Log\LoggerInterface::class => LoggerFactory::class,
