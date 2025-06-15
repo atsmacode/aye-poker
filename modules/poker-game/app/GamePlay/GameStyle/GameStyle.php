@@ -2,14 +2,29 @@
 
 namespace Atsmacode\PokerGame\GamePlay\GameStyle;
 
-/**
- * Define the unique config of different poker styles.
- */
-interface GameStyle
+abstract class GameStyle implements GameStyleInterface
 {
-    public function getStreets(): array;
+    protected array $streets;
+    protected string $limit;
+    protected array $startSteps;
 
-    public function getLimit(): string; // TODO: Limit Enum/Constant
+    public function getStreets(): array
+    {
+        return $this->streets;
+    }
 
-    public function startSteps(): array;
+    public function getStreet(int $id): array
+    {
+        return $this->streets[$id];
+    }
+
+    public function getLimit(): string
+    {
+        return $this->limit;
+    }
+
+    public function startSteps(): array
+    {
+        return $this->startSteps;
+    }
 }
