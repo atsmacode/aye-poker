@@ -14,8 +14,6 @@ use Atsmacode\PokerGame\State\Game\GameState;
 
 /**
  * Handle an Action performed by a Player.
- *
- * TODO: use/return Action Model
  */
 class ActionHandler
 {
