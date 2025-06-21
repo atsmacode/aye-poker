@@ -3,6 +3,7 @@
 namespace Atsmacode\PokerGame\Models;
 
 use Atsmacode\Framework\Models\Model;
+use Atsmacode\PokerGame\Repository\Hand\HandRepository;
 use Atsmacode\PokerGame\Repository\Table\TableRepository;
 
 class Game extends Model
@@ -37,6 +38,13 @@ class Game extends Model
     public function getMode(): int
     {
         return $this->mode;
+    }
+
+    public function getHand(): ?Hand
+    {
+        $handRepo = $this->container->get(HandRepository::class);
+
+        return $handRepo->getGameHand($this->id);
     }
 
     public function find(?array $data = null): ?Game

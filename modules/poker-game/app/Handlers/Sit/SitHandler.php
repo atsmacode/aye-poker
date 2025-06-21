@@ -3,6 +3,7 @@
 namespace Atsmacode\PokerGame\Handlers\Sit;
 
 use Atsmacode\PokerGame\Models\Hand;
+use Atsmacode\PokerGame\Repository\Game\GameRepository;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
 use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\State\Player\PlayerState;
@@ -17,6 +18,7 @@ class SitHandler
         private Hand $hands,
         private TableSeatRepository $tableSeatRepo,
         private PlayerState $playerState,
+        private GameRepository $gameRepo
     ) {
     }
 
@@ -45,6 +47,9 @@ class SitHandler
 
         // Real & test
         $currentHand = $this->hands->find(['game_id' => $gameId, 'table_id' => $tableId, 'completed_on' => null]);
+
+        // $game = $this->gameRepo->getTableGame($tableId);
+        // $currentHand = $game->getHand();
 
         $this->gameState->setHandWasActive(!$currentHand ? false : true);
 

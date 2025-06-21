@@ -38,7 +38,10 @@ class GameRepository extends Database
             $queryBuilder
                 ->select('*')
                 ->from('games')
-                ->where('table_id = '.$queryBuilder->createNamedParameter($tableId));
+                ->where('table_id = '.$queryBuilder->createNamedParameter($tableId))
+                ->andWhere('games.completed_on IS NULL')
+                ->orderBy('id', 'DESC')
+                ->setMaxResults(1);
 
             $rows = $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
 
