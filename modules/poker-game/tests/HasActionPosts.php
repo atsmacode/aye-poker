@@ -20,7 +20,10 @@ trait HasActionPosts
 
     private function sitControllerResponse(): array
     {
-        $request = $this->post(['tableId' => $this->testTable->getId()]);
+        $request = $this->post([
+            'tableId' => $this->testTable->getId(),
+            'gameId' => $this->testGame->getId()
+        ]);
 
         $response = (new PotLimitHoldEmSitController($this->gamePlayService))->sit(
             $request,

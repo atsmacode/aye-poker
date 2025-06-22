@@ -23,23 +23,29 @@ class ActionHandler
         private PlayerActionLog $playerActionLogs,
         private BetHandler $betHandler,
         private TableSeat $tableSeats,
+        private Hand $hands
     ) {
     }
 
     public function handle(
-        Hand $hand,
         int $playerActionId,
         ?float $betAmount,
         int $actionId,
         ?int $stack,
     ): GameState {
         $playerAction = $this->playerActions->find(['id' => $playerActionId]);
+        $handId = $playerAction->getHandId();
+
+        $hand = $this->hands->find(['id' => $handId]);
+        $game = $hand
+            ->loadGame()
+            ->getGame();
 
         $this->betHandler->handle(
-            $hand,
+            $hand->getId(),
             $stack,
             $playerAction->getPlayerId(),
-            $hand->getTableId(),
+            $game->getTableId(),
             $betAmount
         );
 

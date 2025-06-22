@@ -3,21 +3,18 @@
 namespace Atsmacode\PokerGame\Models;
 
 use Atsmacode\Framework\Models\Model;
+use Atsmacode\PokerGame\Repository\Game\GameRepository;
 
 class Hand extends Model
 {
     protected string $table = 'hands';
-    private int $table_id;
     private ?string $completed_on = null;
+    private int $game_id;
+    private ?Game $game;
 
-    public function setTableId(int $tableId): void
+    public function getGameId(): int
     {
-        $this->table_id = $tableId;
-    }
-
-    public function getTableId(): int
-    {
-        return $this->table_id;
+        return $this->game_id;
     }
 
     public function setCompletedOn(string $completedOn): void
@@ -33,6 +30,26 @@ class Hand extends Model
     public function find(array $data): ?Hand
     {
         return parent::find($data); /* @phpstan-ignore return.type */
+    }
+
+    public function loadGame(): self
+    {
+        $gameRepo = $this->container->get(GameRepository::class);
+
+        $this->game = $gameRepo->getGame($this->game_id);
+
+        return $this;
+    }
+
+    public function getGame(): ?Game
+    {
+        if (isset($this->game)) {
+            return $this->game;
+        }
+
+        return $this
+            ->loadGame()
+            ->getGame();
     }
 
     public function streets(): ?array

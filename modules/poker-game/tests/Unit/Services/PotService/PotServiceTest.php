@@ -2,6 +2,7 @@
 
 namespace Atsmacode\PokerGame\Tests\Unit\Services\Pots;
 
+use Atsmacode\PokerGame\Enums\GameMode;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
 use Atsmacode\PokerGame\Models\Pot;
@@ -36,7 +37,13 @@ class PotServiceTest extends BaseTest
     public function aPotCanBeInitiated()
     {
         $table = $this->tables->create(['name' => 'Test Table', 'seats' => 3]);
-        $hand = $this->hands->create(['table_id' => $table->getId()]);
+
+        $game = $this->games->create([
+            'table_id' => $table->getId(),
+            'mode' => GameMode::REAL->value,
+        ]);
+
+        $hand = $this->hands->create(['game_id' => $game->getId()]);
 
         $this->assertNotInstanceOf(Pot::class, $this->potService->initiatePot($hand));
     }
@@ -57,7 +64,13 @@ class PotServiceTest extends BaseTest
             'player_id' => $player->getId(),
         ]);
 
-        $hand = $this->hands->create(['table_id' => $table->getId()]);
+        $game = $this->games->create([
+            'table_id' => $table->getId(),
+            'mode' => GameMode::REAL->value,
+        ]);
+
+        $hand = $this->hands->create(['game_id' => $game->getId()]);
+
         $pot = $this->pots->create([
             'amount' => 75,
             'hand_id' => $hand->getId(),

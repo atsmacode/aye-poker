@@ -36,7 +36,6 @@ class ActionHandlerTest extends BaseTest
         $this->handFlow->process($this->gameState);
 
         $response = $this->actionHandler->handle(
-            $this->testHand,
             $this->gameState->getPlayer($this->playerOne->getId())['player_action_id'],
             50,
             Action::CALL_ID,

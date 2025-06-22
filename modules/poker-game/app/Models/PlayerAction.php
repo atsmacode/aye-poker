@@ -14,6 +14,7 @@ class PlayerAction extends Model
     private ?int $action_id;
     private int $hand_street_id;
     private int $table_seat_id;
+    private int $hand_id;
 
     public function setBetAmount(?int $betAmount): void
     {
@@ -83,6 +84,11 @@ class PlayerAction extends Model
     public function getTableSeatId(): int
     {
         return $this->table_seat_id;
+    }
+
+    public function getHandId(): int
+    {
+        return $this->hand_id;
     }
 
     public function find(?array $data = null): ?PlayerAction

@@ -2,6 +2,7 @@
 
 namespace Atsmacode\PokerGame\Tests\Unit\Handlers\Bet;
 
+use Atsmacode\PokerGame\Enums\GameMode;
 use Atsmacode\PokerGame\Handlers\Bet\BetHandler;
 use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\Player;
@@ -44,7 +45,12 @@ class BetHandlerTest extends BaseTest
             'player_id' => $player->getId(),
         ]);
 
-        $hand = $this->hands->create(['table_id' => $table->getId()]);
+        $game = $this->games->create([
+            'table_id' => $table->getId(),
+            'mode' => GameMode::REAL->value,
+        ]);
+
+        $hand = $this->hands->create(['game_id' => $game->getId()]);
         $pot = $this->pots->create([
             'amount' => 0,
             'hand_id' => $hand->getId(),
@@ -52,7 +58,7 @@ class BetHandlerTest extends BaseTest
 
         $this->assertEquals(1000, $this->stacks->find(['id' => $stack->getId()])->getAmount());
 
-        $this->betHandler->handle($hand, $stack->getAmount(), $player->getId(), $table->getId(), 150);
+        $this->betHandler->handle($hand->getId(), $stack->getAmount(), $player->getId(), $table->getId(), 150);
 
         $this->assertEquals(150, $this->pots->find(['id' => $pot->getId()])->getAmount());
         $this->assertEquals(850, $this->stacks->find(['id' => $stack->getId()])->getAmount());

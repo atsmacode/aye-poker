@@ -71,7 +71,7 @@ class SetDealerAndBlinds implements ProcessesGameState
 
         $gameState->setLatestAction($bigBlind);
 
-        $this->blindService->postBlinds($gameState->getHand(), $smallBlind, $bigBlind, $gameState);
+        $this->blindService->postBlinds($gameState->getHand(), $smallBlind, $bigBlind, $gameState, $tableId);
 
         return $gameState;
     }

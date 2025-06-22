@@ -23,10 +23,9 @@ final class Version20250402053942 extends AbstractMigration
         $schema = new Schema();
         $table  = $schema->createTable('hands');
         $table->addColumn('id', 'integer', ['unsigned' => true])->setAutoincrement(true);
-        $table->addColumn('table_id', 'integer', ['unsigned' => true])->setNotnull(false);
         $table->addColumn('game_id', 'integer', ['unsigned' => true])->setNotnull(false);
         $table->addColumn('completed_on', 'datetime')->setNotnull(false);
-        $table->addForeignKeyConstraint('tables', ['table_id'], ['id']);
+        $table->addForeignKeyConstraint('games', ['game_id'], ['id']);
         $table->setPrimaryKey(['id']);
 
         $table = $schema->createTable('hand_streets');

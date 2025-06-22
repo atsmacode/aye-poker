@@ -30,10 +30,11 @@ class GamePlayService
     public function sit(Request $request, ?int $playerId = null): array
     {
         $requestBody = $request->toArray();
-        $gameId = $requestBody['gameId'] ?? null;
-        $tableId = $requestBody['tableId'];
-
-        $gameState = $this->sitHandler->handle($tableId, $playerId, $gameId);
+        $gameState = $this->sitHandler->handle(
+            $requestBody['tableId'],
+            $playerId,
+            $requestBody['gameId']
+        );
 
         $handFlow = $this->container->build(HandFlow::class, [/* @phpstan-ignore method.notFound */
             'game' => $this->container->get($this->game),
@@ -46,14 +47,11 @@ class GamePlayService
     public function action(Request $request): array
     {
         $requestBody = $request->toArray();
-        $hand = $this->handRepo->getLatest(); // TODO: hand retrieved should be associated with the game/table, not latest of any
-
         $gameState = $this->actionHandler->handle(
-            $hand,
             $requestBody['player_action_id'],
             $requestBody['bet_amount'],
             $requestBody['action_id'],
-            $requestBody['stack']
+            $requestBody['stack'] // TODO: possibly don't need the stack in request, could be loaded
         );
 
         $handFlow = $this->container->build(HandFlow::class, [/* @phpstan-ignore method.notFound */

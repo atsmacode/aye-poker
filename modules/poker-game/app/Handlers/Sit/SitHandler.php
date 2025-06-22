@@ -46,14 +46,13 @@ class SitHandler
         }
 
         // Real & test
-        //$currentHand = $this->hands->find(['game_id' => $gameId, 'table_id' => $tableId, 'completed_on' => null]);
-
-        $game = $this->gameRepo->getTableGame($tableId);
-        $currentHand = $game->getHand();
+        $currentHand = $this->gameRepo
+            ->getTableGame($tableId)
+            ->getActiveHand();
 
         $this->gameState->setHandWasActive(!$currentHand ? false : true);
 
-        $hand = $currentHand ?? $this->hands->create(['table_id' => $tableId, 'game_id' => $gameId]);
+        $hand = $currentHand ?? $this->hands->create(['game_id' => $gameId]);
 
         $this->gameState->initiate($hand); // @phpstan-ignore argument.type
 

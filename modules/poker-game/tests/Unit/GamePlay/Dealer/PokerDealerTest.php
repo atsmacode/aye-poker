@@ -55,7 +55,7 @@ class PokerDealerTest extends BaseTest
         $handId = $this->testHand->getId();
         $handStreet = $this->handStreets->create([
             'street_id' => $this->streets->find(['name' => 'Flop'])->getId(),
-            'hand_id' => $this->hands->create(['table_id' => $this->testTable->getId()])->getId(),
+            'hand_id' => $this->hands->create(['game_id' => $this->testGame->getId()])->getId(),
         ]);
 
         $this->pokerDealer->setDeck()->saveDeck($handId)->dealStreetCards(
@@ -77,7 +77,7 @@ class PokerDealerTest extends BaseTest
         $handId = $this->testHand->getId();
         $handStreet = $this->handStreets->create([
             'street_id' => $this->streets->find(['name' => 'Flop'])->getId(),
-            'hand_id' => $this->hands->create(['table_id' => $this->testTable->getId()])->getId(),
+            'hand_id' => $this->hands->create(['game_id' => $this->testGame->getId()])->getId(),
         ]);
 
         $card = CardFactory::create(Card::ACE_HEARTS);

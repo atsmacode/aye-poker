@@ -40,11 +40,11 @@ class Game extends Model
         return $this->mode;
     }
 
-    public function getHand(): ?Hand
+    public function getActiveHand(): ?Hand
     {
         $handRepo = $this->container->get(HandRepository::class);
 
-        return $handRepo->getGameHand($this->id);
+        return $handRepo->getActiveGameHand($this->id);
     }
 
     public function find(?array $data = null): ?Game

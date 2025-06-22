@@ -56,7 +56,10 @@ class GameState
     {
         $this->setHand($hand);
 
-        $this->tableId = $hand->getTableId();
+        $this->tableId = $hand
+            ->getGame()
+            ->getTableId();
+
         $this->handId = (int) $hand->getId();
 
         $this->loadSeats();

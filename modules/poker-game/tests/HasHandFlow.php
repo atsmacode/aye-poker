@@ -88,10 +88,7 @@ trait HasHandFlow
     {
         $this->setGame();
 
-        $this->testHand = $this->hands->create([
-            'table_id' => $this->testTable->getId(),
-            'game_id' => $this->testGame->getId()
-        ]);
+        $this->testHand = $this->hands->create(['game_id' => $this->testGame->getId()]);
 
         return $this;
     }

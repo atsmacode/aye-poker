@@ -72,6 +72,11 @@ class GameStateRepository
         return $this->gameRepo->getTableGame($tableId);
     }
 
+    public function getGame(int $gameId): Game
+    {
+        return $this->gameRepo->getGame($gameId);
+    }
+
     public function getTableSeat(int $tableSeatId): TableSeat
     {
         return $this->tableSeatRepo->find($tableSeatId);

@@ -22,7 +22,7 @@ class BetHandler extends Database
 
     /** @todo Don't need the entire hand model, can pass ID */
     public function handle(
-        Hand $hand,
+        int $handId,
         ?int $stackAmount,
         int $playerId,
         int $tableId,
@@ -32,7 +32,7 @@ class BetHandler extends Database
             $stack = $stackAmount - $betAmount;
 
             $this->stackRepo->change($stack, $playerId, $tableId);
-            $this->potService->updatePot($betAmount, $hand->getId());
+            $this->potService->updatePot($betAmount, $handId);
         }
 
         return null;

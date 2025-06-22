@@ -30,6 +30,7 @@ class BlindService extends Database
         PlayerAction $smallBlind,
         PlayerAction $bigBlind,
         GameState $gameState,
+        int $tableId
     ): void {
         $this->potService->initiatePot($hand);
 
@@ -61,10 +62,10 @@ class BlindService extends Database
         $sbStack = $gameState->getStacks()[$smallBlind->getPlayerId()];
 
         $this->betHandler->handle(
-            $hand,
+            $hand->getId(),
             $sbStack ? $sbStack->getAmount() : 0,
             $smallBlind->getPlayerId(),
-            $hand->getTableId(),
+            $tableId,
             $smallBlind->getBetAmount()
         );
 
@@ -96,10 +97,10 @@ class BlindService extends Database
         $bbStack = $gameState->getStacks()[$bigBlind->getPlayerId()];
 
         $this->betHandler->handle(
-            $hand,
+            $hand->getId(),
             $bbStack ? $bbStack->getAmount() : 0,
             $bigBlind->getPlayerId(),
-            $hand->getTableId(),
+            $tableId,
             $bigBlind->getBetAmount()
         );
     }
