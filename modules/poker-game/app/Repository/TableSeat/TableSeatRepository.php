@@ -168,14 +168,15 @@ class TableSeatRepository extends Database
         }
     }
 
-    public function getCurrentPlayerSeat(int $playerId): ?TableSeat
+    public function getCurrentPlayerSeat(int $playerId, int $tableId): ?TableSeat
     {
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
             $queryBuilder
                 ->select('*')
                 ->from('table_seats')
-                ->where('player_id = '.$playerId);
+                ->where('player_id = '.$playerId)
+                ->andWhere('table_id = '.$tableId);
 
             $rows = $queryBuilder->executeQuery() ? $queryBuilder->fetchAssociative() : [];
 

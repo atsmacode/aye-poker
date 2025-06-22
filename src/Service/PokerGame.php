@@ -7,14 +7,16 @@ use Laminas\ServiceManager\ServiceManager;
 
 class PokerGame
 {
-    public function getServiceManager(): ServiceManager
+    public function getServiceManager(?string $rootDir = null): ServiceManager
     {
-        $pokerGameConfig        = (new PokerGameConfigProvider('../'))->get();
+        $rootDir = $rootDir ?? '../';
+        $provider = (new PokerGameConfigProvider($rootDir));
+        $pokerGameConfig        = $provider->get();
         $pokerGameDependencyMap = $pokerGameConfig['dependencies'];
 
         $serviceManager = new ServiceManager($pokerGameDependencyMap);
 
-        $serviceManager->setFactory(PokerGameConfigProvider::class, fn() => new PokerGameConfigProvider('../'));
+        $serviceManager->setFactory(PokerGameConfigProvider::class, fn() => $provider);
 
         return $serviceManager;
     }

@@ -24,6 +24,7 @@ use Atsmacode\PokerGame\Repository\GameState\GameStateRepository;
 use Atsmacode\PokerGame\Repository\Hand\HandRepository;
 use Atsmacode\PokerGame\Repository\HandStreetCard\HandStreetCardRepository;
 use Atsmacode\PokerGame\Repository\PlayerAction\PlayerActionRepository;
+use Atsmacode\PokerGame\Repository\Players\PlayerRepository;
 use Atsmacode\PokerGame\Repository\Stack\StackRepository;
 use Atsmacode\PokerGame\Repository\Table\TableRepository;
 use Atsmacode\PokerGame\Repository\TableSeat\TableSeatRepository;
@@ -31,6 +32,7 @@ use Atsmacode\PokerGame\Repository\WholeCard\WholeCardRepository;
 use Atsmacode\PokerGame\Services\Blinds\BlindService;
 use Atsmacode\PokerGame\Services\GamePlay\GamePlayService;
 use Atsmacode\PokerGame\Services\Games\GameService;
+use Atsmacode\PokerGame\Services\Players\PlayerService;
 use Atsmacode\PokerGame\Services\Pots\PotService;
 use Atsmacode\PokerGame\State\Game\GameState;
 use Atsmacode\PokerGame\State\Game\GameStateFactory;
@@ -96,6 +98,7 @@ class DependencyConfig
                     StackRepository::class => DatabaseFactory::class,
                     GameRepository::class => DatabaseFactory::class,
                     PlayerActionRepository::class => DatabaseFactory::class,
+                    PlayerRepository::class => DatabaseFactory::class,
                     GameStateRepository::class => factory(fn($c) => new GameStateRepository(
                         $c->build(Models\Hand::class),
                         $c->get(TableSeatRepository::class),
@@ -171,6 +174,9 @@ class DependencyConfig
                         $c->get(PotService::class),
                         $c->build(Models\PlayerActionLog::class),
                         $c->build(Models\TableSeat::class)
+                    )),
+                    PlayerService::class => factory(fn($c) => new PlayerService(
+                        $c->get(PlayerRepository::class)
                     )),
 
                     // Pipelines

@@ -26,7 +26,7 @@ class SitHandler
     {
         // Real game only
         if (null !== $playerId) {
-            $currentSeat = $this->tableSeatRepo->getCurrentPlayerSeat($playerId);
+            $currentSeat = $this->tableSeatRepo->getCurrentPlayerSeat($playerId, $tableId);
             $playerSeat = $currentSeat ?? $this->tableSeatRepo->getFirstAvailableSeat($tableId);
 
             $playerSeat->update(['player_id' => $playerId]);

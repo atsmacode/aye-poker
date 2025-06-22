@@ -28,3 +28,4 @@ done
 docker exec -it aye-poker php bin/console doctrine:database:create --connection=poker_game
 docker exec -it aye-poker php bin/console doctrine:migrations:migrate -n --all-or-nothing --configuration=config/migrations/card_games.yaml
 docker exec -it aye-poker php bin/console doctrine:migrations:migrate -n --all-or-nothing --configuration=config/migrations/poker_game.yaml
+docker exec -it aye-poker php bin/console doctrine:fixtures:load --append
