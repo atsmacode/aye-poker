@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\UserPlayer;
 use Atsmacode\PokerGame\Enums\GameMode;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,12 +17,20 @@ class CreateGameFormType extends AbstractType
             ->add('mode', ChoiceType::class, [
                 'choices' => [
                     'Test' => GameMode::TEST->value,
-                    // 'real' => GameMode::REAL->value
+                    'real' => GameMode::REAL->value
                 ]
             ])
             ->add('player_count', ChoiceType::class, [
-                'choices' => ['1' => 1, '2' => 2, '3' => 3, '4' => 4, '5' => 6],
+                'choices' => ['2' => 2, '3' => 3, '4' => 4, '5' => 6],
             ])
+            ->add('players', EntityType::class, [
+                'class' => UserPlayer::class,
+                'choice_label' => 'player_id', // or 'name', whatever makes sense
+                'placeholder' => 'Select players',
+                'required' => true,
+                'multiple' => true, // Set to true if you want multiple selection
+                'expanded' => false, // true for checkboxes/radio buttons
+            ]);
         ;
     }
 }
