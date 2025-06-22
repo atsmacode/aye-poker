@@ -72,7 +72,7 @@ class TableSeatRepositoryTest extends BaseTest
             'number' => 1,
         ]);
 
-        $currentSeat = $this->tableSeatRepo->getCurrentPlayerSeat($player->getId());
+        $currentSeat = $this->tableSeatRepo->getCurrentPlayerSeat($player->getId(), $table->getId());
 
         $this->assertEquals($tableSeat->getId(), $currentSeat->getId());
     }

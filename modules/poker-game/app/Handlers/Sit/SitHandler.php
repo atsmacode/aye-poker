@@ -46,10 +46,10 @@ class SitHandler
         }
 
         // Real & test
-        $currentHand = $this->hands->find(['game_id' => $gameId, 'table_id' => $tableId, 'completed_on' => null]);
+        //$currentHand = $this->hands->find(['game_id' => $gameId, 'table_id' => $tableId, 'completed_on' => null]);
 
-        // $game = $this->gameRepo->getTableGame($tableId);
-        // $currentHand = $game->getHand();
+        $game = $this->gameRepo->getTableGame($tableId);
+        $currentHand = $game->getHand();
 
         $this->gameState->setHandWasActive(!$currentHand ? false : true);
 

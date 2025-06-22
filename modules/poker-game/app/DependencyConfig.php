@@ -148,8 +148,7 @@ class DependencyConfig
                         $c->get(Models\Hand::class),
                         $c->get(TableSeatRepository::class),
                         $c->get(PlayerState::class),
-                        $c->get(GameRepository::class),
-                        $c->get(HandRepository::class)
+                        $c->get(GameRepository::class)
                     )),
 
                     // Services

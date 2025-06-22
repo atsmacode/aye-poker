@@ -44,7 +44,7 @@ class HandRepository extends Database
 
     public function getGameHand(int $gameId): ?Hand
     {
-        $query = sprintf('SELECT * FROM hands ORDER BY id WHERE game_id = %d DESC LIMIT 1', $gameId);
+        $query = sprintf('SELECT * FROM hands WHERE game_id = %d ORDER BY id DESC LIMIT 1', $gameId);
 
         try {
             /**
