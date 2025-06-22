@@ -39,24 +39,4 @@ class HandRepository extends Database
             return null;
         }
     }
-
-    public function getHand(int $handId): ?array
-    {
-        try {
-            $query = sprintf('
-                SELECT h.*, g.table_id FROM hands h
-                INNER JOIN games g ON h.game_id = g.id 
-                WHERE h.id = %d ORDER BY id DESC LIMIT 1
-            ', $handId);
-
-            $stmt = $this->connection->prepare($query);
-            $results = $stmt->executeQuery();
-
-            return $results->fetchAllAssociative()[0];
-        } catch (\Exception $e) {
-            $this->logger->error($e->getMessage(), ['class' => self::class, 'method' => __METHOD__]);
-
-            return null;
-        }
-    }
 }
