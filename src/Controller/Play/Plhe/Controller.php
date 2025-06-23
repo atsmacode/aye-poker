@@ -21,17 +21,6 @@ class Controller extends AbstractController
 
     }
 
-    #[Route('/play/plhe', name: 'play_plhe', methods: ['GET'])]
-    public function index(Security $security): Response {
-        $userPlayer = $security->getUser()?->getUserPlayer();
-
-        return $this->render('play/index.html.twig', [
-            'playerId' => $userPlayer?->getPlayerId(),
-            'gameId' => 1, // Default gameId
-            'tableId' => 2 // Default tableId
-        ]);
-    }
-
     #[Route('/play/plhe', name: 'play_plhe_start', methods: ['POST'])]
     public function start(
         PokerGame $pokerGame,

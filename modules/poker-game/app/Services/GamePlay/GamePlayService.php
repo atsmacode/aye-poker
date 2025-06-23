@@ -30,11 +30,7 @@ class GamePlayService
     public function sit(Request $request, ?int $playerId = null): array
     {
         $requestBody = $request->toArray();
-        $gameState = $this->sitHandler->handle(
-            $requestBody['tableId'],
-            $playerId,
-            $requestBody['gameId']
-        );
+        $gameState = $this->sitHandler->handle($requestBody['tableId'], $playerId);
 
         $handFlow = $this->container->build(HandFlow::class, [/* @phpstan-ignore method.notFound */
             'game' => $this->container->get($this->game),

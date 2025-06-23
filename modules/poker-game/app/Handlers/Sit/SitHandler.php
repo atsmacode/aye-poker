@@ -22,11 +22,16 @@ class SitHandler
     ) {
     }
 
-    public function handle(int $tableId, ?int $playerId = null, ?int $gameId = null): mixed
+    /**
+     * Presence of playerId indicates logged in user.
+     */
+    public function handle(int $tableId, ?int $playerId = null): mixed
     {
         // Real game only
         if (null !== $playerId) {
             $currentSeat = $this->tableSeatRepo->getCurrentPlayerSeat($playerId, $tableId);
+
+            // Get first available not used anymore, but could be suitable for cash games.
             $playerSeat = $currentSeat ?? $this->tableSeatRepo->getFirstAvailableSeat($tableId);
 
             $playerSeat->update(['player_id' => $playerId]);
@@ -46,13 +51,12 @@ class SitHandler
         }
 
         // Real & test
-        $currentHand = $this->gameRepo
-            ->getTableGame($tableId)
-            ->getActiveHand();
+        $currentGame = $this->gameRepo->getTableGame($tableId);
+        $currentHand = $currentGame->getActiveHand();
 
         $this->gameState->setHandWasActive(!$currentHand ? false : true);
 
-        $hand = $currentHand ?? $this->hands->create(['game_id' => $gameId]);
+        $hand = $currentHand ?? $this->hands->create(['game_id' => $currentGame->getId()]);
 
         $this->gameState->initiate($hand); // @phpstan-ignore argument.type
 
