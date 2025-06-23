@@ -175,7 +175,8 @@ class DependencyConfig
                         $c->build(Models\TableSeat::class)
                     )),
                     PlayerService::class => factory(fn($c) => new PlayerService(
-                        $c->get(PlayerRepository::class)
+                        $c->get(PlayerRepository::class),
+                        $c->build(Models\Player::class)
                     )),
 
                     // Pipelines
