@@ -25,10 +25,7 @@ trait HasActionPosts
             'gameId' => $this->testGame->getId()
         ]);
 
-        $response = (new PotLimitHoldEmSitController($this->gamePlayService))->sit(
-            $request,
-            $this->playerOne->getId()
-        );
+        $response = (new PotLimitHoldEmSitController($this->gamePlayService))->sit($request);
 
         return json_decode($response->getContent(), true);
     }

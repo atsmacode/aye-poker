@@ -12,9 +12,9 @@ abstract class SitController
     {
     }
 
-    public function sit(Request $request, int $playerId): Response
+    public function sit(Request $request): Response
     {
-        $response = $this->gamePlay->sit($request, $playerId);
+        $response = $this->gamePlay->sit($request);
 
         return new Response(json_encode($response));
     }

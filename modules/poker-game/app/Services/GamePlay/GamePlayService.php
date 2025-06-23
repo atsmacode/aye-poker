@@ -27,8 +27,9 @@ class GamePlayService
     ) {
     }
 
-    public function sit(Request $request, ?int $playerId = null): array
+    public function sit(Request $request): array
     {
+        $playerId = $request->attributes->get('playerId');
         $requestBody = $request->toArray();
         $gameState = $this->sitHandler->handle($requestBody['tableId'], $playerId);
 
