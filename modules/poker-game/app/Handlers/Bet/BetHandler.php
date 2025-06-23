@@ -20,7 +20,7 @@ class BetHandler extends Database
     ) {
     }
 
-    /** @todo Don't need the entire hand model, can pass ID */
+    /** @todo A lot of params here, probably only need 2 or 3 */
     public function handle(
         int $handId,
         ?int $stackAmount,
