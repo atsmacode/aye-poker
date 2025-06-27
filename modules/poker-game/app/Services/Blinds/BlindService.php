@@ -26,12 +26,14 @@ class BlindService extends Database
     }
 
     public function postBlinds(
-        Hand $hand,
-        PlayerAction $smallBlind,
-        PlayerAction $bigBlind,
         GameState $gameState,
-        int $tableId
+        PlayerAction $smallBlind,
+        PlayerAction $bigBlind
     ): void {
+        $hand = $gameState->getHand();
+        $handId = $hand->getId();
+        $tableId = $gameState->tableId();
+
         $this->potService->initiatePot($hand);
 
         $smallBlind->update([
@@ -48,7 +50,7 @@ class BlindService extends Database
             'small_blind' => 1,
             'player_id' => $smallBlind->getPlayerId(),
             'action_id' => Action::BET_ID,
-            'hand_id' => $hand->getId(),
+            'hand_id' => $handId,
             'hand_street_id' => $smallBlind->getHandStreetId(),
             'table_seat_id' => $smallBlind->getTableSeatId(),
             'created_at' => date('Y-m-d H:i:s', time()),
@@ -62,7 +64,7 @@ class BlindService extends Database
         $sbStack = $gameState->getStacks()[$smallBlind->getPlayerId()];
 
         $this->betHandler->handle(
-            $hand->getId(),
+            $handId,
             $sbStack ? $sbStack->getAmount() : 0,
             $smallBlind->getPlayerId(),
             $tableId,
@@ -83,7 +85,7 @@ class BlindService extends Database
             'big_blind' => 1,
             'player_id' => $bigBlind->getPlayerId(),
             'action_id' => Action::BET_ID,
-            'hand_id' => $hand->getId(),
+            'hand_id' => $handId,
             'hand_street_id' => $bigBlind->getHandStreetId(),
             'table_seat_id' => $bigBlind->getTableSeatId(),
             'created_at' => date('Y-m-d H:i:s', time()),
@@ -97,7 +99,7 @@ class BlindService extends Database
         $bbStack = $gameState->getStacks()[$bigBlind->getPlayerId()];
 
         $this->betHandler->handle(
-            $hand->getId(),
+            $handId,
             $bbStack ? $bbStack->getAmount() : 0,
             $bigBlind->getPlayerId(),
             $tableId,
