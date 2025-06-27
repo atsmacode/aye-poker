@@ -20,8 +20,9 @@ class HandFlow implements ProcessesGameState
         private Showdown $showdown,
         private TableSeatRepository $tableSeatRepo,
     ) {
-        $this->gameState->setStyle($gameStyle);
-        $this->gameState->setGameDealer();
+        $this->gameState
+            ->setStyle($gameStyle)
+            ->loadGameDealer();
     }
 
     public function process(GameState $gameState): GameState

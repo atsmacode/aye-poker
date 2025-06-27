@@ -343,9 +343,11 @@ class GameState
         return $this->newStreet;
     }
 
-    public function setStyle(GameStyle $gameStyle): void
+    public function setStyle(GameStyle $gameStyle): self
     {
         $this->gameStyle = $gameStyle;
+
+        return $this;
     }
 
     public function getStyle(): GameStyle
@@ -353,7 +355,7 @@ class GameState
         return $this->gameStyle;
     }
 
-    public function setGameDealer(): void
+    public function loadGameDealer(): void
     {
         $this->dealer = isset($this->handId)
             ? $this->pokerDealer->setSavedDeck($this->handId)
@@ -365,8 +367,12 @@ class GameState
         return $this->dealer;
     }
 
-    public function setBigBlind(): self
+    public function loadBigBlind(): self
     {
+        if (isset($this->bigBlind)) {
+            return $this;
+        }
+
         $this->bigBlind = $this->gameRepo->getBigBlind($this->handId);
 
         return $this;
