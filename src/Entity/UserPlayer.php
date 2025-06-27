@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\User;
 use App\Repository\UserPlayerRepository;
+use App\Service\PokerGame;
+use Atsmacode\PokerGame\Models\Player;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserPlayerRepository::class)]
@@ -22,6 +24,8 @@ class UserPlayer
 
     #[ORM\Column]
     private ?int $playerId = null;
+
+    private string $playerName;
 
     public function getId(): ?int
     {
@@ -50,5 +54,19 @@ class UserPlayer
         $this->user = $user;
 
         return $this;
+    }
+
+    public function getPlayerName(): string
+    {
+        if (isset($this->playerName)) {
+            return $this->playerName;
+        }
+
+        $pokerGame = new PokerGame();
+        $serviceManager = $pokerGame->getServiceManager();
+        $players = $serviceManager->get(Player::class);
+        $player = $players->find(['id' => $this->playerId]);
+
+        return $player->getName();
     }
 }

@@ -16,8 +16,8 @@ class CreateGameFormType extends AbstractType
         $builder
             ->add('mode', ChoiceType::class, [
                 'choices' => [
-                    'Test' => GameMode::TEST->value,
-                    'real' => GameMode::REAL->value
+                    GameMode::TEST->display() => GameMode::TEST->value,
+                    GameMode::REAL->display() => GameMode::REAL->value
                 ]
             ])
             ->add('player_count', ChoiceType::class, [
@@ -25,7 +25,10 @@ class CreateGameFormType extends AbstractType
             ])
             ->add('players', EntityType::class, [
                 'class' => UserPlayer::class,
-                'choice_label' => 'player_id', // or 'name', whatever makes sense
+                'choice_value' => 'player_id',
+                'choice_label' => function (UserPlayer $userPlayer) {
+                    return $userPlayer->getPlayerName() ?? 'Unknown Player';
+                },
                 'placeholder' => 'Select players',
                 'required' => true,
                 'multiple' => true, // Set to true if you want multiple selection
