@@ -52,7 +52,7 @@ class GameState
         }
     }
 
-    public function initiate(?Hand $hand): void
+    public function initiate(?Hand $hand): self
     {
         $this->setHand($hand);
 
@@ -65,6 +65,8 @@ class GameState
         $this->loadSeats();
 
         $this->handStreets = $this->hand->streets();
+
+        return $this;
     }
 
     public function getGameMode(): ?int
@@ -178,9 +180,11 @@ class GameState
         return count($this->handStreets);
     }
 
-    public function setLatestAction(PlayerAction $playerAction): void
+    public function setLatestAction(PlayerAction $playerAction): self
     {
         $this->latestAction = $playerAction;
+
+        return $this;
     }
 
     public function getLatestAction(): PlayerAction
@@ -361,9 +365,11 @@ class GameState
         return $this->dealer;
     }
 
-    public function setBigBlind(): void
+    public function setBigBlind(): self
     {
         $this->bigBlind = $this->gameRepo->getBigBlind($this->handId);
+
+        return $this;
     }
 
     public function getBigBlind(): array
@@ -393,9 +399,11 @@ class GameState
         return $this->handWasActive;
     }
 
-    public function setHandWasActive(bool $was): void
+    public function setHandWasActive(bool $was): self
     {
         $this->handWasActive = $was;
+
+        return $this;
     }
 
     public function testMode(): bool

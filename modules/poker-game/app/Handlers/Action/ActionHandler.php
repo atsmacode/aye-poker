@@ -69,10 +69,10 @@ class ActionHandler
             'created_at' => date('Y-m-d H:i:s', time()),
         ]);
 
-        $this->gameState->initiate($hand);
-        $this->gameState->setLatestAction($playerAction);
-        $this->gameState->setBigBlind();
-        $this->gameState->setHandWasActive(true);
+        $this->gameState->initiate($hand)
+            ->setLatestAction($playerAction)
+            ->setBigBlind()
+            ->setHandWasActive(true);
 
         $this->updateSeatStatusOfLatestAction();
         $this->updateAllOtherSeatsBasedOnLatestAction();
