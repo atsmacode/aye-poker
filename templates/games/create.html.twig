@@ -20,7 +20,7 @@
             </div>
 
             {% if form.mode.vars.errors|length > 0 %}
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger fs-6 p-1" role="alert">
                     {{ form_errors(form.mode) }}
                 </div>
             {% endif %}
@@ -31,7 +31,7 @@
             </div>
 
             {% if form.player_count.vars.errors|length > 0 %}
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger fs-6 p-1" role="alert">
                     {{ form_errors(form.player_count) }}
                 </div>
             {% endif %}
@@ -42,7 +42,7 @@
             </div>
 
             {% if form.players.vars.errors|length > 0 %}
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger fs-6 p-1" role="alert">
                     {{ form_errors(form.players) }}
                 </div>
             {% endif %}
