@@ -32,7 +32,8 @@ class NewStreet implements ProcessesGameState
         $newStreetId = $this->streets->find(['name' => $nextStreet['name']])->getId();
         $handStreet = $this->handStreets->create(['street_id' => $newStreetId, 'hand_id' => $handId]);
 
-        $gameState->getGameDealer()
+        $gameState
+            ->getGameDealer()
             ->dealStreetCards($handId, $handStreet, $nextStreet['community_cards']) // @phpstan-ignore argument.type (Model not PlayerAction)
             ->setSavedDeck($handId);
 
@@ -45,7 +46,8 @@ class NewStreet implements ProcessesGameState
                 'hand_street_id' => $handStreet->getId(),
             ], 'hand_id = '.$handId);
 
-        $gameState->setNewStreet(true)
+        $gameState
+            ->setNewStreet(true)
             ->loadHandStreets()
             ->loadPlayers()
             ->loadCommunityCards();
