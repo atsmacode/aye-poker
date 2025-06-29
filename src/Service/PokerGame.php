@@ -7,14 +7,14 @@ use Laminas\ServiceManager\ServiceManager;
 
 class PokerGame
 {
-    public function get (string $class, ?string $rootDir = null): object
+    public function get(string $class, ?string $rootDir = null): object
     {
         $serviceManager = $this->getServiceManager($rootDir);
 
         return $serviceManager->get($class);
     }
 
-    public function getServiceManager(?string $rootDir = null): ServiceManager
+    private function getServiceManager(?string $rootDir = null): ServiceManager
     {
         $rootDir = $rootDir ?? '../';
         $provider = (new PokerGameConfigProvider($rootDir));
