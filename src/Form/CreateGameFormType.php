@@ -30,7 +30,7 @@ class CreateGameFormType extends AbstractType
                     return $userPlayer->getPlayerName() ?? 'Unknown Player';
                 },
                 'placeholder' => 'Select players',
-                'required' => true,
+                'required' => false,
                 'multiple' => true, // Set to true if you want multiple selection
                 'expanded' => false, // true for checkboxes/radio buttons
             ]);
