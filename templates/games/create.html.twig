@@ -25,7 +25,7 @@
                 </div>
             {% endif %}
 
-            <div class="mb-3">
+            <div id="playerCount" class="mb-3">
                 {{ form_label(form.player_count) }}
                 {{ form_widget(form.player_count, {'attr': {'class': 'form-control'}}) }}
             </div>
@@ -36,7 +36,7 @@
                 </div>
             {% endif %}
 
-             <div class="mb-3">
+            <div id="players" class="mb-3">
                 {{ form_label(form.players) }}
                 {{ form_widget(form.players, {'attr': {'class': 'form-control'}}) }}
             </div>
@@ -47,4 +47,25 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const modeSelect = document.querySelector('#create_game_form_mode');
+    const players = document.querySelector('#players');
+    const playerCount = document.querySelector('#playerCount');
+
+    function togglePlayersField() {
+        if (parseInt(modeSelect.value) === 2) {
+            players.style.display = 'block';
+            playerCount.style.display = 'none';
+        } else {
+            players.style.display = 'none';
+            playerCount.style.display = 'block';
+        }
+    }
+
+    modeSelect.addEventListener('change', togglePlayersField);
+    togglePlayersField();
+});
+</script>
 {% endblock %}
