@@ -86,6 +86,11 @@ class PlayerAction extends Model
         return $this->table_seat_id;
     }
 
+    public function setHandId(int $handId): void
+    {
+        $this->hand_id = $handId;
+    }
+
     public function getHandId(): int
     {
         return $this->hand_id;

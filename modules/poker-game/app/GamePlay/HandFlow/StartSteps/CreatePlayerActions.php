@@ -19,7 +19,6 @@ class CreatePlayerActions implements ProcessesGameState
     ) {
     }
 
-
     public function process(GameState $gameState): GameState
     {
         $street = $this->handStreets->create([

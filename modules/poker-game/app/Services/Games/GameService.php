@@ -18,6 +18,7 @@ class GameService
         private Game $games,
     ) {
     }
+
     public function create(mixed $request): ?Game
     {
         $seatCount = 6; // Supporting 6 only just now
@@ -27,11 +28,11 @@ class GameService
 
         $table = $this->tables->create([
             'seats' => $seatCount,
-            'name' => $mode === 1 ? 'Test Table' : 'Real Table',
+            'name' => 1 === $mode ? 'Test Table' : 'Real Table',
         ]);
 
         $seats = [];
-        for ($i = 1; $i <= $seatCount; $i++) {
+        for ($i = 1; $i <= $seatCount; ++$i) {
             $seats[] = $this->tableSeats->create([
                 'table_id' => $table->getId(),
                 'number' => $i,
@@ -45,7 +46,7 @@ class GameService
                     break;
                 }
 
-                $player = $this->players->find(['id' => $seat->getNumber()]);
+                $player = $this->players->find(['id' => $seat->getNumber()]); /* @phpstan-ignore method.notFound */
                 $seat->update(['player_id' => $player->getId()]);
             }
         } else {
@@ -53,7 +54,7 @@ class GameService
 
             foreach ($players as $player) {
                 $seats[$inserted]->update(['player_id' => $player->getPlayerId()]);
-                $inserted++;
+                ++$inserted;
             }
         }
 

@@ -23,7 +23,7 @@ class ActionHandler
         private PlayerActionLog $playerActionLogs,
         private BetHandler $betHandler,
         private TableSeat $tableSeats,
-        private Hand $hands
+        private Hand $hands,
     ) {
     }
 

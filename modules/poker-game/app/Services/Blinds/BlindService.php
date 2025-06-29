@@ -5,7 +5,6 @@ namespace Atsmacode\PokerGame\Services\Blinds;
 use Atsmacode\Framework\Database\Database;
 use Atsmacode\PokerGame\Constants\Action;
 use Atsmacode\PokerGame\Handlers\Bet\BetHandler;
-use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Models\PlayerAction;
 use Atsmacode\PokerGame\Models\PlayerActionLog;
 use Atsmacode\PokerGame\Models\TableSeat;
@@ -28,7 +27,7 @@ class BlindService extends Database
     public function postBlinds(
         GameState $gameState,
         PlayerAction $smallBlind,
-        PlayerAction $bigBlind
+        PlayerAction $bigBlind,
     ): void {
         $hand = $gameState->getHand();
         $handId = $hand->getId();

@@ -19,7 +19,7 @@ class SetDealerAndBlinds implements ProcessesGameState
         private HandStreet $handStreets,
         private PlayerAction $playerActions,
         private TableSeat $tableSeats,
-        private BlindService $blindService
+        private BlindService $blindService,
     ) {
     }
 

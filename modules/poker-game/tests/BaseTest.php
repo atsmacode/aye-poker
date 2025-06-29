@@ -4,7 +4,6 @@ namespace Atsmacode\PokerGame\Tests;
 
 use Atsmacode\Framework\Database\ConnectionInterface;
 use Atsmacode\Framework\Database\DbalConnection;
-use Atsmacode\PokerGame\Database\DbalTestFactory;
 use Atsmacode\PokerGame\Factory\PlayerActionFactory;
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
@@ -55,10 +54,10 @@ abstract class BaseTest extends TestCase
         $pokerGameDependencyMap = $config['dependencies'];
 
         $this->container = new ServiceManager($pokerGameDependencyMap);
-        $this->container->setFactory(ConnectionInterface::class, function(ContainerInterface $c) {
+        $this->container->setFactory(ConnectionInterface::class, function (ContainerInterface $c) {
             $configProvider = $c->get(PokerGameConfigProvider::class);
-            $config         = $configProvider->get();
-    
+            $config = $configProvider->get();
+
             return new DbalConnection($config, 'test');
         });
 

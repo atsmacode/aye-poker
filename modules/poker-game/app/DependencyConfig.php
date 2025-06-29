@@ -12,8 +12,8 @@ use Atsmacode\PokerGame\GamePlay\HandFlow\Showdown;
 use Atsmacode\PokerGame\GamePlay\HandFlow\Start;
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\CreatePlayerActions;
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\DealCards;
-use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\SetDealerAndBlinds;
 use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\LoadStacks;
+use Atsmacode\PokerGame\GamePlay\HandFlow\StartSteps\SetDealerAndBlinds;
 use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
 use Atsmacode\PokerGame\Handlers\Bet\BetHandler;
 use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
@@ -39,7 +39,8 @@ use Atsmacode\PokerGame\State\Game\GameStateFactory;
 use Atsmacode\PokerGame\State\Player\PlayerState;
 use Psr\Container\ContainerInterface;
 
-function factory(callable $factory): callable {
+function factory(callable $factory): callable
+{
     return function (ContainerInterface $container) use ($factory) {
         return $factory($container);
     };
@@ -54,20 +55,19 @@ class DependencyConfig
                 'invokables' => [
                     GamePlay\GameStyle\PotLimitHoldEm::class,
                     GamePlay\GameStyle\PotLimitOmaha::class,
-                    Controllers\Player\Controller::class,
                     DealCards::class,
                 ],
                 'factories' => [
-                    PokerGameConfigProvider::class => factory(fn() => new PokerGameConfigProvider('')),
-                    \Atsmacode\Framework\Database\ConnectionInterface::class => function(ContainerInterface $c) {
+                    PokerGameConfigProvider::class => factory(fn () => new PokerGameConfigProvider('')),
+                    \Atsmacode\Framework\Database\ConnectionInterface::class => function (ContainerInterface $c) {
                         $configProvider = $c->get(PokerGameConfigProvider::class);
-                        $config         = $configProvider->get();
-                
+                        $config = $configProvider->get();
+
                         return new DbalConnection($config, 'live');
                     },
                     \PDO::class => Database\PdoLiveFactory::class,
                     \Psr\Log\LoggerInterface::class => LoggerFactory::class,
-                    PlayerActionFactory::class => factory(fn($c) => new PlayerActionFactory(
+                    PlayerActionFactory::class => factory(fn ($c) => new PlayerActionFactory(
                         $c->build(Models\PlayerAction::class),
                         $c->build(Models\PlayerActionLog::class)
                     )),
@@ -76,7 +76,7 @@ class DependencyConfig
                     Models\Street::class => ModelFactory::class,
                     Models\Table::class => ModelFactory::class,
                     Models\Hand::class => ModelFactory::class,
-                    Models\Player::class => ModelFactory::class,
+                    Player::class => ModelFactory::class,
                     Models\TableSeat::class => ModelFactory::class,
                     Models\HandStreet::class => ModelFactory::class,
                     Models\PlayerAction::class => ModelFactory::class,
@@ -99,7 +99,7 @@ class DependencyConfig
                     GameRepository::class => DatabaseFactory::class,
                     PlayerActionRepository::class => DatabaseFactory::class,
                     PlayerRepository::class => DatabaseFactory::class,
-                    GameStateRepository::class => factory(fn($c) => new GameStateRepository(
+                    GameStateRepository::class => factory(fn ($c) => new GameStateRepository(
                         $c->build(Models\Hand::class),
                         $c->get(TableSeatRepository::class),
                         $c->get(WholeCardRepository::class),
@@ -108,7 +108,6 @@ class DependencyConfig
                     )),
 
                     // Controllers
-                    Controllers\Player\Controller::class => Controllers\ControllerFactory::class,
                     Controllers\PotLimitHoldEm\SitController::class => Controllers\SitControllerFactory::class,
                     Controllers\PotLimitOmaha\SitController::class => Controllers\SitControllerFactory::class,
                     Controllers\PotLimitHoldEm\PlayerActionController::class => Controllers\PlayerActionControllerFactory::class,
@@ -116,15 +115,15 @@ class DependencyConfig
 
                     // GamePlay
                     GamePlay\HandFlow\HandFlow::class => GamePlay\HandFlow\HandFlowFactory::class, // Has options for GameState
-                    Start::class => factory(fn($c) => new Start($c->build(GameStatePipeline::class))),
-                    NewStreet::class => factory(fn($c) => new NewStreet(
+                    Start::class => factory(fn ($c) => new Start($c->build(GameStatePipeline::class))),
+                    NewStreet::class => factory(fn ($c) => new NewStreet(
                         $c->build(Models\Street::class),
                         $c->build(Models\TableSeat::class),
                         $c->build(Models\HandStreet::class),
                         $c->build(Models\PlayerAction::class)
                     )),
-                    Showdown::class => factory(fn($c) => new Showdown($c->build(PotService::class))),
-                    PokerDealer::class => factory(fn($c) => new PokerDealer(
+                    Showdown::class => factory(fn ($c) => new Showdown($c->build(PotService::class))),
+                    PokerDealer::class => factory(fn ($c) => new PokerDealer(
                         $c->build(Models\WholeCard::class),
                         $c->build(Models\HandStreetCard::class),
                         $c->build(Models\Deck::class)
@@ -132,18 +131,18 @@ class DependencyConfig
 
                     // State
                     GameState::class => GameStateFactory::class, // Has options for Hand model
-                    PlayerState::class => factory(fn($c) => new PlayerState(
+                    PlayerState::class => factory(fn ($c) => new PlayerState(
                         $c->get(TableSeatRepository::class),
                         $c->get(Player::class)
                     )),
 
                     // Handlers
-                    Handlers\Action\ActionHandler::class => Handlers\Action\ActionHandlerFactory::class, // Has options for GameState
-                    BetHandler::class => factory(fn($c) => new BetHandler(
+                    ActionHandler::class => Handlers\Action\ActionHandlerFactory::class, // Has options for GameState
+                    BetHandler::class => factory(fn ($c) => new BetHandler(
                         $c->get(PotService::class),
                         $c->get(StackRepository::class)
                     )),
-                    SitHandler::class => factory(fn($c) => new SitHandler(
+                    SitHandler::class => factory(fn ($c) => new SitHandler(
                         $c->get(GameState::class),
                         $c->get(Models\Hand::class),
                         $c->get(TableSeatRepository::class),
@@ -152,50 +151,49 @@ class DependencyConfig
                     )),
 
                     // Services
-                    GamePlayService::class => factory(fn($c) => new GamePlayService(
+                    GamePlayService::class => factory(fn ($c) => new GamePlayService(
                         $c,
                         $c->get(ActionHandler::class),
-                        $c->get(SitHandler::class),
-                        $c->get(HandRepository::class)
+                        $c->get(SitHandler::class)
                     )),
-                    GameService::class => factory(fn($c) => new GameService(
+                    GameService::class => factory(fn ($c) => new GameService(
                         $c->build(Models\Table::class),
                         $c->build(Models\TableSeat::class),
-                        $c->build(Models\Player::class),
+                        $c->build(Player::class),
                         $c->build(Models\Game::class),
                     )),
-                    PotService::class => factory(fn($c) => new PotService(
+                    PotService::class => factory(fn ($c) => new PotService(
                         $c->get(StackRepository::class),
                         $c->build(Models\Pot::class)
                     )),
-                    BlindService::class => factory(fn($c) => new BlindService(
+                    BlindService::class => factory(fn ($c) => new BlindService(
                         $c->get(BetHandler::class),
                         $c->get(PotService::class),
                         $c->build(Models\PlayerActionLog::class),
                         $c->build(Models\TableSeat::class)
                     )),
-                    PlayerService::class => factory(fn($c) => new PlayerService(
+                    PlayerService::class => factory(fn ($c) => new PlayerService(
                         $c->get(PlayerRepository::class),
-                        $c->build(Models\Player::class)
+                        $c->build(Player::class)
                     )),
 
                     // Pipelines
-                    CreatePlayerActions::class => factory(fn($c) => new CreatePlayerActions(
+                    CreatePlayerActions::class => factory(fn ($c) => new CreatePlayerActions(
                         $c->build(Models\Street::class),
                         $c->build(Models\HandStreet::class),
                         $c->build(Models\PlayerAction::class),
                     )),
-                    SetDealerAndBlinds::class => factory(fn($c) => new SetDealerAndBlinds(
+                    SetDealerAndBlinds::class => factory(fn ($c) => new SetDealerAndBlinds(
                         $c->build(Models\Street::class),
                         $c->build(Models\HandStreet::class),
                         $c->build(Models\PlayerAction::class),
                         $c->build(Models\TableSeat::class),
                         $c->get(BlindService::class)
                     )),
-                    LoadStacks::class => factory(fn($c) => new LoadStacks(
+                    LoadStacks::class => factory(fn ($c) => new LoadStacks(
                         $c->build(Models\Stack::class),
                     )),
-                    GameStatePipeline::class => factory(fn($c) => new GameStatePipeline($c)),
+                    GameStatePipeline::class => factory(fn ($c) => new GameStatePipeline($c)),
 
                     // ...
                 ],

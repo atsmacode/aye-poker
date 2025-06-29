@@ -7,7 +7,6 @@ use Atsmacode\PokerGame\GamePlay\GameStyle\PotLimitHoldEm;
 use Atsmacode\PokerGame\GamePlay\HandFlow\HandFlow;
 use Atsmacode\PokerGame\Handlers\Action\ActionHandler;
 use Atsmacode\PokerGame\Handlers\Sit\SitHandler;
-use Atsmacode\PokerGame\Repository\Hand\HandRepository;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -23,7 +22,6 @@ class GamePlayService
         private ContainerInterface $container,
         private ActionHandler $actionHandler,
         private SitHandler $sitHandler,
-        private HandRepository $handRepo,
     ) {
     }
 

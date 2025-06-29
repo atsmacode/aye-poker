@@ -12,6 +12,11 @@ class Hand extends Model
     private int $game_id;
     private ?Game $game;
 
+    public function setGameId(int $gameId): void
+    {
+        $this->game_id = $gameId;
+    }
+
     public function getGameId(): int
     {
         return $this->game_id;

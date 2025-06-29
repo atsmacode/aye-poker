@@ -22,7 +22,7 @@ trait HasActionPosts
     {
         $request = $this->post([
             'tableId' => $this->testTable->getId(),
-            'gameId' => $this->testGame->getId()
+            'gameId' => $this->testGame->getId(),
         ]);
 
         $response = (new PotLimitHoldEmSitController($this->gamePlayService))->sit($request);

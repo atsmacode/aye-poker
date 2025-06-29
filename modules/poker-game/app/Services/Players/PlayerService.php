@@ -11,7 +11,7 @@ class PlayerService
 {
     public function __construct(
         private PlayerRepository $playerRepo,
-        private Player $players
+        private Player $players,
     ) {
     }
 

@@ -3,7 +3,6 @@
 namespace Atsmacode\PokerGame\Handlers\Bet;
 
 use Atsmacode\Framework\Database\Database;
-use Atsmacode\PokerGame\Models\Hand;
 use Atsmacode\PokerGame\Repository\Stack\StackRepository;
 use Atsmacode\PokerGame\Services\Pots\PotService;
 

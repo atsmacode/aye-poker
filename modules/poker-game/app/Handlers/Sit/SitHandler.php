@@ -18,7 +18,7 @@ class SitHandler
         private Hand $hands,
         private TableSeatRepository $tableSeatRepo,
         private PlayerState $playerState,
-        private GameRepository $gameRepo
+        private GameRepository $gameRepo,
     ) {
     }
 
