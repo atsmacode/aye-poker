@@ -22,8 +22,9 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         // Seed test user players for real mode
-        $serviceManager = $this->pokerGame->getServiceManager('');
-        $players = $serviceManager->get(PlayerService::class)->getTestPlayers();
+        $players = $this->pokerGame
+            ->get(PlayerService::class)
+            ->getTestPlayers();
 
         foreach ($players as $player) {
             $user = new User();

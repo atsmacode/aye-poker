@@ -22,8 +22,9 @@ class GameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $serviceManager = $pokerGame->getServiceManager();
-            $game = $serviceManager->get(GameService::class)->create($form->getData());
+            $game = $pokerGame
+                ->get(GameService::class)
+                ->create($form->getData());
 
             return $this->redirectToRoute('show_game', [
                 'gameId' => $game->getId(),
@@ -39,8 +40,9 @@ class GameController extends AbstractController
         $gameId = $request->attributes->get('_route_params')['gameId'];
         $userPlayer = $security->getUser() ? $security->getUser()->getUserPlayer() : null;
 
-        $serviceManager = $pokerGame->getServiceManager();
-        $game = $serviceManager->get(Game::class)->find(['id' => $gameId]);
+        $game = $pokerGame
+            ->get(Game::class)
+            ->find(['id' => $gameId]);
 
         return $this->render('play/index.html.twig', [
             'playerId' => $userPlayer?->getPlayerId(),

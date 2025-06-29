@@ -14,11 +14,12 @@ class PokerPlayer
 
      public function create(Request $request, User $user, string $playerName): array|UserPlayer
      {
-        $serviceManager = $this->pokerGame->getServiceManager();
-
         $request  = new Request(content: json_encode(['name' => $playerName]));
 
-        $response = $serviceManager->get(PlayerService::class)->create($request);
+        $response = $this->pokerGame
+            ->get(PlayerService::class)
+            ->create($request);
+
         $content = json_decode($response->getContent(), true);
 
         if (isset($content['error'])) {

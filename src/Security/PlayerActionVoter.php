@@ -40,8 +40,9 @@ class PlayerActionVoter extends Voter
         $user = $token->getUser();
         $playerAction = (array) $subject['request'];
 
-        $serviceManager = $this->pokerGame->getServiceManager();
-        $game = $serviceManager->get(GameRepository::class)->getGame($playerAction['gameId']);
+        $game = $this->pokerGame
+            ->get(GameRepository::class)
+            ->getGame($playerAction['gameId']);
 
         if ($game->getMode() == GameMode::TEST->value) { return true; }
 

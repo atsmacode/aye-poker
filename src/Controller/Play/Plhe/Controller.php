@@ -28,11 +28,12 @@ class Controller extends AbstractController
         MercureUpdate $mercureUpdate,
         Request $request
     ): Response {
-        $serviceManager = $pokerGame->getServiceManager();
         $userPlayer = $security->getUser()?->getUserPlayer();
         $request->attributes->set('playerId', $userPlayer?->getPlayerId());
 
-        $response = $serviceManager->get(GamePlayService::class)->sit($request);
+        $response = $pokerGame
+            ->get(GamePlayService::class)
+            ->sit($request);
         
         $response = $this->addMercureUrlToArray($response, self::MERCURE_ACTION_TOPIC);
         $response = json_encode($response);
@@ -50,10 +51,12 @@ class Controller extends AbstractController
             'request' => json_decode($request->getContent())
         ]);
 
-        $serviceManager = $pokerGame->getServiceManager();
-        $response       = $serviceManager->get(GamePlayService::class)->action($request);
-        $response       = $this->addMercureUrlToArray($response, self::MERCURE_ACTION_TOPIC);
-        $response       = json_encode($response);
+        $response = $pokerGame
+            ->get(GamePlayService::class)
+            ->action($request);
+
+        $response = $this->addMercureUrlToArray($response, self::MERCURE_ACTION_TOPIC);
+        $response = json_encode($response);
 
         $mercureUpdate->publish($response);
 

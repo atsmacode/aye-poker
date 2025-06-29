@@ -63,8 +63,7 @@ class UserPlayer
         }
 
         $pokerGame = new PokerGame();
-        $serviceManager = $pokerGame->getServiceManager();
-        $players = $serviceManager->get(Player::class);
+        $players = $pokerGame->get(Player::class);
         $player = $players->find(['id' => $this->playerId]);
 
         return $player->getName();
