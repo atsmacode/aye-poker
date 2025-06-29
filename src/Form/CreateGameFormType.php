@@ -22,7 +22,7 @@ class CreateGameFormType extends AbstractType
                 ]
             ])
             ->add('player_count', ChoiceType::class, [
-                'choices' => ['2' => 2, '3' => 3, '4' => 4, '5' => 6],
+                'choices' => ['2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6],
             ])
             ->add('players', EntityType::class, [
                 'class' => UserPlayer::class,
