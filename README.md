@@ -22,11 +22,9 @@ Live page updates during game play are powered by the Mercure Hub: https://mercu
 
 1. Run `dev/docker`
     * Docker will provide a link to the app where you can register & login. Something like: http://localhost:8000
-2. Now you're ready to play:
-    * Open at least 2 private browser tabs
-    * Register an account in each session and log in
-    * Click the 'New Game' button to select players & real or test mode
-    * The game should automatically start after the second user joins the table
+2. Now you're ready to play. Click the 'New Game' button:
+    * Test Mode: control all players and see all whole cards.
+    * Real Mode: select registered users. Log in to play. Password = `password` for Player 1, 2 etc.
 
 # Quick Start (Linux / Mac)
 
@@ -49,11 +47,9 @@ MERCURE_SUBSCRIBER_JWT_KEY='!ChangeThisMercureHubJWTSecretKey!' \
 ./mercure run --config dev.Caddyfile
 ```
 
-5. Now you're ready to play:
-    * Open at least 2 private browser tabs
-    * Register an account in each session and log in
-    * Click the 'New Game' button to select players & real or test mode
-    * The game should automatically start after the second user joins the table
+5. Now you're ready to play. Click the 'New Game' button:
+    * Test Mode: control all players and see all whole cards.
+    * Real Mode: select registered users. Log in to play. Password = `password` for Player 1, 2 etc.
 
 Step #4 will start the Mercure Hub. Installation guide can be found here: https://mercure.rocks/docs/hub/install
 
