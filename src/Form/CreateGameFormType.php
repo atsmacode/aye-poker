@@ -31,8 +31,7 @@ class CreateGameFormType extends AbstractType
                 },
                 'placeholder' => 'Select players',
                 'required' => false,
-                'multiple' => true, // Set to true if you want multiple selection
-                'expanded' => false, // true for checkboxes/radio buttons
+                'multiple' => true,
             ]);
         ;
     }
