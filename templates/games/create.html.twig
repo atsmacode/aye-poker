@@ -41,6 +41,12 @@
                 {{ form_widget(form.players, {'attr': {'class': 'form-control'}}) }}
             </div>
 
+            {% if form.players.vars.errors|length > 0 %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form_errors(form.players) }}
+                </div>
+            {% endif %}
+
             <button type="submit" class="btn btn-primary float-end">Save</button>
             
             {{ form_end(form) }}

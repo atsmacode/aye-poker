@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Count;
 
 class CreateGameFormType extends AbstractType
 {
@@ -32,6 +33,12 @@ class CreateGameFormType extends AbstractType
                 'placeholder' => 'Select players',
                 'required' => false,
                 'multiple' => true,
+                'constraints' => [
+                    new Count([
+                            'min' => 2,
+                            'minMessage' => 'You must select at least two players.',
+                        ]),
+                    ],
             ]);
         ;
     }
