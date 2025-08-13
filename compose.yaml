@@ -52,6 +52,18 @@ services:
     volumes:
       - mercure_data:/data
       - mercure_config:/config
+  poker-ai:
+    build:
+      context: ./modules/poker-ai
+      dockerfile: Dockerfile
+    environment:
+      OPENAI_API_KEY: "${OPENAI_API_KEY}"
+      PORT: "3000"
+    expose:
+      - "3000"
+    restart: unless-stopped
+    ports:
+      - "${PORT_AI_DECISION:-3000}:3000"
 secrets:
   db_root_password:
     # external: true
