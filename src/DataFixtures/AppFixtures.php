@@ -23,7 +23,7 @@ class AppFixtures extends Fixture
     {
         // Seed test user players for real mode
         $players = $this->pokerGame
-            ->get(PlayerService::class)
+            ->get(PlayerService::class, '')
             ->getTestPlayers();
 
         foreach ($players as $player) {
