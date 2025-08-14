@@ -19,7 +19,7 @@ const ai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const DecisionSchema = z.object({
     street: z.string(),
     pot: z.number(),
-    last_action: z.string(),
+    last_action: z.number(),
     to_call: z.number(),
     stack: z.number(),
     community_cards: z.array(z.string()).default([]),
@@ -74,7 +74,7 @@ app.post('/decision', async (req, res) => {
 
         console.log(error);
 
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json('Server Error');
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
     }
 });
 

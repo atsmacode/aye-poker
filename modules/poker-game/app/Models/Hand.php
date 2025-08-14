@@ -62,9 +62,10 @@ class Hand extends Model
         try {
             $queryBuilder = $this->connection->createQueryBuilder();
             $queryBuilder
-                ->select('hs.*')
+                ->select('hs.*, s.name')
                 ->from('hand_streets', 'hs')
-                ->leftJoin('hs', 'hands', 'h', 'hs.hand_id = h.id')
+                ->join('hs', 'hands', 'h', 'hs.hand_id = h.id')
+                ->join('hs', 'streets', 's', 'hs.street_id = s.id')
                 ->where('hs.hand_id = '.$queryBuilder->createNamedParameter($this->id));
 
             return $queryBuilder->executeStatement() ? $queryBuilder->fetchAllAssociative() : [];
