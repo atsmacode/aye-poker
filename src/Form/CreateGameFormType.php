@@ -18,7 +18,8 @@ class CreateGameFormType extends AbstractType
             ->add('mode', ChoiceType::class, [
                 'choices' => [
                     GameMode::TEST->display() => GameMode::TEST->value,
-                    GameMode::REAL->display() => GameMode::REAL->value
+                    GameMode::REAL->display() => GameMode::REAL->value,
+                    GameMode::AI->display() => GameMode::AI->value
                 ]
             ])
             ->add('player_count', ChoiceType::class, [

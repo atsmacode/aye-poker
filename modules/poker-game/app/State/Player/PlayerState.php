@@ -56,6 +56,9 @@ class PlayerState
                 'whole_cards' => $wholeCards,
                 'action_on' => $actionOn,
                 'availableOptions' => $actionOn ? $this->getOptionsViaLatestAction($playerAction) : [],
+
+                // TODO: this is a quick test. Make dedicated AI Player models. Player 1 is the only 'real' player in AI mode.
+                'is_ai' => $gameState->getGameMode() === 3 && in_array($playerAction['player_id'], [2,3,4,5,6])
             ];
         }
 

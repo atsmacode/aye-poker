@@ -55,11 +55,11 @@ createApp({
 				]
 			},
             actionBetAmounts: {
-                "Fold": null,
-                "Check": null,
-                "Call": 50.0,
-                "Bet": 50.0,
-                "Raise": 50.0
+                1: null,
+                2: null,
+                3: 50.0,
+                4: 50.0,
+                5: 50.0
             },
 			mercureUpdate: {},
 			mercureUrl: ''
@@ -106,7 +106,7 @@ createApp({
 				player_action_id: player.player_action_id,
 				player_id: player.player_id, // Need this for canAction logic
 				action_id: action.id,
-				bet_amount: this.actionBetAmounts[action.name],
+				bet_amount: this.actionBetAmounts[action.id],
 				stack: player.stack,
 				gameId: gameId
 			};

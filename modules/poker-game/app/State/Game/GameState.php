@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Atsmacode\PokerGame\State\Game;
 
+use Atsmacode\PokerGame\Enums\GameMode;
 use Atsmacode\PokerGame\GamePlay\Dealer\PokerDealer;
 use Atsmacode\PokerGame\GamePlay\GameStyle\GameStyle;
 use Atsmacode\PokerGame\Models\Hand;
@@ -40,6 +41,7 @@ class GameState
     private bool $testMode = false; // Can be used to skip logic for unit tests
     private string $message = '';
     private bool $waiting = false;
+    private int $gameMode;
 
     public function __construct(
         private GameStateRepository $gameRepo,
@@ -56,11 +58,11 @@ class GameState
     {
         $this->setHand($hand);
 
-        $this->tableId = $hand
-            ->getGame()
-            ->getTableId();
+        $game = $hand->getGame();
 
+        $this->tableId = $game->getTableId();
         $this->handId = (int) $hand->getId();
+        $this->gameMode = $game->getMode();
 
         $this->loadSeats();
 
@@ -75,7 +77,7 @@ class GameState
             return null;
         }
 
-        return $this->gameRepo->getTableGame($this->tableId)->getMode();
+        return $this->gameMode;
     }
 
     public function getSeat(int $number): ?array

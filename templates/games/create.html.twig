@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const playersSelect = document.querySelector('#create_game_form_players');
 
     function togglePlayersField() {
-        if (parseInt(modeSelect.value) === 2) {
+        if ([2,3].includes(parseInt(modeSelect.value))) {
             players.style.display = 'block';
             playerCount.style.display = 'none';
         } else {
