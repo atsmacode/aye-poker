@@ -63,7 +63,7 @@ services:
       - "3000"
     restart: unless-stopped
     ports:
-      - "${PORT_AI_DECISION:-3000}:3000"
+      - "${PORT_POKER_AI:-3000}:3000"
 secrets:
   db_root_password:
     # external: true
