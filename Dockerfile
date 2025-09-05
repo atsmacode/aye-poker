@@ -33,5 +33,6 @@ RUN mkdir /var/www/html/public/var
 RUN chown -R www-data:www-data /var/www/html/public/var \
    && chmod -R ug+rwx /var/www/html/public/var
 
-RUN node -v && npm -v
-RUN npm install
+RUN node -v && npm -v \
+    && npm install \
+    && npm run build

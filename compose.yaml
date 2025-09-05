@@ -20,9 +20,13 @@ services:
       - ./modules/poker-game/app:/var/www/html/modules/poker-game/app
       - ./modules/framework/app:/var/www/html/modules/framework/app
       - ./modules/card-games/app:/var/www/html/modules/card-games/app
-      - ./public/build:/var/www/html/public/build
       - ./assets:/var/www/html/assets
       - ./templates:/var/www/html/templates
+
+      # Commented to quick fix overwriting build dir
+      # Uncomment to bind dev asset changes
+      # TODO: seperate asset build before web
+      # - ./public/build:/var/www/html/public/build
   mercure:
     image: dunglas/mercure
     restart: unless-stopped
