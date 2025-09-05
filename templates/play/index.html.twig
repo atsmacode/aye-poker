@@ -64,38 +64,38 @@
 
             </div>
 
-        </div>
+            <div id="player-list" class="ms-5 me-5">
 
-        <div id="player-list" class="ms-5 me-5">
+                {# <p class="text-center">Leaderboard</p>
 
-            {# <p class="text-center">Leaderboard</p>
+                <ol class="list-group list-group-numbered fs-6 mb-3 aye-shadow">
+                    <li v-for="player in players" class="list-group-item d-flex justify-content-between align-items-start text-bg-dark">
+                        <div class="ms-2 me-auto">
+                        <div class="fw-bold">${ player.name }$</div>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">${ player.stack }$</span>
+                    </li>
+                </ol> #}
 
-            <ol class="list-group list-group-numbered fs-6 mb-3 aye-shadow">
-                <li v-for="player in players" class="list-group-item d-flex justify-content-between align-items-start text-bg-dark">
-                    <div class="ms-2 me-auto">
-                    <div class="fw-bold">${ player.name }$</div>
+                <div v-if="isSittingOut({{ playerId }})" class="card aye-shadow w-100">
+                    <div class="card-header text-bg-primary text-center">
+                        Hand in progress, you'll be dealt in for the next one
                     </div>
-                    <span class="badge bg-primary rounded-pill">${ player.stack }$</span>
-                </li>
-            </ol> #}
-
-            <div v-if="isSittingOut({{ playerId }})" class="card aye-shadow w-100">
-                <div class="card-header text-bg-primary text-center">
-                    Hand in progress, you'll be dealt in for the next one
                 </div>
-            </div>
 
-            <action-on v-if="!winner" v-for="player in players" @action="action" :auth-player-id="{{ playerId }}" :player="player" :mode></action-on>
+                <action-on v-if="!winner" v-for="player in players" @action="action" :auth-player-id="{{ playerId }}" :player="player" :mode></action-on>
 
-            <div v-if="winner" class="card aye-shadow w-100">
-                <div class="card-header text-bg-primary text-center">
-                    Winner
+                <div v-if="winner" class="card aye-shadow w-100">
+                    <div class="card-header text-bg-primary text-center">
+                        Winner
+                    </div>
+                    <div class="text-bg-dark p-4 text-center">
+                        <p>${ winner.player.playerName }$</p>
+                        <p>${ winner.handType.name }$</p>
+                        <p><button v-on:click="gameData" class="btn btn-primary">Next Hand</button></p>
+                    </div>
                 </div>
-                <div class="text-bg-dark p-4 text-center">
-                    <p>${ winner.player.playerName }$</p>
-                    <p>${ winner.handType.name }$</p>
-                    <p><button v-on:click="gameData" class="btn btn-primary">Next Hand</button></p>
-                </div>
+
             </div>
 
         </div>
