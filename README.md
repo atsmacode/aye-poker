@@ -1,8 +1,8 @@
 # About
 
-This is a poker game with the traditional table and player graphics found in most online poker games. It looks like this:
+This is a poker game with the traditional table and player graphics found in most online poker games. Here it is running in test mode:
 
-![Flop Action](/screenshots/flop_action.png)
+![Test Gameplay Example](/screenshots/gameplay.gif)
 
 Notes on modules:
 * `modules/poker-game` - This is the core logic of the game
