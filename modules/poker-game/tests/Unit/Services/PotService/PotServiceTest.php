@@ -1,6 +1,6 @@
 <?php
 
-namespace Atsmacode\PokerGame\Tests\Unit\Services\Pots;
+namespace Atsmacode\PokerGame\Tests\Unit\Services\PotService;
 
 use Atsmacode\PokerGame\Enums\GameMode;
 use Atsmacode\PokerGame\Models\Hand;
