@@ -2,10 +2,12 @@ services:
   db:
     image: mysql:8.0    #check the mysql version you need for your project
     environment:
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      # Use secrets for prod/commercial, empty password is for demo purposes
+      # MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: aye_poker #you can change the database name here
-    secrets:
-       - db_root_password
+    # secrets:
+    #    - db_root_password
   web:  
     image: php:8.2-apache    #check the php version you need for your project
     build:
@@ -68,10 +70,10 @@ services:
     restart: unless-stopped
     ports:
       - "${PORT_AI_DECISION:-3000}:3000"
-secrets:
-  db_root_password:
-    # external: true
-    file: ./db_root_password.txt
+# secrets:
+#   db_root_password:
+#     # external: true
+#     file: ./db_root_password.txt
 
 # version: '3.8'    #check if there is a new docker compose version
 volumes:

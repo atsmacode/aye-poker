@@ -23,9 +23,6 @@ services:
     App\Command\BuildCommand:
         arguments:
             $dockerDbPw: '%env(string:DOCKER_DB_PASSWORD)%'
-    App\Command\SetDockerPassword:
-        arguments:
-            $appEnv: '%env(string:APP_ENV)%'
     App\Controller\Play\Plhe\Controller:
         arguments:
             $mercurePublicUrl: '%env(string:MERCURE_PUBLIC_URL)%'

@@ -26,6 +26,8 @@ Live page updates during game play are powered by the Mercure Hub: https://mercu
     * Test Mode: control all players and see all whole cards.
     * Real Mode: select registered users. Log in to play. Password = `password` for Player 1, 2 etc.
 
+> The DB migration step may show an initial failure but will auto-retry and should succeed.
+
 # Quick Start (Linux / Mac)
 
 The key steps to get the app started on a local dev environment are:
