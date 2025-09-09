@@ -27,10 +27,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
 
 RUN composer install
 
-RUN mkdir /var/www/html/public/var
-
 # Permissions for Symfony app cache, logs etc
-RUN chown -R www-data:www-data /var/www/html/public/var \
+RUN mkdir /var/www/html/public/var -p \
+   && chown -R www-data:www-data /var/www/html/public/var \
    && chmod -R ug+rwx /var/www/html/public/var
 
 RUN node -v && npm -v \
