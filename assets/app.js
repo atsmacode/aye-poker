@@ -151,7 +151,7 @@ createApp({
 			this.updateMercureUrl(data);
 			this.updateMode(data);
 		},
-		gameData(){
+		getGameData(){
 			let tableId = document.getElementById('table_id').value;
 
 			axios.post('/play/plhe', {tableId}).then(response => {
@@ -171,6 +171,6 @@ createApp({
 		}
 	},
     mounted() {
-		this.gameData();
+		this.getGameData();
     }
 }).mount('#app');
