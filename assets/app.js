@@ -36,6 +36,7 @@ createApp({
 			errors: {},
 			loading: false,
 			message: false,
+			authPlayerId: null,
 			suitColours: {
 				"Clubs": [
 					"text-dark",
