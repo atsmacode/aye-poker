@@ -1,34 +1,36 @@
 services:
   db:
-    image: mysql:8.0    #check the mysql version you need for your project
+    image: mysql:8.0 # check the mysql version you need for your project
     environment:
       # Use secrets for prod/commercial, empty password is for demo purposes
       # MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_DATABASE: aye_poker #you can change the database name here
+      MYSQL_DATABASE: aye_poker
     # secrets:
     #    - db_root_password
+  node:
+    image: node:23
+    working_dir: /src
+    volumes:
+      - .:/src
+      - /src/node_modules
+      - assets_build:/src/public/build
+    command: sh -lc "npm ci && npm run watch"
   web:  
-    image: php:8.2-apache    #check the php version you need for your project
+    image: php:8.2-apache # check the php version you need for your project
     build:
       context: .
     ports:
-      - "8080:80"    #this line maps your pc port to the container port
+      - "8080:80" # this line maps your pc port to the container port
     depends_on:
-      - db    #this line links this container to the db container
+      - db # this line links this container to the db container
     container_name: aye-poker
     volumes:
       - ./src:/var/www/html/src
       - ./modules/poker-game/app:/var/www/html/modules/poker-game/app
       - ./modules/framework/app:/var/www/html/modules/framework/app
       - ./modules/card-games/app:/var/www/html/modules/card-games/app
-      - ./assets:/var/www/html/assets
-      - ./templates:/var/www/html/templates
-
-      # Commented to quick fix overwriting build dir
-      # Uncomment to bind dev asset changes
-      # TODO: seperate asset build before web
-      # - ./public/build:/var/www/html/public/build
+      - assets_build:/var/www/html/public/build:ro
   mercure:
     image: dunglas/mercure
     restart: unless-stopped
@@ -58,24 +60,13 @@ services:
     volumes:
       - mercure_data:/data
       - mercure_config:/config
-  poker-ai:
-    build:
-      context: ./modules/poker-ai
-      dockerfile: Dockerfile
-    environment:
-      OPENAI_API_KEY: "${OPENAI_API_KEY}"
-      PORT: "3000"
-    expose:
-      - "3000"
-    restart: unless-stopped
-    ports:
-      - "${PORT_AI_DECISION:-3000}:3000"
 # secrets:
 #   db_root_password:
 #     # external: true
 #     file: ./db_root_password.txt
 
-# version: '3.8'    #check if there is a new docker compose version
+# version: '3.8' #check if there is a new docker compose version
 volumes:
   mercure_data:
   mercure_config:
+  assets_build:
