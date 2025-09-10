@@ -12,9 +12,9 @@ services:
     image: node:23
     working_dir: /src
     volumes:
-      - .:/src
-      - /src/node_modules
-      - assets_build:/src/public/build
+      - .:/src # Bind mount entire project (for package.json, templates & assets)
+      - /src/node_modules # Anonymous volume, takes precedence, prevents bind mount overwriting node's directory
+      - assets_build:/src/public/build # Named volume, so web can read the compiled assets
     command: sh -lc "npm ci && npm run watch"
   web:  
     image: php:8.2-apache # check the php version you need for your project
